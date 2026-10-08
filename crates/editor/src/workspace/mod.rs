@@ -601,15 +601,17 @@ impl Workspace {
         &mut self,
         bounds: Bounds<Pixels>,
         scale_factor: f32,
+        window: &mut Window,
         cx: &mut Context<Self>,
     ) -> PaintJob {
         if self.design_mode() {
-            let refitting = self.refit_design;
+            let view_changed = self.refit_design || self.canvas_bounds != bounds;
             let job = self.prepare_design_paint(bounds);
-            if refitting {
-                // Ruler elements were laid out before the canvas acquired
-                // its bounds; redraw them with the fitted transform.
-                cx.notify();
+            if view_changed {
+                // Rulers and zoom chrome rendered before these bounds and
+                // the fitted transform were known. GPUI does not schedule a
+                // redraw for an immediate notification during prepaint.
+                cx.defer_in(window, |_, _, cx| cx.notify());
             }
             return job;
         }
@@ -642,9 +644,13 @@ impl Workspace {
         let mut frame = crate::design::paint::PasteboardFrame::new(plan, bounds);
         frame.graphics = self.design.graphics.clone();
         frame.selected = self.design_selection_rects();
+        frame.wraps = self.design_wrap_rects();
         frame.anchors = self.design_anchor_points();
         frame.pen_preview = crate::design::pen::preview(&self.design);
         frame.typing = self.design.typing;
+        if self.design.output_preview {
+            frame.previews = self.design.output_previews(&frame.plan);
+        }
         frame.drawing = self.design.drawing.map(|d| {
             let bounds = d.bounds();
             let mut path = if self.design.tool == crate::design::DesignTool::Line {
@@ -734,6 +740,33 @@ impl Workspace {
     /// A selected object whose page is not in the plan is skipped by the
     /// painter, so a stale selection across a page change draws nothing
     /// rather than a box in the wrong place.
+    /// Box-shaped wrap boundaries of the selection. Contours follow the
+    /// item's own outline, which the selection already shows.
+    fn design_wrap_rects(&self) -> Vec<(usize, schist_layout::Rect)> {
+        use schist_layout::text_wrap::WrapMode;
+        let document = &self.design.document;
+        self.design
+            .selection
+            .iter()
+            .filter_map(|id| {
+                let placed = document.object(*id)?;
+                let wrap = document.styles.object_wrap(placed)?;
+                if matches!(wrap.mode, WrapMode::None | WrapMode::Contour) {
+                    return None;
+                }
+                let rect = document.object_rect(*id)?;
+                let o = wrap.offsets;
+                let rect = schist_layout::Rect::new(
+                    rect.x - o.left,
+                    rect.y - o.top,
+                    rect.width + o.left + o.right,
+                    rect.height + o.top + o.bottom,
+                );
+                Some((placed.page, self.design.view.rect(rect)))
+            })
+            .collect()
+    }
+
     fn design_selection_rects(&self) -> Vec<(usize, schist_layout::Rect)> {
         self.design
             .selection
@@ -761,6 +794,12 @@ impl Workspace {
         {
             self.cloud.show
         }
+    }
+
+    /// Give the canvas keyboard focus, so typing reaches a text cursor that a
+    /// panel control just placed.
+    pub(crate) fn focus_canvas(&self, window: &mut Window) {
+        window.focus(&self.focus);
     }
 
     /// Whether the pasteboard is showing.

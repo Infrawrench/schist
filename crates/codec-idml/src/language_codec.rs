@@ -179,6 +179,17 @@ impl ExportLanguages {
                         .resources
                         .iter()
                         .any(|r| r.id == candidate || r.name == candidate)
+                        && !styles.numbering_lists.iter().any(|r| r.id == candidate)
+                        && !styles
+                            .paragraphs
+                            .iter()
+                            .filter_map(|s| s.language.as_ref())
+                            .chain(styles.characters.iter().filter_map(|s| s.language.as_ref()))
+                            .any(|value| value.as_str() == candidate)
+                        && !styles
+                            .paragraphs
+                            .iter()
+                            .any(|s| s.list.list.as_deref() == Some(candidate.as_str()))
                     {
                         break candidate;
                     }

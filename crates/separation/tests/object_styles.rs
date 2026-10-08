@@ -76,7 +76,16 @@ fn frame_fill_content_and_stroke_match_separately_placed_artwork_under_every_tra
                     // then an ordinary stroked path, with explicit paint values.
                     let mut reference = doc.clone();
                     let mut content = reference.objects.remove(0);
-                    content.appearance = Default::default();
+                    // A curved text frame's outline also shapes its text.
+                    content.appearance = schist_layout::ObjectAppearance {
+                        outline: content.appearance.outline.clone(),
+                        ..Default::default()
+                    };
+                    // The frame's centred stroke moves its text in by half
+                    // its 8 pt weight.
+                    if let LayoutObject::TextFrame { insets, .. } = &mut content.object {
+                        *insets = Insets::uniform(4.0);
+                    }
                     let path = if curved {
                         {
                             // Use the same authored normalized contour. Building a new

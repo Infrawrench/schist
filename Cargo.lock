@@ -3521,6 +3521,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "hypher"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "45f2b4f6b5da34d400d4c112eadcc14512cc5d04307a8eee182586d9bebd7ce6"
+
+[[package]]
 name = "iana-time-zone"
 version = "0.1.65"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6926,6 +6932,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "schist-codec-indd"
+version = "0.15.0"
+dependencies = [
+ "anyhow",
+ "log",
+ "schist-codec-idml",
+ "schist-i18n",
+ "schist-layout",
+ "schist-plugin-api",
+]
+
+[[package]]
 name = "schist-codec-psd"
 version = "0.15.0"
 dependencies = [
@@ -6986,6 +7004,7 @@ dependencies = [
  "schist-app-settings",
  "schist-codec-affinity",
  "schist-codec-idml",
+ "schist-codec-indd",
  "schist-codec-psd",
  "schist-codec-raw",
  "schist-color",
@@ -7130,6 +7149,7 @@ version = "0.15.0"
 dependencies = [
  "anyhow",
  "block2",
+ "chrono",
  "crc32fast",
  "flate2",
  "futures",
@@ -7271,6 +7291,7 @@ dependencies = [
 name = "schist-layout"
 version = "0.15.0"
 dependencies = [
+ "hypher",
  "log",
  "schist-color",
  "schist-core",
@@ -7279,6 +7300,10 @@ dependencies = [
  "schist-vector",
  "serde",
  "serde_json",
+ "unicode-normalization",
+ "unicode-properties",
+ "unicode-script",
+ "unicode-segmentation",
 ]
 
 [[package]]

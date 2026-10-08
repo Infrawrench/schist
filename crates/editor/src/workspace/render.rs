@@ -525,7 +525,9 @@ impl Workspace {
                 canvas(
                     move |bounds, window, cx| {
                         let scale = window.scale_factor();
-                        entity.update(cx, |ws, cx| ws.prepare_canvas_paint(bounds, scale, cx))
+                        entity.update(cx, |ws, cx| {
+                            ws.prepare_canvas_paint(bounds, scale, window, cx)
+                        })
                     },
                     move |_bounds, job: PaintJob, window, cx| {
                         // Design Mode has no filtered canvas to capture,
@@ -767,6 +769,11 @@ impl Render for Workspace {
         if self.modal.is_some() {
             self.dismiss_spotlight(window, cx);
         }
+        // Auto-sized frames follow whatever the last action did to their
+        // text before anything is drawn or hit.
+        if self.design_mode() {
+            self.design.settle();
+        }
         // Three mutually exclusive input states. A single "is something
         // capturing keys" flag was not enough: the document commands were
         // bound against plain "Workspace", which matches in every state, so
@@ -918,6 +925,9 @@ impl Render for Workspace {
             }))
             .on_action(cx.listener(|ws, action: &RunCommand, _w, cx| {
                 ws.run_command(&action.id.clone(), cx);
+            }))
+            .on_action(cx.listener(|ws, action: &RunDesignCommand, _w, cx| {
+                ws.run_layout_command(action.command, cx);
             }))
             .on_action(cx.listener(|ws, action: &ActivateTool, _w, cx| {
                 ws.activate_tool(&action.id.clone(), cx);

@@ -180,10 +180,9 @@ impl Workspace {
 
     /// Handle a keystroke in Design Mode. Returns whether it was claimed.
     ///
-    /// Two things live here, and they are the whole of Design Mode's
-    /// keyboard: a tool shortcut, and typing into the frame being edited.
-    /// Everything else belongs to the menus, which is why this runs after
-    /// the modal and field handlers and claims only what is left.
+    /// Typed command bindings are registered by app-actions. This handler
+    /// owns the remaining canvas/tool keys and text editing, after modal
+    /// and inspector field handlers have had the chance to consume them.
     pub(super) fn design_key_down(&mut self, ev: &KeyDownEvent, cx: &mut Context<Self>) -> bool {
         if self.design.composition.is_some() {
             if ev.keystroke.key == "escape" {
@@ -259,7 +258,7 @@ impl Workspace {
             // Alt is a modifier a user holds to reach a character, so it
             // is not a reason to refuse the keystroke.
             _ if keystroke.modifiers.control => false,
-            _ => match keystroke.key_char.as_deref() {
+            _ => match schist_ui::typed_text(keystroke) {
                 Some(text) if !text.is_empty() => tools::type_text(&mut self.design, text),
                 _ => false,
             },
@@ -346,22 +345,36 @@ impl Workspace {
     /// Registry commands are raster-bound. This dispatch owns every Design
     /// command so an unhandled menu entry cannot edit a hidden photograph.
     pub(super) fn run_design_command(&mut self, id: &str, cx: &mut Context<Self>) {
+        let Some(command) = crate::actions::DesignCommand::from_id(id) else {
+            self.status = schist_i18n::t("design.command_unavailable").into();
+            cx.notify();
+            return;
+        };
+        self.run_layout_command(command, cx);
+    }
+
+    pub(super) fn run_layout_command(
+        &mut self,
+        command: crate::actions::DesignCommand,
+        cx: &mut Context<Self>,
+    ) {
+        if !self.design_mode() {
+            return;
+        }
         self.commit_focused_field();
-        match id {
-            "edit.undo" | "edit.redo" => {
-                self.design.undo_or_redo(id == "edit.redo");
+        use crate::actions::DesignCommand as Command;
+        match command {
+            Command::Undo | Command::Redo => {
+                self.design.undo_or_redo(command == Command::Redo);
             }
-            "edit.delete" | "edit.clear" => {
+            Command::Delete => {
                 delete_selection(&mut self.design);
             }
-            "edit.duplicate" => {
+            Command::Duplicate => {
                 duplicate_selection(&mut self.design);
             }
-            "select.all" => crate::design::dragging::select_all(&mut self.design),
-            "select.deselect" => self.design.selection.clear(),
-            _ => {
-                self.status = schist_i18n::t("design.command_unavailable").into();
-            }
+            Command::SelectAll => crate::design::dragging::select_all(&mut self.design),
+            Command::Deselect => self.design.selection.clear(),
         }
         self.after_design_change(cx);
     }

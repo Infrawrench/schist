@@ -10,19 +10,17 @@
 //! first and stored, then `META-INF/container.xml`, then the root part,
 //! then the object parts it lists.
 //!
-//! The root part lists parts by path, and an object's id is a `u` and a
-//! hexadecimal number, with the *file name* carrying the type. This writes
-//! exactly that, because a reader that can open its own output is not
-//! evidence that it can open anyone else's.
+//! The root part lists parts by path. Native object IDs often use a `u` and
+//! hexadecimal number; the specification requires package-wide uniqueness,
+//! not that spelling. Parts and page items use separate generated domains.
 //!
 //! ## What is not written
 //!
-//! Styles' *definitions* are written, but only the properties this
-//! document model carries. Tables, footnotes, anchored objects, text on a
-//! path and ink trapping are not, and a document that
-//! uses them loses them. What was dropped is reported in
-//! [`Written::warnings`], because a writer that loses a document's
-//! contents without saying so is the worst kind.
+//! Styles' definitions include only the properties this document model carries.
+//! Unsupported tables, footnotes and anchored objects survive in guarded standard
+//! Story Labels. Supported text-only footnotes and text paths are written
+//! natively. Unsupported output and Schist-only retention are disclosed
+//! in [`Written::warnings`]; retaining data does not establish native rendering.
 
 use schist_layout::{
     FrameOverflow, Insets, LayoutDocument, LayoutObject, Page, Rect, Story, StoryId, StoryPoint,
@@ -41,12 +39,16 @@ const DOM_VERSION: &str = "15.0";
 /// What a write produced, and what it could not carry.
 pub struct Written {
     pub bytes: Vec<u8>,
-    /// One note per thing the document uses that this writer drops.
+    /// Notices for unsupported native output and Schist-only retention.
     pub warnings: Vec<String>,
 }
 
 /// Write a document as an IDML package.
 pub fn write(document: &LayoutDocument) -> Written {
+    write_inner(document, true)
+}
+
+fn write_inner(document: &LayoutDocument, check_identities: bool) -> Written {
     let mut ids = Ids::default();
     let mut out = Written {
         bytes: Vec::new(),
@@ -91,6 +93,8 @@ pub fn write(document: &LayoutDocument) -> Written {
 
     out.warnings
         .extend(crate::list_codec::diagnostics(document));
+    let variables =
+        crate::custom_text_codec::Exported::new(&document.text_variables, &mut out.warnings);
     let languages =
         crate::language_codec::ExportLanguages::new(&document.styles, &mut out.warnings);
 
@@ -128,7 +132,10 @@ pub fn write(document: &LayoutDocument) -> Written {
         "META-INF/container.xml".into(),
         container_xml().into_bytes(),
     ));
-    parts.push(("META-INF/metadata.xml".into(), metadata_xml().into_bytes()));
+    parts.push((
+        "META-INF/metadata.xml".into(),
+        metadata_xml(&document.dates).into_bytes(),
+    ));
 
     for (path, element) in spread_parts.iter().zip(document.spreads.iter()) {
         parts.push((
@@ -161,7 +168,14 @@ pub fn write(document: &LayoutDocument) -> Written {
     for ((_, id, path), story) in story_parts.iter().zip(document.stories.iter()) {
         parts.push((
             path.clone(),
-            story_xml(id, story, &document.styles, &mut out.warnings).into_bytes(),
+            story_xml(
+                id,
+                story,
+                &document.styles,
+                &variables.bindings,
+                &mut out.warnings,
+            )
+            .into_bytes(),
         ));
     }
 
@@ -193,18 +207,29 @@ pub fn write(document: &LayoutDocument) -> Written {
     root.push_str(&format!(
         r#"<Document xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}" Self="d" Name="Schist" ZeroPoint="0 0">"#
     ));
+    root.push_str(&crate::text_variable_codec::retain(
+        &document.retained_text_variables,
+        &variables.label(),
+        &mut out.warnings,
+    ));
+    root.push_str(&variables.resources());
     root.push_str(&crate::language_codec::resources(&languages.resources));
+    root.push_str(&crate::footnote_codec::write_frame(
+        &document.frame_footnote_defaults,
+        &mut out.warnings,
+    ));
     root.push_str(&crate::list_codec::resources(
         &document.styles.numbering_lists,
     ));
     for layer in &document.layers {
         let properties = document.layer_properties.iter().find(|p| p.id == *layer);
         root.push_str(&format!(
-            r#"<Layer Self="SchistLayer{}" Name="{}" Visible="{}" Locked="{}" Printable="true" />"#,
+            r#"<Layer Self="SchistLayer{}" Name="{}" Visible="{}" Locked="{}" IgnoreWrap="{}" Printable="true" />"#,
             layer.0,
             escape(properties.map(|p| p.name.as_str()).unwrap_or_default()),
             document.layer_visible(*layer),
-            document.layer_locked(*layer)
+            document.layer_locked(*layer),
+            document.layer_ignores_wrap(*layer)
         ));
     }
     root.push_str(r#"<idPkg:Graphic src="Resources/Graphic.xml" />"#);
@@ -228,22 +253,24 @@ pub fn write(document: &LayoutDocument) -> Written {
     root.push_str("</Document>");
     parts.push(("designmap.xml".into(), root.into_bytes()));
 
+    if check_identities {
+        if let Some(remapped) = crate::resource_identity::prepare(document, &parts) {
+            return write_inner(&remapped, false);
+        }
+    }
     out.bytes = container::write(&parts);
     out
 }
 
-/// Hand out object ids in the shape InDesign writes them: a `u` and a
-/// hexadecimal number, with the type carried by the file name instead.
+/// Part identities occupy a separate domain from page-item identities.
+/// Imported resource collisions are resolved after collecting all emitted IDs.
 #[derive(Default)]
 struct Ids {
-    next: u32,
+    next: u64,
 }
 
 impl Ids {
     fn next(&mut self) -> String {
-        // Starting above 0x100 keeps the ids from looking like the small
-        // numbers a hand-written fixture would use, which makes an
-        // accidental collision with a real file's namespace less likely.
         self.next += 1;
         format!("u{:x}", 0x100 + self.next)
     }
@@ -262,16 +289,28 @@ fn container_xml() -> String {
     )
 }
 
-fn metadata_xml() -> String {
-    r#"<?xml version="1.0" encoding="UTF-8"?>
+/// XMP with the document's creation and modification dates when known; date
+/// text variables read them back.
+fn metadata_xml(dates: &schist_layout::DocumentDates) -> String {
+    let mut known = String::new();
+    for (name, date) in [
+        ("CreateDate", dates.created),
+        ("ModifyDate", dates.modified),
+    ] {
+        if let Some(date) = date {
+            known.push_str(&format!("\n      <xmp:{name}>{}</xmp:{name}>", date.iso()));
+        }
+    }
+    format!(
+        r#"<?xml version="1.0" encoding="UTF-8"?>
 <xmpMetadata xmlns:xmp="http://ns.adobe.com/xap/1.0/">
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/">
-      <xmpMM:DocumentID>schist</xmpMM:DocumentID>
+      <xmpMM:DocumentID>schist</xmpMM:DocumentID>{known}
     </rdf:Description>
   </rdf:RDF>
 </xmpMetadata>"#
-        .to_owned()
+    )
 }
 
 fn tags_xml() -> String {
@@ -387,17 +426,21 @@ fn spread_xml(
 
     // Items are spread siblings. Grouping them by owning page changes stacking
     // whenever artwork crosses the gutter, even though its geometry survives.
+    let creation = document.creation_ranks();
     for object in &document.objects {
         if let Some((_, page_x)) = positions.iter().find(|(index, _)| *index == object.page) {
             let mut positioned = object.clone();
             positioned.bounds.x += *page_x;
-            out.push_str(&object_xml(
+            let mut xml = object_native_xml(
                 &positioned,
                 document,
                 document.object_layer(object.id),
                 stories,
                 warnings,
-            ));
+            );
+            crate::text_wrap_codec::attach(&mut xml, object);
+            crate::creation_codec::label(&mut xml, creation.get(&object.id).copied());
+            out.push_str(&xml);
         }
     }
     out.push_str("</Spread></idPkg:Spread>");
@@ -454,7 +497,7 @@ fn page_xml(
 }
 
 /// A frame, as one of the elements that can hold one.
-fn object_xml(
+fn object_native_xml(
     object: &schist_layout::PlacedObject,
     document: &LayoutDocument,
     layer: schist_layout::LayerId,
@@ -464,9 +507,10 @@ fn object_xml(
     let id = object_id(object.id);
     let rect = object.bounds;
     let transform = format!(
-        r#"ItemLayer="SchistLayer{}" ItemTransform="{}""#,
+        r#"ItemLayer="SchistLayer{}" ItemTransform="{}" Visible="{}""#,
         layer.0,
-        item_transform(object)
+        item_transform(object),
+        !object.hidden
     );
     let geometry = object
         .appearance
@@ -485,17 +529,23 @@ fn object_xml(
     match &object.object {
         LayoutObject::TextFrame {
             story,
+            footnotes,
+            balance_columns,
             text_path,
             columns,
             gutter,
             insets,
             overflow,
         } => {
-            if text_path.is_none() && object.appearance.outline.is_some() {
-                warnings.push(schist_i18n::tf!(
-                    "design.idml_curved_text_flow",
-                    name = object.name
-                ));
+            // IDML frame geometry has no fill rule; a shaped frame's holes then
+            // follow the nonzero rule.
+            if object
+                .appearance
+                .outline
+                .as_ref()
+                .is_some_and(|path| path.even_odd)
+            {
+                warnings.push(schist_i18n::tf!("design.idml_even_odd", name = object.name));
             }
             // The story is named by the id its part's file name carries.
             let story_id = stories
@@ -524,11 +574,12 @@ fn object_xml(
                     warnings.push(schist_i18n::tf!("design.idml_even_odd", name = object.name));
                 }
                 let geometry = path_geometry(&path.path);
+                let bounds_label = crate::text_path_codec::bounds_label(path, rect);
                 let child =
                     crate::text_path_codec::write(path, &id, &story_id, &previous, &next, warnings);
-                let opacity = crate::color_codec::transparency(object.transparency);
+                let opacity = crate::effects_codec::write(object);
                 return format!(
-                    r#"<Polygon Self="{id}" Name="{name}" {transform} Locked="{locked}"{paint} ContentType="Unassigned"><Properties>{geometry}</Properties>{child}{opacity}</Polygon>"#
+                    r#"<Polygon Self="{id}" Name="{name}" {transform} Locked="{locked}"{paint} ContentType="Unassigned"><Properties>{geometry}{bounds_label}</Properties>{child}{opacity}</Polygon>"#
                 );
             }
             let mut out = format!(
@@ -536,15 +587,23 @@ fn object_xml(
             );
             out.push_str(&format!("<Properties>{geometry}</Properties>"));
             out.push_str(&format!(
-                r#"<TextFramePreference TextColumnCount="{columns}" TextColumnGutter="{}" TextColumnMaxWidth="0">"#,
-                number(*gutter)
+                r#"<TextFramePreference TextColumnCount="{columns}" TextColumnGutter="{}" TextColumnMaxWidth="0"{}{}{}>"#,
+                number(*gutter),
+                crate::preferences_codec::balance_attribute(*balance_columns),
+                if object.appearance.ignore_wrap {
+                    " IgnoreWrap=\"true\""
+                } else {
+                    ""
+                },
+                crate::preferences_codec::auto_size_attributes(object.appearance.auto_size.as_ref())
             ));
             out.push_str(&format!(
                 "<Properties><InsetSpacing type=\"list\">{}</InsetSpacing></Properties>",
                 inset_list(insets)
             ));
             out.push_str("</TextFramePreference>");
-            out.push_str(&crate::color_codec::transparency(object.transparency));
+            out.push_str(&crate::footnote_codec::write_frame(footnotes, warnings));
+            out.push_str(&crate::effects_codec::write(object));
             out.push_str("</TextFrame>");
             out
         }
@@ -553,7 +612,7 @@ fn object_xml(
             if path.even_odd {
                 warnings.push(schist_i18n::tf!("design.idml_even_odd", name = object.name));
             }
-            let opacity = crate::color_codec::transparency(object.transparency);
+            let opacity = crate::effects_codec::write(object);
             format!(
                 r#"<Polygon Self="{id}" Name="{name}" {transform} Locked="{locked}"{paint} ContentType="Unassigned"><Properties>{geometry}</Properties>{opacity}</Polygon>"#
             )
@@ -654,8 +713,8 @@ fn inset_list(insets: &Insets) -> String {
         .collect()
 }
 
-fn object_id(id: schist_layout::ObjectId) -> String {
-    format!("u{:x}", 0x8000 + id.0)
+pub(crate) fn object_id(id: schist_layout::ObjectId) -> String {
+    format!("SchistObject{}", id.0)
 }
 
 fn master_sheets<'a>(
@@ -761,13 +820,15 @@ fn master_xml(
             .unwrap_or_default();
         object.bounds.x += origin.x;
         object.bounds.y += origin.y;
-        out.push_str(&object_xml(
+        let mut xml = object_native_xml(
             &object,
             document,
             document.object_layer(object.id),
             stories,
             warnings,
-        ));
+        );
+        crate::text_wrap_codec::attach(&mut xml, &object);
+        out.push_str(&xml);
     }
     out.push_str("</MasterSpread></idPkg:MasterSpread>");
     out
@@ -778,6 +839,18 @@ fn story_xml(
     id: &str,
     story: &Story,
     styles: &schist_layout::StyleSet,
+    variables: &std::collections::BTreeMap<String, String>,
+    warnings: &mut Vec<String>,
+) -> String {
+    let native = story_native_xml(id, story, styles, variables, warnings);
+    crate::structured_story::retain(native, id, story, variables, warnings)
+}
+
+pub(crate) fn story_native_xml(
+    id: &str,
+    story: &Story,
+    styles: &schist_layout::StyleSet,
+    variables: &std::collections::BTreeMap<String, String>,
     warnings: &mut Vec<String>,
 ) -> String {
     let mut out = String::new();
@@ -802,6 +875,30 @@ fn story_xml(
         r#"<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="0" FrameType="TextFrameType" StoryOrientation="{orientation}" StoryDirection="{direction}" />"#,
     ));
 
+    out.push_str(&story_native_body(
+        story,
+        &[],
+        styles,
+        variables,
+        id,
+        warnings,
+    ));
+    out.push_str("</Story></idPkg:Story>");
+    out
+}
+
+pub(crate) fn story_native_body(
+    story: &Story,
+    markers: &[schist_layout::footnotes::FootnoteMarker],
+    styles: &schist_layout::StyleSet,
+    variables: &std::collections::BTreeMap<String, String>,
+    owner: &str,
+    warnings: &mut Vec<String>,
+) -> String {
+    let mut out = String::new();
+    let automatic = crate::auto_direction::lower(story, styles);
+    let mut inline =
+        crate::footnote_writer::events(story, markers, styles, variables, owner, warnings);
     let offsets = story.point_offsets();
     let mut range_index = 0;
     for (index, point) in story.points.iter().enumerate() {
@@ -821,30 +918,26 @@ fn story_xml(
                     story.points.get(index + 1),
                     Some(StoryPoint::Paragraph { .. } | StoryPoint::LineBreak)
                 );
-                for (run_index, (start, end, style)) in runs.iter().enumerate() {
-                    out.push_str(&format!(
-                        r#"<CharacterStyleRange AppliedCharacterStyle="{}">"#,
-                        character_reference(style)
-                    ));
-                    if start < end {
-                        // LF inside Content is a soft break; Br outside it
-                        // is a paragraph break. Never interchange the two.
-                        out.push_str(&format!(
-                            "<Content>{}</Content>",
-                            escape(&text[*start..*end]).replace('\n', "&#10;")
-                        ));
-                    }
-                    if paragraph_end && run_index + 1 == runs.len() {
-                        out.push_str("<Br/>");
-                    }
-                    out.push_str("</CharacterStyleRange>");
-                }
+                crate::footnote_writer::paragraph_runs(
+                    &mut out,
+                    &runs,
+                    text,
+                    offset,
+                    &mut inline,
+                    paragraph_end,
+                );
                 out.push_str("</ParagraphStyleRange>");
             }
-            StoryPoint::ColumnBreak | StoryPoint::PageBreak | StoryPoint::FrameBreak => {
+            StoryPoint::ColumnBreak
+            | StoryPoint::PageBreak
+            | StoryPoint::FrameBreak
+            | StoryPoint::OddPageBreak
+            | StoryPoint::EvenPageBreak => {
                 let kind = match point {
                     StoryPoint::ColumnBreak => "NextColumn",
                     StoryPoint::FrameBreak => "NextFrame",
+                    StoryPoint::OddPageBreak => "NextOddPage",
+                    StoryPoint::EvenPageBreak => "NextEvenPage",
                     _ => "NextPage",
                 };
                 out.push_str(&format!(r#"<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/[No paragraph style]"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" ParagraphBreakType="{kind}"><Br/></CharacterStyleRange></ParagraphStyleRange>"#));
@@ -853,15 +946,12 @@ fn story_xml(
                 warnings.push(schist_i18n::t("design.idml_structural_line_break").to_string());
                 out.push_str(r#"<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/[No paragraph style]"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]"><Br/></CharacterStyleRange></ParagraphStyleRange>"#);
             }
-            StoryPoint::Other { .. } => {
-                warnings.push(schist_i18n::t("design.idml_story_structure").to_string())
-            }
+            StoryPoint::Other { .. } => {} // Retained by the wrapper's guarded Label.
         }
         if !matches!(point, StoryPoint::Other { .. }) {
             range_index += 1;
         }
     }
-    out.push_str("</Story></idPkg:Story>");
     out
 }
 
@@ -928,12 +1018,21 @@ fn graphic_xml(document: &LayoutDocument) -> String {
     for ink in inks {
         out.push_str(&crate::color_codec::resource(&ink));
     }
+    for gradient in document.all_gradients() {
+        out.push_str(&crate::color_codec::gradient_resource(&gradient));
+    }
     let mut strokes = document.all_decoration_strokes();
     strokes.retain(|s| !matches!(s.pattern, schist_text_engine::TextDecorationPattern::Solid));
     for stroke in
         std::iter::once(schist_layout::decorations::DecorationStroke::solid()).chain(strokes)
     {
         out.push_str(&crate::stroke_style_codec::resource(&stroke));
+    }
+    // Built-in styles items name: InDesign strokes an undeclared one solid.
+    for stroke in document.all_item_stroke_types() {
+        if let Some(resource) = crate::stroke_style_codec::builtin_resource(&stroke) {
+            out.push_str(&resource);
+        }
     }
     out.push_str("</idPkg:Graphic>");
     out
@@ -951,20 +1050,39 @@ fn styles_xml(
         r#"<idPkg:Styles xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}">"#
     ));
     out.push_str(r#"<RootParagraphStyleGroup Self="SchistParagraphStyles">"#);
+    // Every reference to a root style resolves inside the package.
+    if !document
+        .styles
+        .paragraphs
+        .iter()
+        .any(|s| s.name == "[No paragraph style]")
+    {
+        out.push_str(&format!(
+            r#"<ParagraphStyle Self="{}" Name="$ID/[No paragraph style]" />"#,
+            crate::style_codec::NO_PARAGRAPH_STYLE
+        ));
+    }
     for style in &document.styles.paragraphs {
+        if style.writing_mode.is_some() {
+            let message = schist_i18n::t("design.idml_paragraph_orientation").to_string();
+            if !warnings.contains(&message) {
+                warnings.push(message);
+            }
+        }
         crate::capitalization_codec::warn(style.all_caps, style.small_caps, warnings);
         crate::opentype_codec::warn(&style.features, warnings);
         crate::style_codec::warn_stroke(style.stroke_weight, style.stroke_miter_limit, warnings);
         crate::decoration_codec::warn([&style.underline_style, &style.strike_style], warnings);
         crate::style_codec::warn_leading(style.leading, style.auto_leading, warnings);
+        crate::keep_codec::warn(style, warnings);
+        crate::hyphenation_codec::warn(&style.hyphenation, warnings);
+        crate::drop_cap_codec::warn(style, warnings);
         let mut native = style.clone();
         native.language = languages.native(&style.language);
         let resolved = document.styles.resolve_paragraph(&style.name);
-        if resolved.drop_caps_lines.is_some_and(|lines| lines > 1)
-            && resolved.drop_caps_characters.is_none()
-        {
-            // Schist's legacy unset count means one, while a native consumer
-            // needs an explicit character count to enable the initial.
+        crate::drop_cap_codec::warn_composition(&resolved, warnings);
+        crate::nested_style_codec::warn(&resolved, warnings);
+        if crate::drop_cap_codec::needs_native_default(&document.styles, style, &resolved) {
             native.drop_caps_characters = Some(1);
         }
         let mut xml = crate::style_codec::paragraph_resolved(
@@ -980,6 +1098,17 @@ fn styles_xml(
     out.push_str(
         r#"</RootParagraphStyleGroup><RootCharacterStyleGroup Self="SchistCharacterStyles">"#,
     );
+    if !document
+        .styles
+        .characters
+        .iter()
+        .any(|s| s.name == "[No character style]")
+    {
+        out.push_str(&format!(
+            r#"<CharacterStyle Self="{}" Name="$ID/[No character style]" />"#,
+            crate::style_codec::NO_CHARACTER_STYLE
+        ));
+    }
     for style in &document.styles.characters {
         crate::capitalization_codec::warn(style.all_caps, style.small_caps, warnings);
         crate::opentype_codec::warn(&style.features, warnings);
@@ -1003,7 +1132,11 @@ fn styles_xml(
         warnings.push(schist_i18n::t("design.idml_style_limits").to_string());
     }
     out.push_str("</RootCharacterStyleGroup>");
-    out.push_str(&crate::object_style_codec::styles_xml(document));
+    // Table and cell styles return exactly as they were read.
+    for group in &document.retained_table_styles {
+        out.push_str(group);
+    }
+    out.push_str(&crate::object_style_codec::styles_xml(document, warnings));
     out.push_str("</idPkg:Styles>");
     out
 }
@@ -1052,6 +1185,77 @@ pub(crate) fn font_inventory(
         add(r.family, r.font_style, r.bold, r.italic);
     }
     for story in &document.stories {
+        for structure in &story.structures {
+            // Every displayed inline value: variables, page numbers and markers.
+            if let Some(
+                control @ (schist_layout::story::InlineControl::TextVariable { .. }
+                | schist_layout::story::InlineControl::PageNumber { .. }
+                | schist_layout::story::InlineControl::SectionMarker { .. }),
+            ) = &structure.control
+            {
+                let character_style = control.character_style();
+                if let Some(r) = structure.at.and_then(|at| {
+                    schist_layout::text_variables::instance_character(
+                        document,
+                        story,
+                        at,
+                        character_style,
+                    )
+                }) {
+                    add(r.family, r.font_style, r.bold, r.italic);
+                }
+            }
+            let Some(note) = &structure.footnote else {
+                continue;
+            };
+            if let Some(r) = structure.at.and_then(|at| {
+                schist_layout::footnote_composition::reference_character(
+                    document,
+                    story,
+                    at,
+                    &note.reference_character_style,
+                )
+            }) {
+                add(r.family, r.font_style, r.bold, r.italic);
+            }
+            for marker in &note.markers {
+                let Some(style) = note
+                    .story
+                    .points
+                    .iter()
+                    .zip(note.story.point_offsets())
+                    .find_map(|(point, start)| match point {
+                        schist_layout::StoryPoint::Paragraph { text, style }
+                            if start <= marker.at && marker.at <= start + text.len() =>
+                        {
+                            Some(style)
+                        }
+                        _ => None,
+                    })
+                else {
+                    continue;
+                };
+                let base = document.styles.resolve_paragraph(style).character(
+                    document
+                        .styles
+                        .resolve_character(&document.default_character_style),
+                );
+                let r = document
+                    .styles
+                    .resolve_character(&marker.character_style)
+                    .over(&base);
+                add(r.family, r.font_style, r.bold, r.italic);
+            }
+        }
+    }
+    for story in document.stories.iter().flat_map(|story| {
+        std::iter::once(story).chain(
+            story
+                .structures
+                .iter()
+                .filter_map(|s| s.footnote.as_ref().map(|note| &note.story)),
+        )
+    }) {
         let markers = schist_layout::list_composition::MarkerPlans::new(document, story);
         for (point, start) in story.points.iter().zip(story.point_offsets()) {
             let schist_layout::StoryPoint::Paragraph { text, style } = point else {
@@ -1114,9 +1318,10 @@ fn fonts_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
 
 /// The document's settings a package records outside the pages.
 fn preferences_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
+    let preferences = crate::preferences_codec::preferences(document, warnings);
+    let footnotes = crate::footnote_codec::write(document, warnings);
     format!(
-        r#"{DECLARATION}<idPkg:Preferences xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}">{}</idPkg:Preferences>"#,
-        crate::preferences_codec::preferences(document, warnings)
+        r#"{DECLARATION}<idPkg:Preferences xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}">{preferences}{footnotes}</idPkg:Preferences>"#
     )
 }
 
@@ -1137,10 +1342,30 @@ fn part_id(path: &str) -> String {
 }
 
 fn paragraph_reference(name: &str) -> String {
-    format!("ParagraphStyle/$ID/{}", escape(name))
+    escape(&paragraph_reference_raw(name))
 }
 
-fn character_reference(name: &str) -> String {
+/// A paragraph style's native reference, unescaped.
+pub(crate) fn paragraph_reference_raw(name: &str) -> String {
+    if name.is_empty() {
+        return crate::style_codec::NO_PARAGRAPH_STYLE.into();
+    }
+    format!("ParagraphStyle/$ID/{name}")
+}
+
+/// A character style's native reference, unescaped.
+pub(crate) fn character_reference_raw(name: &str) -> String {
+    if name.is_empty() {
+        return crate::style_codec::NO_CHARACTER_STYLE.into();
+    }
+    format!("CharacterStyle/$ID/{name}")
+}
+
+/// Unstyled text names the root no-style, which Styles.xml always defines.
+pub(crate) fn character_reference(name: &str) -> String {
+    if name.is_empty() {
+        return crate::style_codec::NO_CHARACTER_STYLE.into();
+    }
     format!("CharacterStyle/$ID/{}", escape(name))
 }
 

@@ -56,10 +56,9 @@ pub(crate) fn read(element: &Element, report: &mut Report) -> Vec<(String, bool)
     let mut result = Vec::new();
     for (property, tag) in SWITCHES {
         if let Some(raw) = element.attr(property) {
-            match raw {
-                "true" | "1" => result.push(((*tag).into(), true)),
-                "false" | "0" => result.push(((*tag).into(), false)),
-                _ => invalid(report, property, raw),
+            match crate::xml::parse_boolean(raw) {
+                Some(value) => result.push(((*tag).into(), value)),
+                None => invalid(report, property, raw),
             }
         }
     }
@@ -108,7 +107,7 @@ pub(crate) fn read(element: &Element, report: &mut Report) -> Vec<(String, bool)
                                     }
                                 });
                                 match expected {
-                                    Some(value) => switch(element, property) == Some(value),
+                                    Some(value) => element.boolean(property) == Some(value),
                                     None => element.attr(property).is_none(),
                                 }
                             })
@@ -194,18 +193,10 @@ pub(crate) fn warn(features: &[(String, bool)], warnings: &mut Vec<String>) {
     }
 }
 
-fn switch(element: &Element, property: &str) -> Option<bool> {
-    match element.attr(property)? {
-        "true" | "1" => Some(true),
-        "false" | "0" => Some(false),
-        _ => None,
-    }
-}
-
 pub(crate) fn directional(element: &Element, report: &mut Report) -> DirectionalFeatures {
     let mut values = [None, None];
     for (index, (property, _)) in CONDITIONAL.iter().enumerate() {
-        values[index] = switch(element, property);
+        values[index] = element.boolean(property);
         if let Some(raw) = element.attr(property).filter(|_| values[index].is_none()) {
             invalid(report, property, raw);
         }

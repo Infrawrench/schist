@@ -10,7 +10,7 @@
 //! baseline grid drawn from the wrong margin, is very hard to see in a
 //! screenshot and very easy to assert on.
 
-use crate::compose::compose_object;
+use crate::compose::CompositionCache;
 use crate::geometry::{Insets, Page, Point, Pt, Rect, Spread};
 use crate::grid::GridSettings;
 use crate::model::{FrameOverflow, GraphicFit, LayoutDocument, LayoutObject};
@@ -176,6 +176,180 @@ impl Guide {
     }
 }
 
+/// How a shape's stroke ends, joins and sits on its path, for a painter,
+/// and what it draws along it.
+#[derive(Debug, Clone, PartialEq)]
+pub struct StrokeOptions {
+    pub cap: crate::StrokeCap,
+    pub join: crate::StrokeJoin,
+    pub miter_limit: f32,
+    pub alignment: crate::StrokeAlignment,
+    /// Dashes, dots or stripes, their lengths in the painter's units; None
+    /// strokes solid. See [`crate::stroke_patterns`].
+    pub pattern: Option<crate::decorations::DecorationStroke>,
+}
+
+impl Default for StrokeOptions {
+    /// InDesign's: butt caps, mitre joins at a limit of 4, centred, solid.
+    fn default() -> Self {
+        Self {
+            cap: Default::default(),
+            join: Default::default(),
+            miter_limit: 4.0,
+            alignment: Default::default(),
+            pattern: None,
+        }
+    }
+}
+
+impl StrokeOptions {
+    /// An item's stroke options, its pattern's point lengths scaled by
+    /// `scale` into the painter's units.
+    pub fn of(paint: &crate::ObjectPaint, scale: f32) -> Self {
+        Self {
+            cap: paint.stroke_cap.unwrap_or_default(),
+            join: paint.stroke_join.unwrap_or_default(),
+            miter_limit: paint
+                .miter_limit
+                .filter(|v| v.is_finite() && *v >= 1.0)
+                .unwrap_or(4.0),
+            alignment: paint.stroke_alignment.unwrap_or_default(),
+            pattern: paint.stroke_pattern().map(|mut stroke| {
+                stroke.pattern.scaled(scale);
+                stroke
+            }),
+        }
+    }
+
+    /// The same options for schist_vector's stroker.
+    pub fn style(&self, width: Pt) -> schist_vector::StrokeStyle {
+        schist_vector::StrokeStyle {
+            width,
+            cap: match self.cap {
+                crate::StrokeCap::Butt => schist_vector::LineCap::Butt,
+                crate::StrokeCap::Round => schist_vector::LineCap::Round,
+                crate::StrokeCap::Projecting => schist_vector::LineCap::Square,
+            },
+            join: match self.join {
+                crate::StrokeJoin::Miter => schist_vector::LineJoin::Miter,
+                crate::StrokeJoin::Round => schist_vector::LineJoin::Round,
+                crate::StrokeJoin::Bevel => schist_vector::LineJoin::Bevel,
+            },
+            miter_limit: self.miter_limit,
+        }
+    }
+}
+
+/// A drop shadow on the canvas: the paint's shape moved by `offset` and
+/// blurred by a Gaussian of deviation `sigma`, both in pasteboard pixels,
+/// in `color` at its opacity.
+#[derive(Debug, Clone, PartialEq)]
+pub struct ShapeShadow {
+    pub offset: Point,
+    pub sigma: Pt,
+    pub color: [f32; 4],
+}
+
+impl ShapeShadow {
+    fn of(object: &crate::PlacedObject, view: &PasteboardView) -> Option<Box<Self>> {
+        let shadow = object.appearance.drop_shadow.as_ref()?;
+        let rgb = shadow.ink().preview_at_tint(1.0);
+        Some(Box::new(Self {
+            offset: Point::new(shadow.x_offset * view.scale, shadow.y_offset * view.scale),
+            sigma: shadow.size / 2.0 * view.scale,
+            color: [
+                rgb[0],
+                rgb[1],
+                rgb[2],
+                shadow.opacity.clamp(0.0, 1.0) * object.transparency,
+            ],
+        }))
+    }
+}
+
+impl Display {
+    /// This shape display, casting `shadow` when it is given one.
+    fn casting(mut self, shadow: Option<Box<ShapeShadow>>) -> Self {
+        if let (Display::Shape { shadow: own, .. }, Some(shadow)) = (&mut self, shadow) {
+            *own = Some(shadow);
+        }
+        self
+    }
+}
+
+/// A gradient a shape is filled or stroked with, for a painter: the fill,
+/// the bounds of the path it runs over, and the map from pasteboard space
+/// back to the path's own coordinates.
+#[derive(Debug, Clone, PartialEq)]
+pub struct ShapeGradient {
+    pub fill: crate::gradients::GradientFill,
+    pub bounds: Rect,
+    pub to_path: schist_core::Affine,
+    pub opacity: f32,
+}
+
+impl ShapeGradient {
+    /// The screen colour at a pasteboard point.
+    pub fn preview(&self, x: f32, y: f32) -> [f32; 3] {
+        let (px, py) = self.to_path.apply(x, y);
+        let vector = self.fill.vector(self.bounds);
+        let t = self.fill.position(Point::new(px, py), vector);
+        self.fill.gradient.preview(t)
+    }
+
+    /// `fill` over `bounds`, given the map from the path's own coordinates
+    /// onto the pasteboard: the same map read off three points, inverted.
+    fn mapped(
+        fill: crate::gradients::GradientFill,
+        bounds: Rect,
+        to_pasteboard: impl Fn(Point) -> Point,
+        opacity: f32,
+    ) -> Option<Box<Self>> {
+        let (o, x, y) = (
+            to_pasteboard(Point::ZERO),
+            to_pasteboard(Point::new(1.0, 0.0)),
+            to_pasteboard(Point::new(0.0, 1.0)),
+        );
+        let forward = schist_core::Affine {
+            a: x.x - o.x,
+            b: x.y - o.y,
+            c: y.x - o.x,
+            d: y.y - o.y,
+            tx: o.x,
+            ty: o.y,
+        };
+        Some(Box::new(Self {
+            fill,
+            bounds,
+            to_path: forward.invert()?,
+            opacity,
+        }))
+    }
+}
+
+/// What of a run of text a gradient paints.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TextPart {
+    Fill,
+    Stroke,
+    /// An underline or strikethrough in the text's own colour, which
+    /// follows its fill.
+    Underline,
+    Strike,
+}
+
+/// A gradient a run of a line of text is painted with, for a painter. It
+/// runs over the frame the text is set in: `gradient.to_path` maps the
+/// line's pasteboard space, before the line's `transform`, into the frame's
+/// own coordinates, and its bounds are the frame's.
+#[derive(Debug, Clone, PartialEq)]
+pub struct TextGradient {
+    /// The engine run it paints.
+    pub run: usize,
+    pub part: TextPart,
+    pub gradient: ShapeGradient,
+}
+
 /// Something to draw on a page.
 #[derive(Debug, Clone, PartialEq)]
 pub enum Display {
@@ -196,6 +370,7 @@ pub enum Display {
     Text {
         /// Automatic list markers paint normally but have no editable source range.
         generated: bool,
+        positions: Option<crate::inline_text::LinePositions>,
         object: ObjectId,
         story: StoryId,
         start: usize,
@@ -211,6 +386,9 @@ pub enum Display {
         style: String,
         /// The same resolved font and runs used during composition.
         spec: Box<schist_text_engine::TextSpec>,
+        /// Runs painted with a gradient, which their colours in `spec`
+        /// stand in for with its first stop.
+        gradients: Vec<TextGradient>,
     },
     /// Text-flow ports are separate from the frame's selectable outline.
     Ports {
@@ -236,7 +414,18 @@ pub enum Display {
         inherited: bool,
         locked: bool,
         fill: Option<[f32; 4]>,
+        /// A gradient fill, which `fill` then leaves out.
+        gradient: Option<Box<ShapeGradient>>,
         stroke: Option<([f32; 4], Pt)>,
+        /// A gradient stroke, which `stroke`'s colour stands in for with
+        /// its first stop.
+        stroke_gradient: Option<Box<ShapeGradient>>,
+        /// How the stroke ends, joins and sits on the path.
+        stroke_options: StrokeOptions,
+        /// What fills the gaps of a dashed, dotted or striped stroke.
+        gap: Option<[f32; 4]>,
+        /// The drop shadow this paint casts beneath it.
+        shadow: Option<Box<ShapeShadow>>,
         overprint: bool,
     },
     /// A placed graphic; pixel resolution belongs to the editor.
@@ -373,6 +562,7 @@ pub fn pasteboard(doc: &LayoutDocument, view: &PasteboardView) -> Option<Pastebo
     // Spreads are placed by the document rather than by their own stored
     // origins, so two spreads can never land on top of each other.
     let origins = doc.spread_origins();
+    let mut composition = CompositionCache::new(doc);
     for (index, spread) in doc.spreads.iter().enumerate() {
         if !spread_is_visible(spread, index, view) {
             continue;
@@ -431,7 +621,7 @@ pub fn pasteboard(doc: &LayoutDocument, view: &PasteboardView) -> Option<Pastebo
                     active: view.page == Some(*page),
                 },
                 guides: guides_for(doc, definition, view, top_left),
-                objects: objects_for(doc, *page, view, top_left),
+                objects: objects_for(doc, *page, view, top_left, &mut composition),
             };
             placed = placed.union(plan.page.media);
             pasteboard.pages.push(plan);
@@ -564,6 +754,7 @@ fn objects_for(
     page: usize,
     view: &PasteboardView,
     offset: Point,
+    composition: &mut CompositionCache<'_>,
 ) -> Vec<Display> {
     let mut out = Vec::new();
     let objects = if view.page.is_some() {
@@ -585,8 +776,15 @@ fn objects_for(
             view.scale,
             view.to_pasteboard(offset),
         );
+        // A frame's shadow is cast from its fill, or its stroke without one;
+        // text and images alone cast none on the canvas.
+        let mut shadow = ShapeShadow::of(&object, view)
+            .filter(|_| !matches!(object.object, LayoutObject::Shape { .. }));
         if let Some(fill) = object.frame_paint(false) {
-            out.extend(shape_display(doc, &fill, view, offset, inherited, false));
+            out.extend(
+                shape_display(doc, &fill, view, offset, inherited, false)
+                    .map(|display| display.casting(shadow.take())),
+            );
         }
         match &object.object {
             LayoutObject::TextFrame {
@@ -602,52 +800,54 @@ fn objects_for(
                     });
                     continue;
                 };
-                let composed = compose_object(doc, &object);
+                let composed = composition.frame(&object);
                 let mut drew = false;
                 let mut has_text = false;
                 let mut interaction = rect;
-                for line in composed.iter().flat_map(|frame| &frame.lines) {
+                for area in composed.iter().flat_map(|frame| &frame.footnotes) {
+                    if let Some(rule) = &area.rule {
+                        let mut path = rule.path();
+                        path.map_points(|p| {
+                            let p = crate::affine::point(
+                                object.content_transform(),
+                                Point::new(rule.bounds.x + p.x, rule.bounds.y + p.y),
+                            );
+                            view.to_pasteboard(Point::new(p.x + offset.x, p.y + offset.y))
+                        });
+                        let rgb = rule.ink.preview_at_tint(rule.tint);
+                        out.push(Display::Shape {
+                            path_editable: false,
+                            object: object.id,
+                            transform,
+                            rect: move_to(rule.bounds, view, offset),
+                            path,
+                            inherited,
+                            locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
+                            fill: Some([rgb[0], rgb[1], rgb[2], object.transparency]),
+                            gradient: None,
+                            stroke: None,
+                            stroke_gradient: None,
+                            stroke_options: StrokeOptions::default(),
+                            gap: None,
+                            shadow: None,
+                            overprint: rule.overprint,
+                        });
+                    }
+                }
+                let gradients = text_gradients_used(doc);
+                for line in composed.iter().flat_map(|frame| frame.all_lines()) {
                     drew = true;
                     let bounds = move_to(line.bounds, view, offset);
-                    let mut spec = crate::compose::line_spec(line, definition, doc);
+                    let spec = view_spec(line, definition, doc, view, object.transparency);
                     let text = spec.text.clone();
                     has_text |= !text.is_empty();
-                    spec.size *= view.scale;
-                    if let Some(tabs) = &mut spec.tabs {
-                        tabs.scaled(view.scale);
-                    }
-                    if let Some(path) = &mut spec.path {
-                        path.scaled(view.scale);
-                    }
-                    spec.leading = spec.leading.map(|v| v * view.scale);
-                    spec.tracking *= view.scale;
-                    spec.word_spacing = line.word_space.unwrap_or(0.0) * view.scale;
-                    for run in &mut spec.runs {
-                        if let Some(color) = &mut run.color {
-                            color[3] = (f32::from(color[3]) * object.transparency.clamp(0.0, 1.0))
-                                .round() as u8;
-                        }
-                        run.size = run.size.map(|size| size * view.scale);
-                        run.metric_size = run.metric_size.map(|v| v * view.scale);
-                        run.baseline_shift = run.baseline_shift.map(|v| v * view.scale);
-                        for d in [&mut run.underline_style, &mut run.strike_style]
-                            .into_iter()
-                            .flatten()
-                        {
-                            d.scaled(view.scale);
-                        }
-                        if let Some(stroke) = &mut run.stroke {
-                            stroke.width *= view.scale;
-                        }
-                        run.tracking = run.tracking.map(|v| v * view.scale);
-                        run.leading = run.leading.map(|v| v * view.scale);
-                    }
-                    if spec.path.is_some() || line.generated.is_some() {
+                    if spec.path.is_some() || line.is_generated() {
                         interaction =
                             interaction.union(path_text_bounds(&spec).translated(bounds.origin()));
                     }
                     out.push(Display::Text {
-                        generated: line.generated.is_some(),
+                        generated: line.is_generated(),
+                        positions: line.projected.as_ref().and_then(|p| p.positions.clone()),
                         object: object.id,
                         transform,
                         story: *story,
@@ -659,7 +859,30 @@ fn objects_for(
                         word_space: line.word_space.map(|w| w * view.scale),
                         style: line.paragraph_style.clone(),
                         spec: Box::new(spec),
+                        gradients: if gradients {
+                            text_gradients(line, definition, doc, &object, view, offset)
+                        } else {
+                            Vec::new()
+                        },
                     });
+                }
+                // Inline anchored items draw with their frame; a click on one
+                // selects the frame, as a click on its text does.
+                for item in crate::anchored::placements(
+                    doc,
+                    definition,
+                    &object,
+                    composed.iter().flat_map(|frame| frame.all_lines()),
+                ) {
+                    out.extend(anchored_displays(
+                        doc,
+                        &item,
+                        object.id,
+                        view,
+                        offset,
+                        inherited,
+                        object.locked || doc.layer_locked(doc.object_layer(object.id)),
+                    ));
                 }
                 if !drew {
                     let at = composed.as_ref().map_or(0, |frame| frame.consumed_to);
@@ -700,6 +923,7 @@ fn objects_for(
                     }
                     out.push(Display::Text {
                         generated: false,
+                        positions: None,
                         object: object.id,
                         transform,
                         story: *story,
@@ -711,6 +935,7 @@ fn objects_for(
                         word_space: None,
                         style: doc.default_paragraph_style.clone(),
                         spec: Box::new(spec),
+                        gradients: Vec::new(),
                     });
                 }
                 if !has_text {
@@ -807,7 +1032,10 @@ fn objects_for(
             }
         }
         if let Some(stroke) = object.frame_paint(true) {
-            out.extend(shape_display(doc, &stroke, view, offset, inherited, false));
+            out.extend(
+                shape_display(doc, &stroke, view, offset, inherited, false)
+                    .map(|display| display.casting(shadow.take())),
+            );
         }
         if !matches!(
             object.object,
@@ -850,6 +1078,233 @@ fn path_text_bounds(spec: &schist_text_engine::TextSpec) -> Rect {
     }
 }
 
+/// A composed line's text specification, scaled to the view, with run colors
+/// faded by the frame's opacity.
+fn view_spec(
+    line: &crate::ComposedLine,
+    definition: &crate::Story,
+    doc: &LayoutDocument,
+    view: &PasteboardView,
+    transparency: f32,
+) -> schist_text_engine::TextSpec {
+    let mut spec = crate::compose::line_spec(line, definition, doc);
+    spec.size *= view.scale;
+    spec.scale_inline_boxes(view.scale);
+    if let Some(tabs) = &mut spec.tabs {
+        tabs.scaled(view.scale);
+    }
+    if let Some(path) = &mut spec.path {
+        path.scaled(view.scale);
+    }
+    spec.leading = spec.leading.map(|v| v * view.scale);
+    spec.tracking *= view.scale;
+    spec.word_spacing = line.word_space.unwrap_or(0.0) * view.scale;
+    for run in &mut spec.runs {
+        if let Some(color) = &mut run.color {
+            color[3] = (f32::from(color[3]) * transparency.clamp(0.0, 1.0)).round() as u8;
+        }
+        run.size = run.size.map(|size| size * view.scale);
+        run.metric_size = run.metric_size.map(|v| v * view.scale);
+        run.baseline_shift = run.baseline_shift.map(|v| v * view.scale);
+        for d in [&mut run.underline_style, &mut run.strike_style]
+            .into_iter()
+            .flatten()
+        {
+            d.scaled(view.scale);
+        }
+        if let Some(stroke) = &mut run.stroke {
+            stroke.width *= view.scale;
+        }
+        run.tracking = run.tracking.map(|v| v * view.scale);
+        run.leading = run.leading.map(|v| v * view.scale);
+    }
+    spec
+}
+
+/// Whether any text style paints with a gradient, so lines need not be
+/// searched for one when none does.
+fn text_gradients_used(doc: &LayoutDocument) -> bool {
+    doc.styles
+        .paragraphs
+        .iter()
+        .any(|s| s.fill_gradient.is_some() || s.stroke_gradient.is_some())
+        || doc
+            .styles
+            .characters
+            .iter()
+            .any(|s| s.fill_gradient.is_some() || s.stroke_gradient.is_some())
+}
+
+/// The gradients a line's runs are painted with, each over `frame`, the
+/// frame the text is set in, from its left and bottom edges.
+fn text_gradients(
+    line: &crate::ComposedLine,
+    definition: &crate::Story,
+    doc: &LayoutDocument,
+    frame: &crate::PlacedObject,
+    view: &PasteboardView,
+    offset: Point,
+) -> Vec<TextGradient> {
+    let to_pasteboard = |p: Point| {
+        move_to(
+            Rect::new(frame.bounds.x + p.x, frame.bounds.y + p.y, 0.0, 0.0),
+            view,
+            offset,
+        )
+        .origin()
+    };
+    let size = Rect::new(0.0, 0.0, frame.bounds.width, frame.bounds.height);
+    let mut out = Vec::new();
+    for (run, style) in crate::compose::line_paint_styles(line, definition, doc)
+        .iter()
+        .enumerate()
+    {
+        let opacity = style.opacity.unwrap_or(1.0).clamp(0.0, 1.0) * frame.transparency;
+        let mut add = |gradient: &crate::gradients::GradientFill, part| {
+            // A start the text states is not drawn; see `text_vector`.
+            let gradient = crate::gradients::GradientFill {
+                start: None,
+                ..gradient.clone()
+            };
+            if let Some(gradient) = ShapeGradient::mapped(gradient, size, to_pasteboard, opacity) {
+                out.push(TextGradient {
+                    run,
+                    part,
+                    gradient: *gradient,
+                });
+            }
+        };
+        if let Some(gradient) = style
+            .fill_gradient
+            .as_deref()
+            .filter(|_| !style.fill_disabled)
+        {
+            add(gradient, TextPart::Fill);
+            for (part, decoration) in [
+                (TextPart::Underline, &style.underline_style),
+                (TextPart::Strike, &style.strike_style),
+            ] {
+                if decoration.follows_text() {
+                    add(gradient, part);
+                }
+            }
+        }
+        if let Some(gradient) = style
+            .stroke_gradient
+            .as_deref()
+            .filter(|_| !style.stroke_disabled)
+        {
+            add(gradient, TextPart::Stroke);
+        }
+    }
+    out
+}
+
+/// Displays for an anchored item, attributed to the frame that holds it.
+fn anchored_displays(
+    doc: &LayoutDocument,
+    item: &crate::PlacedObject,
+    frame: crate::ObjectId,
+    view: &PasteboardView,
+    offset: Point,
+    inherited: bool,
+    locked: bool,
+) -> Vec<Display> {
+    let mut out = Vec::new();
+    if let Some(fill) = item.frame_paint(false) {
+        out.extend(shape_display(doc, &fill, view, offset, inherited, false));
+    }
+    match &item.object {
+        LayoutObject::Shape { .. } => {
+            out.extend(shape_display(doc, item, view, offset, inherited, false));
+        }
+        LayoutObject::GraphicFrame {
+            link,
+            fit,
+            crop,
+            scale,
+            image_transform,
+            clip_path,
+            ..
+        } => out.push(Display::Graphic {
+            object: frame,
+            transform: crate::affine::in_view(
+                item.content_transform(),
+                view.scale,
+                view.to_pasteboard(offset),
+            ),
+            rect: move_to(item.bounds, view, offset),
+            label: link_name(link),
+            missing: !link.present,
+            inherited,
+            locked,
+            fit: *fit,
+            source: link.path.clone(),
+            crop: *crop,
+            scale: *scale,
+            image_transform: *image_transform,
+            clip_path: clip_path.clone(),
+            zoom: view.scale,
+            opacity: item.transparency,
+        }),
+        LayoutObject::TextFrame { story, .. } => {
+            // An anchored frame's story composes in the item's own box. Its
+            // lines are drawn as generated text of the holding frame, so a
+            // click never edits them as that frame's story.
+            if let (Some(definition), Some(composed)) =
+                (doc.story(*story), crate::compose::compose_object(doc, item))
+            {
+                let transform = crate::affine::in_view(
+                    item.content_transform(),
+                    view.scale,
+                    view.to_pasteboard(offset),
+                );
+                let gradients = text_gradients_used(doc);
+                for line in composed.all_lines() {
+                    let spec = view_spec(line, definition, doc, view, item.transparency);
+                    out.push(Display::Text {
+                        generated: true,
+                        positions: line.projected.as_ref().and_then(|p| p.positions.clone()),
+                        object: frame,
+                        transform,
+                        story: *story,
+                        start: line.start,
+                        end: line.end,
+                        rect: move_to(line.bounds, view, offset),
+                        text: spec.text.clone(),
+                        size: spec.size,
+                        word_space: line.word_space.map(|w| w * view.scale),
+                        style: line.paragraph_style.clone(),
+                        spec: Box::new(spec),
+                        gradients: if gradients {
+                            text_gradients(line, definition, doc, item, view, offset)
+                        } else {
+                            Vec::new()
+                        },
+                    });
+                }
+                for nested in
+                    crate::anchored::placements(doc, definition, item, composed.all_lines())
+                {
+                    out.extend(anchored_displays(
+                        doc, &nested, frame, view, offset, inherited, locked,
+                    ));
+                }
+            }
+        }
+        _ => {}
+    }
+    if let Some(stroke) = item.frame_paint(true) {
+        out.extend(shape_display(doc, &stroke, view, offset, inherited, false));
+    }
+    for display in &mut out {
+        if let Display::Shape { object, .. } | Display::Graphic { object, .. } = display {
+            *object = frame;
+        }
+    }
+    out
+}
+
 fn shape_display(
     doc: &LayoutDocument,
     object: &crate::PlacedObject,
@@ -879,14 +1334,33 @@ fn shape_display(
     // have to be offset by the frame's origin before they
     // reach the pasteboard. Left unshifted, every shape on a
     // page would be drawn in the corner.
-    let mut path = path.clone();
-    path.map_points(|p| {
+    let to_pasteboard = |p: Point| {
         let p = crate::affine::point(
             object.content_transform(),
             Point::new(object.bounds.x + p.x, object.bounds.y + p.y),
         );
         move_to(Rect::new(p.x, p.y, 0.0, 0.0), view, offset).origin()
-    });
+    };
+    // A gradient fill or stroke runs over the path's own coordinates.
+    let mapped = |gradient: &crate::gradients::GradientFill| {
+        ShapeGradient::mapped(
+            gradient.clone(),
+            path.bounds(),
+            to_pasteboard,
+            object.transparency,
+        )
+    };
+    let gradient = object.appearance.paint.fill_gradient().and_then(mapped);
+    let stroke_gradient = object.appearance.paint.stroke_gradient().and_then(mapped);
+    // The gradient's first stop stands in for a painter drawing solid colour.
+    let stroke = stroke
+        .as_ref()
+        .map(|ink| ink.preview_at_tint(tints.stroke))
+        .or(stroke_gradient
+            .as_ref()
+            .map(|g| g.fill.gradient.stops[0].ink.preview_at_tint(1.0)));
+    let mut path = path.clone();
+    path.map_points(to_pasteboard);
     Some(Display::Shape {
         path_editable,
         object: object.id,
@@ -895,17 +1369,34 @@ fn shape_display(
         path,
         inherited,
         locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
-        fill: fill.as_ref().map(|ink| {
+        fill: fill.as_ref().filter(|_| gradient.is_none()).map(|ink| {
             let rgb = ink.preview_at_tint(tints.fill);
             [rgb[0], rgb[1], rgb[2], object.transparency]
         }),
-        stroke: stroke.as_ref().map(|ink| {
-            let rgb = ink.preview_at_tint(tints.stroke);
+        shadow: ShapeShadow::of(object, view),
+        gradient,
+        stroke: stroke.map(|rgb| {
             (
                 [rgb[0], rgb[1], rgb[2], object.transparency],
                 stroke_width * view.scale,
             )
         }),
+        stroke_gradient,
+        stroke_options: StrokeOptions::of(&object.appearance.paint, view.scale),
+        // Gaps show between the marks of a patterned stroke that is drawn.
+        gap: object
+            .appearance
+            .paint
+            .gap_ink()
+            .filter(|_| {
+                stroke.is_some()
+                    && *stroke_width > 0.0
+                    && object.appearance.paint.stroke_pattern().is_some()
+            })
+            .map(|ink| {
+                let rgb = ink.preview_at_tint(object.appearance.paint.gap_tint.unwrap_or(1.0));
+                [rgb[0], rgb[1], rgb[2], object.transparency]
+            }),
         overprint: object.overprint,
     })
 }
@@ -1234,11 +1725,14 @@ mod tests {
             "Body",
         ));
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(20.0), mm(20.0), mm(60.0), mm(60.0)),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -1278,11 +1772,14 @@ mod tests {
         let mut doc = blank_a4();
         let story = doc.add_story(Story::from_text("", "Body"));
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(20.0), mm(20.0), mm(60.0), mm(30.0)),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -1310,6 +1807,7 @@ mod tests {
         let mut link = Link::new("/photos/wedding/portrait.psd");
         link.present = false;
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -1420,6 +1918,7 @@ mod tests {
             closed: true,
         });
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -1460,11 +1959,14 @@ mod tests {
     fn a_parent_page_contributes_a_dashed_frame() {
         let mut doc = blank_a4();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(0.0, 0.0, mm(50.0), mm(10.0)),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story: StoryId(0),
                 columns: 1,
@@ -1487,11 +1989,14 @@ mod tests {
             based_on: None,
             objects: vec![crate::model::ParentObject {
                 object: PlacedObject {
+                    hidden: false,
                     appearance: Default::default(),
                     id: ObjectId::next(),
                     page: 0,
                     bounds: Rect::new(0.0, 0.0, mm(170.0), mm(15.0)),
                     object: LayoutObject::TextFrame {
+                        balance_columns: Some(false),
+                        footnotes: Default::default(),
                         text_path: None,
                         story: StoryId(0),
                         columns: 1,

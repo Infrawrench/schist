@@ -1,4 +1,5 @@
-//! DocumentPreference, TextPreference and Section follow the public IDML specification
+//! DocumentPreference, TextPreference, ChapterNumberPreference and Section follow
+//! the public IDML specification
 //! (sections 6.3.21 and the designmap Section schema). Bleed/slug are
 //! document-wide in IDML; layout pages store physical four-sided offsets.
 use crate::{
@@ -7,7 +8,150 @@ use crate::{
     import::Report,
     xml::{self, Element},
 };
-use schist_layout::{Insets, LayoutDocument, NumberStyle, Section};
+use schist_layout::{
+    auto_size::{AutoSize, AutoSizing, ReferencePoint},
+    text_variables::{ChapterNumbering, ChapterSource},
+    Insets, LayoutDocument, NumberStyle, Section,
+};
+
+/// Read only this supported general-frame property; other category properties
+/// retain their existing unsupported-feature diagnostics.
+pub(crate) fn frame_balance(parent: &Element, report: &mut Report) -> Option<bool> {
+    let raw = parent
+        .child("TextFramePreference")?
+        .attr("VerticalBalanceColumns")?;
+    match xml::parse_boolean(raw) {
+        Some(value) => Some(value),
+        None => {
+            report.skip(schist_i18n::tf!(
+                "design.idml_text_preference_invalid",
+                property = "VerticalBalanceColumns",
+                value = raw
+            ));
+            None
+        }
+    }
+}
+
+const REFERENCE_POINTS: [(&str, ReferencePoint); 9] = [
+    ("TopLeftPoint", ReferencePoint::TopLeft),
+    ("TopCenterPoint", ReferencePoint::Top),
+    ("TopRightPoint", ReferencePoint::TopRight),
+    ("LeftCenterPoint", ReferencePoint::Left),
+    ("CenterPoint", ReferencePoint::Center),
+    ("RightCenterPoint", ReferencePoint::Right),
+    ("BottomLeftPoint", ReferencePoint::BottomLeft),
+    ("BottomCenterPoint", ReferencePoint::Bottom),
+    ("BottomRightPoint", ReferencePoint::BottomRight),
+];
+
+const SIZINGS: [(&str, AutoSizing); 4] = [
+    ("HeightOnly", AutoSizing::HeightOnly),
+    ("WidthOnly", AutoSizing::WidthOnly),
+    ("HeightAndWidth", AutoSizing::HeightAndWidth),
+    (
+        "HeightAndWidthProportionally",
+        AutoSizing::HeightAndWidthProportionally,
+    ),
+];
+
+/// A text frame's auto-size settings: none when its AutoSizingType is Off or
+/// absent. A value the specification does not name is reported and read as
+/// its default.
+pub(crate) fn auto_size(parent: &Element, report: &mut Report) -> Option<AutoSize> {
+    let preference = parent.child("TextFramePreference")?;
+    let mut invalid = |property: &str, value: &str| {
+        report.skip(schist_i18n::tf!(
+            "design.idml_text_preference_invalid",
+            property = property,
+            value = value
+        ));
+    };
+    let raw = preference.attr("AutoSizingType")?;
+    let sizing = match SIZINGS.iter().find(|(name, _)| *name == raw) {
+        Some((_, sizing)) => *sizing,
+        None => {
+            if raw != "Off" {
+                invalid("AutoSizingType", raw);
+            }
+            return None;
+        }
+    };
+    let reference = match preference.attr("AutoSizingReferencePoint") {
+        None => ReferencePoint::default(),
+        Some(raw) => match REFERENCE_POINTS.iter().find(|(name, _)| *name == raw) {
+            Some((_, point)) => *point,
+            None => {
+                invalid("AutoSizingReferencePoint", raw);
+                ReferencePoint::default()
+            }
+        },
+    };
+    let mut minimum = |used: &str, size: &str| {
+        let raw = preference.attr(size)?;
+        if preference.boolean(used) != Some(true) {
+            return None;
+        }
+        let value = xml::parse_number(raw).filter(|v| v.is_finite() && *v >= 0.0);
+        if value.is_none() {
+            invalid(size, raw);
+        }
+        value
+    };
+    let minimum_height = minimum(
+        "UseMinimumHeightForAutoSizing",
+        "MinimumHeightForAutoSizing",
+    );
+    let minimum_width = minimum("UseMinimumWidthForAutoSizing", "MinimumWidthForAutoSizing");
+    Some(AutoSize {
+        sizing,
+        reference,
+        minimum_height,
+        minimum_width,
+        no_line_breaks: preference.boolean("UseNoLineBreaksForAutoSizing") == Some(true),
+    })
+}
+
+/// The TextFramePreference attributes that save `auto`.
+pub(crate) fn auto_size_attributes(auto: Option<&AutoSize>) -> String {
+    let Some(auto) = auto else {
+        return String::new();
+    };
+    let name = |sizing| {
+        SIZINGS
+            .iter()
+            .find(|(_, s)| *s == sizing)
+            .map_or("Off", |(name, _)| name)
+    };
+    let point = REFERENCE_POINTS
+        .iter()
+        .find(|(_, p)| *p == auto.reference)
+        .map_or("CenterPoint", |(name, _)| name);
+    let mut out = format!(
+        " AutoSizingType=\"{}\" AutoSizingReferencePoint=\"{point}\"",
+        name(auto.sizing)
+    );
+    if let Some(height) = auto.minimum_height {
+        out.push_str(&format!(
+            " UseMinimumHeightForAutoSizing=\"true\" MinimumHeightForAutoSizing=\"{height}\""
+        ));
+    }
+    if let Some(width) = auto.minimum_width {
+        out.push_str(&format!(
+            " UseMinimumWidthForAutoSizing=\"true\" MinimumWidthForAutoSizing=\"{width}\""
+        ));
+    }
+    if auto.no_line_breaks {
+        out.push_str(" UseNoLineBreaksForAutoSizing=\"true\"");
+    }
+    out
+}
+
+pub(crate) fn balance_attribute(value: Option<bool>) -> String {
+    value
+        .map(|v| format!(" VerticalBalanceColumns=\"{v}\""))
+        .unwrap_or_default()
+}
 
 const BLEED: [&str; 4] = [
     "DocumentBleedTopOffset",
@@ -32,7 +176,7 @@ fn offset(element: &Element, keys: &[&str; 4], uniform: &str, report: &mut Repor
         report.skip(schist_i18n::t("design.idml_invalid_page_offsets"));
     }
     let values = values.map(|v| if v.is_finite() { v.max(0.0) } else { 0.0 });
-    if matches!(element.attr(uniform), Some("true" | "1")) {
+    if element.boolean(uniform) == Some(true) {
         return values[0].into();
     }
     Insets::new(values[0], values[3], values[1], values[2])
@@ -42,6 +186,8 @@ pub fn read(
     opened: &DesignPackage<'_>,
     document: &mut LayoutDocument,
     report: &mut Report,
+    colors: &crate::color_codec::Colors,
+    refs: &crate::style_codec::References,
 ) -> Result<(), Error> {
     let mut offsets = None;
     for part in opened.listed.iter().filter(|p| p.role == "Preferences") {
@@ -49,7 +195,13 @@ pub fn read(
             part: part.name.clone(),
             message,
         })?;
+        document.balance_columns_default = frame_balance(&root, report).unwrap_or(false);
+        if let Some(prefs) = root.find("FootnoteOption") {
+            document.footnotes = crate::footnote_codec::read(prefs, colors, refs, report);
+        }
         if let Some(prefs) = root.find("TextPreference") {
+            document.text_wrap_preferences =
+                crate::text_wrap_codec::read_preferences(prefs, report);
             let text = &mut document.styles.text_preferences;
             for (key, target, range) in [
                 ("SmallCap", &mut text.small_cap_size, 1.0..=200.0),
@@ -78,8 +230,11 @@ pub fn read(
                 }
             }
         }
+        if let Some(prefs) = root.find("ChapterNumberPreference") {
+            document.chapter_numbering = chapter_numbering(prefs, report);
+        }
         if let Some(prefs) = root.find("DocumentPreference") {
-            document.facing_pages = prefs.attr("FacingPages") == Some("true");
+            document.facing_pages = prefs.boolean("FacingPages") == Some(true);
             document.page_binding = if prefs.attr("PageBinding") == Some("RightToLeft") {
                 schist_layout::PageBinding::RightToLeft
             } else {
@@ -94,6 +249,7 @@ pub fn read(
         part: opened.root.clone(),
         message,
     })?;
+    document.frame_footnote_defaults = crate::footnote_codec::read_frame(&root, report);
     // Match the same valid pages and XML reading order as read_spreads. Spread
     // slots may be sorted physically (including RTL); Section.PageStart is an
     // object reference, never a display label or a position in designmap.xml.
@@ -110,6 +266,22 @@ pub fn read(
                 }
             }
         }
+    }
+    // Every section names the layout it belongs to; InDesign's exports name
+    // one on all of them. Only a second layout, or a section paginated from
+    // another layout's master, is an alternate layout.
+    let layouts: std::collections::BTreeSet<&str> = root
+        .children_named("Section")
+        .filter_map(|s| s.attr("AlternateLayout"))
+        .filter(|v| !v.is_empty() && *v != "$ID/")
+        .collect();
+    if layouts.len() > 1
+        || root.children_named("Section").any(|s| {
+            s.attr("PaginationMaster")
+                .is_some_and(|v| !v.is_empty() && v != "n")
+        })
+    {
+        report.skip(schist_i18n::t("design.idml_alternate_sections"));
     }
     let mut sections = std::collections::BTreeMap::new();
     for element in root.children_named("Section") {
@@ -137,19 +309,10 @@ pub fn read(
             .and_then(|p| p.child("PageNumberStyle"))
             .map(Element::trimmed)
             .or_else(|| element.attr("PageNumberStyle"));
-        if element
-            .attr("AlternateLayout")
-            .is_some_and(|v| !v.is_empty())
-            || element
-                .attr("PaginationMaster")
-                .is_some_and(|v| !v.is_empty() && v != "n")
-        {
-            report.skip(schist_i18n::t("design.idml_alternate_sections"));
-        }
         let section = Section {
             start: start.filter(|v| (1..=999999).contains(v)).unwrap_or(1),
-            continue_numbering: !matches!(element.attr("ContinueNumbering"), Some("false" | "0")),
-            include_prefix: matches!(element.attr("IncludeSectionPrefix"), Some("true" | "1")),
+            continue_numbering: element.boolean("ContinueNumbering") != Some(false),
+            include_prefix: element.boolean("IncludeSectionPrefix") == Some(true),
             prefix: element.attr("SectionPrefix").unwrap_or_default().into(),
             name: element.attr("Name").unwrap_or_default().into(),
             marker: element.attr("Marker").unwrap_or_default().into(),
@@ -247,7 +410,10 @@ pub fn preferences(document: &LayoutDocument, warnings: &mut Vec<String>) -> Str
             out.push_str(&format!(r#" {key}="{}""#, number(value)));
         }
     }
-    out.push_str(" /><TextPreference");
+    out.push_str(&format!(
+        " /><TextFramePreference VerticalBalanceColumns=\"{}\" /><TextPreference",
+        document.balance_columns_default
+    ));
     let text = document.styles.text_preferences;
     let default = schist_layout::styles::TextPreferences::default();
     for (key, value, fallback, range) in [
@@ -294,8 +460,81 @@ pub fn preferences(document: &LayoutDocument, warnings: &mut Vec<String>) -> Str
         };
         out.push_str(&format!(r#" {key}="{}""#, number(value)));
     }
+    out.push_str(&crate::text_wrap_codec::preference_attributes(
+        &document.text_wrap_preferences,
+    ));
     out.push_str(" />");
+    if let Some(chapter) = &document.chapter_numbering {
+        out.push_str(&chapter_numbering_xml(chapter));
+    }
     out
+}
+
+const CHAPTER_SOURCES: [(&str, ChapterSource); 3] = [
+    ("UserDefined", ChapterSource::UserDefined),
+    (
+        "ContinueFromPreviousDocument",
+        ChapterSource::ContinueFromPreviousDocument,
+    ),
+    (
+        "SameAsPreviousDocument",
+        ChapterSource::SameAsPreviousDocument,
+    ),
+];
+
+/// ChapterNumberPreference: a positive number, a published source and the
+/// native ChapterNumberFormat string. Invalid records are reported and omitted.
+fn chapter_numbering(element: &Element, report: &mut Report) -> Option<ChapterNumbering> {
+    let invalid = |report: &mut Report, property: &str, value: &str| {
+        report.skip(schist_i18n::tf!(
+            "design.idml_text_preference_invalid",
+            property = property,
+            value = value
+        ));
+    };
+    let raw = element.attr("ChapterNumber").unwrap_or_default();
+    let Some(number) = raw.trim().parse::<u32>().ok().filter(|n| *n >= 1) else {
+        invalid(report, "ChapterNumber", raw);
+        return None;
+    };
+    let raw = element.attr("ChapterNumberSource").unwrap_or_default();
+    let Some(source) = CHAPTER_SOURCES
+        .iter()
+        .find(|(native, _)| *native == raw)
+        .map(|(_, source)| *source)
+    else {
+        invalid(report, "ChapterNumberSource", raw);
+        return None;
+    };
+    let format = element
+        .find("ChapterNumberFormat")
+        .map(|format| format.text.clone())
+        .unwrap_or_default();
+    Some(ChapterNumbering {
+        number,
+        source,
+        format,
+    })
+}
+
+fn chapter_numbering_xml(chapter: &ChapterNumbering) -> String {
+    let source = CHAPTER_SOURCES
+        .iter()
+        .find(|(_, source)| *source == chapter.source)
+        .map(|(native, _)| *native)
+        .expect("every source has a native spelling");
+    let format = if chapter.format.is_empty() {
+        String::new()
+    } else {
+        format!(
+            r#"<Properties><ChapterNumberFormat type="string">{}</ChapterNumberFormat></Properties>"#,
+            crate::export::escape(&chapter.format)
+        )
+    };
+    format!(
+        r#"<ChapterNumberPreference ChapterNumber="{}" ChapterNumberSource="{source}">{format}</ChapterNumberPreference>"#,
+        chapter.number
+    )
 }
 
 pub fn section(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {

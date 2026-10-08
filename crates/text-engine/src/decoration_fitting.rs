@@ -15,7 +15,8 @@ pub enum DecorationFit {
 /// Resolve at most five dash/gap pairs without enumerating repetitions. All
 /// arithmetic is f64: valid subnormal point lengths may repeat more than usize
 /// can count. A segment shorter than its fixed first dash simply clips it.
-pub(super) fn resolve(lengths: &[f32], span: f64, fitting: DecorationFit) -> Vec<f64> {
+/// Item strokes fit each stretch between corners and ends the same way.
+pub fn resolve(lengths: &[f32], span: f64, fitting: DecorationFit) -> Vec<f64> {
     let mut original: Vec<_> = lengths.iter().map(|v| f64::from(*v)).collect();
     if fitting == DecorationFit::None || !span.is_finite() || span <= 0.0 {
         return original;

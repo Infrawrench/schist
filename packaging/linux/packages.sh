@@ -60,6 +60,8 @@ build_deb() {
     # else; /usr/share/licenses is an rpm and pacman convention.
     install -Dm644 "$work/usr/share/licenses/schist/LICENSE" \
         "$work/usr/share/doc/schist/copyright"
+    install -Dm644 "$work/usr/share/licenses/schist/THIRD-PARTY-NOTICES.txt" \
+        "$work/usr/share/doc/schist/THIRD-PARTY-NOTICES.txt"
     rm -rf "$work/usr/share/licenses"
 
     # The data archive carries an entry for ./ itself, which dpkg applies
@@ -175,6 +177,7 @@ cp -a %{payload}/. %{buildroot}/
 
 %files
 %license %{_datadir}/licenses/schist/LICENSE
+%license %{_datadir}/licenses/schist/THIRD-PARTY-NOTICES.txt
 %{_bindir}/schist
 %{_datadir}/applications/schist.desktop
 %{_datadir}/icons/hicolor/256x256/apps/com.infrawrench.schist.png

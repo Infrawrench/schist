@@ -164,6 +164,14 @@ pub enum LayoutObject {
     /// A box of flowing text, or one bounded baseline when `text_path` is set.
     TextFrame {
         story: StoryId,
+        #[serde(
+            default,
+            skip_serializing_if = "crate::footnotes::FrameFootnotes::is_empty"
+        )]
+        footnotes: crate::footnotes::FrameFootnotes,
+        /// None inherits the enabled object-style category; native default is false.
+        #[serde(default = "crate::frame_text::legacy_balance")]
+        balance_columns: Option<bool>,
         /// A single path container shares the story/thread model with boxes.
         /// Columns, gutters and insets apply only to rectangular frames.
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -273,6 +281,10 @@ impl LayoutObject {
 /// same object without duplicating its position.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PlacedObject {
+    /// Object visibility is independent of its layer and opacity. Hidden
+    /// frames still participate in their story's thread, but paint no artwork.
+    #[serde(default)]
+    pub hidden: bool,
     #[serde(default)]
     pub appearance: crate::object_styles::ObjectAppearance,
     pub id: ObjectId,
@@ -370,6 +382,29 @@ pub struct LayoutLayer {
     pub name: String,
     pub visible: bool,
     pub locked: bool,
+    /// Text frames on this layer ignore other items' text wrap.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub ignore_wrap: bool,
+}
+
+/// A document's dates. Creation and modification come from its metadata or
+/// its saves; output is when the current output began, or, outside output,
+/// when the document was opened, so an output date never guesses.
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct DocumentDates {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub created: Option<crate::dates::DateTime>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub modified: Option<crate::dates::DateTime>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub output: Option<crate::dates::DateTime>,
+}
+
+impl DocumentDates {
+    pub fn is_empty(&self) -> bool {
+        self == &Self::default()
+    }
 }
 
 /// A complete page layout document.
@@ -390,7 +425,57 @@ pub struct LayoutDocument {
     /// Objects, keyed by id. Their page is in [`PlacedObject`] via
     /// [`LayoutDocument::object_page`].
     pub objects: Vec<PlacedObject>,
+    /// Known object creation order, independent of stacking and story indices.
+    /// Absence is unknown, never inferred from an imported object's numeric id.
+    /// Deleted ids remain so undo can restore their original position; codecs
+    /// may omit those absent objects. New authoring records changes in its same
+    /// undo transaction. Native imports need explicit ordering evidence.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub creation_order: Vec<ObjectId>,
     pub stories: Vec<Story>,
+    /// Shared custom text definitions. Names and vector order are not identities.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub text_variables: Vec<crate::text_variables::TextVariable>,
+    /// Opaque native text-variable definitions retained for recovery. Instances
+    /// live at source anchors in Story::structures; shared definitions belong
+    /// here once per document, never copied into every instance. The layout
+    /// kernel does not parse or evaluate this XML. Codecs also retain malformed
+    /// variable metadata as inert XML wrappers rather than silently dropping it.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub retained_text_variables: Vec<String>,
+    /// Native table and cell style groups (RootTableStyleGroup and
+    /// RootCellStyleGroup), kept as XML: tables are typed through them when
+    /// read, and saving writes them back unchanged.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub retained_table_styles: Vec<String>,
+    /// Native ChapterNumberPreference. Absent means the application default,
+    /// which the public reference renders as chapter 1.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub chapter_numbering: Option<crate::text_variables::ChapterNumbering>,
+    /// Creation, modification and output dates, for date text variables.
+    #[serde(default, skip_serializing_if = "DocumentDates::is_empty")]
+    pub dates: DocumentDates,
+    /// Where the document was opened from or last saved, for file-name text
+    /// variables; None before the first save.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub file_path: Option<String>,
+    /// Document text-wrap composition preferences.
+    #[serde(default)]
+    pub text_wrap_preferences: crate::text_wrap::WrapPreferences,
+    #[serde(
+        default,
+        skip_serializing_if = "crate::footnotes::FootnoteOptions::is_empty"
+    )]
+    pub footnotes: crate::footnotes::FootnoteOptions,
+    /// Initial local options copied into newly authored rectangular text frames.
+    #[serde(
+        default,
+        skip_serializing_if = "crate::footnotes::FrameFootnotes::is_empty"
+    )]
+    pub frame_footnote_defaults: crate::footnotes::FrameFootnotes,
+    /// Copied into new rectangular frames, never applied retroactively.
+    #[serde(default)]
+    pub balance_columns_default: bool,
     /// Explicit text flow order, independent of page and layer stacking.
     /// Missing entries use object insertion order for older documents.
     #[serde(default)]
@@ -435,6 +520,17 @@ impl LayoutDocument {
                 strokes.push(stroke.clone());
             }
         }
+        for rule in [&self.footnotes.rule, &self.footnotes.continuing_rule] {
+            if let Some(stroke) = rule
+                .stroke
+                .as_ref()
+                .and_then(crate::footnotes::FootnoteReference::resolved)
+            {
+                if !strokes.contains(stroke) {
+                    strokes.push(stroke.clone());
+                }
+            }
+        }
         for style in self
             .styles
             .paragraphs
@@ -453,7 +549,37 @@ impl LayoutDocument {
                 }
             }
         }
+        for stroke_type in self.all_item_stroke_types() {
+            if let crate::StrokeType::Style(stroke) = stroke_type {
+                if !strokes.contains(&stroke) {
+                    strokes.push(stroke);
+                }
+            }
+        }
         strokes
+    }
+
+    /// The stroke types items and object styles name, each once.
+    pub fn all_item_stroke_types(&self) -> Vec<crate::StrokeType> {
+        let mut out: Vec<crate::StrokeType> = Vec::new();
+        let paints = self.styles.objects.iter().map(|style| &style.paint).chain(
+            self.objects
+                .iter()
+                .chain(
+                    self.parents
+                        .iter()
+                        .flat_map(|p| p.objects.iter().map(|o| &o.object)),
+                )
+                .map(|object| &object.appearance.paint),
+        );
+        for paint in paints {
+            if let Some(stroke_type) = &paint.stroke_type {
+                if !out.contains(stroke_type) {
+                    out.push(stroke_type.clone());
+                }
+            }
+        }
+        out
     }
 
     /// Resource and inline ink definitions needed by interchange and output.
@@ -467,6 +593,14 @@ impl LayoutDocument {
                 }
             }
         };
+        for rule in [&self.footnotes.rule, &self.footnotes.continuing_rule] {
+            for paint in [&rule.paint, &rule.gap_paint] {
+                add(&paint
+                    .as_ref()
+                    .and_then(crate::footnotes::FootnoteReference::resolved)
+                    .cloned());
+            }
+        }
         for style in &self.styles.paragraphs {
             add(&style.fill);
             add(&style.stroke);
@@ -513,9 +647,28 @@ impl LayoutDocument {
                     .cloned());
             }
         }
+        for stop in self
+            .styles
+            .paragraphs
+            .iter()
+            .flat_map(|s| s.fill_gradient.iter().chain(&s.stroke_gradient))
+            .chain(
+                self.styles
+                    .characters
+                    .iter()
+                    .flat_map(|s| s.fill_gradient.iter().chain(&s.stroke_gradient)),
+            )
+            .flat_map(|g| &g.gradient.stops)
+        {
+            add(&Some(stop.ink.clone()));
+        }
         for style in &self.styles.objects {
             add(&style.paint.fill_ink().cloned());
             add(&style.paint.stroke_ink().cloned());
+            add(&style.paint.gap_ink().cloned());
+            for stop in style.paint.gradients().flat_map(|g| &g.gradient.stops) {
+                add(&Some(stop.ink.clone()));
+            }
         }
         for object in self.objects.iter().chain(
             self.parents
@@ -524,12 +677,60 @@ impl LayoutDocument {
         ) {
             add(&object.appearance.paint.fill_ink().cloned());
             add(&object.appearance.paint.stroke_ink().cloned());
+            add(&object.appearance.paint.gap_ink().cloned());
+            add(&object
+                .appearance
+                .drop_shadow
+                .as_ref()
+                .and_then(|shadow| shadow.color.clone()));
+            for stop in object
+                .appearance
+                .paint
+                .gradients()
+                .flat_map(|g| &g.gradient.stops)
+            {
+                add(&Some(stop.ink.clone()));
+            }
             if let LayoutObject::Shape { fill, stroke, .. } = &object.object {
                 add(fill);
                 add(stroke);
             }
         }
         inks
+    }
+
+    /// Every gradient swatch the document's items, object styles and text
+    /// styles fill or stroke with, each once.
+    pub fn all_gradients(&self) -> Vec<crate::gradients::Gradient> {
+        let mut out: Vec<crate::gradients::Gradient> = Vec::new();
+        let paints = self.styles.objects.iter().map(|style| &style.paint).chain(
+            self.objects
+                .iter()
+                .chain(
+                    self.parents
+                        .iter()
+                        .flat_map(|p| p.objects.iter().map(|o| &o.object)),
+                )
+                .map(|object| &object.appearance.paint),
+        );
+        let text = self
+            .styles
+            .paragraphs
+            .iter()
+            .flat_map(|s| s.fill_gradient.iter().chain(&s.stroke_gradient))
+            .chain(
+                self.styles
+                    .characters
+                    .iter()
+                    .flat_map(|s| s.fill_gradient.iter().chain(&s.stroke_gradient)),
+            )
+            .map(|g| &**g);
+        for applied in paints.flat_map(|paint| paint.gradients()).chain(text) {
+            if !out.contains(&applied.gradient) {
+                out.push(applied.gradient.clone());
+            }
+        }
+        out
     }
 
     /// A document with the given pages and everything a blank document
@@ -548,7 +749,18 @@ impl LayoutDocument {
             spreads,
             parents: Vec::new(),
             objects: Vec::new(),
+            creation_order: Vec::new(),
             stories: Vec::new(),
+            retained_text_variables: Vec::new(),
+            retained_table_styles: Vec::new(),
+            chapter_numbering: None,
+            dates: DocumentDates::default(),
+            file_path: None,
+            text_wrap_preferences: Default::default(),
+            text_variables: Vec::new(),
+            footnotes: Default::default(),
+            frame_footnote_defaults: Default::default(),
+            balance_columns_default: false,
             thread_order: Vec::new(),
             assets: Default::default(),
             styles: StyleSet::with_defaults(),
@@ -597,10 +809,55 @@ impl LayoutDocument {
 
     pub fn add_object(&mut self, placed: PlacedObject) -> ObjectId {
         let id = placed.id;
+        self.creation_order.push(id);
         let layer = self.layers.first().copied().unwrap_or(LayerId(0));
         self.object_layers.push((id, layer));
         self.objects.push(placed);
         id
+    }
+
+    /// A known, unambiguous creation position. Missing/duplicate identities
+    /// fail rather than guessing chronology from current paint order.
+    pub fn creation_rank(&self, id: ObjectId) -> Option<usize> {
+        if self.objects.iter().filter(|object| object.id == id).count() != 1 {
+            return None;
+        }
+        let mut positions = self
+            .creation_order
+            .iter()
+            .enumerate()
+            .filter_map(|(position, known)| (*known == id).then_some(position));
+        let position = positions.next()?;
+        positions.next().is_none().then_some(position)
+    }
+
+    /// Batch chronology query with the same ambiguity rules as creation_rank.
+    /// Composition and export build this call-local index once rather than
+    /// scanning every object and chronology entry for each frame.
+    pub fn creation_ranks(&self) -> std::collections::BTreeMap<ObjectId, usize> {
+        use std::collections::BTreeMap;
+        let mut live = BTreeMap::new();
+        for object in &self.objects {
+            live.entry(object.id)
+                .and_modify(|unique| *unique = false)
+                .or_insert(true);
+        }
+        let mut known = BTreeMap::new();
+        for (rank, id) in self.creation_order.iter().enumerate() {
+            known
+                .entry(*id)
+                .and_modify(|position| *position = None)
+                .or_insert(Some(rank));
+        }
+        known
+            .into_iter()
+            .filter_map(|(id, rank)| {
+                (live.get(&id) == Some(&true))
+                    .then_some(rank)
+                    .flatten()
+                    .map(|rank| (id, rank))
+            })
+            .collect()
     }
 
     /// The page an object sits on, following parent page membership when
@@ -638,7 +895,7 @@ impl LayoutDocument {
                 .filter(|o| o.page == page)
                 .map(std::borrow::Cow::Borrowed),
         );
-        out.retain(|o| self.layer_visible(self.object_layer(o.id)));
+        out.retain(|o| !o.hidden && self.layer_visible(self.object_layer(o.id)));
         // Stable sorting preserves each layer's own object order.
         let order = self.paint_order();
         out.sort_by_key(|o| order[&o.id]);
@@ -737,7 +994,10 @@ impl LayoutDocument {
                                 )
                             })
                         });
-                        if text_path.is_some() || has_lists {
+                        let has_notes = self
+                            .story(*story)
+                            .is_some_and(|s| s.structures.iter().any(|s| s.footnote.is_some()));
+                        if text_path.is_some() || has_lists || has_notes {
                             let path_padding = padding;
                             // A baseline has no ascent/descent box. Include the
                             // actually rotated glyph outlines before the object
@@ -746,8 +1006,16 @@ impl LayoutDocument {
                                 crate::compose::compose_object(self, &object),
                                 self.story(*story),
                             ) {
-                                for line in &flow.lines {
-                                    if text_path.is_none() && line.generated.is_none() {
+                                for area in &flow.footnotes {
+                                    if let Some(rule) = &area.rule {
+                                        r = r.union(rule.bounds);
+                                    }
+                                }
+                                for line in flow.all_lines() {
+                                    if text_path.is_none()
+                                        && !line.is_generated()
+                                        && line.projected.is_none()
+                                    {
                                         continue;
                                     }
                                     let metrics = schist_text_engine::measure(
@@ -914,6 +1182,12 @@ impl LayoutDocument {
             .unwrap_or_else(|| self.layers.first().copied().unwrap_or(LayerId(0)))
     }
 
+    pub fn layer_ignores_wrap(&self, id: LayerId) -> bool {
+        self.layer_properties
+            .iter()
+            .any(|layer| layer.id == id && layer.ignore_wrap)
+    }
+
     pub fn layer_visible(&self, id: LayerId) -> bool {
         self.layer_properties
             .iter()
@@ -1016,11 +1290,14 @@ mod tests {
 
     fn text_frame(page: usize, rect: Rect) -> PlacedObject {
         PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page,
             bounds: rect,
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story: StoryId(0),
                 columns: 1,
@@ -1090,6 +1367,8 @@ mod tests {
     #[test]
     fn text_frame_insets_shrink_only_the_content_area() {
         let frame = LayoutObject::TextFrame {
+            balance_columns: Some(false),
+            footnotes: Default::default(),
             text_path: None,
             story: StoryId(0),
             columns: 1,

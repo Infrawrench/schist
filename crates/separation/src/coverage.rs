@@ -87,6 +87,31 @@ pub enum InkMode {
     /// their coverage, and a hairline of colour in a black box does not
     /// punch a hole in it.
     Overprint,
+    /// Blend with what is beneath, plate by plate, as PDF blends
+    /// subtractive colorants: on their complements. Every plate is
+    /// reached, those the object does not ink blending with no ink:
+    /// Multiply leaves them as they are, Screen clears them.
+    Blend(schist_layout::effects::BlendMode),
+}
+
+impl InkMode {
+    /// A plate's ink after an object lays `ink` (0 to 1) over `coverage`
+    /// of the pixel.
+    pub fn lay(self, existing: f32, ink: f32, coverage: f32) -> f32 {
+        match self {
+            InkMode::Knockout => existing * (1.0 - coverage) + ink * coverage,
+            InkMode::Overprint => (existing + ink * coverage).min(1.0),
+            InkMode::Blend(mode) => {
+                existing * (1.0 - coverage) + mode.blend_ink(existing, ink) * coverage
+            }
+        }
+        .clamp(0.0, 1.0)
+    }
+
+    /// Whether the object reaches plates it does not ink.
+    fn reaches_every_plate(self) -> bool {
+        !matches!(self, InkMode::Overprint)
+    }
 }
 
 /// A plate's accumulated coverage over the whole page.
@@ -145,6 +170,9 @@ pub struct Separation {
     /// A flat process composite alongside the plates, so a preview and a
     /// soft-proof come from the same pass rather than a second one.
     composite: CompositeCoverage,
+    /// When set, painting only gathers how much of each pixel the paint
+    /// covers, whatever its ink: the shape a drop shadow is cast from.
+    alpha: Option<PlateCoverage>,
 }
 
 /// A process composite: CMYK per pixel, kept beside the plates.
@@ -188,7 +216,34 @@ impl Separation {
             rect,
             plates: (0..plate_count).map(|_| PlateCoverage::new(rect)).collect(),
             composite: CompositeCoverage::new(rect),
+            alpha: None,
         }
+    }
+
+    /// A separation that only gathers what its paint covers, inks and
+    /// paper alike, for a drop shadow.
+    pub fn alpha_capture(rect: IntRect) -> Separation {
+        Separation {
+            rect,
+            plates: Vec::new(),
+            composite: CompositeCoverage::new(IntRect::EMPTY),
+            alpha: Some(PlateCoverage::new(rect)),
+        }
+    }
+
+    /// What an alpha capture gathered.
+    pub fn alpha(&self) -> Option<&PlateCoverage> {
+        self.alpha.as_ref()
+    }
+
+    /// Gather `coverage` into an alpha capture: true when this is one.
+    fn gather(&mut self, x: i32, y: i32, coverage: f32) -> bool {
+        let Some(alpha) = &mut self.alpha else {
+            return false;
+        };
+        let existing = alpha.at(x, y);
+        alpha.set(x, y, existing + coverage * (1.0 - existing));
+        true
     }
 
     pub fn rect(&self) -> IntRect {
@@ -243,6 +298,9 @@ impl Separation {
             for x in clip.left..clip.right {
                 let index = ((y - rect.top) * rect.width() + x - rect.left) as usize;
                 let coverage = f32::from(alpha[index]) / 255.0 * opacity.clamp(0.0, 1.0);
+                if self.gather(x, y, coverage) {
+                    continue;
+                }
                 let ink = pixels[index].map(|v| v.clamp(0.0, 1.0));
                 for (plate_index, plate) in self.plates.iter_mut().enumerate() {
                     let weight = process
@@ -250,20 +308,13 @@ impl Separation {
                         .position(|p| *p == plate_index)
                         .map_or(0.0, |c| ink[c]);
                     let existing = plate.at(x, y);
-                    let next = match mode {
-                        InkMode::Knockout => existing * (1.0 - coverage) + weight * coverage,
-                        InkMode::Overprint => (existing + weight * coverage).min(1.0),
-                    };
-                    plate.set(x, y, next);
+                    plate.set(x, y, mode.lay(existing, weight, coverage));
                 }
                 let old = self.composite.at(x, y);
                 self.composite.set(
                     x,
                     y,
-                    std::array::from_fn(|c| match mode {
-                        InkMode::Knockout => old[c] * (1.0 - coverage) + ink[c] * coverage,
-                        InkMode::Overprint => (old[c] + ink[c] * coverage).min(1.0),
-                    }),
+                    std::array::from_fn(|c| mode.lay(old[c], ink[c], coverage)),
                 );
             }
         }
@@ -292,20 +343,22 @@ impl Separation {
         if opacity == 0.0 {
             return;
         }
-        // Knockout reaches every plate; overprint only the ones inked.
-        let reach: Vec<usize> = match mode {
-            InkMode::Knockout => (0..self.plates.len()).collect(),
-            InkMode::Overprint => coats
+        // Knockout and blends reach every plate; overprint only the ones
+        // inked.
+        let reach: Vec<usize> = if mode.reaches_every_plate() {
+            (0..self.plates.len()).collect()
+        } else {
+            coats
                 .iter()
                 .map(|c| c.plate)
                 .collect::<std::collections::BTreeSet<_>>()
                 .into_iter()
-                .collect(),
+                .collect()
         };
         for y in mask.rect.top..mask.rect.bottom {
             for x in mask.rect.left..mask.rect.right {
                 let coverage = mask.at(x, y) * opacity;
-                if coverage <= 0.0 {
+                if coverage <= 0.0 || self.gather(x, y, coverage) {
                     continue;
                 }
                 for index in &reach {
@@ -318,20 +371,83 @@ impl Separation {
                     let Some(plate) = self.plates.get_mut(*index) else {
                         continue;
                     };
-                    let laid = weight * coverage;
+                    // Knockout removes what is beneath, proportionally to
+                    // how much of this pixel the object covers; a plate
+                    // it does not ink has weight zero, so it is simply
+                    // removed. Overprint adds on top, clamped, because two
+                    // solid coats of ink are still solid ink.
                     let existing = plate.at(x, y);
-                    let next = match mode {
-                        // Remove what is beneath, proportionally to how
-                        // much of this pixel the object covers. A plate
-                        // the object does not ink has weight zero, so it
-                        // is simply removed.
-                        InkMode::Knockout => existing * (1.0 - coverage) + laid,
-                        // Add on top. Clamped, because two solid coats of
-                        // ink are still solid ink and cannot exceed full.
-                        InkMode::Overprint => (existing + laid).min(1.0),
-                    };
-                    plate.set(x, y, next.clamp(0.0, 1.0));
+                    plate.set(x, y, mode.lay(existing, weight, coverage));
                 }
+            }
+        }
+    }
+
+    /// Lay a gradient through `mask`: `stops` gives each stop's coats and
+    /// composite build, and `at(x, y)` the two stops a pixel mixes and how
+    /// far toward the second. Plates and the composite follow `paint` and
+    /// `paint_composite`, a pixel's coats being its stops' mixed.
+    pub fn paint_gradient(
+        &mut self,
+        mask: &Coverage,
+        stops: &[(Vec<Coat>, Vec<[f32; 4]>)],
+        at: impl Fn(i32, i32) -> (usize, usize, f32),
+        mode: InkMode,
+        opacity: Pt,
+    ) {
+        if mask.is_empty() || stops.is_empty() {
+            return;
+        }
+        let opacity = opacity.clamp(0.0, 1.0);
+        if opacity == 0.0 {
+            return;
+        }
+        let reach: Vec<usize> = if mode.reaches_every_plate() {
+            (0..self.plates.len()).collect()
+        } else {
+            stops
+                .iter()
+                .flat_map(|(coats, _)| coats.iter().map(|c| c.plate))
+                .collect::<std::collections::BTreeSet<_>>()
+                .into_iter()
+                .collect()
+        };
+        let weight = |stop: usize, plate: usize| {
+            stops[stop]
+                .0
+                .iter()
+                .find(|c| c.plate == plate)
+                .map_or(0.0, |c| c.weight)
+                .clamp(0.0, 1.0)
+        };
+        for y in mask.rect.top..mask.rect.bottom {
+            for x in mask.rect.left..mask.rect.right {
+                let coverage = mask.at(x, y) * opacity;
+                if coverage <= 0.0 || self.gather(x, y, coverage) {
+                    continue;
+                }
+                let (a, b, f) = at(x, y);
+                for index in &reach {
+                    let ink = weight(a, *index) * (1.0 - f) + weight(b, *index) * f;
+                    let Some(plate) = self.plates.get_mut(*index) else {
+                        continue;
+                    };
+                    let existing = plate.at(x, y);
+                    plate.set(x, y, mode.lay(existing, ink, coverage));
+                }
+                let mut ink = [0.0f32; 4];
+                for (stop, share) in [(a, 1.0 - f), (b, f)] {
+                    let (coats, build) = &stops[stop];
+                    for (coat, build) in coats.iter().zip(build) {
+                        let amount = coat.weight.clamp(0.0, 1.0) * share;
+                        for c in 0..4 {
+                            ink[c] += build[c] * amount;
+                        }
+                    }
+                }
+                let existing = self.composite.at(x, y);
+                let out = std::array::from_fn(|c| mode.lay(existing[c], ink[c], coverage));
+                self.composite.set(x, y, out);
             }
         }
     }
@@ -359,26 +475,19 @@ impl Separation {
         for y in mask.rect.top..mask.rect.bottom {
             for x in mask.rect.left..mask.rect.right {
                 let coverage = mask.at(x, y) * opacity;
-                if coverage <= 0.0 {
+                // An alpha capture gathered this paint with its plates.
+                if coverage <= 0.0 || self.alpha.is_some() {
                     continue;
                 }
                 let mut ink = [0.0f32; 4];
                 for (coat, build) in coats.iter().zip(build) {
-                    let amount = coverage * coat.weight.clamp(0.0, 1.0);
+                    let amount = coat.weight.clamp(0.0, 1.0);
                     for c in 0..4 {
                         ink[c] += build[c] * amount;
                     }
                 }
                 let existing = self.composite.at(x, y);
-                let next = [0.0f32; 4];
-                let mut out = next;
-                for c in 0..4 {
-                    out[c] = match mode {
-                        InkMode::Knockout => existing[c] * (1.0 - coverage) + ink[c],
-                        InkMode::Overprint => existing[c] + ink[c],
-                    }
-                    .clamp(0.0, 1.0);
-                }
+                let out = std::array::from_fn(|c| mode.lay(existing[c], ink[c], coverage));
                 self.composite.set(x, y, out);
             }
         }
@@ -428,6 +537,7 @@ mod tests {
                         let expected = match mode {
                             InkMode::Knockout => 0.4 * (1.0 - coverage) + ink * coverage,
                             InkMode::Overprint => (0.4 + ink * coverage).min(1.0),
+                            InkMode::Blend(_) => unreachable!(),
                         };
                         assert!(
                             (separation.plate(channel).unwrap().at(x as i32, 0) - expected).abs()

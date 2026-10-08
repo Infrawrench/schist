@@ -4,7 +4,16 @@
 
 use gpui::actions;
 
+mod design;
 pub mod keymap;
+pub use design::DesignCommand;
+
+/// Run a layout command without depending on the raster plugin registry.
+#[derive(Clone, PartialEq, Debug, gpui::Action)]
+#[action(namespace = schist, no_json)]
+pub struct RunDesignCommand {
+    pub command: DesignCommand,
+}
 
 /// Run a registered plugin command by id (e.g. "edit.undo").
 #[derive(Clone, PartialEq, Debug, serde::Deserialize, gpui::Action)]
@@ -180,6 +189,7 @@ pub enum AppItem {
     DesignImportPages,
     DesignRefreshLinks,
     DesignOutput,
+    DesignTextVariables,
     ToggleSnap,
     ToggleAi,
     ClearGuides,

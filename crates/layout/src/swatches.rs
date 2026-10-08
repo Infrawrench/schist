@@ -64,7 +64,7 @@ pub fn replace(doc: &mut LayoutDocument, history: &mut History, before: &Ink, af
         }
     };
     let object_paint = |p: &mut crate::ObjectPaint| {
-        for paint in [&mut p.fill, &mut p.stroke] {
+        for paint in [&mut p.fill, &mut p.stroke, &mut p.gap] {
             if let Some(crate::Paint::Ink(ink)) = paint {
                 update(ink);
             }
@@ -86,6 +86,24 @@ pub fn replace(doc: &mut LayoutDocument, history: &mut History, before: &Ink, af
         before: doc.inks.clone(),
         after: inks,
     }];
+    let before_settings = crate::snapshot_settings(doc);
+    let mut after_settings = before_settings.clone();
+    for rule in [
+        &mut after_settings.footnotes.rule,
+        &mut after_settings.footnotes.continuing_rule,
+    ] {
+        for paint in [&mut rule.paint, &mut rule.gap_paint] {
+            if let Some(crate::footnotes::FootnoteReference::Resolved(ink)) = paint {
+                update(ink);
+            }
+        }
+    }
+    if before_settings != after_settings {
+        edits.push(LayoutEdit::DocumentChanged {
+            before: Box::new(before_settings),
+            after: Box::new(after_settings),
+        });
+    }
     let mut styles = doc.styles.clone();
     for style in &mut styles.paragraphs {
         paint(&mut style.fill);

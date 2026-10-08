@@ -34,6 +34,7 @@ modules:
     build-commands:
       - cargo --offline build --release -p schist-app
       - install -Dm755 target/release/schist /app/bin/schist
+      - install -Dm644 THIRD-PARTY-NOTICES.txt /app/share/licenses/schist/THIRD-PARTY-NOTICES.txt
       - install -Dm644 packaging/linux/schist.desktop
           /app/share/applications/com.infrawrench.schist.desktop
       - install -Dm644 packaging/linux/com.infrawrench.schist.mime.xml

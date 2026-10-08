@@ -549,7 +549,7 @@ impl Workspace {
                     }
                     Err(error) => {
                         ws.status =
-                            tf!("workspace.docs.open_failed", name = error.to_string()).into();
+                            tf!("workspace.docs.open_failed", error = error.to_string()).into();
                         cx.notify();
                     }
                 }
@@ -589,6 +589,13 @@ impl Workspace {
             }
         }
         self.design.cancel_gesture();
+        // Date and file-name variables: an opened document without a
+        // creation date is created now, and output dates show this session
+        // until an output stamps its own.
+        let now = crate::design::now();
+        document.file_path = Some(path.to_string_lossy().into_owned());
+        document.dates.created = document.dates.created.or(Some(now));
+        document.dates.output = Some(now);
         self.design.document = document;
         self.design.lifecycle = crate::design::lifecycle::Lifecycle::new(&self.design.document);
         self.design.session = Arc::new(());
@@ -1080,6 +1087,12 @@ impl Workspace {
 
     /// Save a layout document to `path`, as Save As does for a photo.
     pub fn save_design_as(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        // A save is the document's modification, and names its file.
+        let now = crate::design::now();
+        let document = &mut self.design.document;
+        document.dates.created = document.dates.created.or(Some(now));
+        document.dates.modified = Some(now);
+        document.file_path = Some(path.to_string_lossy().into_owned());
         match self.write_design_to(&path) {
             Ok(warnings) => {
                 if let Some(name) = path.file_name() {

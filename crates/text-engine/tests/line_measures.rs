@@ -1,6 +1,49 @@
 use schist_text_engine::{line_spans, line_spans_with_widths, TextSpec};
 
 #[test]
+fn repeated_advances_do_not_accumulate_spacing_error_after_a_styled_prefix() {
+    use schist_text_engine::{measure, ParagraphDirection, StyleRun};
+    schist_text_engine::add_font_data(
+        include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
+    );
+    for size in [9.0, 12.0, 18.0, 20.5, 27.0] {
+        for direction in [
+            ParagraphDirection::LeftToRight,
+            ParagraphDirection::RightToLeft,
+        ] {
+            let unit = TextSpec {
+                text: ".".into(),
+                family: "IBM Plex Sans".into(),
+                size,
+                direction,
+                ..Default::default()
+            };
+            let advance = measure(&unit).unwrap().width;
+            for count in [1, 8, 32, 128, 512] {
+                for offset in [0.0, 70.0, 1000.25] {
+                    let spec = TextSpec {
+                        text: format!("\u{200b}{}", ".".repeat(count)),
+                        runs: vec![StyleRun {
+                            start: 0,
+                            end: 3,
+                            tracking: Some(offset),
+                            ..Default::default()
+                        }],
+                        ..unit.clone()
+                    };
+                    let expected = (f64::from(offset) + f64::from(advance) * count as f64) as f32;
+                    let actual = measure(&spec).unwrap().width;
+                    assert!(
+                        (actual - expected).abs() <= 2.0 * f32::EPSILON * expected.max(1.0),
+                        "{size}/{direction:?}/{count}/{offset}: {actual} != {expected}"
+                    );
+                }
+            }
+        }
+    }
+}
+
+#[test]
 fn successive_measures_preserve_source_ranges_and_repeat_the_final_width() {
     for text in [
         "a few short words to wrap well ".repeat(12),

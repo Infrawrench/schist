@@ -475,6 +475,9 @@ impl PluginManifest for CommonCodecsPlugin {
         // offering.
         if schist_app_settings::feature_enabled("design-mode") {
             registry.register_layout_codec(Box::new(schist_codec_idml::IdmlCodec));
+            // Reads the subset of native InDesign documents the format
+            // research recovered; such a document is saved as IDML.
+            registry.register_layout_codec(Box::new(schist_codec_indd::InddCodec));
         }
     }
 }

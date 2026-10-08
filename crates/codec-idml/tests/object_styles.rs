@@ -192,7 +192,7 @@ fn missing_cyclic_and_unsupported_object_styles_are_reported_without_hanging() {
         .unwrap()
         .replace(
             "StrokeWeight=\"3\"",
-            "StrokeWeight=\"NaN\" EnableTextWrapAndOthers=\"true\"",
+            "StrokeWeight=\"NaN\" EnableFrameFittingOptions=\"true\"",
         )
         .replace(
             "<ObjectStyle Self=\"ObjectStyle/$ID/Base &amp; 青\"",
@@ -283,4 +283,62 @@ fn every_frame_reports_each_invalid_inline_paint_once_with_or_without_a_style() 
                 .is_finite()));
         }
     }
+}
+
+/// The Text Wrap & Other category: its switch and TextWrapPreference survive
+/// saves and give unwrapped items their wrap. Its other member, Nonprinting,
+/// is still reported.
+#[test]
+fn object_style_text_wrap_round_trips_and_reaches_items() {
+    let mut doc = document();
+    let wrap = text_wrap::TextWrap {
+        mode: text_wrap::WrapMode::BoundingBox,
+        offsets: Insets::uniform(4.5),
+        side: text_wrap::WrapSide::RightSide,
+        ..Default::default()
+    };
+    doc.styles.objects[0].enable_text_wrap = Some(true);
+    doc.styles.objects[0].text_wrap = Some(wrap.clone());
+    let bytes = export::write(&doc).bytes;
+    let package = container::read(&bytes).unwrap();
+    let styles = package.text("Resources/Styles.xml").unwrap();
+    assert!(styles.contains("EnableTextWrapAndOthers=\"true\""));
+    let imported = import::read(&bytes).unwrap();
+    assert!(
+        !imported
+            .report
+            .skipped
+            .iter()
+            .any(|s| s.contains("unsupported categories")),
+        "{:?}",
+        imported.report
+    );
+    let back = imported.document;
+    let base = back
+        .styles
+        .objects
+        .iter()
+        .find(|s| s.name == "Base & 青")
+        .unwrap();
+    assert_eq!(base.enable_text_wrap, Some(true));
+    assert_eq!(base.text_wrap.as_ref(), Some(&wrap));
+    let object = back
+        .objects
+        .iter()
+        .find(|o| o.appearance.style.as_deref() == Some("Child"))
+        .unwrap();
+    assert!(object.appearance.text_wrap.is_none());
+    assert_eq!(back.styles.object_wrap(object), Some(wrap));
+    let native = styles.replace(
+        "EnableTextWrapAndOthers=\"true\"",
+        "EnableTextWrapAndOthers=\"true\" Nonprinting=\"true\"",
+    );
+    let mut package = container::read(&bytes).unwrap();
+    package.insert("Resources/Styles.xml", native.into_bytes());
+    let imported = import::read(&container::write(&package.into_parts())).unwrap();
+    assert!(imported
+        .report
+        .skipped
+        .iter()
+        .any(|s| s.contains("unsupported categories")));
 }

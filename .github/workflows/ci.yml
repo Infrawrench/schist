@@ -12,6 +12,15 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
+      # The workspace's test binaries outgrow the free space on the hosted
+      # Linux image, and the test step ran out of disk. Toolchains nothing
+      # here uses go; the Android SDK stays for the Android cross-check.
+      - name: Free disk space
+        if: runner.os == 'Linux'
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup /usr/share/swift \
+            /usr/local/share/boost /opt/hostedtoolcache/CodeQL
+          df -h /
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -47,6 +56,11 @@ jobs:
         if: runner.os == 'macOS'
         run: make check-camera-sync-ios
       - run: cargo test --workspace --no-fail-fast
+        env:
+          # Every integration test file is its own linked binary, nearly
+          # three hundred of them. Line tables keep panic backtraces
+          # readable at a fraction of full debug info's size.
+          CARGO_PROFILE_DEV_DEBUG: line-tables-only
       # The plug-in helpers are the one thing `cargo test` cannot cover:
       # they are built for other architectures than the one under test, so
       # nothing else would notice them failing to compile or link.

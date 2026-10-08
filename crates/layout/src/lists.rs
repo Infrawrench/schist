@@ -30,8 +30,11 @@ impl BulletSymbol {
         }
     }
 
+    /// The bullet character. One remembered with its font (UnicodeWithFont)
+    /// is still that character, set in the paragraph's font; a glyph id of a
+    /// font (GlyphWithFont) is not a character.
     pub fn character(&self) -> Option<char> {
-        (self.kind == "UnicodeOnly")
+        matches!(self.kind.as_str(), "UnicodeOnly" | "UnicodeWithFont")
             .then(|| char::from_u32(self.value))
             .flatten()
             .filter(|c| !c.is_control())

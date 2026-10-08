@@ -73,7 +73,12 @@ fn authored_lists_preserve_native_fields_and_generated_ink_without_changing_stor
     schist_text_engine::add_font_data(
         include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
     );
-    for kind in [ListKind::Bullet, ListKind::Numbered] {
+    for (kind, leader) in [
+        (ListKind::Bullet, ""),
+        (ListKind::Numbered, ""),
+        (ListKind::Bullet, ". "),
+        (ListKind::Numbered, "fi"),
+    ] {
         let mut doc = schist_layout::blank_a4();
         doc.styles.numbering_lists.push(NumberingList {
             id: "opaque sequence".into(),
@@ -103,7 +108,7 @@ fn authored_lists_preserve_native_fields_and_generated_ink_without_changing_stor
                     position: 36.0,
                     alignment: "LeftAlign".into(),
                     alignment_character: ".".into(),
-                    leader: String::new(),
+                    leader: leader.into(),
                 }]),
                 apply_restart_policy: Some(true),
                 restart_policy: Some(RestartPolicy {
@@ -127,7 +132,7 @@ fn authored_lists_preserve_native_fields_and_generated_ink_without_changing_stor
         let before = doc.stories.clone();
         let list = doc.styles.paragraph("List").unwrap().list.clone();
         let expected = markers(&doc, frame.story);
-        assert_eq!(expected.len(), 2);
+        assert_eq!(expected.len(), if leader.is_empty() { 2 } else { 4 });
         let pixels = |doc: &schist_layout::LayoutDocument| {
             compose::compose_story(doc, frame.story)
                 .lines()

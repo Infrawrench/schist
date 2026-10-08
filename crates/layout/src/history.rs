@@ -29,6 +29,10 @@ pub enum LayoutEdit {
         before: Box<crate::StyleSet>,
         after: Box<crate::StyleSet>,
     },
+    TextVariablesChanged {
+        before: Vec<crate::text_variables::TextVariable>,
+        after: Vec<crate::text_variables::TextVariable>,
+    },
     SwatchesChanged {
         before: Vec<crate::Ink>,
         after: Vec<crate::Ink>,
@@ -40,6 +44,11 @@ pub enum LayoutEdit {
     ThreadsChanged {
         before: Vec<(crate::StoryId, Vec<crate::ObjectId>)>,
         after: Vec<(crate::StoryId, Vec<crate::ObjectId>)>,
+    },
+    /// Chronology accompanies the creation transaction, independently of z-order.
+    CreationOrderChanged {
+        before: Vec<crate::ObjectId>,
+        after: Vec<crate::ObjectId>,
     },
     /// A page was added.
     ///
@@ -166,6 +175,8 @@ pub struct SpreadSnapshot {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ObjectSnapshot {
     #[serde(default)]
+    pub hidden: bool,
+    #[serde(default)]
     pub appearance: Box<crate::object_styles::ObjectAppearance>,
     pub id: u32,
     pub page: usize,
@@ -185,6 +196,8 @@ pub struct ObjectSnapshot {
 /// A story, detached from the document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StorySnapshot {
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub structures: Vec<crate::story::StoryStructure>,
     pub points: Vec<StoryPointSnapshot>,
     pub ranges: Vec<(usize, usize, String)>,
     #[serde(default)]
@@ -198,6 +211,8 @@ pub enum StoryPointSnapshot {
     LineBreak,
     ColumnBreak,
     PageBreak,
+    OddPageBreak,
+    EvenPageBreak,
     FrameBreak,
     Other { kind: String, payload: String },
 }
@@ -231,6 +246,12 @@ pub struct InkSnapshot {
 /// The document-wide settings an edit can change.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SettingsSnapshot {
+    #[serde(default)]
+    pub footnotes: crate::footnotes::FootnoteOptions,
+    #[serde(default)]
+    pub frame_footnote_defaults: crate::footnotes::FrameFootnotes,
+    #[serde(default)]
+    pub balance_columns_default: bool,
     pub facing_pages: bool,
     #[serde(default)]
     pub page_binding: crate::PageBinding,
@@ -238,6 +259,8 @@ pub struct SettingsSnapshot {
     pub default_character_style: String,
     pub grids: serde_json::Value,
     pub ink_manager: serde_json::Value,
+    #[serde(default)]
+    pub text_wrap_preferences: crate::text_wrap::WrapPreferences,
 }
 
 /// How many operations a default history keeps.
@@ -290,6 +313,29 @@ impl History {
         self.cursor = self.undo.len();
     }
 
+    /// Fold `edit` into the operation just recorded, so a consequence such
+    /// as a frame fitting its new text undoes with the edit that caused it.
+    /// With nothing just recorded, after an undo or redo or on a fresh
+    /// history, it is not recorded: those states were fitted when they were
+    /// recorded.
+    pub fn amend(&mut self, edit: LayoutEdit) {
+        if !self.redo.is_empty() || self.cursor != self.undo.len() {
+            return;
+        }
+        let Some(last) = self.undo.last_mut() else {
+            return;
+        };
+        match last {
+            LayoutEdit::Batch { edits } => edits.push(edit),
+            _ => {
+                let previous = std::mem::replace(last, LayoutEdit::Batch { edits: Vec::new() });
+                *last = LayoutEdit::Batch {
+                    edits: vec![previous, edit],
+                };
+            }
+        }
+    }
+
     /// The operation to undo, if there is one.
     pub fn pop_undo(&mut self) -> Option<LayoutEdit> {
         if self.cursor == 0 {
@@ -339,9 +385,11 @@ impl History {
                 !edits.is_empty() && edits.iter().all(Self::is_reversible)
             }
             LayoutEdit::ThreadsChanged { .. }
+            | LayoutEdit::CreationOrderChanged { .. }
             | LayoutEdit::TopologyChanged { .. }
             | LayoutEdit::LayersChanged { .. }
             | LayoutEdit::SwatchesChanged { .. }
+            | LayoutEdit::TextVariablesChanged { .. }
             | LayoutEdit::StylesChanged { .. } => true,
             LayoutEdit::AddedPage { .. }
             | LayoutEdit::RemovedPage { .. }
@@ -391,6 +439,7 @@ mod tests {
 
     fn object(id: u32, name: &str) -> ObjectSnapshot {
         ObjectSnapshot {
+            hidden: false,
             appearance: Default::default(),
             id,
             page: 0,

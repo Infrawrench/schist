@@ -2,7 +2,9 @@
 
 These are document data, acquired under the user's 2026-09-29 authorization.
 No Adobe SDK headers, executable binaries or decompilation are involved.
-No production INDD codec is enabled by having these files.
+`crates/codec-indd/tests/specimens.rs` reads each redistributed INDD here and
+holds it to the IDML importer's reading of its IDML twin. Those three pairs are
+the evidence for the reader's subset, documented in `docs/indd-format.md`.
 
 ## Proof
 

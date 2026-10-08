@@ -30,6 +30,63 @@ impl SubPath {
         true
     }
 
+    /// The contour flattened like [`ShapePath::flatten`], with the index of
+    /// each anchor among the points. A closed contour does not repeat its
+    /// first point.
+    pub(crate) fn flatten_anchored(&self, tolerance: f32) -> (Vec<(f32, f32)>, Vec<usize>) {
+        let Some(first) = self.points.first() else {
+            return (Vec::new(), Vec::new());
+        };
+        let mut points = vec![(first.x, first.y)];
+        let mut anchors = vec![0];
+        for curve in self.segments() {
+            flatten(curve, tolerance, 0, &mut points);
+            anchors.push(points.len() - 1);
+        }
+        if self.closed && points.len() > 1 {
+            points.pop();
+            anchors.pop();
+        }
+        (points, anchors)
+    }
+
+    /// Whether the contour turns at each anchor rather than running
+    /// smoothly through it: its tangents in and out differ by more than a
+    /// degree. An open contour's ends count as corners.
+    pub(crate) fn corners(&self) -> Vec<bool> {
+        let count = self.points.len();
+        let segments: Vec<_> = self.segments().collect();
+        let direction = |vectors: [Point; 3]| {
+            vectors
+                .into_iter()
+                .find(|v| v.x.hypot(v.y) > 1e-6)
+                .map(|v| v.scale(1.0 / v.x.hypot(v.y)))
+        };
+        (0..count)
+            .map(|index| {
+                let outgoing = (self.closed || index + 1 < count)
+                    .then(|| segments.get(index))
+                    .flatten();
+                let incoming = if self.closed {
+                    segments.get((index + count - 1) % count)
+                } else {
+                    index.checked_sub(1).and_then(|i| segments.get(i))
+                };
+                let (Some(out), Some(into)) = (outgoing, incoming) else {
+                    return true;
+                };
+                let leaving = direction([out[1] - out[0], out[2] - out[0], out[3] - out[0]]);
+                let arriving = direction([into[3] - into[2], into[3] - into[1], into[3] - into[0]]);
+                match (leaving, arriving) {
+                    (Some(a), Some(b)) => {
+                        a.x * b.x + a.y * b.y < 0.999_85 // cos 1°
+                    }
+                    _ => true,
+                }
+            })
+            .collect()
+    }
+
     fn segments(&self) -> impl Iterator<Item = [Point; 4]> + '_ {
         let count = if self.closed {
             self.points.len()

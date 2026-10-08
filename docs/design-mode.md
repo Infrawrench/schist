@@ -235,7 +235,10 @@ under Appearance. Character formatting and paragraph alignment use icon buttons
 which display the resolved style's active settings.
 
 **Control** edits selection geometry and text-frame columns,
-gutter and inset. **Character** and **Paragraph** edit named styles, with
+gutter and inset. The icon beside Columns toggles balancing for the selection
+in one undo step; a mixed selection becomes balanced. Disabled balancing fills
+columns in reading order. Native frame values, object-style inheritance and
+document creation defaults retain the policy through IDML saves. **Character** and **Paragraph** edit named styles, with
 new/rename/apply controls in **Styles**. An input captures its edit target on
 focus and commits one edit, so a later selection cannot redirect it.
 
@@ -351,7 +354,8 @@ View → Rulers shows rulers measured from the active page's trim. Click the
 corner to cycle millimetres, points and inches. Major ticks adapt to zoom,
 with four minor ticks between them and fractional labels at close zoom.
 Negative values measure the pasteboard outside the page. Rulers are view
-state and do not create undo entries; dragging layout guides is still pending.
+state and do not create undo entries. Guide creation, movement and removal use
+the reversible ruler/guide gestures described below.
 
 Scroll pan, wheel/pinch zoom, Fit and Actual Size act on the Design
 viewport. The raster document keeps its own pan and zoom. Fit includes the
@@ -463,12 +467,44 @@ text clicks and drags use the shared shaping engine for caret hit tests and
 selection rectangles. Selection replacement and clipboard insertion are one
 edit per call. IME composition is a draft until committed, then one edit.
 
+Unsupported imported tables, footnotes and inline page items retain their raw XML
+and source anchors. Story Editor shows a compact count, and preflight treats their
+missing appearance as an error. They do not contribute body characters or paint.
+Typing at an anchor inserts before it; a replacement crossing an anchor is refused.
+Text and style edits preserve the data through one undo step. Opaque-only stories
+are occupied thread targets, even when they have no ordinary text.
+
+IDML saves retain opaque unsupported structures in a guarded Schist Label.
+Text-only footnotes also write native containers, styles, fonts and generated
+reference markers; native text edits or note deletion take precedence on reopen. Reopening an unchanged save preserves its anchors. External changes
+to the native story take precedence; retained payloads then have unknown locations
+and remain diagnosed. Referenced native resources and full structured composition
+are not reconstructed by this preservation step.
+
+Document footnote preferences now retain numbering, restarts, affixes, paragraph
+and marker styles, spacing, baseline policy, splitting, column spanning and both
+separator rules through native IDML Preferences parts. Unknown references stay
+explicit and are reported. Text-only note bodies now have their own typed stories,
+styles and zero-width marker coordinates, separate from main-story characters.
+The original XML remains exact; notes with nested objects, tables or unknown
+instructions stay opaque. Style renames update typed note references in the same
+undo step. Continuous text-only notes compose in horizontal rectangular threads
+when no-splitting is explicitly enabled. References occupy real typographic space
+without adding source characters, and whole notes follow their references into
+subsequent frames. Multiple columns work when spanning is explicitly disabled;
+each note stays in its reference's column. Rules, note styles and typed inks reach
+preview and PDF. Frame overrides inherit through object styles; document frame
+defaults affect newly authored frames only. Spanning areas, splitting, restarts
+and other unsupported policies retain explicit diagnostics. Story Editor's count
+describes content outside its text view, independently of rendering support.
+
 Text threads have explicit order independent of page and layer order. Click
 an output port, then an empty frame to link; the Stories panel also offers
 link and detach controls. Detaching leaves the original text in its original
 story. Linking refuses to overwrite another nonempty story. Locked threads
 refuse edits. Native IDML PreviousTextFrame/NextTextFrame references preserve
-flow across spreads. Parent-page multi-frame threads still need coverage.
+flow across spreads. Parent-page threads have kernel and repeated-save coverage;
+their native application behavior still needs validation.
 
 Hand (H), Zoom (Z; Alt to zoom out, double click to fit), and Eyedropper (I)
 are Design tools. Space or the middle button temporarily pans. Eyedropper
@@ -880,7 +916,13 @@ follows paragraph order and named sequence identity, independently of frame
 wrapping; explicit restarts take precedence. Markers inherit the first character
 before their own character style is applied. The initial support is horizontal
 Unicode bullets and decimal, Roman, alphabetic and padded sequences at levels 1–9
-within a story. A hidden-number format retains any expression literals and tabs.
+within a story or across known same-page unthreaded frames. The list disclosure
+selects a numbering sequence and continuation across stories; this setting belongs
+to the shared resource, so every referencing style observes the change. Creation
+order is independent of stacking and survives undo and IDML saves. Unknown imported
+chronology and threaded, parent, multiple-page or book sequences are diagnosed.
+Preflight warns that supported cross-story ordering uses Schist chronology; native
+rendering equivalence is unverified. A hidden-number format retains any expression literals and tabs.
 Unchanged format choices retain imported native names and types. Roman values
 outside 1–3999 are preserved and diagnosed. Unsupported
 native list options are preserved and diagnosed by IDML import/export. Empty items reserve their marker and caret, including overset when a frame is
@@ -910,12 +952,63 @@ when their displayed positions are committed unchanged.
 
 Leading stops are measured from the column origin, independently of first-line
 indents, list markers and enlarged initials. Wrapping, painting and caret placement
-share that origin in horizontal and vertical flow. A tab which cannot fit remains
-overset and can resume in a wider threaded frame. Justification expands ordinary
+share that origin in horizontal and vertical flow. A leading tab which cannot fit
+remains overset and can resume in a wider threaded frame. A terminal tab after
+text can end at the frame edge, letting its following field wrap without losing
+the source tab. An ahead-of-pen aligned stop clamps a colliding field to the pen;
+only passed stops are skipped. This collision rule follows a public native PDF,
+documented in `docs/idml-format.md`. Justification expands ordinary
 spaces after the final tab; earlier fields retain their stop positions.
 
-Explicit left stops compose. Missing/empty stops use Schist's 36-point grid,
-with an IDML notice. Right, centered and decimal tabs, leaders, RTL native tab
-semantics, centered/right paragraph alignment, path tabs and tabs inside an
-enlarged initial remain unsupported and are diagnosed. Their native records are
-retained. Native application rendering agreement is not established.
+Left, right, centered and character/decimal stops compose using the following
+field's shaped metrics. The selected stop can have a literal Leader pattern of up
+to eight characters, including spaces. Complete shaped units fill the gap against
+the following field's edge and inherit the source tab character's formatting.
+Leaders add paint without changing source text, wrapping or caret positions.
+Their exact native repetition phase remains unverified.
+
+An ahead-of-pen hanging indent supplies a virtual leading stop before a later
+explicit stop or Schist's 36-point grid. It carries no leader; an explicit stop
+at the same position retains its own alignment and leader. The public native
+reference establishes horizontal LTR indent placement. The same logical geometry
+is used for other directions and axes without claiming native agreement there.
+Missing/empty stops report this indent/grid fallback in IDML. Horizontal
+RTL tabs use a right-edge ruler with right paragraph alignment; vertical RTL tabs
+keep downward flow. Other centered/right paragraph-alignment cases, justified
+non-leading stops, vertical path tabs and tabs inside an enlarged initial remain diagnosed. Those initials use ordinary
+source flow rather than scaling an unsupported tab gap. Their native
+records are retained. Native application rendering agreement is not established.
+
+
+Design preview uploads use GPUI's BGRA byte order for text, fills and artwork.
+Decoded RGBA and native CMYK remain the print/transform sources. The Layers tree
+uses text excerpts or translated object kinds for unnamed native objects; these
+are display labels and do not rename the IDML objects.
+
+### Drop caps and initial character styles
+
+Open **Drop caps** in Paragraph to set the line and character counts and choose
+a character style. Zero in either count disables the initial. One line applies
+the chosen formatting at its normal size; larger line counts enlarge the initial.
+The section starts closed, and each committed change has one undo step.
+
+**None** removes the initial's named formatting while retaining other nested
+rules. Choosing a style preserves those other rules too. **Inherit nested styles**
+restores the paragraph's complete inherited rule list, as IDML inherits these
+rules together. The count-reset icon restores only counts and placement settings;
+it preserves the chosen character style. Dormant choices remain editable when
+counts are zero. Missing imported styles remain visible until replaced.
+
+Explicit source character formatting keeps precedence over the initial style.
+Unsupported nested rules and native placement flags remain retained and reported when
+unsupported. Enlarged initials on a text path produce a Preflight error because
+the path has only one baseline; one-line formatting remains supported.
+
+Imported nested styles can also format source character counts or stop at a
+character from a literal set, ASCII digit, tab, forced line break, em/en space or
+nonbreaking space. A set such as `-:?` matches any member; digit rules count `0–9`.
+Supported rules run in order and restart for each paragraph. Through includes
+the final delimiter; up-to leaves it for the following rule. A no-style rule
+advances without applying formatting. General rule editing is not exposed yet.
+Unknown boundaries stop composition of later rules and remain visible in
+Preflight. Word/sentence rules, Repeat and structural delimiters remain unsupported.

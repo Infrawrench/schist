@@ -182,7 +182,7 @@ pub fn shape_coverage(
         (bounds, schist_core::Affine::IDENTITY),
         settings,
         page,
-        stroke_width,
+        (stroke_width, schist_vector::StrokeStyle::default()),
         true,
     )
 }
@@ -201,32 +201,211 @@ pub fn stroke_coverage(
         (bounds, schist_core::Affine::IDENTITY),
         settings,
         page,
-        width,
+        (width, schist_vector::StrokeStyle::default()),
         false,
     )
 }
 
 /// Stroke in the original frame, then transform its outline, so nonuniform
 /// scale and shear affect both the path and the physical stroke consistently.
+///
+/// The stroke ends, joins and mitres as the item's stroke options say, with
+/// InDesign's defaults (butt caps, mitre joins, a limit of 4). A stroke
+/// aligned inside or outside a closed path moves the path half its weight
+/// that way for the fill and the stroke alike, as InDesign's PDF of the
+/// public `strokes-fills` sample draws it: inside, the fill loses the inner
+/// half of a centred stroke's band and the stroke is the inner side of one
+/// twice as wide; outside, the fill gains the outer half and the stroke is
+/// the outer side.
 pub fn placed_shape_coverage(
     placed: &PlacedObject,
     settings: OutputSettings,
     page: &schist_layout::Page,
     stroke: bool,
 ) -> Coverage {
+    use schist_layout::{StrokeAlignment, StrokeCap, StrokeJoin};
     let LayoutObject::Shape {
-        path, stroke_width, ..
+        path,
+        stroke_width,
+        stroke: ink,
+        ..
     } = &placed.object
     else {
         return Coverage::new(IntRect::EMPTY);
     };
-    shape_mask(
+    let paint = &placed.appearance.paint;
+    let style = schist_vector::StrokeStyle {
+        width: 0.0,
+        cap: match paint.stroke_cap.unwrap_or_default() {
+            StrokeCap::Butt => schist_vector::LineCap::Butt,
+            StrokeCap::Round => schist_vector::LineCap::Round,
+            StrokeCap::Projecting => schist_vector::LineCap::Square,
+        },
+        join: match paint.stroke_join.unwrap_or_default() {
+            StrokeJoin::Miter => schist_vector::LineJoin::Miter,
+            StrokeJoin::Round => schist_vector::LineJoin::Round,
+            StrokeJoin::Bevel => schist_vector::LineJoin::Bevel,
+        },
+        miter_limit: paint
+            .miter_limit
+            .filter(|v| v.is_finite() && *v >= 1.0)
+            .unwrap_or(4.0),
+    };
+    let mask = |width: f32, fill: bool| {
+        shape_mask(
+            path,
+            (placed.bounds, placed.content_transform()),
+            settings,
+            page,
+            (width, style),
+            fill,
+        )
+    };
+    let width = *stroke_width;
+    // Dashes, dots and stripes lay their ink along the path; the fill is
+    // the same as under a solid stroke.
+    if let Some((dashes, _)) = stroke.then(|| patterned(placed, settings, page)).flatten() {
+        return dashes;
+    }
+    let stroked = ink.is_some() || paint.stroke_gradient().is_some();
+    let alignment = if stroked && width > 0.0 && path.subpaths.iter().any(|s| s.closed) {
+        paint.stroke_alignment.unwrap_or_default()
+    } else {
+        StrokeAlignment::Center
+    };
+    match (stroke, alignment) {
+        (false, StrokeAlignment::Center) => mask(0.0, true),
+        (true, StrokeAlignment::Center) => mask(width, false),
+        (false, StrokeAlignment::Inside) => {
+            mix(&mask(0.0, true), &mask(width, false), |f, s| f * (1.0 - s))
+        }
+        (true, StrokeAlignment::Inside) => {
+            mix(&mask(width * 2.0, false), &mask(0.0, true), |s, f| s * f)
+        }
+        (false, StrokeAlignment::Outside) => mask(width, true),
+        (true, StrokeAlignment::Outside) => {
+            mix(&mask(width * 2.0, false), &mask(0.0, true), |s, f| {
+                s * (1.0 - f)
+            })
+        }
+    }
+}
+
+/// The gaps of a dashed, dotted or striped stroke: the band a solid stroke
+/// of its weight covers, less its ink, so the two inks partition the band
+/// as decoration gaps do. None for a solid stroke.
+pub fn placed_gap_coverage(
+    placed: &PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+) -> Option<Coverage> {
+    let (ink, band) = patterned(placed, settings, page)?;
+    Some(mix(&band, &ink, |b, i| (b - i).max(0.0)))
+}
+
+/// A patterned stroke's ink and band coverage, laid along the path in its
+/// own frame scaled to pixels and then transformed, as solid strokes are.
+fn patterned(
+    placed: &PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+) -> Option<(Coverage, Coverage)> {
+    let LayoutObject::Shape {
         path,
-        (placed.bounds, placed.content_transform()),
+        stroke_width,
+        stroke: Some(_),
+        ..
+    } = &placed.object
+    else {
+        return None;
+    };
+    let scale = settings.scale();
+    let options = schist_layout::pasteboard::StrokeOptions::of(&placed.appearance.paint, scale);
+    options.pattern.as_ref()?;
+    let origin = PagePixel::of(settings, page, placed.bounds.origin());
+    let mut local = path.clone();
+    local.map_points(|p| {
+        schist_layout::Point::new(origin.x as f32 + p.x * scale, origin.y as f32 + p.y * scale)
+    });
+    let transform = placed.content_transform();
+    let outlines = schist_layout::stroke_patterns::outlines(
+        &local,
+        stroke_width * scale,
+        &options,
+        0.25 / schist_layout::affine::stretch(transform).max(1.0),
+    )?;
+    let matrix = schist_layout::affine::in_view(transform, scale, schist_layout::Point::ZERO);
+    let page_box = settings.to_pixels_rect(settings.output_box(page));
+    let mask = |mut outline: schist_vector::Path| {
+        for sub in &mut outline.subpaths {
+            for point in sub {
+                *point = matrix.apply(point.0, point.1);
+            }
+        }
+        let rect = outline.bounds().intersect(&page_box);
+        if rect.is_empty() {
+            return Coverage::new(IntRect::EMPTY);
+        }
+        Coverage {
+            rect,
+            data: schist_vector::rasterize(&outline, rect, schist_vector::FillRule::NonZero),
+        }
+    };
+    let band = mask(outlines.band);
+    let ink = mask(outlines.ink);
+    Some((ink, band))
+}
+
+/// `a` combined pixel by pixel with `b` over `a`'s area.
+fn mix(a: &Coverage, b: &Coverage, combine: impl Fn(f32, f32) -> f32) -> Coverage {
+    let mut out = Coverage::new(a.rect);
+    let width = a.rect.width();
+    for y in a.rect.top..a.rect.bottom {
+        for x in a.rect.left..a.rect.right {
+            let value = combine(a.at(x, y), b.at(x, y)).clamp(0.0, 1.0);
+            out.data[((y - a.rect.top) * width + (x - a.rect.left)) as usize] =
+                (value * 255.0).round() as u8;
+        }
+    }
+    out
+}
+
+/// Maps a page pixel back to `placed`'s path coordinates, the inverse of
+/// how `placed_shape_coverage` lays its path on the page.
+pub(crate) fn to_path(
+    placed: &PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+) -> impl Fn(f32, f32) -> schist_layout::Point {
+    let origin = PagePixel::of(settings, page, placed.bounds.origin());
+    let scale = settings.scale();
+    let inverse = schist_layout::affine::in_view(
+        placed.content_transform(),
+        scale,
+        schist_layout::Point::ZERO,
+    )
+    .invert();
+    move |x, y| {
+        let (u, v) = inverse.map_or((x, y), |m| m.apply(x, y));
+        schist_layout::Point::new((u - origin.x as f32) / scale, (v - origin.y as f32) / scale)
+    }
+}
+
+/// Separator rules use the frame affine on their vector geometry before
+/// rasterization, like ordinary shapes. Warping a rasterized rule blurs edges.
+pub(crate) fn footnote_rule_coverage(
+    rule: &schist_layout::footnote_composition::Rule,
+    placed: &PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+) -> Coverage {
+    shape_mask(
+        &rule.path(),
+        (rule.bounds, placed.content_transform()),
         settings,
         page,
-        if stroke { *stroke_width } else { 0.0 },
-        !stroke,
+        (0.0, schist_vector::StrokeStyle::default()),
+        true,
     )
 }
 
@@ -235,7 +414,7 @@ fn shape_mask(
     placement: (Rect, schist_core::Affine),
     settings: OutputSettings,
     page: &schist_layout::Page,
-    width: f32,
+    (width, style): (f32, schist_vector::StrokeStyle),
     fill: bool,
 ) -> Coverage {
     let (bounds, transform) = placement;
@@ -253,7 +432,7 @@ fn shape_mask(
             &path,
             schist_vector::StrokeStyle {
                 width: width * settings.scale(),
-                ..Default::default()
+                ..style
             },
         )
     });
@@ -325,7 +504,7 @@ pub fn line_coverage(
     }
     // A break line stands for a point with no glyphs, and an empty line
     // is not worth rasterising.
-    if line.end <= line.start && line.generated.is_none() {
+    if line.end <= line.start && !line.is_generated() && line.projected.is_none() {
         return None;
     }
     let spec = line_spec(line, story, doc);
@@ -368,49 +547,42 @@ pub struct TextPaint {
     pub opacity: f32,
     pub overprint: bool,
     pub tint: f32,
+    /// A gradient laid in place of `ink`, over the frame the text is set in.
+    pub gradient: Option<Box<schist_layout::gradients::GradientFill>>,
 }
 
 /// A composed line split into its actual ink paints without reshaping each
 /// substring. Ink IDs travel through the text rasterizer as opaque colors,
 /// preserving spot identity even when two inks have the same RGB preview.
+/// None means the complete text raster failed; callers must report it rather
+/// than treating failed paint as an ordinary empty line.
 pub fn line_paints(
     line: &ComposedLine,
     story: &schist_layout::Story,
     doc: &LayoutDocument,
     settings: OutputSettings,
     page: &schist_layout::Page,
-) -> Vec<TextPaint> {
-    if line.forced_break || (line.end <= line.start && line.generated.is_none()) {
-        return Vec::new();
+) -> Option<Vec<TextPaint>> {
+    if line.forced_break
+        || (line.end <= line.start && !line.is_generated() && line.projected.is_none())
+    {
+        return Some(Vec::new());
     }
-    let base = line
-        .paragraph
-        .character(doc.styles.resolve_character(&doc.default_character_style));
+    type Gradient = Box<schist_layout::gradients::GradientFill>;
     let mut inks = Vec::new();
     let mut spec = line_spec(line, story, doc);
-    let ranges: Vec<_> = story
-        .ranges
-        .iter()
-        .filter(|r| r.start < line.end && r.end > line.start)
-        .collect();
-    // Composition appends its paragraph fallback after the local style ranges.
+    let paints = schist_layout::compose::line_paint_styles(line, story, doc);
     for (index, run) in spec.runs.iter_mut().enumerate() {
-        let style = line
-            .generated
-            .as_ref()
-            .map(|g| g.character.clone())
-            .unwrap_or_else(|| {
-                ranges.get(index).map_or_else(
-                    || base.clone(),
-                    |range| {
-                        doc.styles
-                            .resolve_character(&range.style)
-                            .with_paint_defaults(&base)
-                    },
-                )
-            });
-        let mut paint_id = |ink: Ink, overprint: bool, tint: f32| {
-            let paint = (ink, style.opacity.unwrap_or(1.0), overprint, tint);
+        let style = &paints[index];
+        // A gradient is a paint of its own, whatever ink stands in for it.
+        let mut paint_id = |ink: Ink, overprint: bool, tint: f32, gradient: Option<&Gradient>| {
+            let paint = (
+                ink,
+                style.opacity.unwrap_or(1.0),
+                overprint,
+                tint,
+                gradient.cloned(),
+            );
             let index = inks
                 .iter()
                 .position(|existing| existing == &paint)
@@ -424,12 +596,14 @@ pub fn line_paints(
             style.fill.clone().unwrap_or_else(Ink::black),
             style.overprint_fill.unwrap_or(false),
             style.fill_tint.unwrap_or(1.0),
+            style.fill_gradient.as_ref(),
         );
         if let Some(stroke) = &mut run.stroke {
             stroke.color = paint_id(
                 style.stroke.clone().unwrap_or_else(Ink::black),
                 style.overprint_stroke.unwrap_or(false),
                 style.stroke_tint.unwrap_or(1.0),
+                style.stroke_gradient.as_ref(),
             );
         }
         for (rendered, definition) in [
@@ -437,11 +611,16 @@ pub fn line_paints(
             (&mut run.strike_style, &style.strike_style),
         ] {
             if let Some(rendered) = rendered {
-                if let Some((ink, tint, overprint)) = definition.paint(&style) {
-                    rendered.color = paint_id(ink, overprint, tint);
+                // A line in the text's own colour takes its gradient too.
+                let gradient = style
+                    .fill_gradient
+                    .as_ref()
+                    .filter(|_| definition.follows_text());
+                if let Some((ink, tint, overprint)) = definition.paint(style) {
+                    rendered.color = paint_id(ink, overprint, tint, gradient);
                 }
-                if let Some((ink, tint, overprint)) = definition.gap_paint(&style) {
-                    rendered.gap_color = paint_id(ink, overprint, tint);
+                if let Some((ink, tint, overprint)) = definition.gap_paint(style) {
+                    rendered.gap_color = paint_id(ink, overprint, tint, None);
                 }
             }
         }
@@ -450,11 +629,7 @@ pub fn line_paints(
     spec.wrap_width = None;
     let align = spec.align;
     let writing = spec.writing_mode;
-    let Some(raster) =
-        schist_text_engine::rasterize_with_paints(&scale_spec(spec, settings.scale()))
-    else {
-        return Vec::new();
-    };
+    let raster = schist_text_engine::rasterize_with_paints(&scale_spec(spec, settings.scale()))?;
     let frame = PagePixel::rect(settings, page, line.bounds);
     let offset = schist_layout::compose::aligned_origin(
         Rect::new(
@@ -475,24 +650,27 @@ pub fn line_paints(
         frame.left + dx + raster.bounds.right,
         frame.top + dy + raster.bounds.bottom,
     );
-    raster
-        .paints
-        .into_iter()
-        .map(|paint| {
-            let index = paint.color.map(u32::from_le_bytes).unwrap_or(0) as usize;
-            let (ink, opacity, overprint, tint) = &inks[index];
-            TextPaint {
-                coverage: Coverage {
-                    rect,
-                    data: paint.coverage,
-                },
-                ink: ink.clone(),
-                opacity: *opacity,
-                overprint: *overprint,
-                tint: *tint,
-            }
-        })
-        .collect()
+    Some(
+        raster
+            .paints
+            .into_iter()
+            .map(|paint| {
+                let index = paint.color.map(u32::from_le_bytes).unwrap_or(0) as usize;
+                let (ink, opacity, overprint, tint, gradient) = &inks[index];
+                TextPaint {
+                    coverage: Coverage {
+                        rect,
+                        data: paint.coverage,
+                    },
+                    ink: ink.clone(),
+                    opacity: *opacity,
+                    overprint: *overprint,
+                    tint: *tint,
+                    gradient: gradient.clone(),
+                }
+            })
+            .collect(),
+    )
 }
 
 /// The coverage of a placed graphic, if its source can be resolved.
@@ -668,6 +846,7 @@ pub fn scale_spec(spec: schist_text_engine::TextSpec, scale: f32) -> schist_text
     spec.leading = spec.leading.map(|v| v * scale);
     spec.tracking *= scale;
     spec.word_spacing *= scale;
+    spec.scale_inline_boxes(scale);
     if let Some(tabs) = &mut spec.tabs {
         tabs.scaled(scale);
     }
@@ -888,11 +1067,14 @@ mod tests {
     fn an_empty_frame_coverage_matches_the_frame() {
         let page = schist_layout::Page::a4();
         let placed = PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(10.0), mm(10.0), mm(50.0), mm(50.0)),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story: StoryId(0),
                 columns: 1,

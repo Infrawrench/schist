@@ -351,7 +351,8 @@ pub fn edit_styles(
         )
 }
 
-/// Rename a definition and every reference to it as a single operation.
+/// Rename a definition and its typed model references as a single operation.
+/// Retained opaque native XML is not rewritten.
 pub fn rename_style(
     doc: &mut LayoutDocument,
     history: &mut History,
@@ -389,6 +390,12 @@ pub fn rename_style(
         }
     } else {
         for style in &mut after.paragraphs {
+            for rule in style.nested_styles.iter_mut().flatten() {
+                if let crate::nested_styles::CharacterStyle::Named(name) = &mut rule.character_style
+                {
+                    rename(name);
+                }
+            }
             for marker in [
                 &mut style.list.bullet_character_style,
                 &mut style.list.numbering_character_style,
@@ -424,6 +431,16 @@ pub fn rename_style(
                 rename(style);
             }
         }
+        for structure in &mut after.structures {
+            if !paragraph {
+                if let Some(control) = &mut structure.control {
+                    rename(control.character_style_mut());
+                }
+            }
+            if let Some(note) = &mut structure.footnote {
+                note.rename_style(paragraph, old, new);
+            }
+        }
         if before != after {
             edits.push(LayoutEdit::StoryChanged {
                 id: id as u32,
@@ -438,6 +455,14 @@ pub fn rename_style(
         rename(&mut after.default_paragraph_style);
     } else {
         rename(&mut after.default_character_style);
+    }
+    let reference = if paragraph {
+        &mut after.footnotes.text_style
+    } else {
+        &mut after.footnotes.marker_style
+    };
+    if let Some(crate::footnotes::FootnoteReference::Resolved(name)) = reference {
+        rename(name);
     }
     if before != after {
         edits.push(LayoutEdit::DocumentChanged {

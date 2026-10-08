@@ -39,6 +39,7 @@ fn document(count: usize, reverse: bool, gutter: f32) -> LayoutDocument {
         name: "Top".into(),
         visible: true,
         locked: false,
+        ignore_wrap: false,
     });
     let mut history = History::default();
     // Deliberately interleave ownership and layers. Every object reaches a neighbor.

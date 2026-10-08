@@ -2,8 +2,9 @@
   "feature": "design-mode",
   "reason": "English placeholders are explicitly permitted for unfinished Design Mode; translation is deferred while the mode is disabled by default.",
   "entries": {
-    "design.idml_tabs_implicit": "Implicit tabs use Schist’s 36-point interval.",
+    "design.idml_tabs_implicit": "Implicit tabs use the hanging indent, then Schist’s 36-point interval.",
     "design.idml_list_implicit_tabs": "Lists without explicit tab stops use the hanging indent, then Schist's 36 pt tab interval.",
-    "design.list_hint": "Blank fields inherit. Use ^# for the number and a final ^t for a tab. Left and first-line indents position the marker."
+    "design.list_hint": "Blank fields inherit. Use ^# for the number and a final ^t for a tab. Left and first-line indents position the marker.",
+    "design.idml_cross_story_order": "Cross-story numbering uses Schist creation order"
   }
 }

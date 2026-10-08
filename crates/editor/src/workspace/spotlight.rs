@@ -52,6 +52,23 @@ enum Target {
 }
 
 impl Target {
+    fn available_in_design(&self) -> bool {
+        match self {
+            Self::Command(id) => crate::actions::DesignCommand::from_id(id).is_some(),
+            Self::Tool(_) | Self::Filter(_) | Self::Adjustment(_) | Self::Layer(_) => false,
+            Self::App(item) => panels::app_item_available_in_design(*item),
+            _ => true,
+        }
+    }
+
+    fn unavailable(&self, mode: crate::design::WorkspaceMode, has_raster: bool) -> bool {
+        if mode == crate::design::WorkspaceMode::Design {
+            !self.available_in_design()
+        } else {
+            !has_raster && self.needs_document()
+        }
+    }
+
     fn needs_document(&self) -> bool {
         match self {
             Self::Command(_) | Self::Filter(_) | Self::Adjustment(_) | Self::Layer(_) => true,
@@ -250,17 +267,17 @@ fn menu_candidates(
                 SearchResult::new(label, path, "folder", Category::Actions, Target::App(item))
             }
             MenuEntry::Cmd(id) => {
-                let Some(c) = ws.registry.command(id) else {
+                let Some((title, binding)) = panels::command_presentation(ws, id) else {
                     continue;
                 };
                 let mut r = SearchResult::new(
-                    c.title,
+                    title,
                     path,
                     "adjust",
                     Category::Actions,
                     Target::Command(id),
                 );
-                r.hint = panels::keybind_hint(c.keybind);
+                r.hint = panels::keybind_hint(binding);
                 r
             }
             MenuEntry::Filter(id) => SearchResult::new(
@@ -421,6 +438,9 @@ impl Workspace {
                 Category::Photos,
                 Target::CloudPhoto(Box::new(asset.clone())),
             ));
+        }
+        if self.design_mode() {
+            candidates.retain(|result| result.target.available_in_design());
         }
         self.spotlight.candidates = candidates;
         self.spotlight_changed(cx);
@@ -583,8 +603,13 @@ impl Workspace {
         let query = self.spotlight.input.text.trim().to_string();
         // Document actions keep the palette open with an explanation if
         // there is no document yet, instead of silently doing nothing.
-        if self.doc.is_none() && result.target.needs_document() {
-            self.status = t("common.no_document_open").into();
+        if result.target.unavailable(self.mode, self.doc.is_some()) {
+            self.status = t(if self.design_mode() {
+                "design.command_unavailable"
+            } else {
+                "common.no_document_open"
+            })
+            .into();
             cx.notify();
             return;
         }
@@ -847,7 +872,7 @@ impl Workspace {
             .p_2();
         for (index, result) in self.spotlight.results.iter().enumerate() {
             let selected = index == self.spotlight.selected;
-            let unavailable = self.doc.is_none() && result.target.needs_document();
+            let unavailable = result.target.unavailable(self.mode, self.doc.is_some());
             let preview = match &result.target {
                 #[cfg(not(target_arch = "wasm32"))]
                 Target::Photo(path) => self
@@ -1053,6 +1078,54 @@ pub(crate) fn search_button(cx: &mut Context<Workspace>) -> impl IntoElement {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn layout_search_actions_do_not_require_or_expose_a_raster_document() {
+        use crate::design::WorkspaceMode;
+        let layout = [
+            "edit.undo",
+            "edit.redo",
+            "edit.delete",
+            "edit.clear",
+            "edit.duplicate",
+            "select.all",
+            "select.deselect",
+        ];
+        for has_raster in [false, true] {
+            for id in layout {
+                let target = Target::Command(id);
+                assert!(
+                    !target.unavailable(WorkspaceMode::Design, has_raster),
+                    "{id}"
+                );
+                assert_eq!(
+                    target.unavailable(WorkspaceMode::Photo, has_raster),
+                    !has_raster
+                );
+            }
+            for target in [
+                Target::App(AppItem::Save),
+                Target::App(AppItem::DesignOutput),
+                Target::App(AppItem::DesignTextVariables),
+            ] {
+                assert!(!target.unavailable(WorkspaceMode::Design, has_raster));
+            }
+            for target in [
+                Target::Command("layer.delete"),
+                Target::Tool("brush"),
+                Target::Filter("filter.gaussian_blur"),
+                Target::Adjustment(schist_core::AdjustmentKind::Invert),
+                Target::App(AppItem::ImageSize),
+            ] {
+                assert!(target.unavailable(WorkspaceMode::Design, has_raster));
+                assert!(!target.available_in_design());
+            }
+            for mode in [WorkspaceMode::Photo, WorkspaceMode::Design] {
+                assert!(!Target::App(AppItem::Open).unavailable(mode, has_raster));
+                assert!(!Target::App(AppItem::New).unavailable(mode, has_raster));
+            }
+        }
+    }
+
     #[test]
     fn spotlight_ranks_names_before_descriptions_and_accepts_abbreviations() {
         assert!(

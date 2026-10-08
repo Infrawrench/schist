@@ -6,6 +6,33 @@ use crate::{
 };
 use serde::{Deserialize, Serialize};
 
+/// A visibility gesture preserves opacity, layer membership and thread flow.
+/// Locked objects and no-op gestures do not create history entries.
+pub fn set_object_hidden(
+    doc: &mut LayoutDocument,
+    history: &mut History,
+    id: ObjectId,
+    hidden: bool,
+) -> bool {
+    let Some(object) = doc.object(id) else {
+        return false;
+    };
+    if doc.object_locked(id) || object.hidden == hidden {
+        return false;
+    }
+    let before = crate::snapshot_object(object);
+    let mut after = before.clone();
+    after.hidden = hidden;
+    history.apply(
+        doc,
+        LayoutEdit::ObjectChanged {
+            id: id.0,
+            before,
+            after,
+        },
+    )
+}
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Topology {
     pub pages: Vec<Page>,
@@ -306,6 +333,7 @@ pub fn add_layer(doc: &mut LayoutDocument, history: &mut History, name: String) 
             name,
             visible: true,
             locked: false,
+            ignore_wrap: false,
         });
     })
     .then_some(id)
@@ -331,6 +359,7 @@ pub fn change_layer(
                     name: String::new(),
                     visible: true,
                     locked: false,
+                    ignore_wrap: false,
                 });
                 layers.properties.len() - 1
             });

@@ -33,21 +33,31 @@ use crate::story::{Point, Story};
 use crate::styles::{
     Align, ParagraphDirection, ResolvedCharacter, ResolvedParagraph, StyleSet, WritingMode,
 };
+mod break_flow;
+mod footnote_flow;
+mod hyphenation_flow;
+mod keep_flow;
+mod split_footnotes;
 
 /// One laid-out line, positioned in page space.
 #[derive(Debug, Clone, PartialEq)]
 pub struct ComposedLine {
+    pub projected: Option<crate::inline_text::RenderedLine>,
     /// Generated list ink owns no story bytes and no editable caret positions.
     pub generated: Option<crate::list_composition::GeneratedText>,
     /// A baseline relative to `bounds.origin()`. Its offset already includes
     /// paragraph alignment; line_spec disables a second rectangular alignment.
     pub text_path: Option<schist_text_engine::TextPath>,
+    /// Logical inline start relative to a path's bracket ruler. Arc distances
+    /// are distinct from page x coordinates. None for rectangular lines.
+    pub path_inline_start: Option<Pt>,
     /// Byte range within the story's concatenated text.
     pub start: usize,
     pub end: usize,
     /// Where the line's box sits, in page space.
     pub bounds: Rect,
-    /// Start of this column along the inline axis, before paragraph indents.
+    /// Leading edge of this column along the inline axis, before paragraph
+    /// indents: right for horizontal RTL and left/top otherwise.
     pub inline_origin: Pt,
     /// Baseline in the same local page coordinates as the line box.
     pub baseline: Pt,
@@ -69,6 +79,11 @@ pub struct ComposedLine {
     /// in this column. A paragraph split across two columns is justified
     /// right up to the break, because more text follows it.
     pub is_paragraph_end: bool,
+    /// The measuring engine selected the final source U+00AD for display.
+    /// This is independent of paragraph ends: explicit newlines never select it.
+    pub discretionary_hyphen: bool,
+    /// A selected generated break glyph; it owns no editable source bytes.
+    pub generated_hyphen: bool,
     /// The line's width before justification, in points.
     pub natural_width: Pt,
     /// Extra points to add to each word space to bring this line flush to
@@ -91,6 +106,30 @@ pub struct ComposedLine {
     pub initial: Option<Initial>,
 }
 
+impl ComposedLine {
+    pub fn is_generated(&self) -> bool {
+        self.generated.is_some()
+            || self
+                .projected
+                .as_ref()
+                .is_some_and(|p| p.positions.is_none())
+    }
+
+    pub fn source_byte(&self, visual: usize) -> usize {
+        self.projected
+            .as_ref()
+            .and_then(|p| p.positions.as_ref())
+            .map_or(self.start + visual, |p| p.source(visual))
+    }
+
+    pub fn visual_byte(&self, source: usize) -> usize {
+        self.projected
+            .as_ref()
+            .and_then(|p| p.positions.as_ref())
+            .map_or(source.saturating_sub(self.start), |p| p.visual(source))
+    }
+}
+
 /// A shaped opening initial and its actual page-local glyph extent.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Initial {
@@ -103,21 +142,44 @@ pub struct Initial {
 pub struct ComposedFrame {
     pub object: ObjectId,
     pub lines: Vec<ComposedLine>,
+    pub footnotes: Vec<crate::footnote_composition::NoteArea>,
+    /// Retained source structures unsupported by this composition path.
+    pub unrendered_structures: usize,
     /// Glyph extent of the first opening initial in this frame. Every initial
     /// is also retained on its own line, including later paragraphs.
     pub drop_cap: Option<Rect>,
-    /// Bytes of the story that fit, for a chained frame to resume from.
+    /// Main-story bytes that fit. Footnote bodies have independent cursors.
     pub consumed_to: usize,
-    /// This frame ran out of room and passed the remainder to the next
+    /// This frame ran out of room and passed remaining main or note text to the next
     /// frame of the thread. False when the frame is the thread's last,
     /// because there is nowhere to pass it to.
     pub passed_on: bool,
-    /// Text of this story did not fit anywhere and is not displayed.
+    /// Main or footnote text did not fit anywhere and is not displayed.
     ///
     /// This is what preflight reports. It is distinct from
     /// [`ComposedFrame::passed_on`]: a long article threaded across
     /// three frames overflows twice and loses nothing.
     pub lost: bool,
+    /// Text wrap this frame could not apply exactly.
+    pub wrap: WrapOutcome,
+}
+
+/// Text-wrap diagnostics for Preflight.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct WrapOutcome {
+    /// Some text composed without the wrap that reaches it (vertical text,
+    /// initials, list markers or path text).
+    pub ignored: bool,
+    /// A pixel-derived contour was approximated by the object's frame path.
+    pub approximated: bool,
+}
+
+impl ComposedFrame {
+    pub fn all_lines(&self) -> impl Iterator<Item = &ComposedLine> {
+        self.lines
+            .iter()
+            .chain(self.footnotes.iter().flat_map(|n| &n.lines))
+    }
 }
 
 /// A thread of frames holding one story.
@@ -133,7 +195,7 @@ impl ComposedThread {
         self.frames.iter().flat_map(|f| f.lines.iter())
     }
 
-    /// Whether any text of this story failed to fit.
+    /// Whether main or footnote text failed to fit.
     pub fn has_overflow(&self) -> bool {
         self.frames.iter().any(|f| f.lost)
     }
@@ -261,8 +323,28 @@ pub(crate) fn spec_with_character(
                 crate::StoryOrientation::Horizontal => schist_text_engine::WritingMode::Horizontal,
                 crate::StoryOrientation::Vertical => schist_text_engine::WritingMode::VerticalRl,
             });
-    let tabs = text.contains('\t').then(|| crate::tabs::stops(paragraph));
+    let reverse = direction == schist_text_engine::ParagraphDirection::RightToLeft
+        && !writing_mode.is_vertical();
+    let tabs = text
+        .contains('\t')
+        .then(|| crate::tabs::stops(paragraph, reverse));
     let mut spec = TextSpec {
+        show_final_soft_hyphen: false,
+        hyphenation_breaks: Vec::new(),
+        atomic_spans: Vec::new(),
+        inline_objects: Vec::new(),
+        inline_boxes: Vec::new(),
+        hyphenation_policy: schist_text_engine::HyphenationPolicy {
+            consecutive_limit: usize::from(paragraph.hyphenation.ladder_limit.unwrap_or(3)),
+            preceding_hyphens: 0,
+            zone: if matches!(paragraph.align, Some(Align::Justify | Align::JustifyAll)) {
+                0.0
+            } else {
+                paragraph.hyphenation.zone.unwrap_or(36.0)
+            },
+            weight: paragraph.hyphenation.weight.unwrap_or(5),
+        },
+        show_final_generated_hyphen: false,
         language: character
             .language
             .as_ref()
@@ -285,14 +367,10 @@ pub(crate) fn spec_with_character(
         word_spacing: 0.0,
         wrap_width: (width > 0.0).then_some(width),
         tabs,
-        runs: story
-            .ranges
-            .iter()
-            .filter(|range| range.start < end && range.end > start)
+        runs: crate::nested_styles::runs(story, styles, start..end, paragraph)
+            .into_iter()
             .map(|range| {
-                let style = styles
-                    .resolve_character(&range.style)
-                    .with_paint_defaults(&character);
+                let style = range.character.with_paint_defaults(&character);
                 let shift = style.baseline_shift.or(character.baseline_shift);
                 let position = crate::styles::TextPosition::resolved(
                     style.position.or(character.position),
@@ -337,6 +415,7 @@ pub(crate) fn spec_with_character(
                         .map(|v| styles.resolve_language(v).unwrap_or_default()),
                     start: range.start.max(start) - start,
                     end: range.end.min(end) - start,
+                    no_break: style.no_break.or(character.no_break),
                     fill_disabled: Some(style.fill_disabled),
                     stroke: style.preview_stroke(),
                     underline_style: Some(style.underline_style.preview(&style)),
@@ -420,6 +499,7 @@ pub(crate) fn spec_with_character(
     spec.runs.push(schist_text_engine::StyleRun {
         start: 0,
         end: spec.text.len(),
+        no_break: character.no_break,
         fill_disabled: Some(character.fill_disabled),
         stroke,
         underline_style,
@@ -583,7 +663,8 @@ pub fn measure_slice(
 ///
 /// `frame_bounds` gives each frame's page-space box in thread order. The
 /// first frame that clips does so at the point its text runs out of
-/// height; the next frame resumes at that byte offset.
+/// height; the next frame resumes at that byte offset. Stored frames resolve
+/// their own balancing policy; geometry-only IDs retain legacy balancing.
 pub fn compose_thread(
     doc: &LayoutDocument,
     story_id: crate::model::StoryId,
@@ -592,10 +673,164 @@ pub fn compose_thread(
     compose_thread_on_page(doc, story_id, frames, None)
 }
 
+#[derive(Clone, Copy)]
 struct FlowSource<'a> {
     doc: &'a LayoutDocument,
     story: &'a Story,
-    markers: crate::list_composition::MarkerPlans,
+    markers: &'a crate::list_composition::MarkerPlans,
+    notes: Option<&'a crate::footnote_composition::PreparedStory>,
+    objects: &'a [std::ops::Range<usize>],
+    /// Inline anchored items' boxes, in the same display coordinates.
+    boxes: &'a [crate::inline_text::ProjectedBox],
+    plan: &'a crate::hyphenation::BreakPlan,
+    hyphens: hyphenation_flow::History,
+    denied_hyphen_words: &'a [std::ops::Range<usize>],
+    /// Objects wrapping text in the frame being filled.
+    wrap: Option<&'a crate::text_wrap::WrapField>,
+    /// Whether a line fits by its baseline, as body text does; note bodies
+    /// still fit whole line cells.
+    baseline_fit: bool,
+}
+
+impl FlowSource<'_> {
+    fn with_hyphens(&self, hyphens: hyphenation_flow::History) -> Self {
+        Self { hyphens, ..*self }
+    }
+}
+
+#[derive(Clone, Copy)]
+struct FlowCursor {
+    offset: usize,
+    break_index: usize,
+    last: Option<break_flow::Location>,
+    /// Page on which the pending explicit numbered-page break was encountered.
+    /// Each consecutive zero-width break starts its own transition.
+    break_origin: Option<break_flow::Location>,
+    hyphens: hyphenation_flow::History,
+}
+
+struct ColumnFlow {
+    lines: Vec<ComposedLine>,
+    footnotes: Vec<crate::footnote_composition::NoteArea>,
+    next: FlowCursor,
+    stop_frame: bool,
+    stop_page: bool,
+}
+
+/// Where composition resumes once a table part's row event at `offset` is
+/// met: past the line break before the part, so its line starts the column
+/// with no empty line above it, and past any events left behind.
+fn passed(
+    story: &Story,
+    breaks: &[(break_flow::Event, usize)],
+    offset: usize,
+    index: &mut usize,
+) -> usize {
+    let end = offset + break_flow::LINE_BREAK.len();
+    if story.slice(offset, end) != break_flow::LINE_BREAK {
+        return offset;
+    }
+    while breaks.get(*index).is_some_and(|(_, at)| *at < end) {
+        *index += 1;
+    }
+    end
+}
+
+/// Trial layouts own their break cursor. Reserving a shared note area must not
+/// consume a forced break before the final body layout has been chosen.
+fn fill_columns(
+    story: &Story,
+    start: FlowCursor,
+    end: usize,
+    columns: &[Rect],
+    breaks: &[(break_flow::Event, usize)],
+    location: break_flow::Location,
+    mut fill: impl FnMut(
+        usize,
+        usize,
+        Rect,
+        hyphenation_flow::History,
+    ) -> (
+        Vec<ComposedLine>,
+        usize,
+        Vec<crate::footnote_composition::NoteArea>,
+    ),
+) -> ColumnFlow {
+    let mut out = ColumnFlow {
+        lines: Vec::new(),
+        footnotes: Vec::new(),
+        next: start,
+        stop_frame: false,
+        stop_page: false,
+    };
+    for (column_index, column) in columns.iter().enumerate() {
+        let here = break_flow::Location {
+            column: location.column + column_index,
+            ..location
+        };
+        loop {
+            if out.next.offset >= end {
+                return out;
+            }
+            if let Some((event, _)) = breaks
+                .get(out.next.break_index)
+                .filter(|(_, at)| *at == out.next.offset)
+            {
+                let previous = if event.numbered_page() {
+                    Some(*out.next.break_origin.get_or_insert(here))
+                } else {
+                    out.next.last
+                };
+                let advance = event.advance(previous, here);
+                if event.explicit() {
+                    // A leading explicit break also leaves the initial
+                    // container, even before the first source character.
+                    out.next.last.get_or_insert(here);
+                }
+                if event.unconditional() || advance.is_none() {
+                    out.next.break_index += 1;
+                    out.next.break_origin = None;
+                    if advance.is_none() && event.passes_break() {
+                        out.next.offset =
+                            passed(story, breaks, out.next.offset, &mut out.next.break_index);
+                    }
+                }
+                if let Some(boundary) = advance {
+                    out.stop_page = boundary == break_flow::Boundary::Page;
+                    out.stop_frame = boundary != break_flow::Boundary::Column;
+                    break;
+                }
+                // A satisfied paragraph constraint consumes no space. Its
+                // first line still belongs at the top of this very column.
+                continue;
+            }
+            let stop = breaks
+                .get(out.next.break_index)
+                .map_or(end, |(_, at)| *at)
+                .min(end);
+            let (part, consumed, notes) = fill(out.next.offset, stop, *column, out.next.hyphens);
+            let next_hyphens = out.next.hyphens.advance(story, &part, consumed);
+            out.lines.extend(part);
+            out.footnotes.extend(notes);
+            let previous = out.next.offset;
+            out.next.offset = consumed;
+            out.next.hyphens = next_hyphens;
+            if consumed + 1 == stop && story.slice(consumed, stop) == "\n" {
+                out.next.offset = stop;
+            }
+            if out.next.offset <= previous {
+                return out;
+            }
+            out.next.last = Some(here);
+            if out.next.offset < stop {
+                break;
+            }
+        }
+        if out.stop_frame {
+            break;
+        }
+    }
+    out
 }
 
 fn compose_thread_on_page(
@@ -603,6 +838,173 @@ fn compose_thread_on_page(
     story_id: crate::model::StoryId,
     frames: &[(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)],
     parent_page: Option<usize>,
+) -> ComposedThread {
+    {
+        // A parent instance is evaluated for its one destination page; an
+        // ordinary thread may place a variable on any page holding a frame.
+        let pages: Vec<usize> = match parent_page {
+            Some(page) => vec![page],
+            // Direct objects only: a parent object's "first applied page"
+            // would be exactly the guess section scope must not make.
+            None => frames
+                .iter()
+                .filter_map(|frame| doc.object(frame.0).map(|o| o.page))
+                .collect(),
+        };
+        let ids: Vec<_> = frames.iter().map(|frame| frame.0).collect();
+        // Next and previous page numbers depend on the frame they land in:
+        // compose again with each marker's frame until none moves.
+        let mut markers = std::collections::BTreeMap::new();
+        let mut parts = crate::tables::Parts::new();
+        let mut tables = crate::table_flow::Flow::default();
+        let rooms = crate::table_flow::rooms(doc, story_id, frames);
+        for round in 0..3 {
+            let prepare = |parts: &crate::tables::Parts| {
+                crate::footnote_composition::prepare_for_flow(
+                    doc,
+                    story_id,
+                    footnote_flow::supported(doc, story_id, frames),
+                    &pages,
+                    &ids,
+                    &markers,
+                    parts,
+                )
+            };
+            // An item's wrap moves the lines after its anchor, which can move
+            // later anchors: compose again until the items settle.
+            let settle = |mut prepared: crate::footnote_composition::PreparedStory| {
+                let mut out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
+                for _ in 0..4 {
+                    let wraps = crate::anchored::wraps(doc, story_id, &out);
+                    if crate::anchored::settled(&wraps, &prepared.anchored_wraps) {
+                        break;
+                    }
+                    prepared.anchored_wraps = wraps;
+                    out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
+                }
+                out
+            };
+            let Some(prepared) = prepare(&parts) else {
+                break;
+            };
+            let mut out = settle(prepared);
+            // Tables break where their rows fit, which depends on where
+            // their parts land: compose again until the parts settle.
+            if let Some(rooms) = &rooms {
+                for _ in 0..8 {
+                    let planned =
+                        crate::table_flow::plan(doc, story_id, rooms, &out, &parts, &mut tables);
+                    if planned == parts {
+                        break;
+                    }
+                    parts = planned;
+                    let Some(prepared) = prepare(&parts) else {
+                        break;
+                    };
+                    out = settle(prepared);
+                }
+            }
+            let landed = crate::text_variables::marker_frames(doc, story_id, &out);
+            if landed == markers || round == 2 {
+                return out;
+            }
+            markers = landed;
+        }
+    }
+    compose_thread_plain(doc, story_id, frames, parent_page, None, None, true)
+}
+
+/// One composition pass over a prepared projection, mapped back to source
+/// positions.
+fn compose_prepared(
+    doc: &LayoutDocument,
+    story_id: crate::model::StoryId,
+    frames: &[(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)],
+    parent_page: Option<usize>,
+    prepared: &crate::footnote_composition::PreparedStory,
+) -> ComposedThread {
+    // Assets are Arc-backed. The temporary model is scoped to this one
+    // thread pass; no projected bytes or generated styles enter history.
+    let mut projected = doc.clone();
+    projected.styles = prepared.styles.clone();
+    projected.stories[story_id.0 as usize] = prepared.main.story.clone();
+    let mut out = compose_thread_plain(
+        &projected,
+        story_id,
+        frames,
+        parent_page,
+        Some(prepared),
+        Some((&prepared.hyphenation, &prepared.markers)),
+        true,
+    );
+    let text = prepared.main.story.text();
+    let projected_story = &projected.stories[story_id.0 as usize];
+    let context =
+        footnote_flow::ProjectionContext::new(&projected, projected_story, &prepared.nested_issues);
+    for frame in &mut out.frames {
+        frame.unrendered_structures =
+            crate::inline_controls::unrendered(&doc.stories[story_id.0 as usize], &doc.styles)
+                .saturating_sub(prepared.notes.len() + prepared.variables + prepared.anchored);
+        frame.consumed_to = prepared.main.positions.source(frame.consumed_to);
+        for line in &mut frame.lines {
+            let positions = prepared.main.positions.line(&text, line.start, line.end);
+            if line.generated.is_none() {
+                footnote_flow::capture(line, projected_story, &projected, positions, &context);
+                if let Some(projected) = &mut line.projected {
+                    projected.spec.inline_objects = crate::text_variables::slice_objects(
+                        &prepared.main.objects,
+                        line.start..line.end,
+                    );
+                    projected.spec.inline_boxes = crate::inline_text::ProjectedBox::slice(
+                        &prepared.main.boxes,
+                        line.start..line.end,
+                    );
+                    projected.anchored = prepared
+                        .main
+                        .boxes
+                        .iter()
+                        .filter(|b| b.at >= line.start && b.at < line.end)
+                        .map(|b| (b.at - line.start, b.structure))
+                        .collect();
+                    projected.tables = prepared
+                        .main
+                        .boxes
+                        .iter()
+                        .filter(|b| b.at >= line.start && b.at < line.end)
+                        .filter_map(|b| {
+                            let (index, part) = b.part?;
+                            Some(crate::tables::SetPart {
+                                at: b.at - line.start,
+                                structure: b.structure,
+                                index,
+                                part,
+                            })
+                        })
+                        .collect();
+                }
+            }
+            line.start = prepared.main.positions.source(line.start);
+            line.end = prepared.main.positions.source(line.end);
+        }
+        // Text does not yet wrap around anchored items that ask for it.
+        if crate::anchored::wrap_unapplied(&doc.stories[story_id.0 as usize], frame.all_lines()) {
+            frame.wrap.ignored = true;
+        }
+    }
+    out
+}
+
+fn compose_thread_plain(
+    doc: &LayoutDocument,
+    story_id: crate::model::StoryId,
+    frames: &[(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)],
+    parent_page: Option<usize>,
+    notes: Option<&crate::footnote_composition::PreparedStory>,
+    plans: Option<(
+        &crate::hyphenation::BreakPlan,
+        &crate::list_composition::MarkerPlans,
+    )>,
+    baseline_fit: bool,
 ) -> ComposedThread {
     let mut out = ComposedThread {
         story: story_id,
@@ -617,26 +1019,78 @@ fn compose_thread_on_page(
             .map(|(object, _, _, _, _, _)| ComposedFrame {
                 object: *object,
                 lines: Vec::new(),
+                footnotes: Vec::new(),
+                unrendered_structures: 0,
                 drop_cap: None,
                 consumed_to: 0,
                 passed_on: false,
                 lost: false,
+                wrap: Default::default(),
             })
             .collect();
         return out;
     };
+    let (plan, markers) = plans.unzip();
+    let owned_plan;
+    let plan = match plan {
+        Some(plan) => plan,
+        None => {
+            owned_plan = crate::hyphenation::BreakPlan::new(
+                story,
+                &doc.styles,
+                &doc.default_paragraph_style,
+                &doc.default_character_style,
+            );
+            &owned_plan
+        }
+    };
+    let owned_markers;
+    let markers = match markers {
+        Some(markers) => markers,
+        None => {
+            owned_markers = crate::list_composition::MarkerPlans::new(doc, story);
+            &owned_markers
+        }
+    };
     let source = FlowSource {
         doc,
         story,
-        markers: crate::list_composition::MarkerPlans::new(doc, story),
+        markers,
+        objects: notes.map_or(&[], |prepared| prepared.main.objects.as_slice()),
+        boxes: notes.map_or(&[], |prepared| prepared.main.boxes.as_slice()),
+        notes: notes.filter(|prepared| !prepared.notes.is_empty()),
+        plan,
+        hyphens: Default::default(),
+        denied_hyphen_words: &[],
+        wrap: None,
+        baseline_fit,
     };
+    let mut split_notes = source
+        .notes
+        // IDML Appendix C: absent NoSplitting defaults to false. Preserve the
+        // authored Option; only composition resolves that native default.
+        .filter(|_| doc.footnotes.no_splitting != Some(true))
+        .map(|notes| split_footnotes::Flow::new(doc, notes));
     let text_end = story.text_len();
-    // An automatic marker is printable content even when its paragraph has no
-    // source bytes. Ordinary untouched blank stories retain an insertion point
-    // without reporting overset text.
+    let unrendered_structures = crate::inline_controls::unrendered(story, &doc.styles);
+    // Markers, explicit destination breaks and constrained blank paragraphs
+    // still need a destination without source bytes. Ordinary untouched blank
+    // stories retain an insertion point without reporting overset text.
     let has_content = text_end > 0
         || story.points.iter().any(|point| match point {
-            Point::Paragraph { style, .. } => doc.styles.resolve_paragraph(style).list.active(),
+            Point::Paragraph { style, .. } => {
+                let style = doc.styles.resolve_paragraph(style);
+                style.list.active()
+                    || !matches!(
+                        style.start_paragraph,
+                        None | Some(crate::styles::ParagraphStart::Anywhere)
+                    )
+            }
+            Point::ColumnBreak
+            | Point::FrameBreak
+            | Point::PageBreak
+            | Point::OddPageBreak
+            | Point::EvenPageBreak => true,
             _ => false,
         });
     // A terminal empty paragraph has no source bytes, but still owns a line.
@@ -648,20 +1102,18 @@ fn compose_thread_on_page(
     let mut cursor = 0usize;
     // Breaks have zero width in Story's text coordinate system. Track the
     // event index separately so a break never consumes the next character.
-    let offsets = story.point_offsets();
-    let breaks: Vec<_> = story
-        .points
-        .iter()
-        .zip(offsets)
-        .filter(|(point, _)| {
-            matches!(
-                point,
-                Point::ColumnBreak | Point::FrameBreak | Point::PageBreak
-            )
-        })
-        .collect();
+    // Table parts whose first row asks to start later follow the story's own
+    // events at the same position.
+    let mut breaks = break_flow::events(doc, story);
+    if let Some(prepared) = notes {
+        breaks.extend(break_flow::rows(story, &prepared.main.boxes));
+        breaks.sort_by_key(|(_, at)| *at);
+    }
     let mut break_index = 0;
+    let mut break_origin = None;
+    let mut last_location = None;
     let mut skip_page = None;
+    let mut hyphens = hyphenation_flow::History::default();
 
     for (index, (object, bounds, overflow, column_count, gutter, insets)) in
         frames.iter().enumerate()
@@ -681,16 +1133,55 @@ fn compose_thread_on_page(
             })
             .unwrap_or((0, 0));
         let page = parent_page.unwrap_or(page_key.1);
+        let location = break_flow::Location {
+            frame: index,
+            column: 0,
+            page: page_key,
+            number: doc.page_number_value(page),
+        };
         let grid = BaselineGrid::for_frame(doc, *object, page);
+        // Anchored items of this story wrap the lines after their anchor's:
+        // from that line in its own frame, wholly in the frames after it.
+        let anchored: Vec<_> = notes
+            .map(|prepared| {
+                prepared
+                    .anchored_wraps
+                    .iter()
+                    .filter(|w| w.page == page && w.frame <= index)
+                    .map(|w| {
+                        let from = if w.frame == index {
+                            w.from
+                        } else {
+                            Pt::NEG_INFINITY
+                        };
+                        (&w.object, from)
+                    })
+                    .collect()
+            })
+            .unwrap_or_default();
+        let frame_wrap = crate::text_wrap::WrapField::for_frame_with(doc, *object, page, &anchored);
         if skip_page == Some(page_key) {
+            let pending = has_content && cursor < total
+                || split_notes
+                    .as_ref()
+                    .is_some_and(|notes| notes.pending(cursor));
+            let threads = *overflow == FrameOverflow::Thread;
             out.frames.push(ComposedFrame {
                 object: *object,
                 lines: Vec::new(),
+                footnotes: Vec::new(),
+                unrendered_structures,
                 drop_cap: None,
                 consumed_to: cursor.min(text_end),
-                passed_on: has_content && cursor < total && !is_last,
-                lost: has_content && cursor < total && is_last,
+                passed_on: pending && !is_last && threads,
+                lost: pending && (is_last || !threads),
+                wrap: Default::default(),
             });
+            // A destination request cannot bypass a frame that terminates the
+            // thread. Its empty tail ports stay addressable below as usual.
+            if !pending || !threads {
+                break;
+            }
             continue;
         }
         skip_page = None;
@@ -708,164 +1199,329 @@ fn compose_thread_on_page(
                 _ => None,
             });
         if let Some(path) = text_path {
-            let stop = breaks.get(break_index).map_or(total, |(_, at)| *at);
-            let (lines, next) = compose_path(story, cursor, stop, *bounds, path, doc);
-            cursor = next;
-            if let Some((kind, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor) {
-                break_index += 1;
-                if matches!(kind, Point::PageBreak) {
-                    skip_page = Some(page_key);
-                }
+            let flow = fill_columns(
+                story,
+                FlowCursor {
+                    offset: cursor,
+                    break_index,
+                    last: last_location,
+                    break_origin,
+                    hyphens,
+                },
+                total,
+                std::slice::from_ref(bounds),
+                &breaks,
+                location,
+                |from, to, _, history| {
+                    let (lines, next) =
+                        compose_path(&source.with_hyphens(history), from, to, *bounds, path);
+                    (lines, next, Vec::new())
+                },
+            );
+            cursor = flow.next.offset;
+            hyphens = flow.next.hyphens;
+            break_index = flow.next.break_index;
+            break_origin = flow.next.break_origin;
+            last_location = flow.next.last;
+            if flow.stop_page {
+                skip_page = Some(page_key);
             }
-            let overflowed = has_content && cursor < total;
+            let lines = flow.lines;
+            let overflowed = has_content && cursor < total
+                || split_notes
+                    .as_ref()
+                    .is_some_and(|notes| notes.pending(cursor));
             let threads = *overflow == FrameOverflow::Thread;
             out.frames.push(ComposedFrame {
                 object: *object,
                 lines,
+                footnotes: Vec::new(),
+                unrendered_structures,
                 drop_cap: None,
                 consumed_to: cursor.min(text_end),
                 passed_on: overflowed && !is_last && threads,
                 lost: overflowed && (is_last || !threads),
+                // Text on a path is not wrapped; say so when an object reaches it.
+                wrap: WrapOutcome {
+                    ignored: frame_wrap
+                        .as_ref()
+                        .is_some_and(|field| field.affects(*bounds)),
+                    approximated: false,
+                },
             });
             if !overflowed || !threads {
                 break;
             }
             continue;
         }
-        let mut available = bounds.inset(insets.resolve());
-        let mut lines = Vec::new();
-        let mut pending_keep = None;
-        while cursor < total {
-            if available.width <= 0.0 || available.height <= 0.0 {
-                if let Some((count, start)) = pending_keep {
-                    lines.truncate(count);
-                    cursor = start;
-                }
-                break;
+        let checkpoint = (
+            cursor,
+            break_index,
+            break_origin,
+            last_location,
+            skip_page,
+            hyphens,
+        );
+        let note_checkpoint = split_notes.as_ref().map(|notes| notes.checkpoint());
+        let mut denied = Vec::new();
+        let (lines, footnotes) = loop {
+            (
+                cursor,
+                break_index,
+                break_origin,
+                last_location,
+                skip_page,
+                hyphens,
+            ) = checkpoint;
+            if let (Some(notes), Some(saved)) = (&mut split_notes, &note_checkpoint) {
+                notes.restore(saved);
             }
-            let section_start = cursor;
-            let axes = FlowAxes {
-                bounds: available,
-                writing: writing_mode_at(story, cursor, doc),
+            let source = FlowSource {
+                denied_hyphen_words: &denied,
+                hyphens,
+                wrap: frame_wrap.as_ref(),
+                ..source
             };
-            // A writing-mode change starts a new region in the room left by
-            // the preceding region. Never shape with one orientation and
-            // position its glyphs using another paragraph's axes.
-            let (section_end, before_next) = story
-                .points
-                .iter()
-                .zip(story.point_offsets())
-                .find_map(|(point, offset)| {
-                    let Point::Paragraph { style, .. } = point else {
-                        return None;
+            let mut available = bounds.inset(insets.resolve());
+            let note_options = crate::footnotes::frame_options(doc, *object);
+            let mut lines = Vec::new();
+            let mut footnotes = Vec::new();
+            let frame_start = cursor;
+            while cursor < total
+                || split_notes
+                    .as_ref()
+                    .is_some_and(|notes| notes.pending(cursor))
+            {
+                if available.width <= 0.0 || available.height <= 0.0 {
+                    break;
+                }
+                let section_start = cursor;
+                let axes = FlowAxes {
+                    bounds: available,
+                    writing: writing_mode_at(story, cursor, doc),
+                };
+                // A writing-mode change starts a new region in the room left by
+                // the preceding region. Never shape with one orientation and
+                // position its glyphs using another paragraph's axes.
+                let (section_end, before_next) = story
+                    .points
+                    .iter()
+                    .zip(story.point_offsets())
+                    .find_map(|(point, offset)| {
+                        let Point::Paragraph { style, .. } = point else {
+                            return None;
+                        };
+                        (offset > cursor && writing_mode_at(story, offset, doc) != axes.writing)
+                            .then(|| {
+                                (
+                                    offset,
+                                    doc.styles
+                                        .resolve_paragraph(style)
+                                        .space_before
+                                        .unwrap_or(0.0)
+                                        .max(0.0),
+                                )
+                            })
+                    })
+                    .unwrap_or((total, 0.0));
+                let mut columns = columns(axes.logical_bounds(), *column_count, *gutter);
+                if story.prefs.direction == crate::StoryDirection::RightToLeft {
+                    columns.reverse();
+                }
+                // A newly reached frame can already satisfy its pending numbered
+                // break or opening start constraint. Resolve it before deciding whether the remaining
+                // text can balance; the policy must not disable final balancing.
+                while let Some((event, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor)
+                {
+                    let previous = if event.numbered_page() {
+                        if break_origin.is_none() {
+                            break;
+                        }
+                        break_origin
+                    } else {
+                        last_location
                     };
-                    (offset > cursor && writing_mode_at(story, offset, doc) != axes.writing).then(
-                        || {
-                            (
-                                offset,
-                                doc.styles
-                                    .resolve_paragraph(style)
-                                    .space_before
-                                    .unwrap_or(0.0)
-                                    .max(0.0),
-                            )
-                        },
-                    )
-                })
-                .unwrap_or((total, 0.0));
-            let mut columns = columns(axes.logical_bounds(), *column_count, *gutter);
-            if story.prefs.direction == crate::StoryDirection::RightToLeft {
-                columns.reverse();
-            }
-            // Balance the last region only when all remaining text fits.
-            if columns.len() > 1 && section_end == total && break_index == breaks.len() {
-                let (mut balanced, consumed) =
-                    balance_columns(&source, cursor, total, &columns, grid);
-                if consumed >= total {
-                    cursor = consumed;
-                    axes.place_lines(&mut balanced);
-                    lines.extend(balanced);
-                    break;
-                }
-            }
-            let mut placed = Vec::new();
-            let mut stop_frame = false;
-            for column in &columns {
-                if cursor >= section_end {
-                    break;
-                }
-                let stop = breaks
-                    .get(break_index)
-                    .map(|(_, at)| *at)
-                    .unwrap_or(section_end)
-                    .min(section_end);
-                if cursor < stop {
-                    let (part, consumed) =
-                        fill_column_gridded(&source, cursor, stop, *column, grid);
-                    placed.extend(part);
-                    let previous = cursor;
-                    cursor = consumed;
-                    if cursor + 1 == stop && story.slice(cursor, stop) == "\n" {
-                        cursor = stop;
+                    if event.unconditional() || event.advance(previous, location).is_some() {
+                        break;
                     }
-                    if cursor <= previous {
+                    break_index += 1;
+                    break_origin = None;
+                    if event.passes_break() {
+                        cursor = passed(story, &breaks, cursor, &mut break_index);
+                    }
+                }
+                let spanning = source.notes.is_some()
+                    && columns.len() > 1
+                    && note_options.straddle == Some(true);
+                // Only enabled frames balance, and only when all remaining text fits.
+                // Shared footers reserve space before balancing the body.
+                let balance = crate::frame_text::balanced(doc, *object)
+                    && columns.len() > 1
+                    && section_end == total
+                    && break_index == breaks.len();
+                if balance && !spanning && split_notes.is_none() {
+                    let (mut balanced, consumed, balanced_notes) = balance_columns(
+                        &source.with_hyphens(hyphens),
+                        cursor,
+                        total,
+                        &columns,
+                        grid,
+                        &note_options,
+                    );
+                    if consumed >= total {
+                        cursor = consumed;
+                        axes.place_lines(&mut balanced);
+                        lines.extend(balanced);
+                        footnotes.extend(balanced_notes);
                         break;
                     }
                 }
-                if let Some((kind, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor) {
-                    break_index += 1;
-                    match kind {
-                        Point::FrameBreak => {
-                            stop_frame = true;
-                            break;
-                        }
-                        Point::PageBreak => {
-                            skip_page = Some(page_key);
-                            stop_frame = true;
-                            break;
-                        }
-                        _ => {}
+                let start = FlowCursor {
+                    offset: cursor,
+                    break_index,
+                    last: last_location,
+                    break_origin,
+                    hyphens,
+                };
+                let flow = if let Some(notes) = &mut split_notes {
+                    notes.fill_frame(
+                        &source,
+                        start,
+                        split_footnotes::Frame {
+                            area: available,
+                            columns: &columns,
+                            end: section_end,
+                            breaks: &breaks,
+                            location,
+                            grid,
+                            options: &note_options,
+                            spanning,
+                            balance,
+                        },
+                    )
+                } else if spanning {
+                    footnote_flow::fill_spanning(
+                        &source,
+                        cursor,
+                        available,
+                        &note_options,
+                        balance,
+                        |height| {
+                            fill_columns(
+                                story,
+                                start,
+                                section_end,
+                                &columns,
+                                &breaks,
+                                location,
+                                |from, to, column, history| {
+                                    let (lines, next) = fill_column_with_rules(
+                                        &source.with_hyphens(history),
+                                        from,
+                                        to,
+                                        Rect { height, ..column },
+                                        grid,
+                                    );
+                                    (lines, next, Vec::new())
+                                },
+                            )
+                        },
+                    )
+                } else {
+                    fill_columns(
+                        story,
+                        start,
+                        section_end,
+                        &columns,
+                        &breaks,
+                        location,
+                        |from, to, column, history| {
+                            footnote_flow::fill(
+                                &source.with_hyphens(history),
+                                from,
+                                to,
+                                column,
+                                grid,
+                                &note_options,
+                                footnote_flow::FillPolicy::default(),
+                            )
+                        },
+                    )
+                };
+                cursor = flow.next.offset;
+                hyphens = flow.next.hyphens;
+                break_index = flow.next.break_index;
+                break_origin = flow.next.break_origin;
+                last_location = flow.next.last;
+                if flow.stop_page {
+                    skip_page = Some(page_key);
+                }
+                let stop_frame = flow.stop_frame;
+                let mut placed = flow.lines;
+                footnotes.extend(flow.footnotes);
+                if placed.is_empty() {
+                    break;
+                }
+                axes.place_lines(&mut placed);
+                available = axes.remaining(&placed, before_next);
+                lines.extend(placed);
+                // Split-note flow already owns every horizontal column and its
+                // footer. Pending note text resumes in the next frame, never a
+                // second region overlapping the footer just placed here.
+                if split_notes.is_some() || cursor < section_end || stop_frame {
+                    break;
+                }
+                if cursor <= section_start {
+                    break;
+                }
+            }
+
+            // Column flow enforces its own keeps. This also checks a binding that
+            // crosses writing-mode regions within the same frame.
+            cursor = keep_flow::enforce(&source, frame_start, total, &mut lines, cursor);
+            if let Some(word) = hyphenation_flow::forbidden_word(&source, &lines) {
+                if denied.contains(&word) {
+                    log::error!("generated hyphen escaped frame word exclusion");
+                    cursor = frame_start;
+                    lines.clear();
+                    footnotes.clear();
+                    if let (Some(notes), Some(saved)) = (&mut split_notes, &note_checkpoint) {
+                        notes.restore(saved);
                     }
+                } else {
+                    denied.push(word);
+                    continue;
                 }
             }
-            if placed.is_empty() {
-                if let Some((count, start)) = pending_keep {
-                    lines.truncate(count);
-                    cursor = start;
-                }
-                break;
-            }
-            axes.place_lines(&mut placed);
-            available = axes.remaining(&placed, before_next);
-            lines.extend(placed);
-            if cursor < section_end || stop_frame {
-                break;
-            }
-            // A keep chain can cross an orientation boundary. If the next
-            // region cannot place a line, roll the chain back as one unit.
-            pending_keep = kept_tail(story, cursor, doc).and_then(|start| {
-                let start = start.max(lines.first()?.start);
-                let index = lines.iter().position(|line| line.start >= start)?;
-                Some((index, start))
-            });
-            if cursor <= section_start {
-                break;
-            }
-        }
+            hyphens = checkpoint.5.advance(story, &lines, cursor);
+            break (lines, footnotes);
+        };
 
         let consumed_to = cursor.min(text_end);
         // Empty list paragraphs still have a generated marker to place.
-        let overflowed = has_content && cursor < total;
-        // Text is only genuinely lost when there is no next frame to take
-        // it, or when the frame is told to clip rather than thread.
+        let overflowed = has_content && cursor < total
+            || split_notes
+                .as_ref()
+                .is_some_and(|notes| notes.pending(cursor));
+        // Main text or a pending note is lost when there is no next frame
+        // to take it, or when the frame clips rather than threads.
         let threads = *overflow == FrameOverflow::Thread;
         out.frames.push(ComposedFrame {
             object: *object,
             drop_cap: first_drop_cap(&lines),
             lines,
+            footnotes,
+            unrendered_structures,
             consumed_to,
             passed_on: overflowed && !is_last && threads,
             lost: overflowed && (is_last || !threads),
+            wrap: frame_wrap
+                .as_ref()
+                .map(|field| WrapOutcome {
+                    ignored: field.ignored(),
+                    approximated: field.approximated(),
+                })
+                .unwrap_or_default(),
         });
         if !overflowed || !threads {
             break;
@@ -876,13 +1532,16 @@ fn compose_thread_on_page(
         out.frames.push(ComposedFrame {
             object: *object,
             lines: Vec::new(),
+            footnotes: Vec::new(),
+            unrendered_structures,
             drop_cap: None,
             consumed_to: cursor.min(text_end),
             passed_on: false,
             lost: false,
+            wrap: Default::default(),
         });
     }
-    crate::list_composition::insert_markers(&source.markers, &mut out);
+    crate::list_composition::insert_markers(source.markers, &mut out);
     out
 }
 
@@ -890,13 +1549,15 @@ fn compose_thread_on_page(
 /// next container. Box-only vertical spacing, grids, multi-line keeps and
 /// enlarged initials cannot reserve additional rows on a path.
 fn compose_path(
-    story: &Story,
+    source: &FlowSource<'_>,
     start: usize,
     end: usize,
     bounds: Rect,
     path: &crate::text_path::PathText,
-    doc: &LayoutDocument,
 ) -> (Vec<ComposedLine>, usize) {
+    let story = source.story;
+    let doc = source.doc;
+    let hyphens = source.hyphens;
     let empty = || (Vec::new(), start);
     let Some(mut guide) = path.engine_path() else {
         return empty();
@@ -908,16 +1569,7 @@ fn compose_path(
         block.style.clone_from(&doc.default_paragraph_style);
     }
     let paragraph = doc.styles.resolve_paragraph(&block.style);
-    let measure = line_measure(
-        &paragraph,
-        Rect::new(0.0, 0.0, guide.span.unwrap_or(0.0), 0.0),
-        block.paragraph_start == Some(block.start),
-        None,
-    );
-    if measure.width <= 0.0 {
-        return empty();
-    }
-    let spec = spec_for(
+    let mut spec = spec_for(
         story,
         block.start,
         if block.is_paragraph {
@@ -928,25 +1580,59 @@ fn compose_path(
         &doc.styles,
         &block.style,
         &doc.default_character_style,
-        measure.width,
+        0.0,
     );
     if spec.writing_mode.is_vertical() {
         return empty();
+    }
+    spec.inline_objects =
+        crate::text_variables::slice_objects(source.objects, block.start..block.end);
+    spec.inline_boxes =
+        crate::inline_text::ProjectedBox::slice(source.boxes, block.start..block.end);
+    spec.hyphenation_breaks = source.plan.slice(block.start..block.end);
+    spec.hyphenation_policy.preceding_hyphens =
+        if block.paragraph_start != Some(block.start) && hyphens.at == block.start {
+            hyphens.consecutive
+        } else {
+            0
+        };
+    if paragraph.hyphenation.across_columns == Some(false) {
+        spec.hyphenation_breaks.clear();
+    }
+    let interval = guide.span.unwrap_or(0.0);
+    let reverse = reverse_ruler(&spec);
+    let measure = line_measure(
+        &paragraph,
+        Rect::new(0.0, 0.0, interval, 0.0),
+        block.paragraph_start == Some(block.start),
+        None,
+        reverse,
+    );
+    if measure.width <= 0.0 {
+        return empty();
+    }
+    let inline_start = if reverse {
+        interval - measure.right()
+    } else {
+        measure.x
+    };
+    spec.wrap_width = Some(measure.width);
+    if let Some(tabs) = &mut spec.tabs {
+        tabs.origin = inline_start;
     }
     let spans = line_spans(&spec);
     let Some(span) = spans.first() else {
         return empty();
     };
-    // The shared engine emergency-wraps an oversized grapheme. A bounded path
-    // must keep that grapheme overset instead of extrapolating past its bracket.
+    // The shared engine can return an overlong word or protected range. A
+    // bounded path keeps it overset instead of painting past its bracket.
     if span.width > measure.width + 0.0001 {
         return empty();
     }
     let paragraph_end = spans.len() == 1;
     let mut line = if block.is_paragraph {
         line_at(
-            story,
-            doc,
+            source,
             &block,
             span,
             LinePlacement {
@@ -977,6 +1663,7 @@ fn compose_path(
         };
     guide.span = Some(measure.width);
     line.text_path = Some(guide);
+    line.path_inline_start = Some(inline_start);
     let mut consumed = spans
         .get(1)
         .map_or(block.end, |next| block.start + next.start);
@@ -986,33 +1673,6 @@ fn compose_path(
         consumed += 1;
     }
     (vec![line], consumed)
-}
-
-/// First paragraph in the final keep-with-next chain, if there is one.
-fn kept_tail(story: &Story, end: usize, doc: &LayoutDocument) -> Option<usize> {
-    let offsets = story.point_offsets();
-    let mut start = None;
-    for (point, at) in story
-        .points
-        .iter()
-        .zip(offsets)
-        .rev()
-        .filter(|(_, at)| *at < end)
-    {
-        let Point::Paragraph { style, .. } = point else {
-            break;
-        };
-        if !doc
-            .styles
-            .resolve_paragraph(style)
-            .keep_with_next
-            .unwrap_or(false)
-        {
-            break;
-        }
-        start = Some(at);
-    }
-    start
 }
 
 /// The paragraph's writing mode, falling back to native story orientation.
@@ -1102,15 +1762,21 @@ impl FlowAxes {
             return;
         }
         for line in lines {
-            let logical = line.bounds;
-            let x = if self.writing == schist_text_engine::WritingMode::VerticalRl {
-                self.bounds.right() - (logical.y - self.bounds.x) - logical.height
-            } else {
-                logical.y
-            };
-            line.bounds = Rect::new(x, logical.x, logical.height, logical.width);
-            line.baseline = x + logical.height * 0.5;
+            line.bounds = self.physical_rect(line.bounds);
+            line.baseline = line.bounds.x + line.bounds.width * 0.5;
+            if let Some(initial) = &mut line.initial {
+                initial.ink = self.physical_rect(initial.ink);
+            }
         }
+    }
+
+    fn physical_rect(&self, logical: Rect) -> Rect {
+        let x = if self.writing == schist_text_engine::WritingMode::VerticalRl {
+            self.bounds.right() - (logical.y - self.bounds.x) - logical.height
+        } else {
+            logical.y
+        };
+        Rect::new(x, logical.x, logical.height, logical.width)
     }
 }
 
@@ -1188,33 +1854,45 @@ fn first_drop_cap(lines: &[ComposedLine]) -> Option<Rect> {
 /// purpose; rebalancing that would leave a gap mid-article and read as a
 /// mistake.
 ///
-/// Find the smallest column height that fits every whole paragraph using the
-/// same spacing, keep and grid rules as ordinary flow. Paragraphs are not split
-/// just to balance a frame; an oversized paragraph falls back to ordinary flow.
+/// Find the smallest column height that fits the remaining text using the same
+/// paragraph splitting, widow, keep-with-next and grid rules as ordinary flow.
+/// Balancing must not impose an extra keep-together rule on every paragraph.
 fn balance_columns(
     source: &FlowSource<'_>,
     start: usize,
     end: usize,
     columns: &[Rect],
     grid: Option<BaselineGrid>,
-) -> (Vec<ComposedLine>, usize) {
+    options: &crate::footnotes::FootnoteOptions,
+) -> (
+    Vec<ComposedLine>,
+    usize,
+    Vec<crate::footnote_composition::NoteArea>,
+) {
     let story = source.story;
     let Some(first) = columns.first() else {
-        return (Vec::new(), start);
+        return (Vec::new(), start, Vec::new());
     };
     let fill = |height: f32| {
         let mut out = Vec::new();
+        let mut notes = Vec::new();
         let mut cursor = start;
+        let mut hyphens = source.hyphens;
         for column in columns {
-            let (lines, next) = fill_column_with_rules(
-                source,
+            let (lines, next, areas) = footnote_flow::fill(
+                &source.with_hyphens(hyphens),
                 cursor,
                 end,
-                Rect::new(column.x, column.y, column.width, height),
+                *column,
                 grid,
-                true,
+                options,
+                footnote_flow::FillPolicy {
+                    body_height: Some(height),
+                },
             );
+            hyphens = hyphens.advance(story, &lines, next);
             out.extend(lines);
+            notes.extend(areas);
             cursor = next;
             if cursor + 1 == end && story.slice(cursor, end) == "\n" {
                 cursor = end;
@@ -1223,12 +1901,12 @@ fn balance_columns(
                 break;
             }
         }
-        (out, cursor)
+        (out, cursor, notes)
     };
     let mut high = first.height;
     let mut best = fill(high);
     if best.1 < end {
-        return (Vec::new(), start);
+        return (Vec::new(), start, Vec::new());
     }
     let mut low = 0.0;
     // Bounded work and sub-point precision; retain a proven fitting layout.
@@ -1263,25 +1941,40 @@ fn break_line(
         &block.style
     };
     let paragraph = doc.styles.resolve_paragraph(style);
+    let spec = spec_for(
+        story,
+        block.start,
+        block.start,
+        &doc.styles,
+        style,
+        &doc.default_character_style,
+        column.width,
+    );
+    let reverse = reverse_ruler(&spec);
     let measure = line_measure(
         &paragraph,
         *column,
         block.paragraph_start == Some(block.start),
         None,
+        reverse,
     );
     ComposedLine {
+        projected: None,
         generated: None,
         text_path: None,
+        path_inline_start: None,
         start: block.start,
         end: block.end.min(story.text_len()),
         bounds: Rect::new(measure.x, top, measure.width, metrics.height),
-        inline_origin: column.x,
+        inline_origin: ruler_origin(*column, reverse),
         baseline: top + metrics.ascent,
         advance: metrics.advance,
         paragraph,
         paragraph_style: style.clone(),
         characters: Vec::new(),
         is_paragraph_end: true,
+        discretionary_hyphen: false,
+        generated_hyphen: false,
         forced_break: true,
         natural_width: 0.0,
         word_space: None,
@@ -1297,35 +1990,30 @@ fn break_line(
 /// line without adding a line. A line index cannot express "this starts
 /// 18pt lower because the paragraph above it has space after it", and
 /// every one of those features needs to.
-fn fill_column_gridded(
-    source: &FlowSource<'_>,
-    start: usize,
-    end: usize,
-    column: Rect,
-    grid: Option<BaselineGrid>,
-) -> (Vec<ComposedLine>, usize) {
-    fill_column_with_rules(source, start, end, column, grid, false)
-}
-
 fn fill_column_with_rules(
     source: &FlowSource<'_>,
     start: usize,
     end: usize,
     column: Rect,
     grid: Option<BaselineGrid>,
-    whole_paragraphs: bool,
+) -> (Vec<ComposedLine>, usize) {
+    hyphenation_flow::column(source, start, end, column, grid)
+}
+
+fn fill_column(
+    source: &FlowSource<'_>,
+    start: usize,
+    end: usize,
+    column: Rect,
+    grid: Option<BaselineGrid>,
 ) -> (Vec<ComposedLine>, usize) {
     let story = source.story;
     let doc = source.doc;
     let mut lines: Vec<ComposedLine> = Vec::new();
     let mut cursor = start;
     let mut used = 0.0;
-    // A chain of keep-with-next paragraphs is provisional until a following
-    // paragraph actually places a line. Looking only at its font size guesses
-    // incorrectly when spacing, a different size, or another keep follows.
-    let mut pending_keep = None;
     let blocks = blocks(story, start, end);
-    for (index, block) in blocks.iter().enumerate() {
+    for block in &blocks {
         let paragraph = doc.styles.resolve_paragraph(if block.style.is_empty() {
             &doc.default_paragraph_style
         } else {
@@ -1337,7 +2025,6 @@ fn fill_column_with_rules(
             paragraph.space_before.unwrap_or(0.0).max(0.0)
         };
         used += gap;
-        let before = lines.len();
         let placed = if block.is_paragraph {
             place_block(
                 source,
@@ -1346,8 +2033,10 @@ fn fill_column_with_rules(
                 PlacementSpace {
                     top: column.y + used,
                     height: column.height - used,
-                    whole: whole_paragraphs,
-                    previous: lines.last().map(PreviousLine::from_line),
+                    previous: lines
+                        .last()
+                        .map(|line| PreviousLine::from_line(source, line)),
+                    baseline_fit: source.baseline_fit,
                 },
                 grid,
             )
@@ -1374,18 +2063,52 @@ fn fill_column_with_rules(
                 advance: metrics.line_advance,
                 writing: spec.writing_mode,
                 absolute: spec.has_absolute_leading(),
+                above: 0.0,
+                after: 0.0,
             };
-            let (top, advance) = grid_position(
-                grid,
-                column.y + used,
-                flow,
-                lines.last().map(PreviousLine::from_line),
-            );
-            if top + flow.height > column.bottom() {
+            let previous = lines
+                .last()
+                .map(|line| PreviousLine::from_line(source, line));
+            let (mut top, mut advance) = grid_position(grid, column.y + used, flow, previous);
+            // A blank line also skips bands an object leaves no room in, and
+            // sits in the first free interval of the band it reaches.
+            let mut interval = None;
+            if let Some(field) = source
+                .wrap
+                .filter(|field| field.affects(column) && !spec.writing_mode.is_vertical())
+            {
+                let mut request = column.y + used;
+                let mut stopped = true;
+                for _ in 0..100_000 {
+                    if top + flow.fitting(source.baseline_fit) > column.bottom() {
+                        break;
+                    }
+                    match field.row(top, flow.height, column.x, column.right(), 0.0) {
+                        crate::text_wrap::Row::Stop => break,
+                        crate::text_wrap::Row::Blocked { resume } => {
+                            request += resume_top(field, top, resume, advance) - top;
+                            (top, advance) = grid_position(grid, request, flow, previous);
+                        }
+                        crate::text_wrap::Row::Segments(segments) => {
+                            interval = segments.first().copied();
+                            stopped = false;
+                            break;
+                        }
+                    }
+                }
+                if stopped {
+                    break;
+                }
+            }
+            if top + flow.fitting(source.baseline_fit) > column.bottom() {
                 break;
             }
             flow.advance = advance;
             let mut line = break_line(story, doc, &column, block, top, flow);
+            if let Some((a, b)) = interval {
+                line.bounds.x = a;
+                line.bounds.width = b - a;
+            }
             if paragraph.list.active() && block.paragraph_start == Some(block.start) {
                 if let Some(marker) = source.markers.get(block.start) {
                     let body = marker.body_start(column.x, &paragraph);
@@ -1414,23 +2137,59 @@ fn fill_column_with_rules(
         if cursor < block.end {
             // A partial paragraph owns the rest of this column. Never skip
             // ahead to a smaller paragraph just because it could fit the gap.
-            pending_keep = None;
             break;
-        }
-        if paragraph.keep_with_next.unwrap_or(false) && index + 1 < blocks.len() {
-            pending_keep.get_or_insert((before, block.start));
-        } else {
-            pending_keep = None;
         }
         if cursor < end {
             used += paragraph.space_after.unwrap_or(0.0).max(0.0);
         }
     }
-    if let Some((before, offset)) = pending_keep {
-        lines.truncate(before);
-        cursor = offset;
-    }
+    cursor = keep_flow::enforce(source, start, end, &mut lines, cursor);
     (lines, cursor.max(start))
+}
+
+/// Whether `block` sets part of a table, whose lines are not lines of text:
+/// keep options never hold them.
+fn holds_table(source: &FlowSource<'_>, block: &Block) -> bool {
+    sets_table(source, block.start..block.end)
+}
+
+/// Whether `range` of the projected text sets part of a table.
+fn sets_table(source: &FlowSource<'_>, range: std::ops::Range<usize>) -> bool {
+    source
+        .boxes
+        .iter()
+        .any(|b| b.part.is_some() && range.contains(&b.at))
+}
+
+/// The space the tables set in `range` keep about their lines: above a
+/// table's first part (its box's room above, SpaceBefore), which the first
+/// line of a column drops, and below its last part (SpaceAfter), before the
+/// next line of the column.
+fn table_space(source: &FlowSource<'_>, range: std::ops::Range<usize>) -> (Pt, Pt) {
+    let mut out = (0.0, 0.0);
+    for set in source.boxes.iter().filter(|b| range.contains(&b.at)) {
+        let Some((number, _)) = set.part else {
+            continue;
+        };
+        let Some(table) = source
+            .story
+            .structures
+            .get(set.structure)
+            .and_then(|s| s.table.as_deref())
+        else {
+            continue;
+        };
+        if number == 0 {
+            out.0 += set.above;
+        }
+        let last = !source.boxes.iter().any(|other| {
+            other.structure == set.structure && other.part.is_some_and(|(n, _)| n > number)
+        });
+        if last {
+            out.1 += table.space_after;
+        }
+    }
+    out
 }
 
 /// The outcome of trying to place one paragraph into the room left.
@@ -1475,8 +2234,25 @@ struct LineFlow {
     advance: Pt,
     writing: schist_text_engine::WritingMode,
     absolute: bool,
+    /// Room above the line for a table's space before it, inside `ascent`
+    /// and `height`: the first line of a column drops it.
+    above: Pt,
+    /// Space a table keeps below the line, before the next line.
+    after: Pt,
 }
 impl LineFlow {
+    /// How far below its top a line must reach to fit: in horizontal body
+    /// text its baseline, its descent hanging below the frame, as InDesign's
+    /// PDF of the public paged-media `stroke-inset` sample sets a fifth line
+    /// in a frame 0.3 pt deeper than its baseline; otherwise its whole cell.
+    fn fitting(&self, baseline_fit: bool) -> Pt {
+        if baseline_fit && !self.writing.is_vertical() {
+            self.ascent
+        } else {
+            self.height
+        }
+    }
+
     fn from_span(span: &schist_text_engine::LineSpan, spec: &TextSpec) -> Self {
         Self {
             ascent: span.baseline - span.top,
@@ -1484,6 +2260,19 @@ impl LineFlow {
             advance: span.advance,
             writing: spec.writing_mode,
             absolute: spec.has_absolute_leading(),
+            above: 0.0,
+            after: 0.0,
+        }
+    }
+
+    /// The flow of a line setting projected text `range`, with the space
+    /// the tables it sets keep about it.
+    fn with_tables(self, source: &FlowSource<'_>, range: std::ops::Range<usize>) -> Self {
+        let (above, after) = table_space(source, range);
+        Self {
+            above,
+            after,
+            ..self
         }
     }
 }
@@ -1499,16 +2288,29 @@ fn grid_position(
         advance,
         writing,
         absolute,
+        above,
+        ..
     } = flow;
     let advance = advance.max(0.0);
-    let top = previous.filter(|_| absolute).map_or(top, |previous| {
-        let gap = (top - previous.bottom).max(0.0);
-        if writing.is_vertical() {
-            previous.bottom - previous.height / 2.0 + advance - height / 2.0 + gap
-        } else {
-            previous.baseline + advance - ascent + gap
+    let top = match previous {
+        // A column's first line drops a table's space above it: the table
+        // starts at the column's top, as InDesign's PDFs of the public
+        // paged-media `tables` and `tables-rows` samples set tables at the
+        // top of a frame, a cell and a continuing frame although their
+        // [No table style] keeps 4 pt before them.
+        None => top - above,
+        Some(previous) if absolute => {
+            let gap = (top - previous.bottom).max(0.0);
+            if writing.is_vertical() {
+                previous.bottom - previous.height / 2.0 + advance - height / 2.0
+                    + gap
+                    + previous.after
+            } else {
+                previous.baseline + advance - ascent + gap + previous.after
+            }
         }
-    });
+        Some(previous) => top + previous.after,
+    };
     let Some(grid) = grid.filter(|_| writing == schist_text_engine::WritingMode::Horizontal) else {
         return (top, advance);
     };
@@ -1534,14 +2336,17 @@ struct PreviousLine {
     advance: Pt,
     height: Pt,
     bottom: Pt,
+    /// Space a table set in the line keeps below it.
+    after: Pt,
 }
 impl PreviousLine {
-    fn from_line(line: &ComposedLine) -> Self {
+    fn from_line(source: &FlowSource<'_>, line: &ComposedLine) -> Self {
         Self {
             baseline: line.baseline,
             advance: line.advance,
             height: line.bounds.height,
             bottom: line.bounds.bottom(),
+            after: table_space(source, line.start..line.end).1,
         }
     }
 }
@@ -1549,8 +2354,8 @@ impl PreviousLine {
 struct PlacementSpace {
     top: Pt,
     height: Pt,
-    whole: bool,
     previous: Option<PreviousLine>,
+    baseline_fit: bool,
 }
 
 /// Shape with the actual per-line measures, then select complete lines.
@@ -1566,8 +2371,38 @@ fn place_block(
     let doc = source.doc;
     let paragraph = doc.styles.resolve_paragraph(&block.style);
     let first = block.paragraph_start == Some(block.start);
-    let normal = line_measure(&paragraph, column, false, None);
-    let mut initial = line_measure(&paragraph, column, first, None);
+    // Resolve direction from the complete paragraph before assigning physical
+    // first-line indents or taking a slice that starts with neutral text.
+    let mut full_spec = spec_for(
+        story,
+        block.start,
+        block.end,
+        &doc.styles,
+        &block.style,
+        &doc.default_character_style,
+        column.width,
+    );
+    full_spec.inline_objects =
+        crate::text_variables::slice_objects(source.objects, block.start..block.end);
+    full_spec.inline_boxes =
+        crate::inline_text::ProjectedBox::slice(source.boxes, block.start..block.end);
+    full_spec.hyphenation_breaks = source.plan.slice(block.start..block.end);
+    let automatic_word = source.plan.overlaps_word(block.start..block.end);
+    full_spec.hyphenation_policy.preceding_hyphens = if !first && source.hyphens.at == block.start {
+        source.hyphens.consecutive
+    } else {
+        0
+    };
+    full_spec.hyphenation_breaks.retain(|at| {
+        !source
+            .denied_hyphen_words
+            .iter()
+            .any(|word| word.contains(&(block.start + *at)))
+    });
+    let reverse = reverse_ruler(&full_spec);
+    let normal = line_measure(&paragraph, column, false, None, reverse);
+    let mut initial = line_measure(&paragraph, column, first, None, reverse);
+    full_spec.wrap_width = Some(normal.width);
     let marker = (first && paragraph.list.active())
         .then(|| source.markers.get(block.start))
         .flatten();
@@ -1582,15 +2417,6 @@ fn place_block(
             };
         }
     }
-    let full_spec = spec_for(
-        story,
-        block.start,
-        block.end,
-        &doc.styles,
-        &block.style,
-        &doc.default_character_style,
-        normal.width,
-    );
     let opening = if first && marker.is_none() {
         opening(&full_spec, &paragraph)
     } else {
@@ -1602,11 +2428,34 @@ fn place_block(
         start: block.start + prefix,
         ..block.clone()
     };
+    if let Some(field) = source.wrap.filter(|field| field.affects(column)) {
+        // Initials and generated markers reserve their own geometry, and
+        // vertical columns use logical axes; neither is wrapped yet.
+        if spec.writing_mode.is_vertical() || opening.is_some() || marker.is_some() {
+            field.note_ignored();
+        } else {
+            return place_wrapped(
+                source,
+                &body,
+                &spec,
+                WrapPlacement {
+                    paragraph: &paragraph,
+                    column,
+                    space,
+                    grid,
+                    field,
+                    first,
+                    reverse,
+                    automatic_word,
+                },
+            );
+        }
+    }
     let mut all = schist_text_engine::line_spans_with_measures(
         &spec,
         &[
-            inline_measure(initial, column),
-            inline_measure(normal, column),
+            inline_measure(initial, column, reverse),
+            inline_measure(normal, column, reverse),
         ],
     );
     let mut cap = None;
@@ -1647,8 +2496,10 @@ fn place_block(
                             column,
                             first && i == 0,
                             (i < opening.lines).then_some(planned.area),
+                            reverse,
                         ),
                         column,
+                        reverse,
                     )
                 })
                 .collect();
@@ -1670,21 +2521,34 @@ fn place_block(
                 .as_ref()
                 .filter(|cap| index < cap.lines)
                 .map(|cap| cap.area);
-            line_measure(&paragraph, column, first && index == 0, area)
+            line_measure(&paragraph, column, first && index == 0, area, reverse)
         }
     };
     let mut top = space.top;
     let mut previous = space.previous;
     let mut positions = Vec::new();
     for (index, span) in all.iter().enumerate() {
-        if spec.text[span.start..span.end].contains('\t')
-            && span.width > measure_at(index).width + 0.001
+        // A table wider than its column overhangs it, as InDesign's PDF of
+        // the public `tables-overset` sample sets a 361 pt table in a 360 pt
+        // frame.
+        if span.width > measure_at(index).width + 0.001
+            && !sets_table(source, body.start + span.start..body.start + span.end)
+            && (spec
+                .inline_objects
+                .iter()
+                .any(|object| object.start < span.end && object.end > span.start)
+                || automatic_word
+                || spec.text[span.start..span.end].contains('\t')
+                || spec.text[span.start..span.end]
+                    .char_indices()
+                    .any(|(at, _)| spec.no_break_at(span.start + at)))
         {
             break;
         }
-        let flow = LineFlow::from_span(span, &spec);
+        let flow = LineFlow::from_span(span, &spec)
+            .with_tables(source, body.start + span.start..body.start + span.end);
         let (placed_top, advance) = grid_position(grid, top, flow, previous);
-        if placed_top + span.height > space.top + space.height {
+        if placed_top + flow.fitting(space.baseline_fit) > space.top + space.height {
             break;
         }
         positions.push((placed_top, advance));
@@ -1693,19 +2557,14 @@ fn place_block(
             advance,
             height: span.height,
             bottom: placed_top + span.height,
+            after: flow.after,
         });
         top = placed_top + span.height;
     }
-    let mut count = positions.len();
-    if count < all.len() {
-        let keep = paragraph.keep_lines.unwrap_or(1).max(1);
-        if all.len() - count < keep {
-            count = all.len().saturating_sub(keep);
-        }
-        if count < keep || space.whole {
-            count = 0;
-        }
-    }
+    let mut count =
+        paragraph
+            .keeps
+            .fitting_lines(positions.len(), all.len(), holds_table(source, block));
     if cap.as_ref().is_some_and(|cap| {
         count < cap.lines.min(all.len()) || cap.bounds.bottom() > space.top + space.height
     }) {
@@ -1725,14 +2584,13 @@ fn place_block(
             let area = cap.as_ref().filter(|cap| i < cap.lines).map(|cap| cap.area);
             let measure = measure_at(i);
             line_at(
-                story,
-                doc,
+                source,
                 &body,
                 span,
                 LinePlacement {
                     bounds: Rect::new(measure.x, top, measure.width, span.height),
                     advance,
-                    inline_origin: column.x,
+                    inline_origin: ruler_origin(column, reverse),
                     is_paragraph_end: i + 1 == all.len(),
                     drop_cap: area.is_some(),
                 },
@@ -1743,18 +2601,22 @@ fn place_block(
         lines.insert(
             0,
             ComposedLine {
+                projected: None,
                 generated: None,
                 text_path: None,
+                path_inline_start: None,
                 start: block.start,
                 end: body.start,
                 bounds: cap.bounds,
-                inline_origin: column.x,
+                inline_origin: ruler_origin(column, reverse),
                 baseline: cap.baseline,
                 advance: cap.bounds.height,
                 paragraph: paragraph.clone(),
                 paragraph_style: block.style.clone(),
-                characters: character_styles(story, doc, block.start, body.start),
+                characters: character_styles(story, doc, block.start, body.start, &paragraph),
                 is_paragraph_end: body.start == block.end,
+                discretionary_hyphen: false,
+                generated_hyphen: false,
                 natural_width: cap.bounds.width,
                 word_space: None,
                 forced_break: false,
@@ -1769,6 +2631,286 @@ fn place_block(
     let consumed_to = all
         .get(count)
         .map_or(block.end, |next| body.start + next.start);
+    Placed { lines, consumed_to }
+}
+
+struct WrapPlacement<'a> {
+    paragraph: &'a ResolvedParagraph,
+    column: Rect,
+    space: PlacementSpace,
+    grid: Option<BaselineGrid>,
+    field: &'a crate::text_wrap::WrapField,
+    first: bool,
+    reverse: bool,
+    automatic_word: bool,
+}
+
+/// One engine line's planned place: a free interval of a line band.
+#[derive(Clone, Copy, PartialEq)]
+struct Slot {
+    top: Pt,
+    advance: Pt,
+    rect: Rect,
+    /// An obstacle narrowed this interval: a line may never overflow it.
+    cut: bool,
+}
+
+/// A band interval a line could not fit, skipped when the plan is redone.
+#[derive(Clone, Copy)]
+struct Skipped {
+    top: Pt,
+    left: Pt,
+    right: Pt,
+}
+
+/// At most this many narrow intervals are skipped per paragraph before the
+/// paragraph is left to the next column instead.
+const MAX_SKIPPED: usize = 64;
+
+/// The next band position after a blocked one: the obstacle's bottom, or with
+/// AbutTextToTextWrap the first whole leading increment reaching it.
+fn resume_top(field: &crate::text_wrap::WrapField, placed: Pt, resume: Pt, advance: Pt) -> Pt {
+    let target = if field.abut() && advance > 0.01 {
+        placed + ((resume - placed) / advance - 0.00001).ceil().max(1.0) * advance
+    } else {
+        resume
+    };
+    target.max(placed + 0.01)
+}
+
+/// Plan every free interval from the paragraph's top to the column bottom.
+/// Intervals sharing a band share its top; each takes one engine line.
+fn plan_slots(
+    placement: &WrapPlacement<'_>,
+    flows: &[LineFlow],
+    first: Rect,
+    normal: Rect,
+    skipped: &[Skipped],
+) -> Vec<Slot> {
+    use crate::text_wrap::Row;
+    let field = placement.field;
+    let bottom = placement.space.top + placement.space.height;
+    let minimum = flows.first().map_or(1.0, |flow| flow.height.max(1.0));
+    let mut out: Vec<Slot> = Vec::new();
+    let mut top = placement.space.top;
+    let mut previous = placement.space.previous;
+    for _ in 0..100_000 {
+        let index = out.len();
+        let Some(&flow) = flows.get(index).or(flows.last()) else {
+            break;
+        };
+        let (placed, advance) = grid_position(placement.grid, top, flow, previous);
+        if placed + flow.fitting(placement.space.baseline_fit) > bottom + 0.001 {
+            break;
+        }
+        let base = if index == 0 { first } else { normal };
+        match field.row(placed, flow.height, base.x, base.right(), minimum) {
+            Row::Stop => break,
+            Row::Blocked { resume } => {
+                top += resume_top(field, placed, resume, advance) - placed;
+            }
+            Row::Segments(mut segments) => {
+                segments.retain(|(a, b)| {
+                    !skipped.iter().any(|skip| {
+                        (skip.top - placed).abs() < 0.5 && *a < skip.right && *b > skip.left
+                    })
+                });
+                if segments.is_empty() {
+                    // Every interval here was too narrow for its line.
+                    top += resume_top(field, placed, placed + 1.0, advance) - placed;
+                    continue;
+                }
+                if placement.reverse {
+                    segments.reverse();
+                }
+                let height = (index..index + segments.len())
+                    .map(|i| {
+                        flows
+                            .get(i)
+                            .or(flows.last())
+                            .map_or(flow.height, |f| f.height)
+                    })
+                    .fold(flow.height, Pt::max);
+                for (a, b) in segments {
+                    out.push(Slot {
+                        top: placed,
+                        advance,
+                        rect: Rect::new(a, normal.y, b - a, normal.height),
+                        cut: a > base.x + 0.01 || b < base.right() - 0.01,
+                    });
+                }
+                previous = Some(PreviousLine {
+                    baseline: placed + flow.ascent,
+                    advance,
+                    height,
+                    bottom: placed + height,
+                    after: flow.after,
+                });
+                top = placed + height;
+            }
+        }
+    }
+    out
+}
+
+/// Place one paragraph around text-wrap obstacles. Each free interval of a
+/// band becomes one engine measure, so the existing line breaker fills both
+/// sides of an object in reading order. Line heights feed back into the bands;
+/// the plan is refined until the heights it assumed are the heights composed.
+/// An interval narrowed by an obstacle that its line cannot fit (a word wider
+/// than the room beside or inside an outline) is skipped and the plan redone,
+/// so text never overflows into a wrap.
+fn place_wrapped(
+    source: &FlowSource<'_>,
+    body: &Block,
+    spec: &TextSpec,
+    placement: WrapPlacement<'_>,
+) -> Placed {
+    use crate::text_wrap::Row;
+    let paragraph = placement.paragraph;
+    let column = placement.column;
+    let reverse = placement.reverse;
+    let normal = line_measure(paragraph, column, false, None, reverse);
+    let first = line_measure(paragraph, column, placement.first, None, reverse);
+    let empty = Placed {
+        lines: Vec::new(),
+        consumed_to: body.start,
+    };
+    // The first plan assumes every line is as tall as the paragraph's first
+    // character; refinement corrects mixed sizes. Shaping the whole paragraph
+    // unwrapped just to estimate heights would double the cost of wrapping.
+    let sample_end = spec
+        .text
+        .char_indices()
+        .nth(1)
+        .map_or(spec.text.len(), |(at, _)| at);
+    if sample_end == 0 {
+        return empty;
+    }
+    let Some(metrics) = schist_text_engine::measure(&slice_spec(spec, 0, sample_end)) else {
+        return empty;
+    };
+    let mut flows = vec![LineFlow {
+        ascent: metrics.first_baseline,
+        height: metrics.height,
+        advance: metrics.line_advance,
+        writing: spec.writing_mode,
+        absolute: spec.has_absolute_leading(),
+        above: 0.0,
+        after: 0.0,
+    }];
+    let mut slots = Vec::new();
+    let mut spans = Vec::new();
+    let mut skipped = Vec::new();
+    loop {
+        for _ in 0..8 {
+            slots = plan_slots(&placement, &flows, first, normal, &skipped);
+            let mut measures: Vec<_> = slots
+                .iter()
+                .map(|slot| inline_measure(slot.rect, column, reverse))
+                .collect();
+            // Lines past the plan only measure what is overset.
+            measures.push(inline_measure(normal, column, reverse));
+            spans = schist_text_engine::line_spans_with_measures(spec, &measures);
+            let next: Vec<LineFlow> = spans
+                .iter()
+                .map(|span| {
+                    LineFlow::from_span(span, spec)
+                        .with_tables(source, body.start + span.start..body.start + span.end)
+                })
+                .collect();
+            let settled = (0..slots.len().min(next.len())).all(|i| {
+                flows.get(i).or(flows.last()).is_some_and(|a| {
+                    let b = next[i];
+                    (a.height - b.height).abs() < 0.001
+                        && (a.ascent - b.ascent).abs() < 0.001
+                        && (a.advance - b.advance).abs() < 0.001
+                })
+            });
+            flows = next;
+            if settled {
+                break;
+            }
+        }
+        let overflow = spans
+            .iter()
+            .zip(&slots)
+            .find(|(span, slot)| slot.cut && span.width > slot.rect.width + 0.001);
+        match overflow {
+            Some((_, slot)) if skipped.len() < MAX_SKIPPED => skipped.push(Skipped {
+                top: slot.top,
+                left: slot.rect.x,
+                right: slot.rect.right(),
+            }),
+            _ => break,
+        }
+    }
+    let bottom = placement.space.top + placement.space.height;
+    let mut count = 0;
+    for (index, (span, slot)) in spans.iter().zip(&slots).enumerate() {
+        if span.width > slot.rect.width + 0.001
+            && (slot.cut
+                || spec
+                    .inline_objects
+                    .iter()
+                    .any(|object| object.start < span.end && object.end > span.start)
+                || placement.automatic_word
+                || spec.text[span.start..span.end].contains('\t')
+                || spec.text[span.start..span.end]
+                    .char_indices()
+                    .any(|(at, _)| spec.no_break_at(span.start + at)))
+        {
+            break;
+        }
+        let fitting = LineFlow::from_span(span, spec).fitting(placement.space.baseline_fit);
+        if slot.top + fitting > bottom + 0.001 {
+            break;
+        }
+        // Never place a line into a band its actual height no longer leaves
+        // free; an unsettled plan stops here instead of overlapping an object.
+        let base = if index == 0 { first } else { normal };
+        let free = match placement
+            .field
+            .row(slot.top, span.height, base.x, base.right(), 0.0)
+        {
+            Row::Segments(segments) => segments
+                .iter()
+                .any(|(a, b)| *a <= slot.rect.x + 0.01 && *b >= slot.rect.right() - 0.01),
+            _ => false,
+        };
+        if !free {
+            break;
+        }
+        count += 1;
+    }
+    let count = paragraph
+        .keeps
+        .fitting_lines(count, spans.len(), holds_table(source, body));
+    if count == 0 {
+        return empty;
+    }
+    let lines = spans[..count]
+        .iter()
+        .zip(&slots)
+        .enumerate()
+        .map(|(i, (span, slot))| {
+            line_at(
+                source,
+                body,
+                span,
+                LinePlacement {
+                    bounds: Rect::new(slot.rect.x, slot.top, slot.rect.width, span.height),
+                    advance: slot.advance,
+                    inline_origin: ruler_origin(column, reverse),
+                    is_paragraph_end: i + 1 == spans.len(),
+                    drop_cap: false,
+                },
+            )
+        })
+        .collect();
+    let consumed_to = spans
+        .get(count)
+        .map_or(body.end, |next| body.start + next.start);
     Placed { lines, consumed_to }
 }
 
@@ -1801,6 +2943,24 @@ struct InitialPlan {
 fn slice_spec(spec: &TextSpec, start: usize, end: usize) -> TextSpec {
     let mut out = spec.clone();
     out.text = spec.text[start..end].into();
+    out.hyphenation_breaks = spec
+        .hyphenation_breaks
+        .iter()
+        .copied()
+        .filter(|at| *at > start && *at < end)
+        .map(|at| at - start)
+        .collect();
+    out.atomic_spans = crate::text_variables::slice_objects(&spec.atomic_spans, start..end);
+    out.inline_objects = crate::text_variables::slice_objects(&spec.inline_objects, start..end);
+    out.inline_boxes = spec
+        .inline_boxes
+        .iter()
+        .filter(|b| b.at >= start && b.at < end)
+        .map(|b| schist_text_engine::InlineBox {
+            at: b.at - start,
+            ..*b
+        })
+        .collect();
     out.runs = spec
         .runs
         .iter()
@@ -1818,15 +2978,19 @@ fn slice_spec(spec: &TextSpec, start: usize, end: usize) -> TextSpec {
 fn opening(spec: &TextSpec, paragraph: &ResolvedParagraph) -> Option<Opening> {
     let lines = paragraph.drop_caps_lines?;
     let characters = paragraph.drop_caps_characters.unwrap_or(1);
-    if lines < 2
-        || characters == 0
-        || spec.writing_mode != schist_text_engine::WritingMode::Horizontal
-    {
+    if lines < 2 || characters == 0 {
         return None;
     }
     let bytes = schist_text_engine::grapheme_boundaries(&spec.text)
         .nth(characters)
         .unwrap_or(spec.text.len());
+    // An initial containing a source tab is retained and diagnosed, but its
+    // native reservation/scaling semantics are not established. Fall back to
+    // ordinary source flow; enlarging its ruler gap would invent geometry and
+    // could push otherwise fitting text into overset.
+    if spec.text[..bytes].contains('\t') {
+        return None;
+    }
     let mut initial = slice_spec(spec, 0, bytes);
     initial.wrap_width = None;
     initial.align = schist_text_engine::Align::Left;
@@ -1840,9 +3004,26 @@ fn opening(spec: &TextSpec, paragraph: &ResolvedParagraph) -> Option<Opening> {
         spec: painted,
         bytes,
         lines,
-        ink: metrics.ink_bounds?,
+        ink: logical_initial_ink(metrics, spec.writing_mode)?,
         metrics,
-        right: spec.direction == schist_text_engine::ParagraphDirection::RightToLeft,
+        right: reverse_ruler(spec),
+    })
+}
+
+/// The engine reports physical glyph outlines; reservation works in the
+/// paragraph's inline/block axes. Right-to-left columns mirror the block axis
+/// around the glyph cell, retaining the engine's upright and sideways glyphs.
+fn logical_initial_ink(
+    metrics: schist_text_engine::TextMetrics,
+    writing: schist_text_engine::WritingMode,
+) -> Option<[f32; 4]> {
+    let [left, top, right, bottom] = metrics.ink_bounds?;
+    Some(match writing {
+        schist_text_engine::WritingMode::Horizontal => [left, top, right, bottom],
+        schist_text_engine::WritingMode::VerticalLr => [top, left, bottom, right],
+        schist_text_engine::WritingMode::VerticalRl => {
+            [top, metrics.height - right, bottom, metrics.height - left]
+        }
     })
 }
 
@@ -1854,10 +3035,12 @@ fn plan_initial(
     space: &PlacementSpace,
     grid: Option<BaselineGrid>,
 ) -> InitialPlan {
-    // A capital H measures the body font's actual capital height without a
-    // bitmap or a guessed width-to-height ratio.
+    // A capital H measures the body font's actual capital extent without a
+    // bitmap or a guessed aspect ratio. Vertical flow uses the rotated extent
+    // and column centers; this extends Schist's outline reservation policy.
     let mut probe = slice_spec(body, 0, body.text.chars().next().map_or(0, char::len_utf8));
     probe.text = "H".into();
+    probe.hyphenation_breaks.clear();
     for run in &mut probe.runs {
         run.start = 0;
         run.end = 1;
@@ -1865,26 +3048,46 @@ fn plan_initial(
     }
     probe.wrap_width = None;
     let body_metrics = schist_text_engine::measure(&probe).unwrap();
-    let cap_height = body_metrics
-        .ink_bounds
-        .map_or(body_metrics.first_baseline, |ink| {
-            body_metrics.first_baseline - ink[1]
-        });
-    let mut top = space.top;
-    let mut previous = space.previous;
+    let body_baseline = if body.writing_mode.is_vertical() {
+        body_metrics.height / 2.0
+    } else {
+        body_metrics.first_baseline
+    };
+    let cap_height = logical_initial_ink(body_metrics, body.writing_mode)
+        .map_or(body_baseline, |ink| body_baseline - ink[1]);
+    // Measure the initial in paragraph-local coordinates. Subtracting two
+    // page positions to recover its extent makes font size depend on where
+    // the frame sits (and changes raster coverage after a simple translation).
+    let origin = space.top;
+    let grid = grid.map(|grid| BaselineGrid {
+        first: grid.first - origin,
+        ..grid
+    });
+    let mut top = 0.0;
+    let mut previous = space.previous.map(|previous| PreviousLine {
+        baseline: previous.baseline - origin,
+        bottom: previous.bottom - origin,
+        ..previous
+    });
     let mut first_ink_top = top;
     let mut baseline = top;
     for i in 0..opening.lines {
         let span = spans.get(i).or_else(|| spans.last());
-        let ascent = span.map_or(body_metrics.first_baseline, |s| s.baseline - s.top);
         let advance = span.map_or(body_metrics.line_advance, |s| s.advance);
         let height = span.map_or(body_metrics.height, |s| s.height);
+        let ascent = if body.writing_mode.is_vertical() {
+            height / 2.0
+        } else {
+            span.map_or(body_metrics.first_baseline, |s| s.baseline - s.top)
+        };
         let flow = LineFlow {
             ascent,
             height,
             advance,
             writing: body.writing_mode,
             absolute: body.has_absolute_leading(),
+            above: 0.0,
+            after: 0.0,
         };
         let (placed_top, advance) = grid_position(grid, top, flow, previous);
         baseline = placed_top + ascent;
@@ -1896,6 +3099,7 @@ fn plan_initial(
             advance,
             height,
             bottom: placed_top + height,
+            after: 0.0,
         });
         top = placed_top + height;
     }
@@ -1907,7 +3111,7 @@ fn plan_initial(
         } else {
             measure.x
         },
-        first_ink_top,
+        origin + first_ink_top,
         width,
         baseline - first_ink_top,
     );
@@ -1922,7 +3126,7 @@ fn plan_initial(
     let mut painted = scale_initial_spec(opening.spec.clone(), scale);
     painted.wrap_width = None;
     let painted_ink = schist_text_engine::measure(&painted)
-        .and_then(|m| m.ink_bounds)
+        .and_then(|m| logical_initial_ink(m, body.writing_mode))
         .map_or(ink, |b| {
             Rect::new(bounds.x + b[0], bounds.y + b[1], b[2] - b[0], b[3] - b[1])
         });
@@ -1946,10 +3150,27 @@ fn plan_initial(
     }
 }
 
-fn inline_measure(rect: Rect, column: Rect) -> schist_text_engine::InlineMeasure {
+fn reverse_ruler(spec: &TextSpec) -> bool {
+    !spec.writing_mode.is_vertical()
+        && spec.direction == schist_text_engine::ParagraphDirection::RightToLeft
+}
+
+fn ruler_origin(column: Rect, reverse: bool) -> Pt {
+    if reverse {
+        column.right()
+    } else {
+        column.x
+    }
+}
+
+fn inline_measure(rect: Rect, column: Rect, reverse: bool) -> schist_text_engine::InlineMeasure {
     schist_text_engine::InlineMeasure {
         width: rect.width,
-        start: rect.x - column.x,
+        start: if reverse {
+            column.right() - rect.right()
+        } else {
+            rect.x - column.x
+        },
     }
 }
 
@@ -1959,6 +3180,7 @@ fn line_measure(
     column: Rect,
     first: bool,
     drop_cap: Option<CapArea>,
+    reverse: bool,
 ) -> Rect {
     let indent = paragraph.left_indent.unwrap_or(0.0);
     let right_indent = paragraph.right_indent.unwrap_or(0.0);
@@ -1967,8 +3189,8 @@ fn line_measure(
     } else {
         0.0
     };
-    let mut left = column.x + indent + first_indent;
-    let mut right = column.right() - right_indent;
+    let mut left = column.x + indent + if reverse { 0.0 } else { first_indent };
+    let mut right = column.right() - right_indent - if reverse { first_indent } else { 0.0 };
     if let Some(cap) = drop_cap {
         if cap.right {
             right = right.min(cap.bounds.x);
@@ -1989,39 +3211,44 @@ struct LinePlacement {
 
 /// Build a composed line, carrying the character styles that cover it.
 fn line_at(
-    story: &Story,
-    doc: &LayoutDocument,
+    source: &FlowSource<'_>,
     block: &Block,
     span: &schist_text_engine::LineSpan,
     placement: LinePlacement,
 ) -> ComposedLine {
+    let story = source.story;
+    let doc = source.doc;
     let start = block.start + span.start;
     let end = block.start + span.end;
     let paragraph = doc.styles.resolve_paragraph(&block.style);
     let is_paragraph_end = placement.is_paragraph_end;
-    let word_space = word_space(
+    let word_space = word_space_with_objects(
         story,
+        source.objects,
         &paragraph,
-        start,
-        end,
+        start..end,
         span.width,
         placement.bounds.width,
         is_paragraph_end,
     );
     ComposedLine {
+        projected: None,
         generated: None,
         text_path: None,
+        path_inline_start: None,
         start,
         end,
         bounds: placement.bounds,
         inline_origin: placement.inline_origin,
         baseline: placement.bounds.y + span.baseline - span.top,
         advance: placement.advance,
+        characters: character_styles(story, doc, start, end, &paragraph),
         paragraph,
         paragraph_style: block.style.clone(),
-        characters: character_styles(story, doc, start, end),
         is_paragraph_end,
         natural_width: span.width,
+        discretionary_hyphen: span.discretionary_hyphen,
+        generated_hyphen: span.generated_hyphen,
         word_space,
         forced_break: false,
         drop_cap: placement.drop_cap,
@@ -2045,6 +3272,27 @@ pub fn word_space(
     measure: Pt,
     is_paragraph_end: bool,
 ) -> Option<Pt> {
+    word_space_with_objects(
+        story,
+        &[],
+        paragraph,
+        start..end,
+        natural_width,
+        measure,
+        is_paragraph_end,
+    )
+}
+
+fn word_space_with_objects(
+    story: &Story,
+    objects: &[std::ops::Range<usize>],
+    paragraph: &ResolvedParagraph,
+    range: std::ops::Range<usize>,
+    natural_width: Pt,
+    measure: Pt,
+    is_paragraph_end: bool,
+) -> Option<Pt> {
+    let (start, end) = (range.start, range.end);
     let align = paragraph.align?;
     if !align.is_justified() {
         return None;
@@ -2058,7 +3306,16 @@ pub fn word_space(
     if is_paragraph_end && !matches!(align, Align::JustifyAll) {
         return None;
     }
-    let spaces = count_spaces(story, start, end);
+    let text = story.slice(start, end);
+    let last_field = text.rfind('\t').map_or(0, |at| at + 1);
+    let spaces = text
+        .char_indices()
+        .filter(|(at, c)| {
+            *at >= last_field
+                && *c == ' '
+                && !objects.iter().any(|span| span.contains(&(start + at)))
+        })
+        .count();
     if spaces == 0 {
         return None;
     }
@@ -2085,19 +3342,18 @@ pub fn count_spaces(story: &Story, start: usize, end: usize) -> usize {
         .count()
 }
 
-/// The resolved character styles covering a byte range, nearest the start
-/// of the line first so a renderer applies them left to right.
+/// Resolved character styles in the engine's first-match precedence order,
+/// including paragraph-derived initials beneath explicit source properties.
 fn character_styles(
     story: &Story,
     doc: &LayoutDocument,
     start: usize,
     end: usize,
+    paragraph: &ResolvedParagraph,
 ) -> Vec<ResolvedCharacter> {
-    story
-        .ranges
-        .iter()
-        .filter(|r| r.start < end && r.end > start)
-        .map(|r| doc.styles.resolve_character(&r.style))
+    crate::nested_styles::runs(story, &doc.styles, start..end, paragraph)
+        .into_iter()
+        .map(|run| run.character)
         .collect()
 }
 
@@ -2145,12 +3401,15 @@ pub fn compose_story(doc: &LayoutDocument, story: crate::StoryId) -> ComposedThr
     let frames: Vec<_> = doc
         .story_frames(story)
         .into_iter()
-        .filter_map(frame_input)
+        .filter_map(|placed| frame_input(doc, placed))
         .collect();
     compose_thread(doc, story, &frames)
 }
 
+/// A frame's composition box: its insets, and its stroke's reach into it
+/// on every side.
 fn frame_input(
+    doc: &LayoutDocument,
     placed: &PlacedObject,
 ) -> Option<(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)> {
     let crate::LayoutObject::TextFrame {
@@ -2163,19 +3422,36 @@ fn frame_input(
     else {
         return None;
     };
+    let stroke = doc.styles.stroke_inset(placed);
+    let mut insets: InsetsLike = (*insets).into();
+    for side in [
+        &mut insets.top,
+        &mut insets.right,
+        &mut insets.bottom,
+        &mut insets.left,
+    ] {
+        *side += stroke;
+    }
     Some((
         placed.id,
         placed.bounds,
         *overflow,
         *columns,
         *gutter,
-        (*insets).into(),
+        insets,
     ))
 }
 
 /// A frame's portion of the whole story, never a fresh start at byte zero.
 /// Parent-page content composes separately from ordinary document frames.
 pub fn compose_object(doc: &LayoutDocument, placed: &PlacedObject) -> Option<ComposedFrame> {
+    object_thread(doc, placed)?
+        .frames
+        .into_iter()
+        .find(|frame| frame.object == placed.id)
+}
+
+fn object_thread(doc: &LayoutDocument, placed: &PlacedObject) -> Option<ComposedThread> {
     let crate::LayoutObject::TextFrame { story, .. } = placed.object else {
         return None;
     };
@@ -2185,17 +3461,59 @@ pub fn compose_object(doc: &LayoutDocument, placed: &PlacedObject) -> Option<Com
         let mut frames: Vec<_> = doc
             .frame_thread(placed)
             .into_iter()
-            .filter_map(frame_input)
+            .filter_map(|frame| frame_input(doc, frame))
             .collect();
         if frames.is_empty() {
-            frames.push(frame_input(placed)?);
+            frames.push(frame_input(doc, placed)?);
         }
         compose_thread_on_page(doc, story, &frames, Some(placed.page))
     };
-    thread
-        .frames
-        .into_iter()
-        .find(|frame| frame.object == placed.id)
+    Some(thread)
+}
+
+/// A single immutable document pass composes each ordinary story once. Parent
+/// instances additionally depend on their destination page's baseline grid.
+/// The borrow prevents edits while entries are live; no revision guess can
+/// leave stale text after an edit. Unknown standalone frames are not cached.
+pub(crate) struct CompositionCache<'a> {
+    doc: &'a LayoutDocument,
+    threads: std::collections::HashMap<(crate::StoryId, Option<usize>), ComposedThread>,
+}
+impl<'a> CompositionCache<'a> {
+    pub fn new(doc: &'a LayoutDocument) -> Self {
+        Self {
+            doc,
+            threads: Default::default(),
+        }
+    }
+    pub fn frame(&mut self, placed: &PlacedObject) -> Option<ComposedFrame> {
+        let crate::LayoutObject::TextFrame { story, .. } = placed.object else {
+            return None;
+        };
+        let page = if self.doc.object(placed.id).is_some() {
+            None
+        } else {
+            if !self.doc.parents.iter().any(|parent| {
+                parent
+                    .objects
+                    .iter()
+                    .any(|entry| entry.object.id == placed.id)
+            }) {
+                return compose_object(self.doc, placed);
+            }
+            Some(placed.page)
+        };
+        let key = (story, page);
+        if let std::collections::hash_map::Entry::Vacant(entry) = self.threads.entry(key) {
+            entry.insert(object_thread(self.doc, placed)?);
+        }
+        self.threads
+            .get(&key)?
+            .frames
+            .iter()
+            .find(|frame| frame.object == placed.id)
+            .cloned()
+    }
 }
 
 // Enlarge the font and spacing, retaining authored offsets in absolute points.
@@ -2206,6 +3524,7 @@ fn scale_initial_spec(mut spec: TextSpec, scale: Pt) -> TextSpec {
     spec.size *= scale;
     spec.leading = spec.leading.map(|v| v * scale);
     spec.tracking *= scale;
+    spec.scale_inline_boxes(scale);
     spec.align = schist_text_engine::Align::Left;
     for run in &mut spec.runs {
         run.size = run.size.map(|v| v * scale);
@@ -2219,6 +3538,9 @@ fn scale_initial_spec(mut spec: TextSpec, scale: Pt) -> TextSpec {
 /// Render/edit one composed line without wrapping it again. A reserved blank
 /// line carries an empty spec for its caret, never a newline creating two rows.
 pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> TextSpec {
+    if let Some(projected) = &line.projected {
+        return projected.spec.clone();
+    }
     if let Some(generated) = &line.generated {
         return generated.spec.clone();
     }
@@ -2235,13 +3557,27 @@ pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> Te
         spec = scale_initial_spec(spec, initial.scale);
     }
     spec = with_leading(spec, line.advance);
+    spec.show_final_soft_hyphen = line.discretionary_hyphen;
+    spec.show_final_generated_hyphen = line.generated_hyphen;
+    spec.hyphenation_breaks.clear();
     spec.word_spacing = line.word_space.unwrap_or(0.0);
+    let reverse = reverse_ruler(&spec);
     if let Some(tabs) = &mut spec.tabs {
-        tabs.origin = if spec.writing_mode.is_vertical() {
-            line.bounds.y
+        let width = if spec.writing_mode.is_vertical() {
+            line.bounds.height
         } else {
-            line.bounds.x
-        } - line.inline_origin;
+            line.bounds.width
+        };
+        tabs.line_width = (width > 0.0).then_some(width);
+        tabs.origin = line.path_inline_start.unwrap_or_else(|| {
+            if reverse {
+                line.inline_origin - line.bounds.right()
+            } else if spec.writing_mode.is_vertical() {
+                line.bounds.y - line.inline_origin
+            } else {
+                line.bounds.x - line.inline_origin
+            }
+        });
     }
     if let Some(path) = &line.text_path {
         spec.path = Some(path.clone());
@@ -2252,6 +3588,37 @@ pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> Te
         spec.runs.clear();
     }
     spec
+}
+
+/// Character paint for each engine run, in exactly the same precedence order
+/// as line_spec. Shared by ordinary and projected text and native separation.
+pub fn line_paint_styles(
+    line: &ComposedLine,
+    story: &Story,
+    doc: &LayoutDocument,
+) -> Vec<ResolvedCharacter> {
+    if let Some(projected) = &line.projected {
+        return projected.paints.clone();
+    }
+    let spec = line_spec(line, story, doc);
+    let base = line
+        .paragraph
+        .character(doc.styles.resolve_character(&doc.default_character_style));
+    let ranges =
+        crate::nested_styles::runs(story, &doc.styles, line.start..line.end, &line.paragraph);
+    (0..spec.runs.len())
+        .map(|index| {
+            line.generated
+                .as_ref()
+                .map(|g| g.character.clone())
+                .unwrap_or_else(|| {
+                    ranges.get(index).map_or_else(
+                        || base.clone(),
+                        |range| range.character.clone().with_paint_defaults(&base),
+                    )
+                })
+        })
+        .collect()
 }
 
 /// The ink a composed line's text prints in, defaulting to the document
@@ -2271,6 +3638,89 @@ mod tests {
     use crate::model::{blank_a4, StoryId};
     use crate::story::Story;
     use crate::styles::{CharacterStyle, ParagraphStyle};
+
+    #[test]
+    fn a_document_pass_composes_each_thread_once_without_changing_frame_results() {
+        for count in [1, 2, 7] {
+            let mut doc = blank_a4();
+            let mut frames = Vec::new();
+            for _ in 0..count {
+                frames.push(
+                    crate::authoring::text_frame(
+                        &mut doc,
+                        &mut crate::History::default(),
+                        0,
+                        Rect::new(20.0, 20.0, 120.0, 45.0),
+                    )
+                    .unwrap(),
+                );
+            }
+            let story = frames[0].story;
+            doc.stories[story.0 as usize] =
+                Story::from_text("Aé body with words. ".repeat(20), "Body");
+            for frame in &mut doc.objects {
+                if let crate::LayoutObject::TextFrame {
+                    story: id,
+                    overflow,
+                    ..
+                } = &mut frame.object
+                {
+                    *id = story;
+                    *overflow = FrameOverflow::Thread;
+                }
+            }
+            let mut cache = CompositionCache::new(&doc);
+            for _ in 0..3 {
+                for frame in doc.objects.iter().rev() {
+                    assert_eq!(cache.frame(frame), compose_object(&doc, frame));
+                    assert_eq!(cache.threads.len(), 1);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn cached_parent_threads_keep_destination_page_grids_separate() {
+        let mut doc = blank_a4();
+        doc.pages.push(doc.pages[0].clone());
+        doc.pages[0].margins.top = 3.0;
+        doc.pages[1].margins.top = 9.0;
+        doc.grids.document.mode = crate::GridMode::SnapToGrid;
+        doc.grids.document.baseline_count = 72.0 / 14.0;
+        let frame = crate::authoring::text_frame(
+            &mut doc,
+            &mut crate::History::default(),
+            0,
+            Rect::new(30.0, 40.0, 130.0, 100.0),
+        )
+        .unwrap();
+        doc.stories[frame.story.0 as usize] =
+            Story::from_text("Parent text on each destination grid.", "Body");
+        let object = doc.objects.remove(0);
+        doc.parents.push(crate::ParentPage {
+            name: "A".into(),
+            applied_to: vec![0, 1],
+            based_on: None,
+            hidden: false,
+            sheets: Vec::new(),
+            placements: Vec::new(),
+            objects: vec![crate::ParentObject {
+                object,
+                overridden_on: Vec::new(),
+            }],
+        });
+        let mut cache = CompositionCache::new(&doc);
+        let mut baselines = Vec::new();
+        for page in [0, 1, 0, 1] {
+            let object = doc.page_objects(page).remove(0);
+            let cached = cache.frame(&object).unwrap();
+            assert_eq!(Some(cached.clone()), compose_object(&doc, &object));
+            baselines.push(cached.lines[0].baseline);
+        }
+        assert_ne!(baselines[0], baselines[1]);
+        assert_eq!(baselines[..2], baselines[2..]);
+        assert_eq!(cache.threads.len(), 2);
+    }
 
     fn doc_with(story_text: &str) -> (LayoutDocument, StoryId) {
         let mut doc = blank_a4();

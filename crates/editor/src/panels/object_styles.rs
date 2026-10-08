@@ -64,11 +64,12 @@ pub(super) fn paint_picker(
     if !values.contains(&value) {
         values.push(value.clone());
         labels.push(
-            value
-                .as_ref()
-                .and_then(Paint::ink)
-                .map(|i| i.name.clone())
-                .unwrap_or_else(|| t("design.mixed_paint").into()),
+            match &value {
+                Some(Paint::Ink(ink)) => Some(ink.name.clone()),
+                Some(Paint::Gradient(gradient)) => Some(gradient.gradient.name.clone()),
+                _ => None,
+            }
+            .unwrap_or_else(|| t("design.mixed_paint").into()),
         );
     }
     let current = values.iter().position(|v| *v == value).unwrap_or(0);

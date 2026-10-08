@@ -306,11 +306,14 @@ mod tests {
         let story = doc.add_story(Story::from_text("hello", "Body"));
         let id = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id,
             page: 0,
             bounds: Rect::new(100.0, 100.0, 200.0, 40.0),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,

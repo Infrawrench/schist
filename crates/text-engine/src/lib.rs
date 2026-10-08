@@ -18,17 +18,23 @@ mod language;
 pub use language::normalize_language;
 mod decoration_dashes;
 mod decoration_fitting;
-pub use decoration_fitting::DecorationFit;
+pub use decoration_fitting::{resolve as fit_dashes, DecorationFit};
 mod decoration_pattern;
 mod path_decoration;
 pub use decoration_pattern::{DecorationCap, DecorationDashes, TextDecorationPattern};
 #[cfg(test)]
 mod directions_tests;
 pub use capitalization::Capitalization;
+mod generated_hyphen;
+mod hyphenation;
+mod inline_objects;
+pub use hyphenation::HyphenationPolicy;
 mod shaping;
+mod soft_hyphen;
+mod tab_leaders;
 mod tabs;
 mod text_path;
-pub use tabs::{InlineMeasure, TabAlignment, TabStops};
+pub use tabs::{valid_tab_leader, InlineMeasure, TabAlignment, TabStops};
 mod text_stroke;
 pub use text_path::TextPath;
 
@@ -139,7 +145,41 @@ pub struct TextSpec {
     pub word_spacing: f32,
     /// Inline wrap length in pixels (column length in vertical writing); `None` means never wrap.
     pub wrap_width: Option<f32>,
-    /// Optional leading tab stops. None retains legacy text-layer behavior.
+    /// Transient composition state for painting a separately measured line:
+    /// render its final U+00AD as a hyphen. Source specs leave this false;
+    /// automatic wrapping selects discretionary hyphens independently.
+    #[serde(skip)]
+    pub show_final_soft_hyphen: bool,
+    /// Optional generated hyphen breaks at source UTF-8 grapheme boundaries.
+    /// Transient composition data; generated characters never enter saved text.
+    #[serde(skip)]
+    pub hyphenation_breaks: Vec<usize>,
+    /// Transient single-line policy for generated opportunities only.
+    #[serde(skip)]
+    pub hyphenation_policy: HyphenationPolicy,
+    /// Paint the generated hyphen selected when this isolated line was measured.
+    #[serde(skip)]
+    pub show_final_generated_hyphen: bool,
+    /// Transient UTF-8 spans that must stay whole during wrapping, such as a
+    /// generated variable's display text. Adjacent spans remain independent;
+    /// their edges still obey ordinary break opportunities and authored No Break.
+    /// Spans use grapheme boundaries and cannot contain forced breaks.
+    /// Invalid spans reject layout. Rebuild them after editing source text.
+    #[serde(skip)]
+    pub atomic_spans: Vec<std::ops::Range<usize>>,
+    /// Transient inline objects, each represented by FSI + display text + PDI.
+    /// Objects remain whole, break like U+FFFC, isolate shaping context and
+    /// exclude their internal spaces from paragraph justification. Ranges must
+    /// be ordered, disjoint and grapheme-bounded; invalid ranges reject layout.
+    #[serde(skip)]
+    pub inline_objects: Vec<std::ops::Range<usize>>,
+    /// Transient boxes set in place of single U+FFFC characters inside inline
+    /// objects, such as an anchored graphic. Each box advances by its width and
+    /// raises its line to its ascent and descent; nothing is drawn for it.
+    /// Ordered by position; invalid boxes reject layout.
+    #[serde(skip)]
+    pub inline_boxes: Vec<InlineBox>,
+    /// Optional aligned tab stops and leaders. None retains legacy behavior.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tabs: Option<TabStops>,
     /// Stretches of `text` set differently from the rest, by byte range.
@@ -174,12 +214,53 @@ impl Default for TextSpec {
             tracking: 0.0,
             word_spacing: 0.0,
             wrap_width: None,
+            show_final_soft_hyphen: false,
+            hyphenation_breaks: Vec::new(),
+            hyphenation_policy: HyphenationPolicy::default(),
+            show_final_generated_hyphen: false,
+            atomic_spans: Vec::new(),
+            inline_objects: Vec::new(),
+            inline_boxes: Vec::new(),
             tabs: None,
             runs: Vec::new(),
             features: Vec::new(),
             path: None,
         }
     }
+}
+
+/// An empty box of text, set in place of the U+FFFC at `at`.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct InlineBox {
+    /// Byte offset of the U+FFFC it replaces.
+    pub at: usize,
+    /// Inline advance.
+    pub width: f32,
+    /// Extent above the baseline.
+    pub ascent: f32,
+    /// Extent below the baseline. A box with no height (zero ascent and
+    /// descent) takes its character's font metrics instead.
+    pub descent: f32,
+    /// Room kept above the box's line, between it and the line before, for
+    /// an object set there. The line's baseline moves down by the sum of its
+    /// boxes' rooms.
+    pub above: f32,
+}
+
+/// Where a laid-out inline box sits, in caret coordinates: relative to the
+/// text raster's origin, with `baseline` on the box's line.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct InlineBoxPosition {
+    pub at: usize,
+    /// Left edge of the box.
+    pub x: f32,
+    pub baseline: f32,
+    /// The box character's font size and its face's metrics at that size:
+    /// ascent, OS/2 cap height and x-height (0.7 and 0.5 em when undeclared).
+    pub size: f32,
+    pub ascent: f32,
+    pub cap_height: f32,
+    pub x_height: f32,
 }
 
 /// Corner geometry for an outlined glyph; independent of font shaping.
@@ -260,6 +341,10 @@ impl TextDecoration {
 /// inherit. Byte offsets into `TextSpec::text`.
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub struct StyleRun {
+    /// Suppress automatic wrapping inside a continuous enabled range. Explicit
+    /// line/paragraph breaks still apply. None uses the unprotected default.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub no_break: Option<bool>,
     /// None inherits; an empty string explicitly restores default language behavior.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
@@ -320,7 +405,8 @@ pub struct StyleRun {
 impl StyleRun {
     /// True when this run changes nothing, so it can be dropped.
     pub fn is_plain(&self) -> bool {
-        self.language.is_none()
+        self.no_break.is_none()
+            && self.language.is_none()
             && self.capitalization.is_none()
             && self.small_cap_scale.is_none()
             && self.font_style.is_none()
@@ -353,6 +439,9 @@ impl StyleRun {
 
     /// Lay `over`'s overrides on top of this run's.
     pub fn merge(&mut self, over: &StyleRun) {
+        if over.no_break.is_some() {
+            self.no_break = over.no_break;
+        }
         if over.language.is_some() {
             self.language = over.language.clone();
         }
@@ -423,7 +512,8 @@ impl StyleRun {
 
     /// Whether the two runs would set a character the same way.
     fn same_style(&self, other: &StyleRun) -> bool {
-        self.language == other.language
+        self.no_break == other.no_break
+            && self.language == other.language
             && self.capitalization == other.capitalization
             && self.small_cap_scale == other.small_cap_scale
             && self.font_style == other.font_style
@@ -451,6 +541,7 @@ impl StyleRun {
 #[derive(Debug, Clone, PartialEq)]
 // Language is independent of face selection, but splits shaping runs.
 pub struct CharStyle {
+    pub no_break: bool,
     pub language: String,
     pub capitalization: Capitalization,
     pub small_cap_scale: f32,
@@ -505,6 +596,7 @@ impl CharStyle {
     /// The style as an override that would reproduce it in full.
     pub fn as_run(&self) -> StyleRun {
         StyleRun {
+            no_break: Some(self.no_break),
             language: Some(self.language.clone()),
             capitalization: Some(self.capitalization),
             small_cap_scale: Some(self.small_cap_scale),
@@ -532,6 +624,94 @@ impl CharStyle {
 }
 
 impl TextSpec {
+    /// First matching run wins, as with the other run properties. This affects
+    /// wrapping alone: it must not split shaping items or rewrite source text.
+    pub fn no_break_at(&self, byte: usize) -> bool {
+        self.runs
+            .iter()
+            .find(|run| run.start <= byte && byte < run.end)
+            .and_then(|run| run.no_break)
+            .unwrap_or(false)
+    }
+
+    fn allows_wrap_at(&self, at: usize) -> bool {
+        !self
+            .atomic_spans
+            .iter()
+            .chain(&self.inline_objects)
+            .any(|span| span.start < at && at < span.end)
+            && (at == 0
+                || at >= self.text.len()
+                || !self.no_break_at(at - 1)
+                || !self.no_break_at(at))
+    }
+
+    /// Scale inline boxes with the rest of the spec, as for display or output
+    /// resolution; boxes are absolute lengths like font size.
+    pub fn scale_inline_boxes(&mut self, scale: f32) {
+        for b in &mut self.inline_boxes {
+            b.width *= scale;
+            b.ascent *= scale;
+            b.descent *= scale;
+            b.above *= scale;
+        }
+    }
+
+    /// Room the boxes in `start..end` keep above their line.
+    pub(crate) fn line_above(&self, start: usize, end: usize) -> f32 {
+        self.inline_boxes
+            .iter()
+            .filter(|b| b.at >= start && b.at < end)
+            .map(|b| b.above)
+            .sum()
+    }
+
+    /// The box set in place of the character at `byte`, if any.
+    pub(crate) fn inline_box_at(&self, byte: usize) -> Option<&InlineBox> {
+        if self.inline_boxes.is_empty() {
+            return None;
+        }
+        self.inline_boxes
+            .binary_search_by_key(&byte, |b| b.at)
+            .ok()
+            .map(|index| &self.inline_boxes[index])
+    }
+
+    fn valid_inline_boxes(&self) -> bool {
+        let mut previous = None;
+        self.inline_boxes.iter().all(|b| {
+            let valid = previous.is_none_or(|p| p < b.at)
+                && self
+                    .text
+                    .get(b.at..)
+                    .is_some_and(|t| t.starts_with('\u{fffc}'))
+                && self
+                    .inline_objects
+                    .iter()
+                    .any(|span| span.start < b.at && b.at + '\u{fffc}'.len_utf8() < span.end)
+                && [b.width, b.ascent, b.descent, b.above]
+                    .iter()
+                    .all(|v| v.is_finite() && *v >= 0.0);
+            previous = Some(b.at);
+            valid
+        })
+    }
+
+    fn valid_atomic_spans(&self) -> bool {
+        if self.atomic_spans.is_empty() {
+            return true;
+        }
+        let boundaries = grapheme_boundaries(&self.text).collect::<Vec<_>>();
+        self.atomic_spans.iter().all(|span| {
+            span.start <= span.end
+                && boundaries.binary_search(&span.start).is_ok()
+                && boundaries.binary_search(&span.end).is_ok()
+                && self.text[span.clone()].chars().all(|c| {
+                    unicode_bidi::bidi_class(c) != unicode_bidi::BidiClass::B && c != '\u{2028}'
+                })
+        })
+    }
+
     /// Explicit leading measures baseline/column-center distances, independent
     /// of font ascent. Legacy relative line-height keeps its original box flow.
     pub fn has_absolute_leading(&self) -> bool {
@@ -559,6 +739,7 @@ impl TextSpec {
     /// The layer's own font, which uncovered text is set in.
     pub fn base_style(&self) -> CharStyle {
         CharStyle {
+            no_break: false,
             language: language::effective(&self.language),
             capitalization: Capitalization::Normal,
             small_cap_scale: 0.7,
@@ -595,6 +776,7 @@ impl TextSpec {
             if let Some(language) = &run.language {
                 style.language = language::effective(language);
             }
+            style.no_break = run.no_break.unwrap_or(false);
             style.capitalization = run.capitalization.unwrap_or_default();
             style.small_cap_scale = run
                 .small_cap_scale
@@ -671,6 +853,7 @@ impl TextSpec {
         }
         if range.start == 0
             && range.end == len
+            && over.no_break.is_none()
             && over.capitalization.is_none()
             && over.small_cap_scale.is_none()
             && over.color.is_none()
@@ -792,6 +975,10 @@ impl TextSpec {
     /// bold; text put down at a run's start goes before it; text
     /// replacing a selection takes the style of what it replaced.
     pub fn splice_runs(&mut self, range: std::ops::Range<usize>, inserted: usize) {
+        // These describe disposable generated content, not editable formatting.
+        self.atomic_spans.clear();
+        self.inline_objects.clear();
+        self.inline_boxes.clear();
         let removed = range.end.saturating_sub(range.start);
         let map = |at: usize| -> usize {
             if at < range.start {
@@ -985,6 +1172,23 @@ pub fn refresh() {
     }
     if let Ok(mut names) = family_name_cache().write() {
         *names = leak_family_names();
+    }
+    FONT_REVISION.fetch_add(1, std::sync::atomic::Ordering::Release);
+}
+
+#[cfg(not(schist_library))]
+static FONT_REVISION: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+
+/// Changes when process fonts are refreshed, so cached layout can be invalidated.
+/// Headless library calls use their own fixed font resources and return zero.
+pub fn font_revision() -> usize {
+    #[cfg(not(schist_library))]
+    {
+        FONT_REVISION.load(std::sync::atomic::Ordering::Acquire)
+    }
+    #[cfg(schist_library)]
+    {
+        0
     }
 }
 
@@ -1534,7 +1738,7 @@ impl<'a> GposKern<'a> {
 }
 
 /// One laid-out glyph, positioned relative to the layout origin.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 struct PlacedGlyph {
     glyph: u16,
     byte: usize,
@@ -1565,6 +1769,9 @@ struct Layout {
     layout_width: f32,
     lines: Vec<LineSpan>,
     chars: Vec<CharPos>,
+    /// Selected explicit stop for each source tab. Paint is generated later,
+    /// so line measurement and wrapping do not enumerate repeated glyphs.
+    tab_stops: Vec<(usize, usize)>,
 }
 
 /// The faces a spec sets its text in, one per distinct family, style
@@ -1575,6 +1782,7 @@ struct Faces {
     by_byte: Vec<usize>,
     uppercase: Vec<bool>,
     synthetic_caps: Vec<bool>,
+    leaders: Vec<tab_leaders::Pattern>,
 }
 
 impl Faces {
@@ -1670,12 +1878,15 @@ impl Faces {
                 }
             }
         }
-        Faces {
+        let mut resolved = Faces {
             faces,
             by_byte,
             uppercase,
             synthetic_caps,
-        }
+            leaders: Vec::new(),
+        };
+        tab_leaders::resolve(spec, base, &mut resolved);
+        resolved
     }
 
     fn at(&self, byte: usize) -> usize {
@@ -1683,6 +1894,12 @@ impl Faces {
     }
 
     fn line_metrics_at(&self, spec: &TextSpec, byte: usize) -> (f32, f32) {
+        if let Some(b) = spec
+            .inline_box_at(byte)
+            .filter(|b| b.ascent + b.descent > 0.0)
+        {
+            return (b.ascent, b.ascent + b.descent);
+        }
         let ix = self.at(byte);
         let style = spec.style_at(byte);
         let Some(size) = style.metric_size.or_else(|| {
@@ -1753,6 +1970,11 @@ pub struct LineSpan {
     pub start: usize,
     /// Byte offset one past the line's last character.
     pub end: usize,
+    /// The final source U+00AD was selected as a visible discretionary break.
+    /// Explicit line separators and unused trailing hyphens leave this false.
+    pub discretionary_hyphen: bool,
+    /// A generated glyph was selected at this source boundary; it owns no bytes.
+    pub generated_hyphen: bool,
     /// x of the line's first glyph, after alignment.
     pub x: f32,
     /// Advance width of the line.
@@ -1879,11 +2101,39 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
 }
 
 fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasure]) -> Layout {
-    if spec.tabs.as_ref().is_some_and(|tabs| !tabs.valid()) {
+    if spec.tabs.as_ref().is_some_and(|tabs| !tabs.valid())
+        || !spec.valid_atomic_spans()
+        || !spec.valid_inline_objects()
+        || !spec.valid_inline_boxes()
+    {
         return Layout::default();
     }
+    let wrapping = (spec.wrap_width.is_some() || !measures.is_empty())
+        && (spec.path.is_none() || spec.writing_mode.is_vertical());
+    if let Some(projected) = generated_hyphen::Projection::new(spec, wrapping) {
+        let positions = projected.break_ends();
+        let policy = hyphenation::BreakPolicy {
+            generated: &positions,
+            settings: spec.hyphenation_policy,
+        };
+        return projected.restore(layout_with_hyphenation(
+            &projected.spec,
+            base,
+            measures,
+            &policy,
+        ));
+    }
+    layout_with_hyphenation(spec, base, measures, &hyphenation::BreakPolicy::default())
+}
+
+fn layout_with_hyphenation(
+    spec: &TextSpec,
+    base: &LoadedFace,
+    measures: &[InlineMeasure],
+    policy: &hyphenation::BreakPolicy<'_>,
+) -> Layout {
     if shaping::required(spec) {
-        return shaping::layout(spec, base, measures);
+        return shaping::layout(spec, base, measures, policy);
     }
     let widths = measures.iter().map(|m| m.width).collect::<Vec<_>>();
     let faces = Faces::resolve(spec, base);
@@ -1916,6 +2166,9 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
     let measure_word = |word: &str, from: usize, mut prev: Option<(char, usize)>| -> f32 {
         let mut width = 0.0;
         for (i, ch) in word.char_indices() {
+            if ch == '\u{ad}' {
+                continue;
+            }
             let ix = faces.at(from + i);
             width += advance(ch, prev, ix, from + i);
             prev = Some((ch, ix));
@@ -1932,10 +2185,63 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         width: f32,
         start: usize,
         end: usize,
+        hyphen: bool,
     }
     let mut lines: Vec<Line> = Vec::new();
     let mut line_start = 0usize;
     for raw_line in spec.text.split('\n') {
+        if raw_line.contains('\u{ad}') {
+            let end = line_start + raw_line.len();
+            let boundaries = raw_line
+                .char_indices()
+                .filter_map(|(i, ch)| {
+                    let at = line_start + i + ch.len_utf8();
+                    (matches!(ch, ' ' | '\u{ad}') && spec.allows_wrap_at(at)).then_some(at)
+                })
+                .chain(std::iter::once(end))
+                .collect::<Vec<_>>();
+            let measure = |range: std::ops::Range<usize>, hyphen: bool, _: usize| {
+                let mut width = measure_word(&spec.text[range.clone()], range.start, None);
+                if hyphen {
+                    let at = range.end - '\u{ad}'.len_utf8();
+                    let previous = spec.text[range.start..at]
+                        .char_indices()
+                        .rev()
+                        .find(|(_, c)| *c != '\u{ad}')
+                        .map(|(i, c)| (c, faces.at(range.start + i)));
+                    width += advance('-', previous, faces.at(at), at);
+                }
+                width
+            };
+            let first = lines.len();
+            for selected in soft_hyphen::lines(
+                &spec.text,
+                line_start..end,
+                &boundaries,
+                |i| {
+                    spec.path
+                        .is_none()
+                        .then(|| wrap_width_at(spec, &widths, first + i))
+                        .flatten()
+                },
+                measure,
+                policy,
+            ) {
+                let hyphen = selected.hyphen
+                    || (spec.show_final_soft_hyphen
+                        && selected.range.end == spec.text.len()
+                        && raw_line.ends_with('\u{ad}'));
+                lines.push(Line {
+                    text: spec.text[selected.range.clone()].to_owned(),
+                    width: measure(selected.range.clone(), hyphen, 0),
+                    start: selected.range.start,
+                    end: selected.range.end,
+                    hyphen,
+                });
+            }
+            line_start = end + 1;
+            continue;
+        }
         let mut current = String::new();
         let mut width = 0.0f32;
         let mut prev: Option<(char, usize)> = None;
@@ -1943,7 +2249,19 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         let mut at = line_start;
         // Wrap on word boundaries; a single over-long word is left to
         // overflow rather than being broken mid-word.
-        for word in raw_line.split_inclusive(' ') {
+        let boundaries = raw_line
+            .char_indices()
+            .filter_map(|(i, ch)| {
+                (ch == ' ' && spec.allows_wrap_at(line_start + i + 1)).then_some(i + 1)
+            })
+            .chain(std::iter::once(raw_line.len()));
+        let mut from = 0;
+        for to in boundaries {
+            if to == from {
+                continue;
+            }
+            let word = &raw_line[from..to];
+            from = to;
             let mut word_width = measure_word(word, at, prev);
             let wraps = wrap_width_at(spec, &widths, lines.len()).is_some_and(|w| {
                 spec.path.is_none() && !current.is_empty() && width + word_width > w
@@ -1954,6 +2272,7 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
                     width,
                     start,
                     end: at,
+                    hyphen: false,
                 });
                 start = at;
                 width = 0.0;
@@ -1974,6 +2293,7 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
             width,
             start,
             end: at,
+            hyphen: false,
         });
         // Step past this source line and the newline that ended it.
         line_start = at + 1;
@@ -1994,7 +2314,10 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
             .map(|(byte, _)| faces.line_metrics_at(spec, line.start + byte))
             .reduce(|(a, g), (fa, fg)| (a.max(fa), g.max(fg)))
             .unwrap_or_else(|| faces.line_metrics(0));
-        let line_advance = run_line_advance(spec, &faces, line.start, line.end, line_gap);
+        // Room kept for objects above the line lowers its baseline.
+        let above = spec.line_above(line.start, line.end);
+        let line_advance = run_line_advance(spec, &faces, line.start, line.end, line_gap) + above;
+        let (ascent, line_gap) = (ascent + above, line_gap + above);
         let height = if absolute { line_gap } else { line_advance };
         let top = next_line_top(
             spans.last(),
@@ -2017,6 +2340,8 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         spans.push(LineSpan {
             start: line.start,
             end: line.end,
+            discretionary_hyphen: line.hyphen,
+            generated_hyphen: false,
             x: start_x,
             width: line.width,
             top,
@@ -2029,6 +2354,11 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         for (k, ch) in line.text.char_indices() {
             let byte = line.start + k;
             let ix = faces.at(byte);
+            if ch == '\u{ad}' && !(line.hyphen && byte + ch.len_utf8() == line.end) {
+                chars.push(CharPos { byte, x, end_x: x });
+                continue;
+            }
+            let ch = if ch == '\u{ad}' { '-' } else { ch };
             chars.push(CharPos {
                 byte,
                 x,
@@ -2055,13 +2385,14 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         layout_width: max_width,
         lines: spans,
         chars,
+        tab_stops: Vec::new(),
     }
 }
 
 /// The laid-out lines of `spec`, with the byte range of `spec.text` each
 /// one covers.
 ///
-/// Returns an empty vec when no font can be loaded.
+/// Returns an empty vec when no font can be loaded or composition spans are invalid.
 pub fn line_spans(spec: &TextSpec) -> Vec<LineSpan> {
     line_spans_with_widths(spec, &[])
 }
@@ -2138,6 +2469,53 @@ pub fn caret_at_position(spec: &TextSpec, position: CaretPosition) -> Option<Car
     })
 }
 
+/// Where each inline box landed, in caret coordinates. Horizontal text only;
+/// boxes on a path or in vertical text are not positioned.
+pub fn inline_box_positions(spec: &TextSpec) -> Vec<InlineBoxPosition> {
+    if spec.inline_boxes.is_empty() || spec.writing_mode.is_vertical() || spec.path.is_some() {
+        return Vec::new();
+    }
+    let Some(face) = load_font(
+        &spec.family,
+        spec.font_style.as_deref(),
+        spec.bold,
+        spec.italic,
+    ) else {
+        return Vec::new();
+    };
+    let laid = layout(spec, &face);
+    let faces = Faces::resolve(spec, &face);
+    spec.inline_boxes
+        .iter()
+        .filter_map(|b| {
+            let char = laid.chars.iter().find(|c| c.byte == b.at)?;
+            let line = laid
+                .lines
+                .iter()
+                .find(|l| l.start <= b.at && b.at < l.end)?;
+            let (loaded, size) = &faces.faces[faces.at(b.at)];
+            let x_ratio = ttf_parser::Face::parse(&loaded.data, loaded.index)
+                .ok()
+                .and_then(|f| {
+                    let x = f.x_height().filter(|&x| x > 0)? as f32;
+                    Some(x / f.units_per_em() as f32)
+                });
+            Some(InlineBoxPosition {
+                at: b.at,
+                x: char.x.min(char.end_x),
+                baseline: line.baseline,
+                size: *size,
+                ascent: loaded
+                    .font
+                    .horizontal_line_metrics(*size)
+                    .map_or(size * 0.8, |m| m.ascent),
+                cap_height: loaded.cap_ratio.unwrap_or(0.7) * size,
+                x_height: x_ratio.unwrap_or(0.5) * size,
+            })
+        })
+        .collect()
+}
+
 fn path_guide(spec: &TextSpec, laid: &Layout) -> Option<text_path::Guide> {
     if spec.writing_mode.is_vertical() {
         return None;
@@ -2202,6 +2580,8 @@ fn caret_in_layout_affinity(spec: &TextSpec, laid: &Layout, position: CaretPosit
         .unwrap_or(LineSpan {
             start: 0,
             end: 0,
+            discretionary_hyphen: false,
+            generated_hyphen: false,
             x: 0.0,
             width: 0.0,
             top: 0.0,
@@ -2569,9 +2949,10 @@ pub struct TextMetrics {
     pub line_advance: f32,
     pub width: f32,
     pub height: f32,
-    /// Union of horizontal glyph outlines [left, top, right, bottom], in
-    /// layout coordinates. Excludes decorations; absent for empty text,
-    /// vertical writing. Path glyphs use their individual baseline rotations.
+    /// Union of glyph outlines [left, top, right, bottom], in physical
+    /// layout coordinates for every writing mode. Excludes strokes,
+    /// decorations and tab leaders; absent when no glyph has ink. Vertical
+    /// glyphs retain upright/sideways placement; path glyphs follow the baseline.
     /// No coverage bitmap is allocated.
     pub ink_bounds: Option<[f32; 4]>,
 }
@@ -2584,7 +2965,7 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
         spec.italic,
     )?;
     let laid = layout(spec, &face);
-    let ink_bounds = if spec.writing_mode == WritingMode::Horizontal {
+    let ink_bounds = {
         let faces = Faces::resolve(spec, &face);
         let guide = path_guide(spec, &laid);
         laid.glyphs
@@ -2597,7 +2978,7 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
                     if let Some(guide) = &guide {
                         let center = metrics.advance_width / 2.0;
                         let (x, y, angle) =
-                            guide.at(glyph.x + center, glyph.baseline - laid.first_baseline);
+                            guide.at_glyph(glyph.x, center, glyph.baseline - laid.first_baseline);
                         let (sin, cos) = angle.sin_cos();
                         [
                             (b.xmin - center, -b.ymin - b.height),
@@ -2619,6 +3000,16 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
                             ]
                         })
                         .unwrap()
+                    } else if glyph.sideways {
+                        // The shaper has already placed this vertical glyph;
+                        // rotate its horizontal outline clockwise around that
+                        // origin, matching fill and stroke placement.
+                        [
+                            glyph.x + b.ymin,
+                            glyph.baseline + b.xmin,
+                            glyph.x + b.ymin + b.height,
+                            glyph.baseline + b.xmin + b.width,
+                        ]
                     } else {
                         [
                             glyph.x + b.xmin,
@@ -2637,8 +3028,6 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
                     a[3].max(b[3]),
                 ]
             })
-    } else {
-        None
     };
     Some(TextMetrics {
         ink_bounds,
@@ -3027,7 +3416,23 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
         });
     }
     let faces = Faces::resolve(spec, &face);
-    let laid = layout(spec, &face);
+    let mut laid = layout(spec, &face);
+    laid.glyphs
+        .extend(tab_leaders::glyphs(spec, &faces, &laid)?);
+    // Coverage rectangles use signed 32-bit coordinates. Reject distant inline
+    // geometry before saturated float casts overflow rectangle arithmetic.
+    let coordinate_limit = (i32::MAX / 2) as f32;
+    if !laid.layout_width.is_finite()
+        || laid.layout_width > coordinate_limit
+        || laid.glyphs.iter().any(|g| {
+            !g.x.is_finite()
+                || !g.baseline.is_finite()
+                || g.x.abs() > coordinate_limit
+                || g.baseline.abs() > coordinate_limit
+        })
+    {
+        return None;
+    }
     let guide = path_guide(spec, &laid);
     let mut decorations = decoration_rasters(spec, &faces, &laid);
     // Associate decorations with the same consecutive visual paint as their
@@ -3181,8 +3586,13 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
     }
 
     // ...then blit them into one mask, taking the max where glyphs overlap.
-    let w = bounds.width() as usize;
-    let h = bounds.height() as usize;
+    let w = usize::try_from(i64::from(bounds.right) - i64::from(bounds.left)).ok()?;
+    let h = usize::try_from(i64::from(bounds.bottom) - i64::from(bounds.top)).ok()?;
+    // A distant finite tab must not request an effectively unbounded bitmap.
+    // Separation exposes raster failure as an explicit preflight error.
+    if w > i32::MAX as usize || h > i32::MAX as usize || w.checked_mul(h)? > 256_000_000 {
+        return None;
+    }
     let mut coverage = vec![0u8; w * h];
     let mut colors = if spec.runs.iter().any(|r| r.color.is_some()) {
         vec![None; w * h]
@@ -3962,10 +4372,10 @@ mod tests {
                                 measured.line_advance
                             )
                         );
-                        if let (Some(a), Some(b)) = (measured.ink_bounds, after.ink_bounds) {
-                            for (i, delta) in [0.0, -shift, 0.0, -shift].into_iter().enumerate() {
-                                assert!((b[i] - a[i] - delta).abs() < 0.001);
-                            }
+                        let a = measured.ink_bounds.unwrap();
+                        let b = after.ink_bounds.unwrap();
+                        for (i, delta) in [dx, dy, dx, dy].into_iter().enumerate() {
+                            assert!((b[i] - a[i] - delta as f32).abs() < 0.001);
                         }
                         for ((byte, before), (after_byte, after)) in
                             carets_before.iter().zip(carets(&spec))

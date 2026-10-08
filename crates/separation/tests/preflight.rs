@@ -293,12 +293,12 @@ fn unsupported_visible_list_markers_are_errors_even_when_the_body_fits() {
         "NumberingRestartPolicies",
         "NumberingFormat",
         "NumberingFormat.RomanRange",
-        "ContinueNumbersAcrossStories",
+        "ContinueNumbersAcrossStories.UnknownCreationOrder",
     ] {
         let mut doc = blank_a4();
         doc.styles.numbering_lists.push(NumberingList {
             id: "sequence".into(),
-            across_stories: property == "ContinueNumbersAcrossStories",
+            across_stories: property.starts_with("ContinueNumbersAcrossStories"),
             ..Default::default()
         });
         doc.styles.add_paragraph(ParagraphStyle {
@@ -343,6 +343,10 @@ fn unsupported_visible_list_markers_are_errors_even_when_the_body_fits() {
             Rect::new(20.0, 20.0, 200.0, 100.0),
         )
         .unwrap();
+        if property.starts_with("ContinueNumbersAcrossStories") {
+            // Unlabelled imports have no evidence for this sequence's order.
+            doc.creation_order.clear();
+        }
         doc.stories[frame.story.0 as usize] = Story::from_text("Visible", "List");
         if property == "NumberingFormat.RomanRange" {
             doc.stories[frame.story.0 as usize].push_paragraph("Continued", "List");
@@ -357,5 +361,74 @@ fn unsupported_visible_list_markers_are_errors_even_when_the_body_fits() {
             1
         );
         assert!(!page.report.is_printable());
+    }
+}
+
+#[test]
+fn unrendered_structures_fail_both_preflight_paths_even_when_the_body_fits() {
+    for text in ["", "Fits"] {
+        for legacy in [false, true] {
+            for at in [Some(0), None] {
+                let mut doc = blank_a4();
+                doc.pages[0] = schist_layout::Page::new("1", 100.0, 100.0);
+                let frame = authoring::text_frame(
+                    &mut doc,
+                    &mut History::default(),
+                    0,
+                    Rect::new(10.0, 10.0, 80.0, 80.0),
+                )
+                .unwrap();
+                doc.stories[frame.story.0 as usize] = schist_layout::Story::from_text(text, "Body");
+                if legacy {
+                    doc.stories[frame.story.0 as usize].points.push(
+                        schist_layout::StoryPoint::Other {
+                            kind: "Table".into(),
+                            payload: "raw".into(),
+                        },
+                    );
+                } else {
+                    doc.stories[frame.story.0 as usize].structures.push(
+                        schist_layout::StoryStructure {
+                            control: None,
+                            at,
+                            kind: "Footnote".into(),
+                            payload: "raw".into(),
+                            footnote: None,
+                            table: None,
+                            anchored: None,
+                        },
+                    );
+                }
+                for dpi in [36.0, 72.0] {
+                    let settings = OutputSettings::at(dpi);
+                    for separated in [
+                        separate_page(&doc, 0, settings, &NoGraphics),
+                        schist_separation::separate_page_built(
+                            &doc,
+                            0,
+                            settings,
+                            &NoGraphics,
+                            &schist_separation::NaiveBuild,
+                        ),
+                    ] {
+                        let report = separated.unwrap().report;
+                        let message = schist_i18n::tf!(
+                            "design.preflight_story_structure",
+                            name = doc.object(frame.object).unwrap().name,
+                            count = 1
+                        );
+                        assert_eq!(
+                            report
+                                .findings
+                                .iter()
+                                .filter(|f| f.severity == Severity::Error && f.message == message)
+                                .count(),
+                            1
+                        );
+                        assert!(!report.is_printable());
+                    }
+                }
+            }
+        }
     }
 }

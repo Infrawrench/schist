@@ -260,7 +260,7 @@ design.imported_style = Imported style
 
 design.idml_local_styles = Local formatting becomes named styles
 
-design.idml_story_structure = Unsupported story structure omitted
+design.idml_story_structure = Structured story content retained in Schist
 
 design.idml_structural_line_break = Standalone line break becomes empty paragraph
 
@@ -370,7 +370,6 @@ design.overprint = Overprint
 design.apply_clear_style = Apply style; clear enabled overrides
 design.detach_object_style = Detach style; keep paint
 design.idml_object_paint_invalid = Invalid frame paint: {property}
-design.idml_curved_text_flow = {name}: rectangular text composition
 
 design.text_fill = Text fill
 design.text_stroke = Text stroke
@@ -480,7 +479,7 @@ design.list_restart_higher = Restart after higher levels
 design.list_keep_level = Continue this level
 
 design.idml_tabs_unsupported = Unsupported paragraph tab setting: {value}
-design.idml_tabs_implicit = Implicit tabs use Schist’s 36-point interval.
+design.idml_tabs_implicit = Implicit tabs use the hanging indent, then Schist’s 36-point interval.
 design.paragraph_tabs = Paragraph tabs (pt)
 
 # Design workspace controls (English placeholders pending translation)
@@ -499,3 +498,149 @@ design.tab_position = Position (pt)
 design.tab_add = Add tab stop
 design.tab_remove = Remove tab stop
 design.tab_inherit = Inherit tab stops
+
+# Paragraph tab leaders
+design.tab_leader = Leader
+design.preflight_unavailable_text = Text could not be rendered
+design.idml_paragraph_orientation = Paragraph orientation retained in Schist only
+design.idml_creation_order = Unverified object creation order
+design.idml_cross_story_order = Cross-story numbering uses Schist creation order
+design.list_sequence = Sequence
+design.list_default = Default list
+design.list_across_stories = Continue across stories
+
+design.idml_structure_location = Retained structure location unknown
+design.preflight_story_structure = {name}: {count} unrendered story structures
+design.story_structure_count = {count} structures retained outside this view
+design.idml_footnote_unsupported = Unresolved footnote setting {property}: {value}
+
+design.balance_columns = Balance columns
+
+design.keep_options = Keep options
+design.keep_lines = Keep lines together
+design.keep_all = Keep all lines
+design.keep_previous = Keep with previous
+design.keep_inherit = Inherit keep options
+design.keep_first = First lines
+design.keep_last = Last lines
+design.keep_next = Next lines
+
+design.keep_start = Start paragraph
+design.start_anywhere = Anywhere
+design.start_column = Next column
+design.start_frame = Next frame
+design.start_page = Next page
+design.start_odd = Next odd page
+design.start_even = Next even page
+design.no_break = No line breaks
+
+design.hyphenation = Hyphenation
+design.hyphen_capitals = Hyphenate capitalized words
+design.hyphen_last = Hyphenate last word
+design.hyphen_columns = Hyphenate across columns
+design.hyphen_inherit = Inherit hyphenation options
+design.hyphen_word = Minimum word length
+design.hyphen_after = Letters before break
+design.hyphen_before = Letters after break
+design.hyphen_limit = Consecutive limit (0: unlimited)
+design.hyphen_weight = Fewer hyphens (0–100)
+design.hyphen_zone = Ragged zone (pt)
+design.hyphen_languages = US English, French, reformed German
+
+design.idml_drop_cap_unsupported = Unsupported drop-cap setting: {value}
+
+design.initials = Drop caps
+design.initial_lines = Lines
+design.initial_characters = Characters
+design.initial_inherit = Inherit counts and placement
+
+design.idml_nested_style_unsupported = Nested style not composed: {value}
+
+design.initial_style = Character style
+design.initial_style_inherit = Inherit nested styles
+design.initial_style_missing = Missing: {name}
+
+design.text_variables = Text Variables
+design.variable_new = New text variable
+design.variable_insert = Insert at cursor
+design.variable_remove_instance = Remove this instance
+design.variable_in_use = Remove instances before deleting
+design.variable_at_cursor = At captured text cursor
+design.variable_cursor_required = Place a text cursor first
+design.variable_capture_cursor = Use current text cursor
+design.variable_edit_refused = Changed elsewhere; reopen and try again.
+design.variable_invalid = Name required; remove breaks and controls.
+design.variable_window_failed = Cannot open Text Variables: {error}
+design.variable_kind_custom = Custom text
+design.variable_kind_last_page = Last page number
+design.variable_kind_chapter = Chapter number
+design.marker_page_number = Current page number
+design.marker_next_page = Next page number
+design.marker_previous_page = Previous page number
+design.marker_section = Section marker
+design.variable_before = Text before
+design.variable_after = Text after
+design.variable_format_current = Current numbering
+design.variable_scope_document = Last page of document
+design.variable_scope_section = Last page of section
+
+design.idml_text_wrap_invalid = Text wrap on {name}: invalid {property}: {value}
+design.preflight_wrap_ignored = {name}: wrap not applied to some text
+design.preflight_wrap_approximated = {name}: contour approximated by item outline
+design.text_wrap = Text wrap
+design.wrap_none = No text wrap
+design.wrap_bounding_box = Wrap around bounding box
+design.wrap_contour = Wrap around outline
+design.wrap_jump = Jump over item
+design.wrap_next_column = Jump to next column
+design.wrap_ignore = Ignore text wrap
+design.wrap_offset = Wrap offset
+design.wrap_invert = Text inside outline
+design.wrap_side = Wrap side
+design.wrap_side_both = Both sides
+design.wrap_side_left = Left side
+design.wrap_side_right = Right side
+design.wrap_side_towards_spine = Toward spine
+design.wrap_side_away_spine = Away from spine
+design.wrap_side_largest = Largest area
+design.wrap_only_beneath = Wrap affects only text beneath
+design.wrap_abut = Resume wrapped text on leading
+
+design.text_in_shape = Text in shape
+
+design.idml_anchored_invalid = Anchored item {name}: invalid {property}: {value}
+design.variable_kind_running_header = Running header
+design.variable_kind_created = Creation date
+design.variable_kind_modified = Modification date
+design.variable_kind_output = Output date
+design.variable_kind_file_name = File name
+design.idml_table_invalid = Table {name} unread: inconsistent grid
+design.idml_table_setting = Table {name}: {setting} not applied
+design.idml_group_wrap = Group {name}: text wrap not applied
+design.idml_gradient_highlight = Gradient highlight not applied: {name}
+design.idml_text_gradient_start = Text gradient start not applied: {name}
+design.idml_auto_size = Auto-size not applied: {name}
+design.idml_effect = Effect not applied: {effect} on {name}
+design.canvas_output_preview = Output preview
+design.indd_not_indd = Not an InDesign document
+design.indd_big_endian = InDesign byte order not supported
+design.indd_truncated = The InDesign document is truncated
+design.indd_damaged_page = InDesign document damaged at page {page}
+design.indd_damaged_object = InDesign object {uid} unreadable
+design.indd_layer_unread = Layer {uid} unread
+design.indd_swatch_unread = Swatch not read: {name}
+design.indd_spread_unread = Spread {uid} unread
+design.indd_page_unread = Page {uid} unread
+design.indd_story_unread = Story {uid} unread
+design.indd_story_tables = Story {name}: tables not read ({count})
+design.indd_story_footnotes = Story {name}: footnotes not read ({count})
+design.indd_story_embedded = Story {name}: embedded texts not read ({count})
+design.indd_sections = Sections unread, pages numbered on ({count})
+design.indd_guides = Guides not read ({count})
+design.indd_paths_unread = Curved paths not read ({count})
+design.indd_contents = Frame contents not read ({count})
+design.indd_item_unread = Page items of class {class} not read ({count})
+design.indd_formatting = Styles, strokes, formatting, frame options unread
+design.indd_fill_unread = Item {name}: fill swatch {swatch} not read
+design.indd_special_characters = Story {name}: special characters not read: {characters}
+design.indd_document_setup = Bleed and document setup unread

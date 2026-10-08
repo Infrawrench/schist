@@ -4,6 +4,22 @@ use crate::xml::{self, Element};
 use schist_layout::styles::Align;
 use schist_layout::{CharacterStyle, ParagraphStyle, StyleSet};
 
+/// The implicit root styles every IDML document defines. Schist's empty style
+/// name means the same thing; bare root definitions are not document styles.
+pub(crate) const NO_CHARACTER_STYLE: &str = "CharacterStyle/$ID/[No character style]";
+pub(crate) const NO_PARAGRAPH_STYLE: &str = "ParagraphStyle/$ID/[No paragraph style]";
+
+/// A character style reference's model name: the root no-style is empty.
+/// Any spelling (`CharacterStyle/$ID/…`, `$ID/…` or bare) of the root counts.
+pub(crate) fn character_name(reference: &str) -> String {
+    let name = name(reference);
+    if name == "[No character style]" {
+        String::new()
+    } else {
+        name
+    }
+}
+
 pub(crate) fn name(value: &str) -> String {
     value
         .strip_prefix("ParagraphStyle/")
@@ -19,13 +35,6 @@ pub(crate) fn property<'a>(element: &'a Element, key: &str) -> Option<&'a str> {
         .and_then(|p| p.child(key))
         .map(Element::trimmed)
         .or_else(|| element.attr(key))
-}
-fn boolean(element: &Element, key: &str) -> Option<bool> {
-    match element.attr(key)? {
-        "true" => Some(true),
-        "false" => Some(false),
-        _ => None,
-    }
 }
 fn base(element: &Element) -> Option<String> {
     property(element, "BasedOn")
@@ -46,14 +55,24 @@ fn align(value: &str) -> Option<Align> {
 /// IDs are opaque; display names need not match Self or be unique across groups.
 #[derive(Default)]
 pub(crate) struct References {
+    pub(crate) text_variables: std::collections::BTreeMap<String, String>,
     pub(crate) languages: Vec<schist_layout::language::LanguageResource>,
     pub(crate) strokes:
         std::collections::BTreeMap<String, schist_layout::decorations::DecorationStroke>,
     paragraphs: std::collections::BTreeMap<String, String>,
     characters: std::collections::BTreeMap<String, String>,
     objects: std::collections::BTreeMap<String, String>,
+    /// Table and cell styles by Self, which tables resolve through.
+    pub(crate) table_styles: std::collections::BTreeMap<String, Element>,
+    pub(crate) cell_styles: std::collections::BTreeMap<String, Element>,
 }
 impl References {
+    pub(crate) fn known_paragraph(&self, reference: &str) -> Option<&str> {
+        self.paragraphs.get(reference).map(String::as_str)
+    }
+    pub(crate) fn known_character(&self, reference: &str) -> Option<&str> {
+        self.characters.get(reference).map(String::as_str)
+    }
     pub(crate) fn new(roots: &[Element]) -> Self {
         let mut out = Self::default();
         for (kind, names) in [
@@ -77,6 +96,18 @@ impl References {
                 }
             }
         }
+        for root in roots {
+            for (kind, styles) in [
+                ("TableStyle", &mut out.table_styles),
+                ("CellStyle", &mut out.cell_styles),
+            ] {
+                for element in root.find_all(kind) {
+                    if let Some(id) = element.attr("Self") {
+                        styles.insert(id.to_owned(), element.clone());
+                    }
+                }
+            }
+        }
         out
     }
     pub(crate) fn paragraph(&self, reference: &str) -> String {
@@ -85,7 +116,11 @@ impl References {
             .cloned()
             .unwrap_or_else(|| name(reference))
     }
+    /// A character style's document name; the root no-style is the empty name.
     pub(crate) fn character(&self, reference: &str) -> String {
+        if character_name(reference).is_empty() {
+            return String::new();
+        }
         self.characters
             .get(reference)
             .cloned()
@@ -108,6 +143,8 @@ pub(crate) fn paragraph_properties(
     let character = character_properties(element, colors, refs, report);
     let (list, bullet) =
         crate::list_codec::restore(element, crate::list_codec::read(element, refs, report));
+    let (keeps, keep_lines, keep_with_next) =
+        crate::keep_codec::restore(element, crate::keep_codec::read(element, report));
     ParagraphStyle {
         family: character.family,
         font_style: character.font_style,
@@ -125,6 +162,8 @@ pub(crate) fn paragraph_properties(
         stroke_tint: character.stroke_tint,
         fill: character.fill,
         stroke: character.stroke,
+        fill_gradient: character.fill_gradient,
+        stroke_gradient: character.stroke_gradient,
         fill_disabled: character.fill_disabled,
         stroke_disabled: character.stroke_disabled,
         stroke_weight: character.stroke_weight,
@@ -138,28 +177,81 @@ pub(crate) fn paragraph_properties(
         auto_leading: auto_leading(element, report),
         tracking: character.tracking,
         kerning: character.kerning,
+        no_break: character.no_break,
         align: element.attr("Justification").and_then(align),
         left_indent: element.number("LeftIndent"),
         right_indent: element.number("RightIndent"),
         first_line_indent: element.number("FirstLineIndent"),
         space_before: element.number("SpaceBefore"),
         space_after: element.number("SpaceAfter"),
-        keep_with_next: element.number("KeepWithNext").map(|v| v > 0.0),
-        keep_lines: element
-            .number("KeepFirstLines")
-            .map(|v| v.max(0.0) as usize),
-        drop_caps_lines: element.number("DropCapLines").map(|v| v.max(0.0) as usize),
-        drop_caps_characters: element
-            .number("DropCapCharacters")
-            .map(|v| v.max(0.0) as usize),
+        keep_with_next,
+        keep_lines,
+        keeps,
+        start_paragraph: element.attr("StartParagraph").and_then(|value| {
+            schist_layout::styles::ParagraphStart::from_native(value).or_else(|| {
+                report.skip(schist_i18n::tf!(
+                    "design.idml_text_preference_invalid",
+                    property = "StartParagraph",
+                    value = value
+                ));
+                None
+            })
+        }),
+        drop_caps_lines: crate::drop_cap_codec::count(element, "DropCapLines", 25, report),
+        drop_caps_characters: crate::drop_cap_codec::count(
+            element,
+            "DropCapCharacters",
+            150,
+            report,
+        ),
+        drop_caps_detail: crate::drop_cap_codec::detail(element, report),
+        nested_styles: crate::nested_style_codec::read(element, refs, report),
         direction: crate::auto_direction::style_direction(element),
+        writing_mode: paragraph_writing_mode(element, report),
         list,
         bullet,
-        hyphenate: boolean(element, "Hyphenation"),
+        hyphenate: crate::hyphenation_codec::boolean(element, "Hyphenation", report),
+        hyphenation: crate::hyphenation_codec::read(element, report),
         language: character.language,
         features: character.features,
         directional_features: character.directional_features,
         ..ParagraphStyle::default()
+    }
+}
+
+/// The gradient a text range or style fills or strokes with (`part` Fill or
+/// Stroke). InDesign's text defaults, GradientFillStart "0 0" beside a
+/// GradientFillLength of -1, state no vector, so a start counts only beside
+/// a positive length; it is kept for saving but not drawn, and reported.
+fn text_gradient(
+    element: &Element,
+    part: &str,
+    colors: &crate::color_codec::Colors,
+    report: &mut crate::import::Report,
+) -> Option<Box<schist_layout::gradients::GradientFill>> {
+    let mut gradient = crate::color_codec::applied_gradient(element, part, colors)?;
+    if gradient.length.is_none() {
+        gradient.start = None;
+    } else if gradient.start.is_some() {
+        report.skip(schist_i18n::tf!(
+            "design.idml_text_gradient_start",
+            name = gradient.gradient.name
+        ));
+    }
+    Some(Box::new(gradient))
+}
+
+/// A text paint: a gradient's first stop stands in for it as the ink.
+fn text_paint(
+    element: &Element,
+    key: &str,
+    gradient: Option<&schist_layout::gradients::GradientFill>,
+    colors: &crate::color_codec::Colors,
+    report: &mut crate::import::Report,
+) -> Option<schist_layout::Ink> {
+    match gradient {
+        Some(gradient) => Some(gradient.gradient.stops[0].ink.clone()),
+        None => crate::color_codec::resolve(element, key, colors, report),
     }
 }
 
@@ -169,6 +261,22 @@ pub(crate) fn character_properties(
     refs: &References,
     report: &mut crate::import::Report,
 ) -> CharacterStyle {
+    let fill_gradient = text_gradient(element, "Fill", colors, report);
+    let stroke_gradient = text_gradient(element, "Stroke", colors, report);
+    let fill = text_paint(
+        element,
+        "FillColor",
+        fill_gradient.as_deref(),
+        colors,
+        report,
+    );
+    let stroke = text_paint(
+        element,
+        "StrokeColor",
+        stroke_gradient.as_deref(),
+        colors,
+        report,
+    );
     let (font_style, bold, italic) = read_font_choice(element);
     let (all_caps, small_caps) = crate::capitalization_codec::read(element, report);
     let stroke_weight = element
@@ -241,8 +349,10 @@ pub(crate) fn character_properties(
         family: property(element, "AppliedFont").map(str::to_owned),
         fill_tint: crate::color_codec::tint(element, "FillTint", report),
         stroke_tint: crate::color_codec::tint(element, "StrokeTint", report),
-        fill: crate::color_codec::resolve(element, "FillColor", colors, report),
-        stroke: crate::color_codec::resolve(element, "StrokeColor", colors, report),
+        fill,
+        stroke,
+        fill_gradient,
+        stroke_gradient,
         fill_disabled: matches!(element.attr("FillColor"), Some("Swatch/None" | "n")),
         stroke_disabled: matches!(element.attr("StrokeColor"), Some("Swatch/None" | "n")),
         stroke_weight,
@@ -259,8 +369,8 @@ pub(crate) fn character_properties(
                 None
             }
         }),
-        overprint_fill: boolean(element, "OverprintFill"),
-        overprint_stroke: boolean(element, "OverprintStroke"),
+        overprint_fill: element.boolean("OverprintFill"),
+        overprint_stroke: element.boolean("OverprintStroke"),
         point_size: element.number("PointSize"),
         leading: leading(element, report),
         tracking: element.number("Tracking"),
@@ -268,8 +378,23 @@ pub(crate) fn character_properties(
         font_style,
         bold,
         italic,
-        underline: boolean(element, "Underline"),
-        strikethrough: boolean(element, "StrikeThru"),
+        // RNC uses xsd:boolean: numeric literals and surrounding XML whitespace
+        // are legal; export emits the canonical true/false spelling.
+        no_break: element
+            .attr("NoBreak")
+            .and_then(|value| match xml::parse_boolean(value) {
+                Some(value) => Some(value),
+                None => {
+                    report.skip(schist_i18n::tf!(
+                        "design.idml_text_preference_invalid",
+                        property = "NoBreak",
+                        value = value
+                    ));
+                    None
+                }
+            }),
+        underline: element.boolean("Underline"),
+        strikethrough: element.boolean("StrikeThru"),
         underline_style: crate::decoration_codec::read(
             element,
             "Underline",
@@ -368,6 +493,17 @@ pub fn read(
         let Some(raw) = element.attr("Self").or_else(|| element.attr("Name")) else {
             continue;
         };
+        // A bare root definition carries nothing; InDesign's root holds real
+        // defaults and stays a document style.
+        if raw == NO_PARAGRAPH_STYLE
+            && element.children.is_empty()
+            && element
+                .attributes
+                .iter()
+                .all(|(key, _)| key == "Self" || key == "Name")
+        {
+            continue;
+        }
         let mut style = paragraph_properties(element, colors, refs, report);
         style.name = refs.paragraph(raw);
         style.based_on =
@@ -379,10 +515,15 @@ pub fn read(
         let Some(raw) = element.attr("Self").or_else(|| element.attr("Name")) else {
             continue;
         };
+        // The root character style is the absence of one.
+        if character_name(raw).is_empty() {
+            continue;
+        }
         let mut style = character_properties(element, colors, refs, report);
         style.name = refs.character(raw);
-        style.based_on =
-            base(element).map(|base| refs.character(property(element, "BasedOn").unwrap_or(&base)));
+        style.based_on = base(element)
+            .map(|base| refs.character(property(element, "BasedOn").unwrap_or(&base)))
+            .filter(|base| !base.is_empty());
         styles.add_character(style);
     }
 }
@@ -400,6 +541,31 @@ fn attr(out: &mut String, key: &str, value: impl ToString) {
 fn optional(out: &mut String, key: &str, value: Option<impl ToString>) {
     if let Some(value) = value {
         attr(out, key, value);
+    }
+}
+/// A text style's FillColor or StrokeColor (`part` Fill or Stroke): none,
+/// its gradient with where that runs, or its ink.
+fn text_paint_attributes(
+    out: &mut String,
+    part: &str,
+    ink: Option<&schist_layout::Ink>,
+    gradient: Option<&schist_layout::gradients::GradientFill>,
+    disabled: bool,
+) {
+    let key = format!("{part}Color");
+    if disabled {
+        attr(out, &key, "Swatch/None");
+    } else if let Some(gradient) = gradient {
+        attr(
+            out,
+            &key,
+            crate::color_codec::gradient_reference(&gradient.gradient),
+        );
+        for (key, value) in crate::color_codec::gradient_attributes(part, gradient) {
+            attr(out, &key, value);
+        }
+    } else {
+        optional(out, &key, ink.map(crate::color_codec::reference));
     }
 }
 fn props(
@@ -451,6 +617,52 @@ fn props(
 }
 
 const FONT_CHOICE_LABEL: &str = "schist.font-choice";
+
+// IDML StoryOrientation is story-wide. Schist also permits a paragraph-local
+// override; preserve it in standard application metadata without inventing a
+// native paragraph attribute or claiming another application will render it.
+const WRITING_MODE_LABEL: &str = "Schist.ParagraphWritingMode.v1";
+
+fn paragraph_writing_mode(
+    element: &Element,
+    report: &mut crate::import::Report,
+) -> Option<schist_layout::WritingMode> {
+    let value = element
+        .child("Properties")?
+        .child("Label")?
+        .children
+        .iter()
+        .find(|entry| entry.attr("Key") == Some(WRITING_MODE_LABEL))?
+        .attr("Value")?;
+    let mode = match value {
+        "Horizontal" => schist_layout::WritingMode::Horizontal,
+        "VerticalRightToLeft" => schist_layout::WritingMode::VerticalRightToLeft,
+        "VerticalLeftToRight" => schist_layout::WritingMode::VerticalLeftToRight,
+        _ => return None,
+    };
+    let message = schist_i18n::t("design.idml_paragraph_orientation").to_string();
+    if !report.skipped.contains(&message) {
+        report.skip(message);
+    }
+    Some(mode)
+}
+
+fn writing_mode_label(out: &mut String, mode: Option<schist_layout::WritingMode>) {
+    let Some(mode) = mode else {
+        return;
+    };
+    let value = match mode {
+        schist_layout::WritingMode::Horizontal => "Horizontal",
+        schist_layout::WritingMode::VerticalRightToLeft => "VerticalRightToLeft",
+        schist_layout::WritingMode::VerticalLeftToRight => "VerticalLeftToRight",
+    };
+    let pair = format!(r#"<KeyValuePair Key="{WRITING_MODE_LABEL}" Value="{value}"/>"#);
+    if let Some(at) = out.find("</Label>") {
+        out.insert_str(at, &pair);
+    } else if let Some(at) = out.find("</Properties>") {
+        out.insert_str(at, &format!("<Label>{pair}</Label>"));
+    }
+}
 
 #[derive(serde::Serialize, serde::Deserialize)]
 struct FontChoice {
@@ -568,6 +780,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         resolved,
     );
     let mut out = String::from("<ParagraphStyle");
+    crate::nested_style_codec::attributes(&mut out, &style.nested_styles);
     crate::list_codec::attributes(&mut out, &crate::list_codec::native(style));
     crate::capitalization_codec::attributes(&mut out, style.all_caps, style.small_caps);
     crate::opentype_codec::attributes(&mut out, &style.features);
@@ -587,6 +800,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
     );
     attr(&mut out, "Name", &style.name);
     optional(&mut out, "FontStyle", choice.as_ref().map(|c| &c.native));
+    optional(&mut out, "NoBreak", style.no_break);
     optional(&mut out, "Underline", style.underline);
     optional(&mut out, "StrikeThru", style.strikethrough);
     position(&mut out, style.position, style.baseline_shift);
@@ -597,23 +811,19 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
             .baseline_shift
             .and_then(schist_layout::styles::BaselineShift::explicit_offset),
     );
-    optional(
+    text_paint_attributes(
         &mut out,
-        "FillColor",
-        if style.fill_disabled {
-            Some("Swatch/None".into())
-        } else {
-            style.fill.as_ref().map(crate::color_codec::reference)
-        },
+        "Fill",
+        style.fill.as_ref(),
+        style.fill_gradient.as_deref(),
+        style.fill_disabled,
     );
-    optional(
+    text_paint_attributes(
         &mut out,
-        "StrokeColor",
-        if style.stroke_disabled {
-            Some("Swatch/None".into())
-        } else {
-            style.stroke.as_ref().map(crate::color_codec::reference)
-        },
+        "Stroke",
+        style.stroke.as_ref(),
+        style.stroke_gradient.as_deref(),
+        style.stroke_disabled,
     );
     optional(
         &mut out,
@@ -689,10 +899,13 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
             Align::JustifyAll => "FullyJustified",
         }),
     );
-    optional(&mut out, "KeepWithNext", style.keep_with_next.map(u8::from));
-    optional(&mut out, "KeepFirstLines", style.keep_lines);
-    optional(&mut out, "DropCapLines", style.drop_caps_lines);
-    optional(&mut out, "DropCapCharacters", style.drop_caps_characters);
+    crate::keep_codec::attributes(&mut out, &crate::keep_codec::native(style));
+    optional(
+        &mut out,
+        "StartParagraph",
+        style.start_paragraph.map(|value| value.native_name()),
+    );
+    crate::drop_cap_codec::attributes(&mut out, style);
     optional(
         &mut out,
         "ParagraphDirection",
@@ -703,6 +916,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         }),
     );
     optional(&mut out, "Hyphenation", style.hyphenate);
+    crate::hyphenation_codec::attributes(&mut out, &style.hyphenation);
     optional(&mut out, "AppliedLanguage", style.language.as_ref());
     optional(
         &mut out,
@@ -725,8 +939,11 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         &style.features,
     );
     font_choice_label(&mut out, choice.as_ref());
+    writing_mode_label(&mut out, style.writing_mode);
     crate::list_codec::properties(&mut out, &crate::list_codec::native(style));
+    crate::nested_style_codec::properties(&mut out, &style.nested_styles);
     crate::list_codec::label(&mut out, style);
+    crate::keep_codec::label(&mut out, style);
     crate::decoration_codec::properties(&mut out, [&style.underline_style, &style.strike_style]);
     crate::opentype_codec::directional_label(&mut out, style.directional_features, &style.features);
     crate::capitalization_codec::label(&mut out, style.all_caps, style.small_caps);
@@ -751,23 +968,19 @@ pub fn character_resolved(style: &CharacterStyle, resolved: (bool, bool)) -> Str
         format!("CharacterStyle/$ID/{}", style.name),
     );
     attr(&mut out, "Name", &style.name);
-    optional(
+    text_paint_attributes(
         &mut out,
-        "FillColor",
-        if style.fill_disabled {
-            Some("Swatch/None".into())
-        } else {
-            style.fill.as_ref().map(crate::color_codec::reference)
-        },
+        "Fill",
+        style.fill.as_ref(),
+        style.fill_gradient.as_deref(),
+        style.fill_disabled,
     );
-    optional(
+    text_paint_attributes(
         &mut out,
-        "StrokeColor",
-        if style.stroke_disabled {
-            Some("Swatch/None".into())
-        } else {
-            style.stroke.as_ref().map(crate::color_codec::reference)
-        },
+        "Stroke",
+        style.stroke.as_ref(),
+        style.stroke_gradient.as_deref(),
+        style.stroke_disabled,
     );
     optional(
         &mut out,
@@ -816,6 +1029,7 @@ pub fn character_resolved(style: &CharacterStyle, resolved: (bool, bool)) -> Str
     optional(&mut out, "PointSize", style.point_size);
     optional(&mut out, "Tracking", style.tracking);
     optional(&mut out, "FontStyle", choice.as_ref().map(|c| &c.native));
+    optional(&mut out, "NoBreak", style.no_break);
     optional(&mut out, "Underline", style.underline);
     optional(&mut out, "StrikeThru", style.strikethrough);
     position(&mut out, style.position, style.baseline_shift);

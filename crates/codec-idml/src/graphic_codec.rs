@@ -374,13 +374,14 @@ pub(crate) fn write(
         rect_geometry(&frame)
     };
     let uri = file_uri(&link.path);
-    let opacity = crate::color_codec::transparency(object.transparency);
+    let opacity = crate::effects_codec::write(object);
     let paint = crate::object_style_codec::object_attributes(object);
     let state = if *embedded { "Embedded" } else { "Normal" };
     Some(format!(
-        r#"<Rectangle Self="{id}" Name="{name}" ItemLayer="SchistLayer{}" ContentType="GraphicType" Locked="{}" ItemTransform="{}"{paint}><Properties>{geometry}<Label><KeyValuePair Key="{LABEL}" Value="{metadata}" /></Label></Properties><Image Self="{id}image" ActualPpi="{dpi} {dpi}" ItemTransform="{inner}"><Properties><GraphicBounds Left="0" Top="0" Right="{}" Bottom="{}" />{contents}</Properties><Link Self="{id}link" LinkResourceURI="{}" StoredState="{state}" /></Image>{opacity}</Rectangle>"#,
+        r#"<Rectangle Self="{id}" Name="{name}" ItemLayer="SchistLayer{}" ContentType="GraphicType" Locked="{}" Visible="{}" ItemTransform="{}"{paint}><Properties>{geometry}<Label><KeyValuePair Key="{LABEL}" Value="{metadata}" /></Label></Properties><Image Self="{id}image" ActualPpi="{dpi} {dpi}" ItemTransform="{inner}"><Properties><GraphicBounds Left="0" Top="0" Right="{}" Bottom="{}" />{contents}</Properties><Link Self="{id}link" LinkResourceURI="{}" StoredState="{state}" /></Image>{opacity}</Rectangle>"#,
         layer.0,
         object.locked,
+        !object.hidden,
         crate::export::item_transform(object),
         number(source_width),
         number(source_height),

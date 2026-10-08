@@ -11,6 +11,16 @@ use std::{
     sync::Arc,
 };
 
+/// GPUI uploads BGRA bytes even though its frame carrier is `RgbaImage`.
+/// Convert only the owned preview image; source samples remain straight RGBA
+/// for transforms and separation, and native CMYK channels stay independent.
+pub(super) fn render_image(mut pixels: image::RgbaImage) -> Arc<gpui::RenderImage> {
+    for pixel in pixels.pixels_mut() {
+        pixel.0.swap(0, 2);
+    }
+    Arc::new(gpui::RenderImage::new(vec![image::Frame::new(pixels)]))
+}
+
 pub struct Graphic {
     pub pixels: image::RgbaImage,
     /// Authored process channels from a native CMYK composite. Preview
@@ -24,9 +34,7 @@ pub struct Graphic {
 
 impl Graphic {
     pub fn new(pixels: image::RgbaImage, dpi: f32, modified: Option<u64>) -> Self {
-        let image = Arc::new(gpui::RenderImage::new(smallvec::smallvec![
-            image::Frame::new(pixels.clone())
-        ]));
+        let image = render_image(pixels.clone());
         Self {
             pixels,
             cmyk: None,
@@ -61,7 +69,7 @@ impl Graphic {
         for pixel in pixels.pixels_mut() {
             pixel.0[3] = ((u16::from(pixel.0[3]) * u16::from(alpha) + 127) / 255) as u8;
         }
-        let image = Arc::new(gpui::RenderImage::new(vec![image::Frame::new(pixels)]));
+        let image = render_image(pixels);
         if cache.len() == 2 {
             cache.pop_front();
         }
@@ -204,6 +212,39 @@ impl Graphics {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn gpu_uploads_keep_channel_order_and_straight_alpha_without_changing_print_sources() {
+        let colors = [[255, 0, 0], [0, 0, 255], [17, 63, 129], [0, 255, 0]];
+        let pixels = image::RgbaImage::from_fn(4, 256, |x, y| {
+            let [r, g, b] = colors[x as usize];
+            image::Rgba([r, g, b, y as u8])
+        });
+        let source = Graphic::new(pixels.clone(), 72.0, None);
+        for opacity in [1.0, 0.5, 0.0, 0.2, 0.5, 1.0] {
+            let gpu = source.image_with_opacity(opacity);
+            let alpha = (opacity * 255.0).round() as u16;
+            for (original, uploaded) in pixels
+                .as_raw()
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .zip(gpu.as_bytes(0).unwrap().as_chunks::<4>().0.iter())
+            {
+                assert_eq!(
+                    *uploaded,
+                    [
+                        original[2],
+                        original[1],
+                        original[0],
+                        ((u16::from(original[3]) * alpha + 127) / 255) as u8
+                    ]
+                );
+            }
+            assert_eq!(source.pixels, pixels);
+            assert!(source.opacity_images.lock().unwrap().len() <= 2);
+        }
+    }
 
     #[test]
     fn inner_image_affines_sample_the_original_cmyk_grid_and_clip_to_the_frame() {

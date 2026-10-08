@@ -118,3 +118,109 @@ fn generated_markers_contribute_real_ink_across_both_sides_of_a_gutter() {
         }
     }
 }
+
+#[test]
+fn cross_story_numbering_matches_per_story_reference_ink_and_reports_unknown_order() {
+    use schist_layout::{
+        authoring,
+        lists::{ListKind, ListStyle, NumberingList},
+        History, ParagraphStyle, Rect, Story,
+    };
+    use schist_separation::{
+        separate_page, separate_page_built, separate_page_without_graphics, NaiveBuild, NoGraphics,
+        OutputSettings, Severity,
+    };
+    schist_text_engine::add_font_data(
+        include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
+    );
+    for count in [2, 5] {
+        let mut doc = schist_layout::blank_a4();
+        doc.styles.numbering_lists.push(NumberingList {
+            id: "shared".into(),
+            name: "Shared".into(),
+            across_stories: true,
+            ..Default::default()
+        });
+        doc.styles.add_paragraph(ParagraphStyle {
+            name: "Shared".into(),
+            family: Some("IBM Plex Sans".into()),
+            point_size: Some(12.0),
+            left_indent: Some(24.0),
+            first_line_indent: Some(-24.0),
+            list: ListStyle {
+                kind: Some(ListKind::Numbered),
+                list: Some("shared".into()),
+                ..Default::default()
+            },
+            ..Default::default()
+        });
+        for index in 0..count {
+            let frame = authoring::text_frame(
+                &mut doc,
+                &mut History::default(),
+                0,
+                Rect::new(72.0, 72.0 + index as f32 * 50.0, 200.0, 45.0),
+            )
+            .unwrap();
+            doc.stories[frame.story.0 as usize] = Story::from_text("Alpha", "Shared");
+            doc.stories[frame.story.0 as usize].push_paragraph("Beta", "Shared");
+        }
+        doc.objects.reverse();
+        let mut reference = doc.clone();
+        reference.styles.numbering_lists[0].across_stories = false;
+        for index in 0..count {
+            let name = format!("Local {index}");
+            reference.styles.add_paragraph(ParagraphStyle {
+                name: name.clone(),
+                based_on: Some("Shared".into()),
+                list: ListStyle {
+                    start: Some(index as u32 * 2 + 1),
+                    ..Default::default()
+                },
+                ..Default::default()
+            });
+            for point in &mut reference.stories[index].points {
+                if let schist_layout::StoryPoint::Paragraph { style, .. } = point {
+                    *style = name.clone();
+                }
+            }
+        }
+        for dpi in [72.0, 144.0, 216.0] {
+            let a = separate_page_without_graphics(&doc, 0, OutputSettings::at(dpi)).unwrap();
+            let b = separate_page_without_graphics(&reference, 0, OutputSettings::at(dpi)).unwrap();
+            assert_eq!(a.separation.plates().len(), b.separation.plates().len());
+            for (plate, expected) in a.separation.plates().iter().zip(b.separation.plates()) {
+                assert_eq!(plate.data, expected.data, "count={count},dpi={dpi}");
+            }
+            let notice = schist_i18n::t("design.idml_cross_story_order");
+            assert_eq!(
+                a.report
+                    .findings
+                    .iter()
+                    .filter(|f| f.message == notice && f.severity == Severity::Warning)
+                    .count(),
+                1
+            );
+            assert!(!a
+                .report
+                .findings
+                .iter()
+                .any(|f| f.severity == Severity::Error
+                    && f.message.contains("ContinueNumbersAcrossStories")));
+        }
+        doc.creation_order.clear();
+        for output in [
+            separate_page(&doc, 0, OutputSettings::at(72.0), &NoGraphics).unwrap(),
+            separate_page_built(&doc, 0, OutputSettings::at(72.0), &NoGraphics, &NaiveBuild)
+                .unwrap(),
+        ] {
+            assert!(output
+                .report
+                .findings
+                .iter()
+                .any(|f| f.severity == Severity::Error
+                    && f.message
+                        .contains("ContinueNumbersAcrossStories.UnknownCreationOrder")));
+        }
+    }
+}

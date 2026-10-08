@@ -20,19 +20,46 @@
 //! document. Neither of them computes layout, which is why a layout bug
 //! can be reproduced in a unit test and a paint bug cannot hide one.
 
+/// The local date and time, for document dates: creation, saves and output.
+/// Where the platform gives no time zone, UTC.
+pub fn now() -> schist_layout::dates::DateTime {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        use chrono::{Datelike, Timelike};
+        let local = chrono::Local::now();
+        if let Some(date) = schist_layout::dates::DateTime::new(
+            local.year(),
+            local.month() as u8,
+            local.day() as u8,
+            local.hour() as u8,
+            local.minute() as u8,
+            local.second().min(59) as u8,
+        ) {
+            return date;
+        }
+    }
+    let seconds = web_time::SystemTime::now()
+        .duration_since(web_time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_secs() as i64);
+    schist_layout::dates::DateTime::from_unix(seconds)
+}
+
 pub mod composition;
 pub mod controls;
 pub mod dragging;
 pub mod graphics;
 pub mod guides;
 pub mod lifecycle;
+mod output_preview;
 pub mod paint;
 pub mod pen;
+mod plan_cache;
 pub mod preflight;
 pub mod rulers;
 pub mod select;
 pub mod story_editor;
 pub mod text;
+mod text_variables;
 pub mod tools;
 mod view;
 
@@ -311,6 +338,12 @@ pub struct DesignState {
     /// Set when the pasteboard has to be fitted again, which is after a
     /// mode change: the two modes need different zooms.
     pub needs_refit: bool,
+    plan_cache: std::cell::RefCell<plan_cache::PlanCache>,
+    /// The document as auto-sized frames were last fitted to it.
+    fitted: Option<LayoutDocument>,
+    /// Draw each page as it separates instead of item by item.
+    pub output_preview: bool,
+    preview_cache: std::cell::RefCell<output_preview::PreviewCache>,
 }
 
 /// An in-progress drag on the pasteboard.
@@ -361,10 +394,14 @@ impl Default for DesignState {
             anchor: None,
             pen: None,
             needs_refit: true,
+            plan_cache: Default::default(),
             controls: controls::Controls::default(),
             session: std::sync::Arc::new(()),
             graphics: Default::default(),
             graphics_busy: false,
+            fitted: None,
+            output_preview: false,
+            preview_cache: Default::default(),
         }
     }
 }
@@ -372,6 +409,28 @@ impl Default for DesignState {
 impl DesignState {
     pub fn new() -> DesignState {
         DesignState::default()
+    }
+
+    /// Fit auto-sized frames to the text the last change gave them, folding
+    /// the fit into that change's undo step. Free for documents without
+    /// auto-sized frames, and cheap when nothing changed.
+    pub fn settle(&mut self) {
+        if !self.ready()
+            || !self
+                .document
+                .objects
+                .iter()
+                .any(|o| o.appearance.auto_size.is_some())
+            || self.fitted.as_ref() == Some(&self.document)
+        {
+            return;
+        }
+        let edits = schist_layout::auto_size::refit(&mut self.document);
+        if !edits.is_empty() {
+            self.history
+                .amend(schist_layout::LayoutEdit::Batch { edits });
+        }
+        self.fitted = Some(self.document.clone());
     }
 
     /// Whether Design Mode has anything to show.
@@ -465,6 +524,7 @@ impl DesignState {
     /// show" rather than as an error.
     pub fn plan(&self) -> Option<schist_layout::pasteboard::Pasteboard> {
         if !self.ready() {
+            self.plan_cache.borrow_mut().clear();
             return None;
         }
         let mut preview = composition::preview(self);
@@ -480,9 +540,10 @@ impl DesignState {
                 }
             }
         }
-        let mut plan = schist_layout::pasteboard::pasteboard(
+        let mut plan = self.plan_cache.borrow_mut().get(
             preview.as_ref().unwrap_or(&self.document),
             &self.view_for_mode(),
+            schist_text_engine::font_revision(),
         )?;
         if !self.show_guides {
             for page in &mut plan.pages {
@@ -542,6 +603,56 @@ impl DesignState {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn an_auto_sized_frame_settles_into_the_edit_that_grew_it() {
+        use schist_layout::auto_size::{AutoSize, AutoSizing, ReferencePoint};
+        let mut state = DesignState::new();
+        let made = schist_layout::authoring::text_frame(
+            &mut state.document,
+            &mut state.history,
+            0,
+            schist_layout::Rect::new(36.0, 60.0, 240.0, 40.0),
+        )
+        .unwrap();
+        state
+            .document
+            .objects
+            .iter_mut()
+            .find(|o| o.id == made.object)
+            .unwrap()
+            .appearance
+            .auto_size = Some(AutoSize {
+            sizing: AutoSizing::HeightOnly,
+            reference: ReferencePoint::TopLeft,
+            minimum_height: None,
+            minimum_width: None,
+            no_line_breaks: false,
+        });
+        let bounds = |state: &DesignState| state.document.object(made.object).unwrap().bounds;
+        // An empty frame has nothing to fit.
+        state.settle();
+        let small = bounds(&state);
+        let depth = state.history.undo_depth();
+        let text: Vec<String> = (0..12).map(|n| format!("Line {n}")).collect();
+        assert!(schist_layout::authoring::set_text(
+            &mut state.document,
+            &mut state.history,
+            made.story,
+            text.join(
+                "
+"
+            ),
+        ));
+        state.settle();
+        assert!(bounds(&state).height > small.height);
+        assert_eq!(state.history.undo_depth(), depth + 1, "one undo step");
+        // Undo takes the text and the fit back together; nothing refits.
+        assert!(state.undo_or_redo(false));
+        state.settle();
+        assert_eq!(bounds(&state), small);
+        assert!(state.history.can_redo());
+    }
 
     #[test]
     fn the_mode_toggles_between_photo_and_design() {
@@ -694,11 +805,14 @@ mod tests {
             .document
             .add_story(schist_layout::Story::from_text("hi", "Body"));
         let id = state.document.add_object(schist_layout::PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: schist_layout::Rect::new(0.0, 0.0, 100.0, 50.0),
             object: schist_layout::LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -716,6 +830,7 @@ mod tests {
         // A text frame has a story and a shape does not.
         assert!(state.story_of(id).is_some());
         let shape = state.document.add_object(schist_layout::PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -742,11 +857,14 @@ mod tests {
             .document
             .add_story(schist_layout::Story::from_text("hi", "Body"));
         state.document.add_object(schist_layout::PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: schist_layout::Rect::new(0.0, 0.0, 100.0, 50.0),
             object: schist_layout::LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,

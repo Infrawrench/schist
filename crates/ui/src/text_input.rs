@@ -370,6 +370,12 @@ impl RenderOnce for TextInput {
             .flex_grow()
             .min_w_0()
             .overflow_hidden()
+            // A column stretches the text to the available width before
+            // measuring its height. A row can measure it at max-content width
+            // and then clip it, defeating multiline wrapping.
+            .when(self.multiline, |content| {
+                content.flex_col().whitespace_normal()
+            })
             .when(self.align_end, |d| d.justify_end())
             .when(!self.align_end, |d| d.justify_start())
             .child(run)

@@ -10,13 +10,13 @@
 //! [`schist_core::InkChannel`] plates for delivery as PSD/PSB or a
 //! prepress file.
 
-use schist_core::InkChannel;
+use schist_core::{InkChannel, IntRect};
 use schist_layout::compose::compose_object;
 use schist_layout::ink::InkManager;
 use schist_layout::model::{LayoutDocument, LayoutObject, PlacedObject};
 
 use crate::build::{CmykSource, NaiveBuild};
-use crate::coverage::{InkMode, PlateCoverage, Separation};
+use crate::coverage::{Coverage, InkMode, PlateCoverage, Separation};
 use crate::geometry::{OutputSettings, PagePixel};
 use crate::plan::PlatePlan;
 use crate::raster::{graphic_coverage, tinted_coats_for, GraphicSource, NoGraphics};
@@ -104,7 +104,7 @@ pub fn separate_page_built(
         if let Some(link) = missing_link(&placed) {
             report.missing_link(&link);
         }
-        if let Some(path) = paint_object(
+        if let Some(failure) = paint_object(
             &mut separation,
             &mut working,
             doc,
@@ -113,7 +113,7 @@ pub fn separate_page_built(
             page_def,
             source,
         ) {
-            report.unavailable_graphic(path);
+            failure.report(&mut report);
         }
     }
     finish(separation, &plan, &doc.ink_manager, false, report)
@@ -144,7 +144,7 @@ pub fn separate_page_with(
         if let Some(link) = missing_link(&placed) {
             report.missing_link(&link);
         }
-        if let Some(path) = paint_object(
+        if let Some(failure) = paint_object(
             &mut separation,
             &mut working,
             doc,
@@ -153,7 +153,7 @@ pub fn separate_page_with(
             page_def,
             source,
         ) {
-            report.unavailable_graphic(path);
+            failure.report(&mut report);
         }
     }
 
@@ -187,8 +187,26 @@ fn layout_report(
     }
     let mut families = std::collections::BTreeSet::new();
     let mut list_issues = std::collections::BTreeSet::new();
+    let mut cross_story_order = false;
     let mut tab_issues = std::collections::BTreeSet::new();
+    let mut nested_issues = std::collections::BTreeSet::new();
+    let mut initial_issues = std::collections::BTreeSet::new();
     let mut counters = std::collections::BTreeMap::new();
+    // Anchored items wrap only their own story's lines; other stories' frames
+    // their wrap reaches are told so.
+    let mut anchored_wraps = Vec::new();
+    for object in doc.page_artwork(page, settings.output_box(&doc.pages[page])) {
+        let LayoutObject::TextFrame { story, .. } = &object.object else {
+            continue;
+        };
+        if let (Some(definition), Some(frame)) = (doc.story(*story), compose_object(doc, &object)) {
+            anchored_wraps.extend(
+                schist_layout::anchored::wrapping(doc, definition, &object, frame.all_lines())
+                    .into_iter()
+                    .map(|item| (*story, item.visual_bounds())),
+            );
+        }
+    }
     for object in doc.page_artwork(page, settings.output_box(&doc.pages[page])) {
         if !schist_layout::affine::finite(object.content_transform())
             || object.content_transform().invert().is_none()
@@ -212,6 +230,43 @@ fn layout_report(
             let Some(story) = doc.stories.get(story.0 as usize) else {
                 continue;
             };
+            if frame.unrendered_structures > 0 {
+                report.add(
+                    crate::report::Severity::Error,
+                    schist_i18n::tf!(
+                        "design.preflight_story_structure",
+                        name = object.name,
+                        count = frame.unrendered_structures
+                    ),
+                );
+            }
+            let reached = anchored_wraps
+                .iter()
+                .any(|(other, area)| *other != story_id && area.intersects(object.visual_bounds()));
+            if frame.wrap.ignored || reached {
+                report.add(
+                    crate::report::Severity::Warning,
+                    schist_i18n::tf!("design.preflight_wrap_ignored", name = object.name),
+                );
+            }
+            if frame.wrap.approximated {
+                report.add(
+                    crate::report::Severity::Warning,
+                    schist_i18n::tf!("design.preflight_wrap_approximated", name = object.name),
+                );
+            }
+            // Anchored text frames compose in their own boxes.
+            for item in schist_layout::anchored::placements(doc, story, &object, frame.all_lines())
+            {
+                if matches!(item.object, LayoutObject::TextFrame { .. })
+                    && compose_object(doc, &item).is_some_and(|f| f.lost)
+                {
+                    report.add(
+                        crate::report::Severity::Error,
+                        schist_i18n::tf!("design.preflight_overset", name = item.name),
+                    );
+                }
+            }
             let (counters, paragraphs) = counters.entry(story_id).or_insert_with(|| {
                 (
                     schist_layout::list_counters::StoryCounters::new(doc, story),
@@ -228,24 +283,47 @@ fn layout_report(
                         .collect::<std::collections::BTreeMap<_, _>>(),
                 )
             });
-            for line in frame.lines {
-                let spec = schist_layout::compose::line_spec(&line, story, doc);
+            for line in frame.all_lines() {
+                initial_issues.extend(schist_layout::drop_caps::unsupported_detail(
+                    &line.paragraph,
+                ));
+                if line.text_path.is_some()
+                    && line.paragraph.drop_caps_lines.unwrap_or(0) > 1
+                    && line.paragraph.drop_caps_characters.unwrap_or(1) > 0
+                {
+                    initial_issues.insert("TextPath + DropCapLines");
+                }
+                nested_issues.extend(line.projected.as_ref().map_or_else(
+                    || schist_layout::nested_styles::unsupported(&line.paragraph),
+                    |projection| projection.nested_issue,
+                ));
+                let spec = schist_layout::compose::line_spec(line, story, doc);
+                let paragraph = paragraphs.range(..=line.start).next_back();
+                let context = line.projected.as_ref().map_or_else(
+                    || paragraph.map_or(spec.text.as_str(), |(_, text)| *text),
+                    |projection| projection.context.as_ref(),
+                );
+                let counter_issue = line.projected.as_ref().map_or_else(
+                    || paragraph.and_then(|(at, _)| counters.issue(*at)),
+                    |projection| projection.counter_issue,
+                );
                 if spec.text.contains('\t') {
-                    let context = paragraphs
-                        .range(..=line.start)
-                        .next_back()
-                        .map_or(spec.text.as_str(), |(_, text)| *text);
-                    tab_issues.extend(schist_layout::tabs::unsupported(
+                    tab_issues.extend(schist_layout::tabs::unsupported_in_mode(
                         &line.paragraph,
                         context,
                         line.text_path.is_some(),
+                        spec.writing_mode,
                     ));
                 }
                 use schist_layout::lists::ListKind;
                 let list = &line.paragraph.list;
                 if matches!(list.kind, Some(ListKind::Bullet | ListKind::Numbered)) {
                     list_issues.extend(schist_layout::list_composition::unsupported(list));
-                    if let Some(issue) = counters.issue(line.start) {
+                    list_issues.extend(schist_layout::list_composition::unsupported_paragraph(
+                        &line.paragraph,
+                        context,
+                    ));
+                    if let Some(issue) = counter_issue {
                         list_issues.insert(issue);
                     }
                     if line.paragraph.drop_caps_lines.unwrap_or(0) > 1 {
@@ -261,8 +339,8 @@ fn layout_report(
                         list.kind == Some(ListKind::Numbered)
                             && r.id == schist_layout::list_counters::sequence_id(list)
                     }) {
-                        if resource.across_stories {
-                            list_issues.insert("ContinueNumbersAcrossStories");
+                        if resource.across_stories && counter_issue.is_none() {
+                            cross_story_order = true;
                         }
                         if resource.across_documents {
                             list_issues.insert("ContinueNumbersAcrossDocuments");
@@ -325,7 +403,25 @@ fn layout_report(
             }
         }
     }
+    if cross_story_order {
+        report.add(
+            crate::report::Severity::Warning,
+            schist_i18n::t("design.idml_cross_story_order"),
+        );
+    }
     let mut missing_families = std::collections::BTreeSet::new();
+    for property in nested_issues {
+        report.add(
+            crate::report::Severity::Error,
+            schist_i18n::tf!("design.idml_nested_style_unsupported", value = property),
+        );
+    }
+    for property in initial_issues {
+        report.add(
+            crate::report::Severity::Error,
+            schist_i18n::tf!("design.idml_drop_cap_unsupported", value = property),
+        );
+    }
     for property in tab_issues {
         report.add(
             crate::report::Severity::Error,
@@ -425,8 +521,33 @@ fn missing_link(placed: &PlacedObject) -> Option<String> {
     Some(link.path.clone())
 }
 
-/// Paint one object onto the plates, returning an unresolved graphic's
-/// path so neither separation entry point can silently omit its error.
+enum PaintFailure<'a> {
+    Graphic(std::borrow::Cow<'a, str>),
+    Text,
+}
+
+impl PaintFailure<'_> {
+    /// A failure that no longer borrows the object it came from.
+    fn owned(self) -> PaintFailure<'static> {
+        match self {
+            Self::Graphic(path) => PaintFailure::Graphic(path.into_owned().into()),
+            Self::Text => PaintFailure::Text,
+        }
+    }
+
+    fn report(self, report: &mut PreflightReport) {
+        match self {
+            Self::Graphic(path) => report.unavailable_graphic(&path),
+            Self::Text => report.add(
+                crate::report::Severity::Error,
+                schist_i18n::t("design.preflight_unavailable_text").to_string(),
+            ),
+        }
+    }
+}
+
+/// Paint one object onto the plates, returning failed content so neither
+/// separation entry point can silently omit its error.
 fn paint_object<'a>(
     separation: &mut Separation,
     plan: &mut PlatePlan,
@@ -435,7 +556,127 @@ fn paint_object<'a>(
     settings: OutputSettings,
     page: &schist_layout::Page,
     source: &dyn GraphicSource,
-) -> Option<&'a str> {
+) -> Option<PaintFailure<'a>> {
+    if let Some(shadow) = &placed.appearance.drop_shadow {
+        paint_shadow(
+            separation, plan, doc, placed, shadow, settings, page, source,
+        );
+    }
+    paint_body(separation, plan, doc, placed, settings, page, source)
+}
+
+/// The ink rule an item's blend mode gives it. Blends that mix hue,
+/// saturation or luminosity across channels are drawn Normal.
+fn blended(mode: Option<schist_layout::effects::BlendMode>) -> InkMode {
+    match mode {
+        Some(mode) if mode != schist_layout::effects::BlendMode::Normal && mode.separable() => {
+            InkMode::Blend(mode)
+        }
+        _ => InkMode::Knockout,
+    }
+}
+
+/// Cast `placed`'s drop shadow beneath it: what its paint covers, inks and
+/// paper alike, moved by the shadow's offsets, blurred to its size and laid
+/// in its colour at its opacity and blend. Knocked out, the item hides the
+/// shadow wherever it covers, which shows when the item is transparent.
+#[allow(clippy::too_many_arguments)]
+fn paint_shadow(
+    separation: &mut Separation,
+    plan: &mut PlatePlan,
+    doc: &LayoutDocument,
+    placed: &PlacedObject,
+    shadow: &schist_layout::effects::DropShadow,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+    source: &dyn GraphicSource,
+) {
+    let rect = separation.rect();
+    // The shape is the item's, opaque: its opacity fades the shadow once,
+    // as it is laid.
+    let mut opaque = placed.clone();
+    opaque.transparency = 1.0;
+    let mut capture = Separation::alpha_capture(rect);
+    let _ = paint_body(
+        &mut capture,
+        &mut plan.clone(),
+        doc,
+        &opaque,
+        settings,
+        page,
+        source,
+    );
+    let Some(alpha) = capture.alpha() else {
+        return;
+    };
+    // Only the part of the page the item covers casts anything.
+    let width = rect.width().max(0) as usize;
+    let (mut left, mut top, mut right, mut bottom) = (i32::MAX, i32::MAX, i32::MIN, i32::MIN);
+    for (index, value) in alpha.data.iter().enumerate() {
+        if *value > 0.0 {
+            let x = rect.left + (index % width) as i32;
+            let y = rect.top + (index / width) as i32;
+            left = left.min(x);
+            top = top.min(y);
+            right = right.max(x + 1);
+            bottom = bottom.max(y + 1);
+        }
+    }
+    if left >= right {
+        return;
+    }
+    let scale = settings.scale();
+    let dx = (shadow.x_offset * scale).round() as i32;
+    let dy = (shadow.y_offset * scale).round() as i32;
+    let sigma = (shadow.size / 2.0 * scale).max(0.0);
+    let margin = (3.0 * sigma).ceil() as i32 + 1;
+    let area = IntRect::new(
+        left + dx - margin,
+        top + dy - margin,
+        right + dx + margin,
+        bottom + dy + margin,
+    )
+    .intersect(&rect);
+    if area.is_empty() {
+        return;
+    }
+    let (w, h) = (area.width() as usize, area.height() as usize);
+    let mut data = vec![0.0f32; w * h];
+    for y in 0..h {
+        for x in 0..w {
+            let (px, py) = (area.left + x as i32, area.top + y as i32);
+            data[y * w + x] = alpha.at(px - dx, py - dy);
+        }
+    }
+    schist_layout::effects::blur(&mut data, w, h, sigma);
+    let mut mask = Coverage::new(area);
+    for y in 0..h {
+        for x in 0..w {
+            let (px, py) = (area.left + x as i32, area.top + y as i32);
+            let mut value = data[y * w + x] * shadow.opacity.clamp(0.0, 1.0);
+            if shadow.knocked_out {
+                value *= 1.0 - alpha.at(px, py);
+            }
+            mask.data[y * w + x] = (value.clamp(0.0, 1.0) * 255.0).round() as u8;
+        }
+    }
+    let (coats, build) = tinted_coats_for(plan, &shadow.ink(), 1.0);
+    let mode = blended(Some(shadow.blend));
+    let opacity = placed.transparency.clamp(0.0, 1.0);
+    separation.paint(&mask, &coats, mode, opacity);
+    separation.paint_composite(&mask, &coats, &build, mode, opacity);
+}
+
+/// Paint an object's frame fill, content and frame stroke.
+fn paint_body<'a>(
+    separation: &mut Separation,
+    plan: &mut PlatePlan,
+    doc: &LayoutDocument,
+    placed: &'a PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+    source: &dyn GraphicSource,
+) -> Option<PaintFailure<'a>> {
     if let Some(fill) = placed.frame_paint(false) {
         paint_object_content(separation, plan, doc, &fill, settings, page, source);
     }
@@ -458,7 +699,7 @@ fn paint_object_content<'a>(
     settings: OutputSettings,
     page: &schist_layout::Page,
     source: &dyn GraphicSource,
-) -> Option<&'a str> {
+) -> Option<PaintFailure<'a>> {
     if !schist_layout::affine::finite(placed.content_transform())
         || placed.content_transform().invert().is_none()
     {
@@ -467,12 +708,13 @@ fn paint_object_content<'a>(
     let mode = if placed.overprint {
         InkMode::Overprint
     } else {
-        InkMode::Knockout
+        blended(placed.appearance.blend_mode)
     };
     let opacity = placed.transparency.clamp(0.0, 1.0);
 
     match &placed.object {
         LayoutObject::Shape {
+            path,
             fill,
             stroke,
             fill_overprint,
@@ -481,7 +723,26 @@ fn paint_object_content<'a>(
             ..
         } => {
             let coverage = crate::raster::placed_shape_coverage(placed, settings, page, false);
-            if let Some(ink) = fill {
+            // A gradient fill or stroke runs over the path's own coordinates.
+            let to_path = crate::raster::to_path(placed, settings, page);
+            let bounds = path.bounds();
+            if let Some(gradient) = placed.appearance.paint.fill_gradient() {
+                let mode = if *fill_overprint {
+                    InkMode::Overprint
+                } else {
+                    mode
+                };
+                let vector = gradient.vector(bounds);
+                paint_gradient(
+                    separation,
+                    plan,
+                    &coverage,
+                    gradient,
+                    |x, y| gradient.position(to_path(x, y), vector),
+                    mode,
+                    opacity,
+                );
+            } else if let Some(ink) = fill {
                 let (coats, build) = tinted_coats_for(plan, ink, tints.fill);
                 let mode = if *fill_overprint {
                     InkMode::Overprint
@@ -491,28 +752,81 @@ fn paint_object_content<'a>(
                 separation.paint(&coverage, &coats, mode, opacity);
                 separation.paint_composite(&coverage, &coats, &build, mode, opacity);
             }
-            if let Some(ink) = stroke {
+            let stroke_gradient = placed.appearance.paint.stroke_gradient();
+            if stroke.is_some() || stroke_gradient.is_some() {
+                // A dashed, dotted or striped stroke's gap colour fills the
+                // band its ink leaves, with its own tint and overprint.
+                let paint = &placed.appearance.paint;
+                if let Some(gap) = paint.gap_ink() {
+                    if let Some(gap_mask) =
+                        crate::raster::placed_gap_coverage(placed, settings, page)
+                    {
+                        let (coats, build) =
+                            tinted_coats_for(plan, gap, paint.gap_tint.unwrap_or(1.0));
+                        let mode = if paint.overprint_gap == Some(true) {
+                            InkMode::Overprint
+                        } else {
+                            mode
+                        };
+                        separation.paint(&gap_mask, &coats, mode, opacity);
+                        separation.paint_composite(&gap_mask, &coats, &build, mode, opacity);
+                    }
+                }
                 // The stroke is a separate ink on a separate rule: a
                 // shape whose fill knocks out and whose stroke
                 // overprints is an ordinary way to draw a keyline.
                 let stroke_mask =
                     crate::raster::placed_shape_coverage(placed, settings, page, true);
-                let (coats, build) = tinted_coats_for(plan, ink, tints.stroke);
                 let mode = if *stroke_overprint {
                     InkMode::Overprint
                 } else {
                     mode
                 };
-                separation.paint(&stroke_mask, &coats, mode, opacity);
-                separation.paint_composite(&stroke_mask, &coats, &build, mode, opacity);
+                if let Some(gradient) = stroke_gradient {
+                    let vector = gradient.vector(bounds);
+                    paint_gradient(
+                        separation,
+                        plan,
+                        &stroke_mask,
+                        gradient,
+                        |x, y| gradient.position(to_path(x, y), vector),
+                        mode,
+                        opacity,
+                    );
+                } else if let Some(ink) = stroke {
+                    let (coats, build) = tinted_coats_for(plan, ink, tints.stroke);
+                    separation.paint(&stroke_mask, &coats, mode, opacity);
+                    separation.paint_composite(&stroke_mask, &coats, &build, mode, opacity);
+                }
             }
         }
 
         LayoutObject::TextFrame { story, .. } => {
             let composed = compose_object(doc, placed)?;
             let story_def = doc.story(*story)?;
-            for line in &composed.lines {
-                for paint in crate::raster::line_paints(line, story_def, doc, settings, page) {
+            for area in &composed.footnotes {
+                if let Some(rule) = &area.rule {
+                    let coverage =
+                        crate::raster::footnote_rule_coverage(rule, placed, settings, page);
+                    let mode = if rule.overprint {
+                        InkMode::Overprint
+                    } else {
+                        mode
+                    };
+                    let (coats, build) = tinted_coats_for(plan, &rule.ink, rule.tint);
+                    separation.paint(&coverage, &coats, mode, opacity);
+                    separation.paint_composite(&coverage, &coats, &build, mode, opacity);
+                }
+            }
+            // A text gradient runs over the frame the text is set in.
+            let to_frame = crate::raster::to_path(placed, settings, page);
+            let size = (placed.bounds.width, placed.bounds.height);
+            for line in composed.all_lines() {
+                let Some(paints) = crate::raster::line_paints(line, story_def, doc, settings, page)
+                else {
+                    return Some(PaintFailure::Text);
+                };
+                for paint in paints {
                     let coverage =
                         crate::raster::warp_coverage(paint.coverage, placed, settings, page);
                     let mode = if paint.overprint {
@@ -521,10 +835,37 @@ fn paint_object_content<'a>(
                         mode
                     };
                     let alpha = paint.opacity;
+                    if let Some(gradient) = &paint.gradient {
+                        let vector = gradient.text_vector(size);
+                        paint_gradient(
+                            separation,
+                            plan,
+                            &coverage,
+                            gradient,
+                            |x, y| gradient.position(to_frame(x, y), vector),
+                            mode,
+                            opacity * alpha,
+                        );
+                        continue;
+                    }
                     let (coats, build) = tinted_coats_for(plan, &paint.ink, paint.tint);
                     separation.paint(&coverage, &coats, mode, opacity * alpha);
                     separation.paint_composite(&coverage, &coats, &build, mode, opacity * alpha);
                 }
+            }
+            // Inline anchored items draw with their frame, after its text.
+            let mut failed = None;
+            for item in
+                schist_layout::anchored::placements(doc, story_def, placed, composed.all_lines())
+            {
+                if let Some(failure) =
+                    paint_object(separation, plan, doc, &item, settings, page, source)
+                {
+                    failed.get_or_insert(failure.owned());
+                }
+            }
+            if failed.is_some() {
+                return failed;
             }
         }
 
@@ -535,7 +876,7 @@ fn paint_object_content<'a>(
                 return None;
             }
             let Some(placed_graphic) = graphic_coverage(placed, settings, page, source) else {
-                return Some(&link.path);
+                return Some(PaintFailure::Graphic(link.path.as_str().into()));
             };
             let rect = placed_graphic.rect;
             if !separation.paint_process(
@@ -546,7 +887,7 @@ fn paint_object_content<'a>(
                 mode,
                 opacity,
             ) {
-                return Some(&link.path);
+                return Some(PaintFailure::Graphic(link.path.as_str().into()));
             }
         }
 
@@ -555,6 +896,33 @@ fn paint_object_content<'a>(
         LayoutObject::Group { .. } | LayoutObject::Note { .. } => {}
     }
     None
+}
+
+/// Lay `gradient` through `mask`. `place(x, y)` is how far along the
+/// gradient a page pixel's centre falls; each stop's ink lays as a solid of
+/// it would, untinted, and a pixel mixes its two stops.
+fn paint_gradient(
+    separation: &mut Separation,
+    plan: &mut PlatePlan,
+    mask: &crate::coverage::Coverage,
+    gradient: &schist_layout::gradients::GradientFill,
+    place: impl Fn(f32, f32) -> f32,
+    mode: InkMode,
+    opacity: f32,
+) {
+    let stops: Vec<_> = gradient
+        .gradient
+        .stops
+        .iter()
+        .map(|stop| tinted_coats_for(plan, &stop.ink, 1.0))
+        .collect();
+    separation.paint_gradient(
+        mask,
+        &stops,
+        |x, y| gradient.gradient.mix(place(x as f32 + 0.5, y as f32 + 0.5)),
+        mode,
+        opacity,
+    );
 }
 
 /// Apply the ink manager's output-time decisions to the process plates.

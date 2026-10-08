@@ -1,0 +1,18 @@
+[package]
+name = "schist-codec-indd"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-layout.workspace = true
+# The recovered objects are written as IDML parts and read by the IDML
+# importer, so spreads, masters, threads and inks take the same path into
+# a `LayoutDocument` whichever format the file came in.
+schist-codec-idml.workspace = true
+schist-i18n.workspace = true
+# The plugin adapter implements a `plugin-api` trait, whose signatures use
+# `anyhow::Result` like every other plugin trait in the app.
+schist-plugin-api.workspace = true
+anyhow.workspace = true
+log.workspace = true

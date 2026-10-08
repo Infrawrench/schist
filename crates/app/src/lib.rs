@@ -445,9 +445,13 @@ pub fn main() {
         // here. The hook is synchronous, so a dirty workspace vetoes the
         // close and `request_quit` drives the prompts.
         let _ = window.update(cx, |_ws, win, cx| {
-            win.on_window_should_close(cx, move |_win, cx| {
-                window
-                    .update(cx, |ws, _window, cx| {
+            win.on_window_should_close(cx, move |win, cx| {
+                // This window is already leased to the callback. Reach the
+                // workspace through it: updating the window handle again
+                // here fails, and that failure used to allow closing a window
+                // with unsaved changes without asking.
+                let close = win.root::<Workspace>().flatten().is_none_or(|workspace| {
+                    workspace.update(cx, |ws, cx| {
                         if ws.has_unsaved_changes() {
                             ws.request_quit(cx);
                             false
@@ -455,7 +459,22 @@ pub fn main() {
                             true
                         }
                     })
-                    .unwrap_or(true)
+                });
+                // Story Editor and Text Variables belong to this workspace.
+                // Left open, they cannot act on anything and keep a session
+                // alive that the backends would otherwise end with the last
+                // window. Close them after this window has gone.
+                if close {
+                    let main = window.window_id();
+                    cx.defer(move |cx| {
+                        for other in cx.windows() {
+                            if other.window_id() != main {
+                                let _ = other.update(cx, |_, window, _| window.remove_window());
+                            }
+                        }
+                    });
+                }
+                close
             });
         });
 

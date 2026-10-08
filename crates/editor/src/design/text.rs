@@ -23,6 +23,7 @@ pub fn hit(state: &DesignState, at: Point, object: Option<ObjectId>) -> Option<(
                 rect,
                 spec,
                 start,
+                positions,
                 transform,
                 ..
             } = d
@@ -66,7 +67,14 @@ pub fn hit(state: &DesignState, at: Point, object: Option<ObjectId>) -> Option<(
                 .into_iter()
                 .map(|(position, caret)| {
                     let (cross, inline) = caret.hit_distance(x, y);
-                    (outside, cross, inline, start + position.byte)
+                    (
+                        outside,
+                        cross,
+                        inline,
+                        positions
+                            .as_ref()
+                            .map_or(start + position.byte, |p| p.source(position.byte)),
+                    )
                 })
                 .min_by(compare_text_hits)
         })
@@ -179,7 +187,7 @@ pub fn adjacent_line_caret(state: &DesignState, forward: bool) -> Option<usize> 
         .frames
         .iter()
         .flat_map(|f| &f.lines)
-        .filter(|l| l.generated.is_none())
+        .filter(|l| !l.is_generated())
         .collect();
     let index = lines.iter().rposition(|l| l.start <= typing.at)?;
     let next = if forward {
@@ -199,8 +207,7 @@ pub fn adjacent_line_caret(state: &DesignState, forward: bool) -> Option<usize> 
     let target_spec = spec(target);
     let current_origin = line_origin(&current_spec, current.bounds);
     let target_origin = line_origin(&target_spec, target.bounds);
-    let caret =
-        schist_text_engine::caret_at(&current_spec, typing.at.saturating_sub(current.start))?;
+    let caret = schist_text_engine::caret_at(&current_spec, current.visual_byte(typing.at))?;
     // Keep the inline position relative to its column when crossing an indent,
     // alignment change, column boundary or another frame in the thread.
     let inline = if current_spec.writing_mode == schist_text_engine::WritingMode::Horizontal {
@@ -214,13 +221,105 @@ pub fn adjacent_line_caret(state: &DesignState, forward: bool) -> Option<usize> 
     } else {
         (0.0, inline - target_origin.y)
     };
-    Some(target.start + schist_text_engine::hit_test(&target_spec, x, y).unwrap_or(0))
+    Some(target.source_byte(schist_text_engine::hit_test(&target_spec, x, y).unwrap_or(0)))
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use schist_layout::{authoring, threading};
+
+    #[test]
+    fn footnote_reference_hits_and_navigation_stay_in_original_source_coordinates() {
+        use schist_layout::{footnotes::*, Story, StoryStructure};
+        let content = "Aé words and more words that wrap.";
+        for anchor in [0, 1, 3, content.len()] {
+            for scale in [0.7, 1.8] {
+                for affine in [
+                    schist_core::Affine::IDENTITY,
+                    schist_core::Affine::rotate(0.12),
+                ] {
+                    let mut state = DesignState::new();
+                    let frame = authoring::text_frame(
+                        &mut state.document,
+                        &mut state.history,
+                        0,
+                        Rect::new(30.0, 30.0, 100.0, 200.0),
+                    )
+                    .unwrap();
+                    state.document.footnotes.no_splitting = Some(true);
+                    state.document.footnotes.start_at = Some(12);
+                    let mut story = Story::from_text(content, "Body");
+                    story.structures.push(StoryStructure {
+                        control: None,
+                        at: Some(anchor),
+                        kind: "Footnote".into(),
+                        payload: "retained".into(),
+                        footnote: Some(FootnoteBody {
+                            story: Story::from_text(" Note body", "Body"),
+                            markers: vec![FootnoteMarker {
+                                at: 0,
+                                character_style: String::new(),
+                            }],
+                            reference_paragraph_style: "Body".into(),
+                            reference_character_style: String::new(),
+                        }),
+                        table: None,
+                        anchored: None,
+                    });
+                    state.document.stories[frame.story.0 as usize] = story;
+                    state.document.objects[0].transform = affine;
+                    state.view.scale = scale;
+                    let board = state.plan().unwrap();
+                    let mut notes = 0;
+                    for display in board.objects() {
+                        let Display::Text {
+                            generated,
+                            positions,
+                            spec,
+                            rect,
+                            transform,
+                            ..
+                        } = display
+                        else {
+                            continue;
+                        };
+                        if *generated {
+                            notes += 1;
+                            continue;
+                        }
+                        let positions = positions.as_ref().unwrap();
+                        let origin = line_origin(spec, *rect);
+                        for (position, caret) in schist_text_engine::insertion_points(spec) {
+                            let at = schist_layout::affine::point(
+                                *transform,
+                                Point::new(
+                                    origin.x + caret.x,
+                                    origin.y + caret.top + caret.height / 2.0,
+                                ),
+                            );
+                            assert_eq!(
+                                hit(&state, state.to_page(at), Some(frame.object)),
+                                Some((frame.object, positions.source(position.byte)))
+                            );
+                        }
+                    }
+                    assert!(notes > 0);
+                    assert!(tools::begin_typing(&mut state, frame.object, 0));
+                    for _ in 0..10 {
+                        let next = adjacent_line_caret(&state, true).unwrap();
+                        assert!(content.is_char_boundary(next));
+                        tools::select_to(&mut state, next, false);
+                        if next == content.len() {
+                            break;
+                        }
+                    }
+                    assert_eq!(state.text_buffer, content);
+                    assert_eq!(state.typing.unwrap().at, content.len());
+                }
+            }
+        }
+    }
 
     #[test]
     fn generated_list_ink_never_becomes_a_caret_or_vertical_navigation_stop() {
@@ -586,50 +685,63 @@ mod tests {
 
     #[test]
     fn enlarged_initials_keep_grapheme_hit_testing_and_one_step_text_undo() {
-        for prefix in ["A", "E\u{301}", "Éc"] {
-            let mut state = DesignState::new();
-            state
-                .document
-                .styles
-                .add_paragraph(schist_layout::ParagraphStyle {
-                    name: "Initial".into(),
-                    point_size: Some(11.0),
-                    leading: Some(schist_layout::styles::Leading::Points(14.0)),
-                    drop_caps_lines: Some(3),
-                    drop_caps_characters: Some(
-                        schist_text_engine::grapheme_boundaries(prefix).count() - 1,
-                    ),
-                    ..Default::default()
-                });
-            let frame = authoring::text_frame(
-                &mut state.document,
-                &mut state.history,
-                0,
-                Rect::new(40.0, 50.0, 200.0, 300.0),
-            )
-            .unwrap();
-            let text = format!(
-                "{prefix} few words to make an initial wrap with three lines of body text. "
-            )
-            .repeat(3);
-            *state.document.story_mut(frame.story) =
-                schist_layout::Story::from_text(&text, "Initial");
-            let composed = schist_layout::compose::compose_story(&state.document, frame.story);
-            let line = composed.lines().next().unwrap();
-            let ink = line.initial.unwrap().ink;
-            for zoom in [0.5, 1.0, 3.0] {
-                state.view.scale = zoom;
-                for fraction in [0.1, 0.5, 0.9] {
-                    let at = Point::new(ink.x + ink.width * fraction, ink.y + ink.height * 0.5);
-                    let (_, offset) = hit(&state, at, Some(frame.object)).unwrap();
-                    assert!(schist_text_engine::grapheme_boundaries(prefix).any(|b| b == offset));
-                    assert!(tools::begin_typing(&mut state, frame.object, offset));
-                    let before = state.document.clone();
-                    let depth = state.history.undo_depth();
-                    assert!(tools::type_text(&mut state, "字"));
-                    assert_eq!(state.history.undo_depth(), depth + 1);
-                    assert!(state.history.undo(&mut state.document));
-                    assert_eq!(state.document, before);
+        for writing in [
+            schist_layout::WritingMode::Horizontal,
+            schist_layout::WritingMode::VerticalLeftToRight,
+            schist_layout::WritingMode::VerticalRightToLeft,
+        ] {
+            for prefix in ["A", "E\u{301}", "Éc"] {
+                let mut state = DesignState::new();
+                state
+                    .document
+                    .styles
+                    .add_paragraph(schist_layout::ParagraphStyle {
+                        name: "Initial".into(),
+                        writing_mode: Some(writing),
+                        point_size: Some(11.0),
+                        leading: Some(schist_layout::styles::Leading::Points(14.0)),
+                        drop_caps_lines: Some(3),
+                        drop_caps_characters: Some(
+                            schist_text_engine::grapheme_boundaries(prefix).count() - 1,
+                        ),
+                        ..Default::default()
+                    });
+                let frame = authoring::text_frame(
+                    &mut state.document,
+                    &mut state.history,
+                    0,
+                    Rect::new(40.0, 50.0, 200.0, 300.0),
+                )
+                .unwrap();
+                let text = format!(
+                    "{prefix} few words to make an initial wrap with three lines of body text. "
+                )
+                .repeat(3);
+                *state.document.story_mut(frame.story) =
+                    schist_layout::Story::from_text(&text, "Initial");
+                let composed = schist_layout::compose::compose_story(&state.document, frame.story);
+                let line = composed.lines().next().unwrap();
+                let ink = line.initial.unwrap().ink;
+                for zoom in [0.5, 1.0, 3.0] {
+                    state.view.scale = zoom;
+                    for fraction in [0.1, 0.5, 0.9] {
+                        let at = if writing == schist_layout::WritingMode::Horizontal {
+                            Point::new(ink.x + ink.width * fraction, ink.y + ink.height * 0.5)
+                        } else {
+                            Point::new(ink.x + ink.width * 0.5, ink.y + ink.height * fraction)
+                        };
+                        let (_, offset) = hit(&state, at, Some(frame.object)).unwrap();
+                        assert!(
+                            schist_text_engine::grapheme_boundaries(prefix).any(|b| b == offset)
+                        );
+                        assert!(tools::begin_typing(&mut state, frame.object, offset));
+                        let before = state.document.clone();
+                        let depth = state.history.undo_depth();
+                        assert!(tools::type_text(&mut state, "字"));
+                        assert_eq!(state.history.undo_depth(), depth + 1);
+                        assert!(state.history.undo(&mut state.document));
+                        assert_eq!(state.document, before);
+                    }
                 }
             }
         }

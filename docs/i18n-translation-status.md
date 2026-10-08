@@ -1,5 +1,43 @@
 # Translation refresh status
 
+## October 5, 2026: inline anchored items
+
+`design.idml_anchored_invalid` is added as an English placeholder in all 150
+catalogs for invalid anchored-object settings in imported stories. No locale was
+added.
+
+## October 5, 2026: text in shaped frames
+
+`design.text_in_shape` ("Text in shape") is added as an English placeholder in all
+150 catalogs. `design.idml_curved_text_flow` is removed from all 150 catalogs:
+shaped text frames now compose inside their outline, so the "rectangular text
+composition" diagnostic no longer exists. No locale was added.
+
+## October 4, 2026: text wrap
+
+Text wrap adds 21 short keys as English placeholders in all 150 catalogs: the
+compact wrap controls (five modes, ignore, offset, inside-outline toggle, side and
+its six choices), two text-preference toggles, an IDML import diagnostic and two
+Preflight warnings. Every value stays under the strict audit's seven-word limit,
+so no deferral entry was added. No locale was added.
+
+## October 4, 2026: chapter-number variables
+
+The Text Variables window adds five short labels as English placeholders in
+all 150 catalogs: `design.variable_kind_chapter` and four marker names used for
+the insertion icons and instance rows (current, next and previous page number,
+section marker). No locale was added.
+
+## October 3, 2026: last-page text variables
+
+The Text Variables window adds seven short labels for the variable kind, the
+text before/after a page number, the Current numbering choice and the two
+scopes. Number formats reuse the existing list-format labels. The
+`design.variable_new` tooltip now reads "New text variable" because New creates
+either kind; every catalog still carried the English placeholder. All 150
+catalogs carry the new keys as English placeholders under the existing
+`# UNTRANSLATED PLACEHOLDER` block. No locale was added.
+
 ## October 1, 2026: explicit Design Mode translation deferrals
 
 Automatic lists add 13 keys, number-format controls add ten, and level/restart

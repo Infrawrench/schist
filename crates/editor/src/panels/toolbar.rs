@@ -570,6 +570,26 @@ fn design_toolbar(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::Stateful
         )
         .child(
             div()
+                .id("design-output-preview-toggle")
+                .flex()
+                .items_center()
+                .justify_center()
+                .size(px(m.tool_slot))
+                .cursor_pointer()
+                .tooltip(ui::tip(t("design.canvas_output_preview"), None))
+                .bg(gpui::rgb(if ws.design.output_preview {
+                    palette().selection_bg
+                } else {
+                    palette().panel_bg
+                }))
+                .child(icon("output-preview", m.tool_icon, palette().text))
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.design.output_preview = !ws.design.output_preview;
+                    cx.notify();
+                })),
+        )
+        .child(
+            div()
                 .id("design-snap-toggle")
                 .flex()
                 .items_center()

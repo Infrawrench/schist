@@ -154,12 +154,19 @@ fn item(ws: &Workspace, entry: MenuEntry) -> Option<MenuItem> {
     Some(match entry {
         MenuEntry::Sep => MenuItem::Separator,
         MenuEntry::Cmd(id) => {
-            let label = ws
-                .registry
-                .command(id)
-                .map(|c| c.title.to_string())
+            let label = panels::command_presentation(ws, id)
+                .map(|(title, _)| title.to_string())
                 .unwrap_or_else(|| id.to_string());
-            action_item(label, Box::new(RunCommand { id: id.to_string() }))
+            if ws.design_mode() {
+                action_item(
+                    label,
+                    Box::new(RunDesignCommand {
+                        command: DesignCommand::from_id(id)?,
+                    }),
+                )
+            } else {
+                action_item(label, Box::new(RunCommand { id: id.to_string() }))
+            }
         }
         MenuEntry::Adjustment(kind) => action_item(
             crate::ui::adjustment_name(kind).to_string(),

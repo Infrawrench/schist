@@ -72,7 +72,12 @@ pub(crate) fn lower(story: &Story, styles: &StyleSet) -> Vec<AutomaticParagraph>
             };
             automatic(styles, style).then(|| AutomaticParagraph {
                 index,
-                style: format!("ParagraphStyle/$ID/{style}"),
+                // The same reference the native range carries.
+                style: if style.is_empty() {
+                    crate::style_codec::NO_PARAGRAPH_STYLE.into()
+                } else {
+                    format!("ParagraphStyle/$ID/{style}")
+                },
                 text: text.clone(),
                 direction: match schist_text_engine::base_direction(text) {
                     schist_text_engine::ParagraphDirection::RightToLeft => "RightToLeftDirection",
@@ -121,9 +126,8 @@ pub(crate) fn restore(story: &mut Element, styles: &StyleSet, refs: &style_codec
         if reference != record.style
             || !automatic(styles, &refs.paragraph(reference))
             || range.attr("ParagraphDirection") != Some(record.direction.as_str())
-            || range.find_all("Br").len() != usize::from(record.break_after)
-            || range
-                .find_all("Content")
+            || paragraph_nodes(range, "Br").len() != usize::from(record.break_after)
+            || paragraph_nodes(range, "Content")
                 .iter()
                 .map(|c| c.text.as_str())
                 .collect::<String>()
@@ -135,4 +139,20 @@ pub(crate) fn restore(story: &mut Element, styles: &StyleSet, refs: &style_codec
             .attributes
             .retain(|(key, _)| key != "ParagraphDirection");
     }
+}
+
+/// Footnotes, tables and anchored objects own independent text. Their words
+/// and paragraph breaks must not invalidate the containing paragraph's guard.
+fn paragraph_nodes<'a>(element: &'a Element, name: &str) -> Vec<&'a Element> {
+    if crate::xml::story_structure(&element.name) {
+        return Vec::new();
+    }
+    let mut out = Vec::new();
+    if element.name == name {
+        out.push(element);
+    }
+    for child in &element.children {
+        out.extend(paragraph_nodes(child, name));
+    }
+    out
 }

@@ -25,13 +25,17 @@ fn visit(
     refs: &style_codec::References,
     report: &mut Report,
 ) {
+    // Content PIs may carry document characters; do not ignore them as
+    // metadata. Each becomes a structure, typed when it is a known control;
+    // `import::report_untyped` reports the unknown ones once read.
     match element.name.as_str() {
-        "Table" | "Footnote" | "TextFrame" | "Rectangle" | "Polygon" => {
-            let message = schist_i18n::t("design.idml_story_structure").to_string();
-            if !report.skipped.contains(&message) {
-                report.skip(message);
+        // Reported after reading, and only when composition cannot set it:
+        // see `import::report_untyped`.
+        name if crate::xml::story_structure(name) => {
+            if name != "Footnote" || !text_only_footnote(element) {
+                return;
             }
-            return;
+            crate::auto_direction::restore(element, styles, refs);
         }
         "ParagraphStyleRange" => {
             let base = refs.paragraph(element.attr("AppliedParagraphStyle").unwrap_or_default());
@@ -50,17 +54,6 @@ fn visit(
             );
         }
         "CharacterStyleRange" => {
-            if matches!(
-                element
-                    .attr("ParagraphBreakType")
-                    .or_else(|| element.attr("GoToNextX")),
-                Some("NextOddPage" | "NextEvenPage")
-            ) {
-                let message = schist_i18n::t("design.idml_page_parity").to_string();
-                if !report.skipped.contains(&message) {
-                    report.skip(message);
-                }
-            }
             let base = refs.character(element.attr("AppliedCharacterStyle").unwrap_or_default());
             let mut local = style_codec::character_properties(element, colors, refs, report);
             let name = if local == CharacterStyle::default() {
@@ -88,7 +81,89 @@ fn visit(
 /// See the public specification, examples 48–50. Style offsets are derived
 /// from the finished Story so its inter-paragraph separators count once.
 pub(crate) fn decode(story: &Element) -> Story {
-    let mut builder = StoryBuilder::default();
+    decode_with_markers(story, false).0
+}
+
+/// Older guarded records retained supported instructions only as contextual
+/// recovery XML. Upgrade after native agreement, never by parsing XML in the
+/// layout kernel.
+pub(crate) fn upgrade_controls(story: &mut Story, refs: &style_codec::References) {
+    for structure in &mut story.structures {
+        if structure.kind != "ProcessingInstruction"
+            || structure.control.is_some()
+            || structure.footnote.is_some()
+        {
+            continue;
+        }
+        let Ok(root) = crate::xml::parse(&structure.payload) else {
+            continue;
+        };
+        if root.name != "ParagraphStyleRange" || root.children.len() != 1 {
+            continue;
+        }
+        let character = &root.children[0];
+        if character.name != "CharacterStyleRange" || character.children.len() != 1 {
+            continue;
+        }
+        let content = &character.children[0];
+        if content.name != "Content"
+            || !content.text.is_empty()
+            || !content.children.is_empty()
+            || content.instructions.len() != 1
+            || content.instructions[0].0 != 0
+        {
+            continue;
+        }
+        let name = refs.character(character.attr("AppliedCharacterStyle").unwrap_or_default());
+        structure.control = control(
+            &content.instructions[0].1,
+            &name,
+            character.attr("PageNumberType"),
+        );
+    }
+}
+
+/// Supported zero-width Content instructions. ACE 3 ends a nested style;
+/// ACE 18 is a page number whose range PageNumberType names current, next or
+/// previous; ACE 19 is a section marker. Other instructions and page-number
+/// modes remain recovery data.
+pub(crate) fn control(
+    instruction: &str,
+    character_style: &str,
+    page_number_type: Option<&str>,
+) -> Option<schist_layout::story::InlineControl> {
+    use schist_layout::story::{InlineControl, PageNumberKind};
+    let words: Vec<_> = instruction.split_whitespace().collect();
+    let character_style = character_style.to_owned();
+    match (words.as_slice(), page_number_type) {
+        (["ACE", "3"], _) => Some(InlineControl::EndNestedStyle { character_style }),
+        (["ACE", "18"], None | Some("AutoPageNumber")) => Some(InlineControl::PageNumber {
+            kind: PageNumberKind::Current,
+            character_style,
+        }),
+        (["ACE", "18"], Some("NextPageNumber")) => Some(InlineControl::PageNumber {
+            kind: PageNumberKind::Next,
+            character_style,
+        }),
+        (["ACE", "18"], Some("PreviousPageNumber")) => Some(InlineControl::PageNumber {
+            kind: PageNumberKind::Previous,
+            character_style,
+        }),
+        (["ACE", "19"], None | Some("AutoPageNumber")) => {
+            Some(InlineControl::SectionMarker { character_style })
+        }
+        _ => None,
+    }
+}
+
+fn decode_with_markers(
+    story: &Element,
+    footnote_markers: bool,
+) -> (Story, Vec<schist_layout::footnotes::FootnoteMarker>) {
+    let mut builder = StoryBuilder {
+        footnote_markers,
+        ..Default::default()
+    };
     if let Some(preference) = story.child("StoryPreference") {
         builder.out.prefs.direction = match preference.attr("StoryDirection") {
             Some("RightToLeftDirection") => schist_layout::StoryDirection::RightToLeft,
@@ -99,8 +174,19 @@ pub(crate) fn decode(story: &Element) -> Story {
             _ => schist_layout::StoryOrientation::Horizontal,
         };
     }
-    builder.walk(story, "", "", "Anywhere");
-    if !builder.text.is_empty() || builder.out.points.is_empty() || builder.trailing_paragraph {
+    builder.walk(story, "", "", "Anywhere", None);
+    if !builder.text.is_empty()
+        || builder.out.points.is_empty()
+        || builder.trailing_paragraph
+        || builder
+            .structures
+            .last()
+            .is_some_and(|(point, _)| *point == builder.out.points.len())
+        || builder
+            .markers
+            .last()
+            .is_some_and(|(point, _)| *point == builder.out.points.len())
+    {
         builder.flush();
     }
     let offsets = builder.out.point_offsets();
@@ -109,7 +195,72 @@ pub(crate) fn decode(story: &Element) -> Story {
         range.end += offsets[point];
         builder.out.ranges.push(range);
     }
-    builder.out
+    for (point, mut structure) in builder.structures {
+        structure.at = structure.at.map(|at| offsets[point] + at);
+        builder.out.structures.push(structure);
+    }
+    let markers = builder
+        .markers
+        .into_iter()
+        .map(|(point, mut marker)| {
+            marker.at += offsets[point];
+            marker
+        })
+        .collect();
+    (builder.out, markers)
+}
+
+// The native XML remains the fallback for tables, embedded objects, variables,
+// unknown ACE instructions and mixed content. Lowering must not silently flatten
+// those into a text-only note. IDML example 54 supplies the ACE 4 marker form.
+fn text_only_footnote(element: &Element) -> bool {
+    if element.name == "Properties" {
+        return true;
+    }
+    if !matches!(
+        element.name.as_str(),
+        "Footnote"
+            | "ParagraphStyleRange"
+            | "CharacterStyleRange"
+            | "Content"
+            | "Tab"
+            | "Br"
+            | "br"
+    ) {
+        return false;
+    }
+    if element.name != "Content" && !element.text.trim().is_empty() {
+        return false;
+    }
+    if element.name == "Content" && !element.children.is_empty() {
+        return false;
+    }
+    element.instructions.iter().all(|(_, instruction)| {
+        element.name == "Content" && instruction.split_whitespace().eq(["ACE", "4"])
+    }) && element
+        .children
+        .iter()
+        .all(|child| child.name != "Footnote" && text_only_footnote(child))
+}
+
+fn footnote(
+    element: &Element,
+    paragraph: &str,
+    character: &str,
+) -> Option<schist_layout::footnotes::FootnoteBody> {
+    if element.name != "Footnote" || !text_only_footnote(element) {
+        return None;
+    }
+    let mut body = element.clone();
+    body.name = "Story".into();
+    let (story, markers) = decode_with_markers(&body, true);
+    let note = schist_layout::footnotes::FootnoteBody {
+        story,
+        markers,
+        reference_paragraph_style: paragraph.into(),
+        reference_character_style: character.into(),
+    };
+    note.valid().then_some(note)
 }
 
 #[derive(Default)]
@@ -120,6 +271,9 @@ struct StoryBuilder {
     local: Vec<StyleRange>,
     ranges: Vec<(usize, StyleRange)>,
     trailing_paragraph: bool,
+    structures: Vec<(usize, schist_layout::StoryStructure)>,
+    markers: Vec<(usize, schist_layout::footnotes::FootnoteMarker)>,
+    footnote_markers: bool,
 }
 
 impl StoryBuilder {
@@ -155,12 +309,20 @@ impl StoryBuilder {
         }
     }
 
-    fn walk(&mut self, element: &Element, paragraph: &str, character: &str, next: &str) {
+    fn walk(
+        &mut self,
+        element: &Element,
+        paragraph: &str,
+        character: &str,
+        next: &str,
+        page_number_type: Option<&str>,
+    ) {
         let paragraph_name;
         let character_name;
         let mut paragraph = paragraph;
         let mut character = character;
         let mut next = next;
+        let mut page_number_type = page_number_type;
         match element.name.as_str() {
             "ParagraphStyleRange" => {
                 paragraph_name =
@@ -171,15 +333,46 @@ impl StoryBuilder {
                 }
             }
             "CharacterStyleRange" => {
-                character_name =
-                    style_codec::name(element.attr("AppliedCharacterStyle").unwrap_or_default());
+                character_name = style_codec::character_name(
+                    element.attr("AppliedCharacterStyle").unwrap_or_default(),
+                );
                 character = &character_name;
+                page_number_type = element.attr("PageNumberType").or(page_number_type);
                 next = element
                     .attr("ParagraphBreakType")
                     .or_else(|| element.attr("GoToNextX"))
                     .unwrap_or(next);
             }
             "Content" => {
+                for (at, instruction) in &element.instructions {
+                    if self.footnote_markers && instruction.split_whitespace().eq(["ACE", "4"]) {
+                        self.markers.push((
+                            self.out.points.len(),
+                            schist_layout::footnotes::FootnoteMarker {
+                                at: self.text.len() + at,
+                                character_style: character.into(),
+                            },
+                        ));
+                    } else {
+                        self.structures.push((
+                            self.out.points.len(),
+                            schist_layout::StoryStructure {
+                                control: control(instruction, character, page_number_type),
+                                at: Some(self.text.len() + at),
+                                kind: "ProcessingInstruction".into(),
+                                payload: inline_payload(
+                                    &format!("<Content><?{instruction}?></Content>"),
+                                    paragraph,
+                                    character,
+                                    page_number_type,
+                                ),
+                                footnote: None,
+                                table: None,
+                                anchored: None,
+                            },
+                        ));
+                    }
+                }
                 self.append(&element.text, paragraph, character);
                 return;
             }
@@ -191,10 +384,18 @@ impl StoryBuilder {
                 let forced = match next {
                     "NextColumn" => Some(StoryPoint::ColumnBreak),
                     "NextFrame" => Some(StoryPoint::FrameBreak),
-                    "NextPage" | "NextOddPage" | "NextEvenPage" => Some(StoryPoint::PageBreak),
+                    "NextPage" => Some(StoryPoint::PageBreak),
+                    "NextOddPage" => Some(StoryPoint::OddPageBreak),
+                    "NextEvenPage" => Some(StoryPoint::EvenPageBreak),
                     _ => None,
                 };
-                if forced.is_none() || !self.text.is_empty() {
+                if forced.is_none()
+                    || !self.text.is_empty()
+                    || self
+                        .structures
+                        .last()
+                        .is_some_and(|(point, _)| *point == self.out.points.len())
+                {
                     self.flush();
                 }
                 self.trailing_paragraph = forced.is_none();
@@ -203,13 +404,55 @@ impl StoryBuilder {
                 }
                 return;
             }
-            "Table" | "Footnote" | "TextFrame" | "Rectangle" | "Polygon" | "Properties" => return,
+            name if crate::xml::story_structure(name) => {
+                if let Some(raw) = &element.raw {
+                    self.structures.push((
+                        self.out.points.len(),
+                        schist_layout::StoryStructure {
+                            control: crate::custom_text_codec::instance(element, character),
+                            at: Some(self.text.len()),
+                            kind: name.into(),
+                            payload: if name == "TextVariableInstance" {
+                                inline_payload(raw, paragraph, character, page_number_type)
+                            } else {
+                                raw.to_string()
+                            },
+                            footnote: footnote(element, paragraph, character),
+                            table: None,
+                            anchored: None,
+                        },
+                    ));
+                }
+                return;
+            }
+            "Properties" => return,
             _ => {}
         }
         for child in &element.children {
-            self.walk(child, paragraph, character, next);
+            self.walk(child, paragraph, character, next, page_number_type);
         }
     }
+}
+
+// Recovery XML retains the exact inline XML plus effective named formatting and
+// native page-number mode. The wrappers describe its context; they are not a
+// claim that the unsupported marker has been emitted as native story content.
+fn inline_payload(
+    content: &str,
+    paragraph: &str,
+    character: &str,
+    page_number_type: Option<&str>,
+) -> String {
+    let page_number_type = page_number_type
+        .map(|value| format!(r#" PageNumberType="{}""#, crate::export::escape(value)))
+        .unwrap_or_default();
+    format!(
+        r#"<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/{}"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/{}"{}>{}</CharacterStyleRange></ParagraphStyleRange>"#,
+        crate::export::escape(paragraph),
+        crate::export::escape(character),
+        page_number_type,
+        content
+    )
 }
 
 fn present(name: &str) -> bool {

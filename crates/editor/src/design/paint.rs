@@ -13,9 +13,9 @@
 use std::sync::Arc;
 
 use gpui::{rgb, Background, Bounds, Corners, PathBuilder, Pixels, Point as GpuiPoint, Window};
-use image::Frame;
 use schist_layout::affine::{self, Affine};
-use schist_layout::pasteboard::{Display, Guide, GuideKind, PagePlan, Pasteboard};
+use schist_layout::pasteboard::{Display, Guide, GuideKind, PagePlan, Pasteboard, StrokeOptions};
+use schist_layout::StrokeAlignment;
 use schist_layout::{Point, Pt, Rect};
 use schist_text_engine::{rasterize, TextRaster, TextSpec};
 
@@ -39,6 +39,8 @@ const FRAME: u32 = 0x4A9FD8;
 /// overriding it and is drawn to say so.
 const INHERITED_FRAME: u32 = 0x8A6FB5;
 const SELECTED: u32 = 0xF0A020;
+/// The boundary a selected item's text wrap pushes text away from.
+const WRAP: u32 = 0x2E9E8F;
 /// Text on the page. Near-black rather than theme-coloured: paper is
 /// white whatever the shell is.
 const TEXT: u32 = 0x1A1A1A;
@@ -60,6 +62,8 @@ pub struct PasteboardFrame {
     /// Selected objects' rectangles, in pasteboard points, paired with
     /// the page they are on.
     pub selected: Vec<(usize, Rect)>,
+    /// Selected items' rectangular text-wrap boundaries, in pasteboard points.
+    pub wraps: Vec<(usize, Rect)>,
     pub show_marks: bool,
     /// The selected shapes whose own anchor points are being shown, as
     /// page numbers paired with their points in pasteboard space.
@@ -70,6 +74,9 @@ pub struct PasteboardFrame {
     pub anchors: Vec<(usize, schist_layout::ShapePath)>,
     pub pen_preview: Option<schist_layout::ShapePath>,
     pub typing: Option<super::Typing>,
+    /// Pages as they separate, with the bleed rectangles they cover, drawn
+    /// in place of the items when previewing output.
+    pub previews: Vec<(Rect, Arc<gpui::RenderImage>)>,
     pub band: Option<Rect>,
     pub drawing: Option<schist_layout::ShapePath>,
 }
@@ -82,10 +89,12 @@ impl PasteboardFrame {
             graphics: Default::default(),
             bounds,
             selected: Vec::new(),
+            wraps: Vec::new(),
             show_marks: true,
             anchors: Vec::new(),
             pen_preview: None,
             typing: None,
+            previews: Vec::new(),
             band: None,
             drawing: None,
         }
@@ -107,8 +116,28 @@ pub fn paint_pasteboard(frame: &PasteboardFrame, window: &mut Window) {
         // objects extending across its gutter.
         fill_rect(window, &plan.page.media, frame.bounds, PAPER);
     }
+    for (rect, image) in &frame.previews {
+        let target = Bounds::new(
+            gpoint(&frame.bounds, rect.origin()),
+            gpui::size(px(rect.width), px(rect.height)),
+        );
+        let _ = window.paint_image(target, Corners::default(), image.clone(), 0, false);
+    }
     for object in frame.plan.objects() {
-        paint_object(window, frame, object);
+        // Previewing output, the pages already show the items: only frame
+        // edges, ports, notes and the story being typed are drawn over them.
+        let typed = |story: &schist_layout::StoryId| {
+            frame.typing.is_some_and(|typing| typing.story == *story)
+        };
+        let drawn = frame.previews.is_empty()
+            || match object {
+                Display::Text { story, .. } => typed(story),
+                Display::Shape { .. } | Display::Graphic { .. } => false,
+                _ => true,
+            };
+        if drawn {
+            paint_object(window, frame, object);
+        }
     }
     for plan in &frame.plan.pages {
         if plan.page.hidden {
@@ -125,7 +154,7 @@ pub fn paint_pasteboard(frame: &PasteboardFrame, window: &mut Window) {
             window,
             frame.bounds,
             path,
-            None,
+            Fill::default(),
             Some(([0.1, 0.1, 0.1, 1.0], HAIRLINE)),
         );
     }
@@ -137,7 +166,7 @@ pub fn paint_pasteboard(frame: &PasteboardFrame, window: &mut Window) {
             window,
             frame.bounds,
             path,
-            None,
+            Fill::default(),
             Some(([0.1, 0.1, 0.1, 1.0], HAIRLINE)),
         );
         paint_handles(window, frame.bounds, path);
@@ -179,6 +208,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
         }
         Display::Text {
             generated,
+            positions,
             object,
             story,
             start,
@@ -186,15 +216,21 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             rect,
             spec,
             transform,
+            gradients,
             ..
         } => {
             let typing = frame.typing.filter(|t| !*generated && t.story == *story);
+            let visual = |source: usize| {
+                positions
+                    .as_ref()
+                    .map_or(source.saturating_sub(*start), |p| p.visual(source))
+            };
             let origin = super::text::line_origin(spec, *rect);
             if let Some(typing) = typing {
                 let from = typing.anchor.min(typing.at).max(*start);
                 let to = typing.anchor.max(typing.at).min(*end);
                 if from < to {
-                    for rect in schist_text_engine::selection_rects(spec, from - start..to - start)
+                    for rect in schist_text_engine::selection_rects(spec, visual(from)..visual(to))
                     {
                         affine_fill(
                             window,
@@ -211,17 +247,18 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                     }
                 }
             }
-            paint_text(window, frame.bounds, *rect, spec, *transform);
+            paint_text(window, frame.bounds, *rect, spec, *transform, gradients);
             if let Some(typing) = typing.filter(|t| {
                 !*generated && super::text::caret_line(&frame.plan, *t) == Some((*object, *start))
             }) {
-                let caret = schist_text_engine::caret_at(spec, typing.at.saturating_sub(*start))
-                    .unwrap_or(schist_text_engine::Caret {
+                let caret = schist_text_engine::caret_at(spec, visual(typing.at)).unwrap_or(
+                    schist_text_engine::Caret {
                         x: 0.0,
                         top: 0.0,
                         height: spec.size,
                         angle: 0.0,
-                    });
+                    },
+                );
                 let mut line = PathBuilder::stroke(px(1.0));
                 let a = Point::new(origin.x + caret.x, origin.y + caret.top);
                 line.move_to(gpoint(&frame.bounds, affine::point(*transform, a)));
@@ -277,42 +314,123 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
         Display::Shape {
             path,
             fill,
+            gradient,
             stroke,
+            stroke_gradient,
+            stroke_options,
+            gap,
+            shadow,
             transform,
             ..
         } => {
-            if *transform == Affine::IDENTITY {
-                paint_shape(window, frame.bounds, path, *fill, *stroke);
-            } else {
-                paint_shape(window, frame.bounds, path, *fill, None);
-                if let (Some((color, width)), Some(inverse)) = (stroke, transform.invert()) {
-                    let mut local = path.clone();
-                    local.map_points(|p| affine::point(inverse, p));
-                    let outline = schist_vector::stroke_path(
-                        &local.flatten(0.25 / affine::stretch(*transform).max(1.0)),
-                        schist_vector::StrokeStyle {
-                            width: *width,
-                            ..Default::default()
-                        },
-                    );
-                    let shape = schist_layout::ShapePath {
-                        subpaths: outline
-                            .subpaths
-                            .iter()
-                            .enumerate()
-                            .map(|(i, points)| schist_layout::SubPath {
-                                points: points
-                                    .iter()
-                                    .map(|(x, y)| affine::point(*transform, Point::new(*x, *y)))
-                                    .collect(),
-                                handles: Vec::new(),
-                                closed: outline.is_closed(i),
-                            })
-                            .collect(),
-                        even_odd: false,
-                    };
-                    paint_shape(window, frame.bounds, &shape, Some(*color), None);
+            if let Some(shadow) = shadow {
+                paint_shadow(
+                    window,
+                    frame.bounds,
+                    path,
+                    fill.is_some() || gradient.is_some(),
+                    stroke.map(|(_, width)| width),
+                    shadow,
+                );
+            }
+            let fill = Fill {
+                color: *fill,
+                gradient: gradient.as_deref(),
+            };
+            if *transform == Affine::IDENTITY
+                && *stroke_options == StrokeOptions::default()
+                && stroke_gradient.is_none()
+            {
+                // GPUI strokes with InDesign's defaults: butt, mitre, 4.
+                paint_shape(window, frame.bounds, path, fill, *stroke);
+            } else if let (Some((color, width)), Some(inverse)) = (stroke, transform.invert()) {
+                // A gradient stroke is laid pixel by pixel over its outline.
+                let stroke_fill = Fill {
+                    color: Some(*color),
+                    gradient: stroke_gradient.as_deref(),
+                };
+                // The stroke outlined in the shape's own space, so a skewed
+                // or unevenly scaled shape strokes as it prints.
+                let mut local = path.clone();
+                local.map_points(|p| affine::point(inverse, p));
+                let tolerance = 0.25 / affine::stretch(*transform).max(1.0);
+                let back = |outline: schist_vector::Path| schist_layout::ShapePath {
+                    subpaths: outline
+                        .subpaths
+                        .iter()
+                        .enumerate()
+                        .map(|(i, points)| schist_layout::SubPath {
+                            points: points
+                                .iter()
+                                .map(|(x, y)| affine::point(*transform, Point::new(*x, *y)))
+                                .collect(),
+                            handles: Vec::new(),
+                            closed: outline.is_closed(i),
+                        })
+                        .collect(),
+                    even_odd: false,
+                };
+                let outline = |width: f32| {
+                    back(schist_vector::stroke_path(
+                        &local.flatten(tolerance),
+                        stroke_options.style(width),
+                    ))
+                };
+                let closed = path.subpaths.iter().any(|s| s.closed);
+                let aligned = matches!(
+                    stroke_options.alignment,
+                    StrokeAlignment::Inside | StrokeAlignment::Outside
+                ) && closed;
+                // Dashes, dots or stripes: the fill sits as under a solid
+                // stroke, the gap colour fills the band, the ink goes over it.
+                if let Some(pattern) = schist_layout::stroke_patterns::outlines(
+                    &local,
+                    *width,
+                    stroke_options,
+                    tolerance,
+                ) {
+                    if aligned {
+                        paint_aligned(
+                            window,
+                            frame.bounds,
+                            path,
+                            fill,
+                            (Fill::default(), &outline(*width), &outline(*width * 2.0)),
+                            stroke_options.alignment == StrokeAlignment::Inside,
+                        );
+                    } else {
+                        paint_shape(window, frame.bounds, path, fill, None);
+                    }
+                    if let Some(gap) = gap {
+                        paint_shape(
+                            window,
+                            frame.bounds,
+                            &back(pattern.band),
+                            Fill::solid(*gap),
+                            None,
+                        );
+                    }
+                    paint_shape(window, frame.bounds, &back(pattern.ink), stroke_fill, None);
+                    return;
                 }
+                match stroke_options.alignment {
+                    StrokeAlignment::Inside | StrokeAlignment::Outside if closed => {
+                        paint_aligned(
+                            window,
+                            frame.bounds,
+                            path,
+                            fill,
+                            (stroke_fill, &outline(*width), &outline(*width * 2.0)),
+                            stroke_options.alignment == StrokeAlignment::Inside,
+                        );
+                    }
+                    _ => {
+                        paint_shape(window, frame.bounds, path, fill, None);
+                        paint_shape(window, frame.bounds, &outline(*width), stroke_fill, None);
+                    }
+                }
+            } else {
+                paint_shape(window, frame.bounds, path, fill, None);
             }
         }
         Display::Graphic {
@@ -428,8 +546,13 @@ fn paint_text(
     rect: Rect,
     spec: &TextSpec,
     transform: Affine,
+    gradients: &[schist_layout::pasteboard::TextGradient],
 ) {
     if spec.text.is_empty() {
+        return;
+    }
+    if !gradients.is_empty() {
+        paint_gradient_text(window, bounds, rect, spec, transform, gradients);
         return;
     }
     let Some(raster) = rasterize(spec) else {
@@ -452,18 +575,332 @@ fn paint_text(
     );
 }
 
+/// A line some of whose runs are painted with gradients. Each such paint is
+/// given a colour no other paint in the line has, so the engine keeps its
+/// coverage apart, and is then coloured pixel by pixel from its gradient at
+/// the opacity its own colour carried. Paints composite in draw order, as
+/// `TextRaster::rgba` composites them.
+fn paint_gradient_text(
+    window: &mut Window,
+    bounds: Bounds<Pixels>,
+    rect: Rect,
+    spec: &TextSpec,
+    transform: Affine,
+    gradients: &[schist_layout::pasteboard::TextGradient],
+) {
+    use schist_layout::pasteboard::TextPart;
+    let mut used = std::collections::HashSet::new();
+    for run in &spec.runs {
+        used.extend(run.color);
+        used.extend(run.stroke.and_then(|s| s.color));
+        for decoration in [&run.underline_style, &run.strike_style]
+            .into_iter()
+            .flatten()
+        {
+            used.extend(decoration.color);
+            used.extend(decoration.gap_color);
+        }
+    }
+    let mut next = 0u32;
+    let mut keyed = spec.clone();
+    let mut keys = Vec::new();
+    for gradient in gradients {
+        let Some(run) = keyed.runs.get_mut(gradient.run) else {
+            continue;
+        };
+        let key = loop {
+            let [_, r, g, b] = next.to_be_bytes();
+            next += 1;
+            if !used.contains(&[r, g, b, 255]) {
+                break [r, g, b, 255];
+            }
+        };
+        let slot = match gradient.part {
+            TextPart::Fill => Some(&mut run.color),
+            TextPart::Stroke => run.stroke.as_mut().map(|s| &mut s.color),
+            TextPart::Underline => run.underline_style.as_mut().map(|d| &mut d.color),
+            TextPart::Strike => run.strike_style.as_mut().map(|d| &mut d.color),
+        };
+        let Some(slot) = slot else { continue };
+        let alpha = slot.map_or(255, |c| c[3]);
+        *slot = Some(key);
+        keys.push((key, &gradient.gradient, alpha));
+    }
+    let Some(raster) = schist_text_engine::rasterize_with_paints(&keyed) else {
+        return;
+    };
+    let (width, height) = (raster.bounds.width(), raster.bounds.height());
+    if width <= 0 || height <= 0 {
+        return;
+    }
+    let origin = super::text::line_origin(spec, rect);
+    let at = Point::new(
+        origin.x + raster.bounds.left as Pt,
+        origin.y + raster.bounds.top as Pt,
+    );
+    let [r, g, b] = channels(TEXT);
+    let mut out = vec![[0.0f32; 4]; raster.coverage.len()];
+    for paint in &raster.paints {
+        let gradient = keys.iter().find(|(key, ..)| Some(*key) == paint.color);
+        for (index, (pixel, &coverage)) in out.iter_mut().zip(&paint.coverage).enumerate() {
+            if coverage == 0 {
+                continue;
+            }
+            let color = match gradient {
+                Some((_, gradient, alpha)) => {
+                    let rgb = gradient.preview(
+                        at.x + (index % width as usize) as f32 + 0.5,
+                        at.y + (index / width as usize) as f32 + 0.5,
+                    );
+                    [
+                        rgb[0].clamp(0.0, 1.0) * 255.0,
+                        rgb[1].clamp(0.0, 1.0) * 255.0,
+                        rgb[2].clamp(0.0, 1.0) * 255.0,
+                        f32::from(*alpha),
+                    ]
+                }
+                None => paint.color.unwrap_or([r, g, b, 255]).map(f32::from),
+            };
+            let alpha = f32::from(coverage) * color[3] / (255.0 * 255.0);
+            for channel in 0..3 {
+                pixel[channel] = color[channel] * alpha + pixel[channel] * (1.0 - alpha);
+            }
+            pixel[3] = alpha + pixel[3] * (1.0 - alpha);
+        }
+    }
+    let buffer = out
+        .into_iter()
+        .flat_map(|p| {
+            if p[3] <= 0.0 {
+                [0; 4]
+            } else {
+                [
+                    (p[0] / p[3]).round() as u8,
+                    (p[1] / p[3]).round() as u8,
+                    (p[2] / p[3]).round() as u8,
+                    (p[3] * 255.0).round() as u8,
+                ]
+            }
+        })
+        .collect();
+    if let Some(image) = image::RgbaImage::from_raw(width as u32, height as u32, buffer) {
+        paint_rgba(window, bounds, image, at, transform);
+    }
+}
+
 /// A shape's outline, or its fill.
 ///
 /// Filled contours share the output rasterizer and its winding rule.
 /// Unfilled outlines use native cubic paths.
+/// A shape whose stroke sits inside or outside its path: InDesign moves the
+/// path half the stroke's weight that way for the fill and the stroke alike.
+/// `stroke` is the stroke's colour or gradient and its outlines at the
+/// weight and at twice it. Inside, the fill loses the inner half of the first
+/// band and the stroke is the inner side of the second; outside, the fill
+/// gains the outer half and the stroke is the outer side. The stroke is laid
+/// over the fill.
+fn paint_aligned(
+    window: &mut Window,
+    bounds: Bounds<Pixels>,
+    shape: &schist_layout::ShapePath,
+    fill: Fill<'_>,
+    (stroke, narrow, wide): (
+        Fill<'_>,
+        &schist_layout::ShapePath,
+        &schist_layout::ShapePath,
+    ),
+    inside: bool,
+) {
+    let path = shape.flatten(0.25);
+    let narrow = narrow.flatten(0.25);
+    let wide = wide.flatten(0.25);
+    let clip = schist_core::IntRect::new(
+        0,
+        0,
+        f32::from(bounds.size.width).ceil() as i32,
+        f32::from(bounds.size.height).ceil() as i32,
+    );
+    let rect = path.bounds().union(&wide.bounds()).intersect(&clip);
+    if rect.width() <= 0
+        || rect.height() <= 0
+        || i64::from(rect.width()) * i64::from(rect.height()) > 16_000_000
+    {
+        return;
+    }
+    let rule = if shape.even_odd {
+        schist_vector::FillRule::EvenOdd
+    } else {
+        schist_vector::FillRule::NonZero
+    };
+    let filled = schist_vector::rasterize(&path, rect, rule);
+    let band = schist_vector::rasterize(&narrow, rect, schist_vector::FillRule::NonZero);
+    let double = schist_vector::rasterize(&wide, rect, schist_vector::FillRule::NonZero);
+    let width = rect.width() as usize;
+    let mut pixels = Vec::with_capacity(filled.len() * 4);
+    for index in 0..filled.len() {
+        let (f, n, w) = (
+            f32::from(filled[index]) / 255.0,
+            f32::from(band[index]) / 255.0,
+            f32::from(double[index]) / 255.0,
+        );
+        let (fill_cover, stroke_cover) = if inside {
+            (f * (1.0 - n), w * f)
+        } else {
+            (f.max(n), w * (1.0 - f))
+        };
+        let (x, y) = (
+            rect.left as f32 + (index % width) as f32 + 0.5,
+            rect.top as f32 + (index / width) as f32 + 0.5,
+        );
+        let under = fill.at(x, y).unwrap_or_default();
+        let color = stroke.at(x, y).unwrap_or_default();
+        let fa = fill_cover * under[3];
+        let sa = stroke_cover * color[3];
+        let alpha = sa + fa * (1.0 - sa);
+        let rgb: [f32; 3] = std::array::from_fn(|c| {
+            if alpha > 0.0 {
+                (color[c] * sa + under[c] * fa * (1.0 - sa)) / alpha
+            } else {
+                0.0
+            }
+        });
+        pixels.extend(
+            [rgb[0], rgb[1], rgb[2], alpha].map(|v| (v.clamp(0.0, 1.0) * 255.0).round() as u8),
+        );
+    }
+    if let Some(image) =
+        image::RgbaImage::from_raw(rect.width() as u32, rect.height() as u32, pixels)
+    {
+        let image = super::graphics::render_image(image);
+        let target = Bounds::new(
+            gpoint(&bounds, Point::new(rect.left as f32, rect.top as f32)),
+            gpui::size(px(rect.width() as f32), px(rect.height() as f32)),
+        );
+        let _ = window.paint_image(target, Corners::default(), image, 0, false);
+    }
+}
+
+/// Paint a drop shadow: the shape's fill and stroke moved by its offset,
+/// blurred and laid in its colour, as output casts it.
+fn paint_shadow(
+    window: &mut Window,
+    bounds: Bounds<Pixels>,
+    shape: &schist_layout::ShapePath,
+    filled: bool,
+    stroke: Option<f32>,
+    shadow: &schist_layout::pasteboard::ShapeShadow,
+) {
+    let mut moved = shape.clone();
+    moved.map_points(|p| Point::new(p.x + shadow.offset.x, p.y + shadow.offset.y));
+    let path = moved.flatten(0.25);
+    let outline = stroke
+        .filter(|width| *width > 0.0)
+        .map(|width| schist_vector::stroke_path(&path, StrokeOptions::default().style(width)));
+    let reach = (3.0 * shadow.sigma).ceil() as i32 + 1;
+    let area = outline.as_ref().map_or(path.bounds(), |o| o.bounds());
+    let clip = schist_core::IntRect::new(
+        0,
+        0,
+        f32::from(bounds.size.width).ceil() as i32,
+        f32::from(bounds.size.height).ceil() as i32,
+    );
+    let rect = schist_core::IntRect::new(
+        area.left - reach,
+        area.top - reach,
+        area.right + reach,
+        area.bottom + reach,
+    )
+    .intersect(&clip);
+    if rect.width() <= 0
+        || rect.height() <= 0
+        || i64::from(rect.width()) * i64::from(rect.height()) > 16_000_000
+    {
+        return;
+    }
+    let rule = if shape.even_odd {
+        schist_vector::FillRule::EvenOdd
+    } else {
+        schist_vector::FillRule::NonZero
+    };
+    let (width, height) = (rect.width() as usize, rect.height() as usize);
+    let mut alpha = vec![0.0f32; width * height];
+    if filled {
+        for (a, c) in alpha
+            .iter_mut()
+            .zip(schist_vector::rasterize(&path, rect, rule))
+        {
+            *a = f32::from(c) / 255.0;
+        }
+    }
+    if let Some(outline) = &outline {
+        let coverage = schist_vector::rasterize(outline, rect, schist_vector::FillRule::NonZero);
+        for (a, c) in alpha.iter_mut().zip(coverage) {
+            let c = f32::from(c) / 255.0;
+            *a += c * (1.0 - *a);
+        }
+    }
+    schist_layout::effects::blur(&mut alpha, width, height, shadow.sigma);
+    let [r, g, b, a] = shadow.color.map(|v| v.clamp(0.0, 1.0));
+    let pixels = alpha
+        .into_iter()
+        .flat_map(|value| {
+            [
+                (r * 255.0).round() as u8,
+                (g * 255.0).round() as u8,
+                (b * 255.0).round() as u8,
+                (value * a * 255.0).round().clamp(0.0, 255.0) as u8,
+            ]
+        })
+        .collect();
+    if let Some(image) =
+        image::RgbaImage::from_raw(rect.width() as u32, rect.height() as u32, pixels)
+    {
+        let image = super::graphics::render_image(image);
+        let target = Bounds::new(
+            gpoint(&bounds, Point::new(rect.left as f32, rect.top as f32)),
+            gpui::size(px(rect.width() as f32), px(rect.height() as f32)),
+        );
+        let _ = window.paint_image(target, Corners::default(), image, 0, false);
+    }
+}
+
+/// What fills or strokes a shape on the canvas: a flat colour or a
+/// gradient.
+#[derive(Clone, Copy, Default)]
+struct Fill<'a> {
+    color: Option<[f32; 4]>,
+    gradient: Option<&'a schist_layout::pasteboard::ShapeGradient>,
+}
+
+impl Fill<'_> {
+    /// A flat colour.
+    fn solid(color: [f32; 4]) -> Self {
+        Self {
+            color: Some(color),
+            gradient: None,
+        }
+    }
+
+    /// The colour at canvas point (x, y).
+    fn at(&self, x: f32, y: f32) -> Option<[f32; 4]> {
+        match (self.gradient, self.color) {
+            (Some(gradient), _) => {
+                let [r, g, b] = gradient.preview(x, y);
+                Some([r, g, b, gradient.opacity])
+            }
+            (None, color) => color,
+        }
+    }
+}
+
 fn paint_shape(
     window: &mut Window,
     bounds: Bounds<Pixels>,
     shape: &schist_layout::ShapePath,
-    fill: Option<[f32; 4]>,
+    fill: Fill<'_>,
     stroke: Option<([f32; 4], f32)>,
 ) {
-    if let Some(color) = fill {
+    if fill.color.is_some() || fill.gradient.is_some() {
         let path = shape.flatten(0.25);
         let clip = schist_core::IntRect::new(
             0,
@@ -482,15 +919,26 @@ fn paint_shape(
                 schist_vector::FillRule::NonZero
             };
             let coverage = schist_vector::rasterize(&path, rect, rule);
-            let [r, g, b, a] = color.map(|v| (v.clamp(0.0, 1.0) * 255.0).round() as u8);
+            let width = rect.width() as usize;
             let pixels = coverage
                 .into_iter()
-                .flat_map(|alpha| [r, g, b, ((alpha as u16 * a as u16 + 127) / 255) as u8])
+                .enumerate()
+                .flat_map(|(index, alpha)| {
+                    let (x, y) = (
+                        rect.left as f32 + (index % width) as f32 + 0.5,
+                        rect.top as f32 + (index / width) as f32 + 0.5,
+                    );
+                    let [r, g, b, a] = fill
+                        .at(x, y)
+                        .unwrap_or_default()
+                        .map(|v| (v.clamp(0.0, 1.0) * 255.0).round() as u8);
+                    [r, g, b, ((alpha as u16 * a as u16 + 127) / 255) as u8]
+                })
                 .collect();
             if let Some(image) =
                 image::RgbaImage::from_raw(rect.width() as u32, rect.height() as u32, pixels)
             {
-                let image = Arc::new(gpui::RenderImage::new(vec![Frame::new(image)]));
+                let image = super::graphics::render_image(image);
                 let target = Bounds::new(
                     gpoint(&bounds, Point::new(rect.left as f32, rect.top as f32)),
                     gpui::size(px(rect.width() as f32), px(rect.height() as f32)),
@@ -594,6 +1042,11 @@ fn paint_label_at(
 }
 
 fn paint_selection(window: &mut Window, frame: &PasteboardFrame, plan: &PagePlan) {
+    for (page, rect) in &frame.wraps {
+        if *page == plan.page.page {
+            outline(window, frame.bounds, *rect, WRAP, true);
+        }
+    }
     for (page, rect) in &frame.selected {
         if *page != plan.page.page {
             continue;
@@ -702,7 +1155,12 @@ fn paint_marks(window: &mut Window, bounds: Bounds<Pixels>, trim: &Rect) {
                 Point::new(corner.x, corner.y + direction * (gap + length))
             };
             let mut builder = PathBuilder::stroke(px(HAIRLINE));
-            builder.move_to(gpoint(&bounds, corner));
+            let start = if horizontal {
+                Point::new(corner.x + direction * gap, corner.y)
+            } else {
+                Point::new(corner.x, corner.y + direction * gap)
+            };
+            builder.move_to(gpoint(&bounds, start));
             builder.line_to(gpoint(&bounds, end));
             if let Ok(path) = builder.build() {
                 window.paint_path(path, rgb(TEXT));
@@ -849,6 +1307,19 @@ fn blit_transformed(
     let Some(image) = image::RgbaImage::from_raw(width as u32, height as u32, buffer) else {
         return;
     };
+    paint_rgba(window, bounds, image, at, transform);
+}
+
+/// Composed straight-alpha pixels with their top-left at `at`, then mapped
+/// by `transform`.
+fn paint_rgba(
+    window: &mut Window,
+    bounds: Bounds<Pixels>,
+    image: image::RgbaImage,
+    at: Point,
+    transform: Affine,
+) {
+    let (width, height) = image.dimensions();
     if transform != Affine::IDENTITY {
         let rect = Rect::new(at.x, at.y, width as f32, height as f32);
         if let Some(mapping) =
@@ -868,9 +1339,7 @@ fn blit_transformed(
     let _ = window.paint_image(
         target,
         Corners::default(),
-        Arc::new(gpui::RenderImage::new(smallvec::smallvec![Frame::new(
-            image
-        )])),
+        super::graphics::render_image(image),
         0,
         false,
     );
@@ -938,7 +1407,7 @@ fn paint_warped_image(
         ),
         gpui::size(px(warp.rect.width() as f32), px(warp.rect.height() as f32)),
     );
-    let image = Arc::new(gpui::RenderImage::new(vec![Frame::new(out)]));
+    let image = super::graphics::render_image(out);
     let _ = window.paint_image(target, Corners::default(), image, 0, false);
 }
 

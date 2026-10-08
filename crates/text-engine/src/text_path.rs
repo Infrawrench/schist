@@ -127,7 +127,20 @@ impl Guide {
     /// Extrapolate past an endpoint along its tangent, so overflow stays
     /// editable instead of piling glyphs on the last point of the curve.
     pub fn at(&self, x: f32, y: f32) -> (f32, f32, f32) {
-        let distance = x + self.offset;
+        self.at_distance((f64::from(x) + f64::from(self.offset)) as f32, y)
+    }
+
+    /// Combine the glyph origin, its center and the path offset before
+    /// sampling on a 1/64-pixel inline grid. Equivalent aligned origins can
+    /// differ by f32 arithmetic noise; projecting that noise onto a curve
+    /// changes antialiased fill/stroke masks. Only glyph paint is quantized,
+    /// by at most 1/128 pixel; document geometry and carets remain continuous.
+    pub fn at_glyph(&self, x: f32, center: f32, y: f32) -> (f32, f32, f32) {
+        let distance = f64::from(x) + f64::from(center) + f64::from(self.offset);
+        self.at_distance(((distance * 64.0).round() / 64.0) as f32, y)
+    }
+
+    fn at_distance(&self, distance: f32, y: f32) -> (f32, f32, f32) {
         let i = self
             .distances
             .partition_point(|d| *d <= distance)
@@ -164,7 +177,7 @@ pub(super) fn glyph_bitmap(
     bitmap: Vec<u8>,
 ) -> (IntRect, Vec<u8>) {
     let center = metrics.advance_width / 2.0;
-    let (px, py, angle) = guide.at(glyph.x + center, glyph.baseline - baseline);
+    let (px, py, angle) = guide.at_glyph(glyph.x, center, glyph.baseline - baseline);
     let (sin, cos) = angle.sin_cos();
     // Cardinal rotations should preserve integer translations exactly;
     // sin/cos otherwise leave tiny residuals that add an empty border.
@@ -240,6 +253,51 @@ pub(super) fn glyph_bitmap(
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn glyph_sampling_is_bounded_and_shared_by_equivalent_split_origins() {
+        for curve in [
+            vec![
+                schist_core::path::Anchor::corner(0.0, 0.0),
+                schist_core::path::Anchor::corner(200.0, 0.0),
+            ],
+            vec![
+                schist_core::path::Anchor {
+                    point: (0.0, 100.0),
+                    handle_out: (30.0, -120.0),
+                    ..schist_core::path::Anchor::corner(0.0, 100.0)
+                },
+                schist_core::path::Anchor {
+                    point: (200.0, 100.0),
+                    handle_in: (-30.0, 120.0),
+                    ..schist_core::path::Anchor::corner(200.0, 100.0)
+                },
+            ],
+        ] {
+            let path = TextPath {
+                curve: SubPath {
+                    anchors: curve,
+                    closed: false,
+                },
+                offset: 0.0,
+                span: None,
+            };
+            let mut guide = Guide::new(&path, Align::Left, 0.0).unwrap();
+            for i in 0..600 {
+                let distance = i as f32 / 3.0;
+                let exact = guide.at(distance, 2.0);
+                let painted = guide.at_glyph(distance, 0.0, 2.0);
+                // The normal offset also turns with the tangent; include its
+                // small angular displacement in this physical bound.
+                assert!((painted.0 - exact.0).hypot(painted.1 - exact.1) < 0.012);
+                for split in [0.0, 10.0, 70.0, 1000.25] {
+                    guide.offset = split;
+                    assert_eq!(guide.at_glyph(distance - split, 0.0, 2.0), painted);
+                }
+                guide.offset = 0.0;
+                assert_eq!(guide.at(distance, 2.0), exact);
+            }
+        }
+    }
     #[test]
     fn bounded_alignment_scaling_and_legacy_paths_share_one_arc_coordinate_system() {
         for angle in [

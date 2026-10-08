@@ -351,6 +351,8 @@ fn unsupported_run_settings_use_the_reported_raster_fallback() {
             false,
         ),
         ("global_font_style", serde_json::json!("Regular"), true),
+        ("no_break", serde_json::json!(true), true),
+        ("no_break", serde_json::json!(false), false),
         ("language", serde_json::json!("ro"), true),
         ("language", serde_json::json!(""), false),
         ("global_language", serde_json::json!("tr"), true),

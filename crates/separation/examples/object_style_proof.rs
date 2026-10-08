@@ -77,7 +77,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         if page % 2 == 1 {
             let mut content = doc.objects.pop().unwrap();
-            content.appearance = Default::default();
+            // A curved text frame's outline also shapes its text.
+            content.appearance = schist_layout::ObjectAppearance {
+                outline: content.appearance.outline.clone(),
+                ..Default::default()
+            };
+            // The frame's centred stroke moves its text in by half its 10 pt
+            // weight.
+            if let LayoutObject::TextFrame { insets, .. } = &mut content.object {
+                *insets = Insets::uniform(5.0);
+            }
             let path = if curved {
                 {
                     // Use the same authored normalized contour. Building a new

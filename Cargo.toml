@@ -4,6 +4,7 @@ resolver = "2"
 exclude = ["examples/plugins/sepia-filter", "examples/plugins/pgm-codec"]
 members = [
     "crates/codec-idml",
+    "crates/codec-indd",
     "crates/tethered",
     "crates/photo-merge",
     "crates/app",
@@ -101,6 +102,7 @@ flate2 = "1"
 schist-codec-affinity = { path = "crates/codec-affinity" }
 schist-codec-raw = { path = "crates/codec-raw" }
 schist-codec-idml = { path = "crates/codec-idml" }
+schist-codec-indd = { path = "crates/codec-indd" }
 schist-vector = { path = "crates/vector" }
 schist-layer-fx = { path = "crates/layer-fx" }
 schist-neural = { path = "crates/neural" }

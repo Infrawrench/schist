@@ -35,6 +35,17 @@ fn tint_and_base_edits_update_every_use_and_undo_exactly_once() {
             hidden: false,
         });
         doc.styles.paragraphs[0].fill = Some(tint.clone());
+        for rule in [&mut doc.footnotes.rule, &mut doc.footnotes.continuing_rule] {
+            rule.paint = Some(schist_layout::footnotes::FootnoteReference::Resolved(
+                tint.clone(),
+            ));
+        }
+        doc.footnotes.rule.gap_paint = Some(schist_layout::footnotes::FootnoteReference::Resolved(
+            base.clone(),
+        ));
+        doc.footnotes.continuing_rule.gap_paint = Some(
+            schist_layout::footnotes::FootnoteReference::Unresolved(base.name.clone()),
+        );
         doc.styles.add_character(CharacterStyle {
             name: "Tint".into(),
             fill: Some(tint.clone()),
@@ -63,6 +74,14 @@ fn tint_and_base_edits_update_every_use_and_undo_exactly_once() {
                 );
             }
             assert_eq!(doc.styles.paragraphs[0].fill.as_ref(), Some(&changed));
+            for rule in [&doc.footnotes.rule, &doc.footnotes.continuing_rule] {
+                assert_eq!(
+                    rule.paint
+                        .as_ref()
+                        .and_then(schist_layout::footnotes::FootnoteReference::resolved),
+                    Some(&changed)
+                );
+            }
             assert_eq!(
                 doc.styles.character("Tint").unwrap().fill.as_ref(),
                 Some(&changed)
@@ -85,6 +104,22 @@ fn tint_and_base_edits_update_every_use_and_undo_exactly_once() {
         let expected = after.named_tint(&tint.name, 0.25).unwrap();
         assert_eq!(doc.inks[tint_index], expected);
         assert_eq!(doc.styles.paragraphs[0].fill.as_ref(), Some(&expected));
+        for rule in [&doc.footnotes.rule, &doc.footnotes.continuing_rule] {
+            assert_eq!(
+                rule.paint
+                    .as_ref()
+                    .and_then(schist_layout::footnotes::FootnoteReference::resolved),
+                Some(&expected)
+            );
+        }
+        assert_eq!(
+            doc.footnotes.rule.gap_paint,
+            Some(schist_layout::footnotes::FootnoteReference::Resolved(after))
+        );
+        assert_eq!(
+            doc.footnotes.continuing_rule.gap_paint,
+            original.footnotes.continuing_rule.gap_paint
+        );
         assert!(history.undo(&mut doc));
         assert_eq!(doc, original);
     }
