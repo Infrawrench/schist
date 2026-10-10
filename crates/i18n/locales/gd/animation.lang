@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Loidhne-ama
+animation.menu = Beòthachadh
+animation.play_pause = Cluich/Cuir an beòthachadh na stad
+animation.frame_layer_name = Frèam {n}
+animation.delay_seconds = {seconds} diog
+animation.delay.label = Dàil
+animation.delay.apply_all = Cuir an sàs air gach frèam
+animation.loop.label = Lùb
+animation.loop.once = Aon turas
+animation.loop.forever = Gu bràth
+animation.onion.label = Craiceann uinneine
+animation.onion.before = Roimhe
+animation.onion.after = Às dèidh
+animation.offset.label = Gluasad na breatha san fhrèam seo
+animation.new_layers_visible = Breathannan ùra rim faicinn anns gach frèam
+animation.history.select_frame = Tagh frèam
+animation.history.move_frame = Gluais frèam
+animation.history.frame_delay = Dàil an fhrèam
+animation.history.loop = Àireamh nan lùban
+animation.history.offset = Gluasad an fhrèam
+animation.history.new_layers = Faicsinneachd bhreathannan ùra
+animation.refuse.no_animation = Chan eil beòthachadh frèam aig an sgrìobhainn seo. Cleachd Breath ▸ Beòthachadh ▸ Cruthaich beòthachadh frèam.
+animation.refuse.already_animated = Tha beòthachadh frèam aig an sgrìobhainn seo mu thràth.
+animation.refuse.last_frame = Feumaidh co-dhiù aon fhrèam a bhith aig beòthachadh. Sguab às am beòthachadh na àite.
+animation.refuse.too_many_frames = Chan urrainn dhan loidhne-ama barrachd fhrèaman a chumail.
+animation.refuse.no_layers = Chan eil breathannan ann às an gabh frèaman a dhèanamh.
+animation.export.menu = Beòthachadh…
+animation.export.title = Às-phortaich beòthachadh
+animation.export.palette = Paileas
+animation.export.palette_per_frame = Do gach frèam
+animation.export.palette_global = Uile-choitcheann
+animation.export.disposal = Cur air falbh
+animation.export.disposal_auto = Fèin-obrachail
+animation.export.disposal_keep = Cùm am frèam roimhe
+animation.export.disposal_background = Aisig chun a’ chùlaibh
+animation.export.disposal_previous = Aisig chun an fhear roimhe
+animation.export.dither_note = Sgaoil mearachdan dhathan nuair a tha barrachd air 256 dath aig frèam
+animation.export.transparency = Trìd-shoilleireachd
+animation.export.transparency_note = Cùm na raointean trìd-shoilleir trìd-shoilleir
+animation.export.gif_note = Glèidhidh GIF dàilean ann an ceudamhan diog agus chan eil trìd-shoilleireachd phàirteach aige.
+animation.export.apng_note = Cumaidh APNG gach frèam gun chall le làn trìd-shoilleireachd.
+animation.export.webp_note = Thèid WebP beòthaichte a sgrìobhadh gun chall; chan eil WebP le call ri fhaighinn.

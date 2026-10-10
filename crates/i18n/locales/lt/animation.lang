@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Laiko juosta
+animation.menu = Animacija
+animation.play_pause = Leisti / pristabdyti animaciją
+animation.frame_layer_name = Kadras {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Delsa
+animation.delay.apply_all = Taikyti visiems kadrams
+animation.loop.label = Kartojimas
+animation.loop.once = Vieną kartą
+animation.loop.forever = Be galo
+animation.onion.label = Svogūno lukštas
+animation.onion.before = Prieš
+animation.onion.after = Po
+animation.offset.label = Sluoksnio poslinkis šiame kadre
+animation.new_layers_visible = Nauji sluoksniai matomi visuose kadruose
+animation.history.select_frame = Pasirinkti kadrą
+animation.history.move_frame = Perkelti kadrą
+animation.history.frame_delay = Kadro delsa
+animation.history.loop = Kartojimų skaičius
+animation.history.offset = Kadro poslinkis
+animation.history.new_layers = Naujų sluoksnių matomumas
+animation.refuse.no_animation = Šiame dokumente nėra kadrų animacijos. Naudokite Sluoksnis ▸ Animacija ▸ Sukurti kadrų animaciją.
+animation.refuse.already_animated = Šiame dokumente jau yra kadrų animacija.
+animation.refuse.last_frame = Animacijai reikia bent vieno kadro. Vietoj to ištrinkite animaciją.
+animation.refuse.too_many_frames = Laiko juostoje nebetelpa daugiau kadrų.
+animation.refuse.no_layers = Nėra sluoksnių, iš kurių būtų galima sukurti kadrus.
+animation.export.menu = Animacija…
+animation.export.title = Eksportuoti animaciją
+animation.export.palette = Paletė
+animation.export.palette_per_frame = Kiekvienam kadrui
+animation.export.palette_global = Bendra
+animation.export.disposal = Šalinimas
+animation.export.disposal_auto = Automatinis
+animation.export.disposal_keep = Palikti ankstesnį kadrą
+animation.export.disposal_background = Atkurti foną
+animation.export.disposal_previous = Atkurti ankstesnį
+animation.export.dither_note = Išsklaidyti spalvų paklaidas, kai kadre yra daugiau nei 256 spalvos
+animation.export.transparency = Skaidrumas
+animation.export.transparency_note = Palikti skaidrias sritis skaidrias
+animation.export.gif_note = GIF delsas saugo sekundės šimtosiomis dalimis ir nepalaiko dalinio skaidrumo.
+animation.export.apng_note = APNG kiekvieną kadrą išsaugo be nuostolių ir su visišku skaidrumu.
+animation.export.webp_note = Animuotas WebP rašomas be nuostolių; nuostolingas WebP negalimas.

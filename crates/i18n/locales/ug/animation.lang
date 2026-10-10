@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ۋاقىت ئوقى
+animation.menu = كارتون
+animation.play_pause = كارتوننى قويۇش/توختىتىش
+animation.frame_layer_name = كادىر {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = كېچىكتۈرۈش
+animation.delay.apply_all = بارلىق كادىرلارغا قوللىنىش
+animation.loop.label = تەكرارلاش
+animation.loop.once = بىر قېتىم
+animation.loop.forever = توختىماي
+animation.onion.label = پىياز پوستى
+animation.onion.before = ئالدى
+animation.onion.after = كەينى
+animation.offset.label = بۇ كادىردىكى قەۋەت سىلجىشى
+animation.new_layers_visible = يېڭى قەۋەتلەر بارلىق كادىرلاردا كۆرۈنىدۇ
+animation.history.select_frame = كادىر تاللاش
+animation.history.move_frame = كادىرنى يۆتكەش
+animation.history.frame_delay = كادىر كېچىكىشى
+animation.history.loop = تەكرارلاش سانى
+animation.history.offset = كادىر سىلجىشى
+animation.history.new_layers = يېڭى قەۋەت كۆرۈنۈشچانلىقى
+animation.refuse.no_animation = بۇ ھۆججەتتە كادىرلىق كارتون يوق. قەۋەت ▸ كارتون ▸ كادىرلىق كارتون قۇرۇش نى ئىشلىتىڭ.
+animation.refuse.already_animated = بۇ ھۆججەتتە ئاللىبۇرۇن كادىرلىق كارتون بار.
+animation.refuse.last_frame = كارتوندا كەم دېگەندە بىر كادىر بولۇشى كېرەك. ئۇنىڭ ئورنىغا كارتوننى ئۆچۈرۈڭ.
+animation.refuse.too_many_frames = ۋاقىت ئوقى ئارتۇق كادىر سىغدۇرالمايدۇ.
+animation.refuse.no_layers = كادىر ياسىغىلى بولىدىغان قەۋەت يوق.
+animation.export.menu = كارتون…
+animation.export.title = كارتوننى ئېكسپورت قىلىش
+animation.export.palette = رەڭ تاختىسى
+animation.export.palette_per_frame = ھەر كادىر
+animation.export.palette_global = ئومۇمىي
+animation.export.disposal = كادىر بىر تەرەپ قىلىش
+animation.export.disposal_auto = ئاپتوماتىك
+animation.export.disposal_keep = ئالدىنقى كادىرنى ساقلاش
+animation.export.disposal_background = ئارقا كۆرۈنۈشكە ئەسلىگە كەلتۈرۈش
+animation.export.disposal_previous = ئالدىنقى ھالەتكە ئەسلىگە كەلتۈرۈش
+animation.export.dither_note = بىر كادىردا 256 دىن ئارتۇق رەڭ بولغاندا رەڭ خاتالىقلىرىنى تارقىتىش
+animation.export.transparency = سۈزۈكلۈك
+animation.export.transparency_note = سۈزۈك رايونلارنى سۈزۈك ھالەتتە ساقلاش
+animation.export.gif_note = GIF كېچىكىشلەرنى سېكۇنتنىڭ يۈزدىن بىرى بىرلىكىدە ساقلايدۇ ھەمدە قىسمەن سۈزۈكلۈكنى قوللىمايدۇ.
+animation.export.apng_note = APNG ھەر بىر كادىرنى تولۇق سۈزۈكلۈك بىلەن زىيانسىز ساقلايدۇ.
+animation.export.webp_note = ھەرىكەتچان WebP زىيانسىز يېزىلىدۇ؛ زىيانلىق WebP نى ئىشلەتكىلى بولمايدۇ.

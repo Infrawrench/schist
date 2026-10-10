@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Zaman şkalası
+animation.menu = Animasiya
+animation.play_pause = Animasiyanı oynat/dayandır
+animation.frame_layer_name = Kadr {n}
+animation.delay_seconds = {seconds} san
+animation.delay.label = Gecikmə
+animation.delay.apply_all = Bütün kadrlara tətbiq et
+animation.loop.label = Təkrar
+animation.loop.once = Bir dəfə
+animation.loop.forever = Daimi
+animation.onion.label = Soğan qabığı
+animation.onion.before = Əvvəl
+animation.onion.after = Sonra
+animation.offset.label = Bu kadrda qatın sürüşməsi
+animation.new_layers_visible = Yeni qatlar bütün kadrlarda görünür
+animation.history.select_frame = Kadrı seç
+animation.history.move_frame = Kadrı köçür
+animation.history.frame_delay = Kadr gecikməsi
+animation.history.loop = Təkrar sayı
+animation.history.offset = Kadr sürüşməsi
+animation.history.new_layers = Yeni qatların görünməsi
+animation.refuse.no_animation = Bu sənədin kadr animasiyası yoxdur. Qat ▸ Animasiya ▸ Kadr animasiyası yarat əmrindən istifadə edin.
+animation.refuse.already_animated = Bu sənədin artıq kadr animasiyası var.
+animation.refuse.last_frame = Animasiyada ən azı bir kadr olmalıdır. Bunun əvəzinə animasiyanı silin.
+animation.refuse.too_many_frames = Zaman şkalası daha çox kadr saxlaya bilmir.
+animation.refuse.no_layers = Kadr yaratmaq üçün heç bir qat yoxdur.
+animation.export.menu = Animasiya…
+animation.export.title = Animasiyanı ixrac et
+animation.export.palette = Palitra
+animation.export.palette_per_frame = Hər kadr üçün
+animation.export.palette_global = Ümumi
+animation.export.disposal = Kadrın atılması
+animation.export.disposal_auto = Avtomatik
+animation.export.disposal_keep = Əvvəlki kadrı saxla
+animation.export.disposal_background = Fona bərpa et
+animation.export.disposal_previous = Əvvəlkinə bərpa et
+animation.export.dither_note = Kadrda 256-dan çox rəng olduqda rəng xətalarını yay
+animation.export.transparency = Şəffaflıq
+animation.export.transparency_note = Şəffaf sahələri şəffaf saxla
+animation.export.gif_note = GIF gecikmələri saniyənin yüzdə birləri ilə saxlayır və qismən şəffaflığı dəstəkləmir.
+animation.export.apng_note = APNG hər kadrı itkisiz və tam şəffaflıqla saxlayır.
+animation.export.webp_note = Animasiyalı WebP itkisiz yazılır; itkili WebP mövcud deyil.

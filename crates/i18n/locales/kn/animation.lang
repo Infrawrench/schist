@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ಟೈಮ್‌ಲೈನ್
+animation.menu = ಅನಿಮೇಷನ್
+animation.play_pause = ಅನಿಮೇಷನ್ ಪ್ಲೇ/ವಿರಾಮ
+animation.frame_layer_name = ಫ್ರೇಮ್ {n}
+animation.delay_seconds = {seconds} ಸೆ
+animation.delay.label = ವಿಳಂಬ
+animation.delay.apply_all = ಎಲ್ಲಾ ಫ್ರೇಮ್‌ಗಳಿಗೆ ಅನ್ವಯಿಸಿ
+animation.loop.label = ಲೂಪ್
+animation.loop.once = ಒಮ್ಮೆ
+animation.loop.forever = ಯಾವಾಗಲೂ
+animation.onion.label = ಈರುಳ್ಳಿ ಸಿಪ್ಪೆ
+animation.onion.before = ಮೊದಲು
+animation.onion.after = ನಂತರ
+animation.offset.label = ಈ ಫ್ರೇಮ್‌ನಲ್ಲಿ ಲೇಯರ್ ಆಫ್‌ಸೆಟ್
+animation.new_layers_visible = ಹೊಸ ಲೇಯರ್‌ಗಳು ಎಲ್ಲಾ ಫ್ರೇಮ್‌ಗಳಲ್ಲಿ ಗೋಚರಿಸುತ್ತವೆ
+animation.history.select_frame = ಫ್ರೇಮ್ ಆಯ್ಕೆ
+animation.history.move_frame = ಫ್ರೇಮ್ ಸರಿಸಿ
+animation.history.frame_delay = ಫ್ರೇಮ್ ವಿಳಂಬ
+animation.history.loop = ಲೂಪ್ ಎಣಿಕೆ
+animation.history.offset = ಫ್ರೇಮ್ ಆಫ್‌ಸೆಟ್
+animation.history.new_layers = ಹೊಸ ಲೇಯರ್ ಗೋಚರತೆ
+animation.refuse.no_animation = ಈ ಡಾಕ್ಯುಮೆಂಟ್‌ನಲ್ಲಿ ಫ್ರೇಮ್ ಅನಿಮೇಷನ್ ಇಲ್ಲ. ಲೇಯರ್ ▸ ಅನಿಮೇಷನ್ ▸ ಫ್ರೇಮ್ ಅನಿಮೇಷನ್ ರಚಿಸಿ ಬಳಸಿ.
+animation.refuse.already_animated = ಈ ಡಾಕ್ಯುಮೆಂಟ್‌ನಲ್ಲಿ ಈಗಾಗಲೇ ಫ್ರೇಮ್ ಅನಿಮೇಷನ್ ಇದೆ.
+animation.refuse.last_frame = ಅನಿಮೇಷನ್‌ಗೆ ಕನಿಷ್ಠ ಒಂದು ಫ್ರೇಮ್ ಬೇಕು. ಬದಲಿಗೆ ಅನಿಮೇಷನ್ ಅನ್ನು ಅಳಿಸಿ.
+animation.refuse.too_many_frames = ಟೈಮ್‌ಲೈನ್ ಇನ್ನಷ್ಟು ಫ್ರೇಮ್‌ಗಳನ್ನು ಹಿಡಿದಿಡಲು ಸಾಧ್ಯವಿಲ್ಲ.
+animation.refuse.no_layers = ಫ್ರೇಮ್‌ಗಳನ್ನು ರಚಿಸಲು ಯಾವುದೇ ಲೇಯರ್‌ಗಳಿಲ್ಲ.
+animation.export.menu = ಅನಿಮೇಷನ್…
+animation.export.title = ಅನಿಮೇಷನ್ ರಫ್ತು ಮಾಡಿ
+animation.export.palette = ಪ್ಯಾಲೆಟ್
+animation.export.palette_per_frame = ಪ್ರತಿ ಫ್ರೇಮ್‌ಗೆ
+animation.export.palette_global = ಜಾಗತಿಕ
+animation.export.disposal = ವಿಲೇವಾರಿ
+animation.export.disposal_auto = ಸ್ವಯಂಚಾಲಿತ
+animation.export.disposal_keep = ಹಿಂದಿನ ಫ್ರೇಮ್ ಇರಿಸಿ
+animation.export.disposal_background = ಹಿನ್ನೆಲೆಗೆ ಮರುಸ್ಥಾಪಿಸಿ
+animation.export.disposal_previous = ಹಿಂದಿನದಕ್ಕೆ ಮರುಸ್ಥಾಪಿಸಿ
+animation.export.dither_note = ಫ್ರೇಮ್‌ನಲ್ಲಿ 256 ಕ್ಕಿಂತ ಹೆಚ್ಚು ಬಣ್ಣಗಳಿದ್ದಾಗ ಬಣ್ಣ ದೋಷಗಳನ್ನು ಹರಡಿ
+animation.export.transparency = ಪಾರದರ್ಶಕತೆ
+animation.export.transparency_note = ಪಾರದರ್ಶಕ ಪ್ರದೇಶಗಳನ್ನು ಪಾರದರ್ಶಕವಾಗಿಯೇ ಇರಿಸಿ
+animation.export.gif_note = GIF ವಿಳಂಬಗಳನ್ನು ಸೆಕೆಂಡಿನ ನೂರನೇ ಭಾಗಗಳಲ್ಲಿ ಸಂಗ್ರಹಿಸುತ್ತದೆ ಮತ್ತು ಭಾಗಶಃ ಪಾರದರ್ಶಕತೆ ಹೊಂದಿಲ್ಲ.
+animation.export.apng_note = APNG ಪ್ರತಿ ಫ್ರೇಮ್ ಅನ್ನು ಪೂರ್ಣ ಪಾರದರ್ಶಕತೆಯೊಂದಿಗೆ ನಷ್ಟರಹಿತವಾಗಿ ಇರಿಸುತ್ತದೆ.
+animation.export.webp_note = ಅನಿಮೇಟೆಡ್ WebP ನಷ್ಟರಹಿತವಾಗಿ ಬರೆಯಲಾಗುತ್ತದೆ; ನಷ್ಟಯುತ WebP ಲಭ್ಯವಿಲ್ಲ.

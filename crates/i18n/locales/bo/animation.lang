@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = དུས་ཐིག
+animation.menu = འགུལ་རིས།
+animation.play_pause = འགུལ་རིས་གཏོང་། / མཚམས་འཇོག
+animation.frame_layer_name = པར་ངོས། {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = འགོར་ཡུན།
+animation.delay.apply_all = པར་ངོས་ཡོངས་ལ་སྦྱོར།
+animation.loop.label = བསྐྱར་ཟློས།
+animation.loop.once = ཐེངས་གཅིག
+animation.loop.forever = རྟག་ཏུ།
+animation.onion.label = སྒོག་སྐྱའི་ཤུན་པ།
+animation.onion.before = སྔོན་ལ།
+animation.onion.after = རྗེས་ལ།
+animation.offset.label = པར་ངོས་འདིའི་ནང་རིམ་པའི་སྤོ་ཚད།
+animation.new_layers_visible = རིམ་པ་གསར་པ་རྣམས་པར་ངོས་ཡོངས་སུ་མཐོང་ཐུབ།
+animation.history.select_frame = པར་ངོས་འདེམས།
+animation.history.move_frame = པར་ངོས་སྤོ།
+animation.history.frame_delay = པར་ངོས་ཀྱི་འགོར་ཡུན།
+animation.history.loop = བསྐྱར་ཟློས་གྲངས།
+animation.history.offset = པར་ངོས་ཀྱི་སྤོ་ཚད།
+animation.history.new_layers = རིམ་པ་གསར་པའི་མཐོང་ཐུབ་རང་བཞིན།
+animation.refuse.no_animation = ཡིག་ཆ་འདིར་པར་ངོས་འགུལ་རིས་མེད། རིམ་པ། ▸ འགུལ་རིས། ▸ པར་ངོས་འགུལ་རིས་བཟོ། བེད་སྤྱོད་གནང་།
+animation.refuse.already_animated = ཡིག་ཆ་འདིར་པར་ངོས་འགུལ་རིས་ཡོད་ཟིན།
+animation.refuse.last_frame = འགུལ་རིས་ལ་ཉུང་མཐར་པར་ངོས་གཅིག་དགོས། དེའི་ཚབ་ཏུ་འགུལ་རིས་སུབ་རོགས།
+animation.refuse.too_many_frames = དུས་ཐིག་ལ་པར་ངོས་དེ་ལས་མང་བ་ཉར་མི་ཐུབ།
+animation.refuse.no_layers = པར་ངོས་བཟོ་རྒྱུའི་རིམ་པ་གང་ཡང་མེད།
+animation.export.menu = འགུལ་རིས།…
+animation.export.title = འགུལ་རིས་ཕྱིར་འདྲེན།
+animation.export.palette = ཚོན་སྡེར།
+animation.export.palette_per_frame = པར་ངོས་རེ་རེར།
+animation.export.palette_global = ཡོངས་ཁྱབ།
+animation.export.disposal = བཀོལ་ཐབས།
+animation.export.disposal_auto = རང་འགུལ་གྱི།
+animation.export.disposal_keep = པར་ངོས་སྔ་མ་ཉར།
+animation.export.disposal_background = རྒྱབ་ངོས་སུ་སླར་གསོ།
+animation.export.disposal_previous = སྔ་མར་སླར་གསོ།
+animation.export.dither_note = པར་ངོས་ཤིག་ལ་ཚོས་གཞི་ ༢༥༦ ལས་མང་ན་ཚོས་གཞིའི་ནོར་འཁྲུལ་ཁྱབ་སྤེལ་གཏོང་།
+animation.export.transparency = དྭངས་གསལ་ཚད།
+animation.export.transparency_note = དྭངས་གསལ་གྱི་ས་ཁུལ་རྣམས་དྭངས་གསལ་དུ་ཉར།
+animation.export.gif_note = GIF ཡིས་འགོར་ཡུན་སྐར་ཆའི་བརྒྱ་ཆའི་ཚད་ལ་ཉར་བ་དང་། ཆ་ཤས་དྭངས་གསལ་མི་ཐུབ།
+animation.export.apng_note = APNG ཡིས་པར་ངོས་རེ་རེ་གྱོང་མེད་དང་དྭངས་གསལ་ཆ་ཚང་ངང་ཉར།
+animation.export.webp_note = འགུལ་རིས་ WebP གྱོང་མེད་དུ་འབྲི། གྱོང་ཡོད་ WebP མི་འཐོབ།

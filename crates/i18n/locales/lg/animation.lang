@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Olunyiriri lw'obudde
+animation.menu = Animesoni
+animation.play_pause = Zannya/Yimiriza Animesoni
+animation.frame_layer_name = Fuleemu {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Okulwawo
+animation.delay.apply_all = Kozesa ku Fuleemu Zonna
+animation.loop.label = Okuddiŋŋana
+animation.loop.once = Omulundi gumu
+animation.loop.forever = Emirembe gyonna
+animation.onion.label = Olususu lw'obutungulu
+animation.onion.before = Nga tannabaawo
+animation.onion.after = Oluvannyuma
+animation.offset.label = Okusengulwa kw'omutendera mu fuleemu eno
+animation.new_layers_visible = Emitendera emipya girabika mu fuleemu zonna
+animation.history.select_frame = Londa Fuleemu
+animation.history.move_frame = Tambuza Fuleemu
+animation.history.frame_delay = Okulwawo kwa Fuleemu
+animation.history.loop = Omuwendo gw'Okuddiŋŋana
+animation.history.offset = Okusengulwa kwa Fuleemu
+animation.history.new_layers = Okulabika kw'Emitendera Emipya
+animation.refuse.no_animation = Ekiwandiiko kino tekirina animesoni ya fuleemu. Kozesa Omutendera ▸ Animesoni ▸ Tonda Animesoni ya Fuleemu.
+animation.refuse.already_animated = Ekiwandiiko kino kirina dda animesoni ya fuleemu.
+animation.refuse.last_frame = Animesoni yeetaaga waakiri fuleemu emu. Mu kifo ky'ekyo, sangula animesoni.
+animation.refuse.too_many_frames = Olunyiriri lw'obudde terusobola kukwata fuleemu ndala.
+animation.refuse.no_layers = Tewali mitendera gya kukolamu fuleemu.
+animation.export.menu = Animesoni…
+animation.export.title = Fulumya Animesoni
+animation.export.palette = Olukalala lwa langi
+animation.export.palette_per_frame = Buli fuleemu
+animation.export.palette_global = Byonna awamu
+animation.export.disposal = Okusuula
+animation.export.disposal_auto = Ekyetereeza
+animation.export.disposal_keep = Kuuma fuleemu ey'emabega
+animation.export.disposal_background = Zzaayo emabega
+animation.export.disposal_previous = Zzaayo ey'emabega
+animation.export.dither_note = Sasaanya ensobi za langi nga fuleemu erina langi ezisukka mu 256
+animation.export.transparency = Okulabikaamu
+animation.export.transparency_note = Kuuma ebifo ebirabikaamu nga birabikaamu
+animation.export.gif_note = GIF etereka okulwawo mu bitundu by'ekikumi eby'akatikitiki era terina kulabikaamu kwa kitundu.
+animation.export.apng_note = APNG ekuuma buli fuleemu nga tefiiriddwa era nga erabikaamu mu bujjuvu.
+animation.export.webp_note = WebP etambula ewandiikibwa nga tefiiriddwa; WebP efiirwa tefunika.

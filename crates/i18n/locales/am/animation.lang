@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = የጊዜ መስመር
+animation.menu = አኒሜሽን
+animation.play_pause = አኒሜሽን አጫውት/ለአፍታ አቁም
+animation.frame_layer_name = ፍሬም {n}
+animation.delay_seconds = {seconds} ሰ
+animation.delay.label = መዘግየት
+animation.delay.apply_all = በሁሉም ፍሬሞች ላይ ተግብር
+animation.loop.label = ድግግሞሽ
+animation.loop.once = አንድ ጊዜ
+animation.loop.forever = ለዘላለም
+animation.onion.label = የሽንኩርት ልጣጭ እይታ
+animation.onion.before = በፊት
+animation.onion.after = በኋላ
+animation.offset.label = በዚህ ፍሬም ውስጥ የንብርብር ማካካሻ
+animation.new_layers_visible = አዲስ ንብርብሮች በሁሉም ፍሬሞች ውስጥ ይታያሉ
+animation.history.select_frame = ፍሬም ምረጥ
+animation.history.move_frame = ፍሬም አንቀሳቅስ
+animation.history.frame_delay = የፍሬም መዘግየት
+animation.history.loop = የድግግሞሽ ብዛት
+animation.history.offset = የፍሬም ማካካሻ
+animation.history.new_layers = የአዲስ ንብርብር ታይነት
+animation.refuse.no_animation = ይህ ሰነድ የፍሬም አኒሜሽን የለውም። ንብርብር ▸ አኒሜሽን ▸ የፍሬም አኒሜሽን ፍጠር የሚለውን ተጠቀም።
+animation.refuse.already_animated = ይህ ሰነድ አስቀድሞ የፍሬም አኒሜሽን አለው።
+animation.refuse.last_frame = አኒሜሽን ቢያንስ አንድ ፍሬም ያስፈልገዋል። በምትኩ አኒሜሽኑን ሰርዝ።
+animation.refuse.too_many_frames = የጊዜ መስመሩ ተጨማሪ ፍሬሞችን መያዝ አይችልም።
+animation.refuse.no_layers = ፍሬሞችን ለመስራት ምንም ንብርብሮች የሉም።
+animation.export.menu = አኒሜሽን…
+animation.export.title = አኒሜሽን ላክ
+animation.export.palette = የቀለም ስብስብ
+animation.export.palette_per_frame = በየፍሬሙ
+animation.export.palette_global = አጠቃላይ
+animation.export.disposal = የፍሬም አወጋገድ
+animation.export.disposal_auto = ራስ-ሰር
+animation.export.disposal_keep = ቀዳሚውን ፍሬም አቆይ
+animation.export.disposal_background = ወደ ጀርባ መልስ
+animation.export.disposal_previous = ወደ ቀዳሚው መልስ
+animation.export.dither_note = አንድ ፍሬም ከ256 በላይ ቀለሞች ሲኖሩት የቀለም ስህተቶችን አሰራጭ
+animation.export.transparency = ግልጽነት
+animation.export.transparency_note = ግልጽ የሆኑ ቦታዎችን ግልጽ አድርገህ አቆይ
+animation.export.gif_note = GIF መዘግየቶችን በሰከንድ መቶኛ ያከማቻል፤ ከፊል ግልጽነትም የለውም።
+animation.export.apng_note = APNG እያንዳንዱን ፍሬም ያለ ጥራት መቀነስ ከሙሉ ግልጽነት ጋር ያቆያል።
+animation.export.webp_note = ተንቀሳቃሽ WebP ያለ ጥራት መቀነስ ይጻፋል፤ ጥራት የሚቀንስ WebP አይገኝም።

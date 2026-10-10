@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tiidline
+animation.menu = Animaasje
+animation.play_pause = Animaasje ôfspylje/pauzearje
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Fertraging
+animation.delay.apply_all = Op alle frames tapasse
+animation.loop.label = Lus
+animation.loop.once = Ien kear
+animation.loop.forever = Altyd
+animation.onion.label = Sipelskyl
+animation.onion.before = Foar
+animation.onion.after = Nei
+animation.offset.label = Laachferskowing yn dit frame
+animation.new_layers_visible = Nije lagen sichtber yn alle frames
+animation.history.select_frame = Frame selektearje
+animation.history.move_frame = Frame ferpleatse
+animation.history.frame_delay = Framefertraging
+animation.history.loop = Oantal lussen
+animation.history.offset = Frameferskowing
+animation.history.new_layers = Sichtberens fan nije lagen
+animation.refuse.no_animation = Dit dokumint hat gjin frame-animaasje. Brûk Laach ▸ Animaasje ▸ Frame-animaasje meitsje.
+animation.refuse.already_animated = Dit dokumint hat al in frame-animaasje.
+animation.refuse.last_frame = In animaasje hat op syn minst ien frame nedich. Wiskje leaver de animaasje.
+animation.refuse.too_many_frames = De tiidline kin net mear frames befetsje.
+animation.refuse.no_layers = Der binne gjin lagen om frames fan te meitsjen.
+animation.export.menu = Animaasje…
+animation.export.title = Animaasje eksportearje
+animation.export.palette = Palet
+animation.export.palette_per_frame = Per frame
+animation.export.palette_global = Globaal
+animation.export.disposal = Frame-ôfhanneling
+animation.export.disposal_auto = Automatysk
+animation.export.disposal_keep = Foarich frame bewarje
+animation.export.disposal_background = Nei eftergrûn weromsette
+animation.export.disposal_previous = Nei foarige steat weromsette
+animation.export.dither_note = Kleurflaters ferspriede as in frame mear as 256 kleuren hat
+animation.export.transparency = Trochsichtigens
+animation.export.transparency_note = Trochsichtige gebieten trochsichtich hâlde
+animation.export.gif_note = GIF bewarret fertragingen yn hûndertsten fan in sekonde en hat gjin parsjele trochsichtigens.
+animation.export.apng_note = APNG hâldt elk frame sûnder ferlies mei folsleine trochsichtigens.
+animation.export.webp_note = Animearre WebP wurdt sûnder ferlies skreaun; WebP mei ferlies is net beskikber.

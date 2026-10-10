@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = காலவரிசை
+animation.menu = அசைவூட்டம்
+animation.play_pause = அசைவூட்டத்தை இயக்கு/இடைநிறுத்து
+animation.frame_layer_name = சட்டகம் {n}
+animation.delay_seconds = {seconds} வி
+animation.delay.label = தாமதம்
+animation.delay.apply_all = எல்லா சட்டகங்களுக்கும் பயன்படுத்து
+animation.loop.label = மீளியக்கம்
+animation.loop.once = ஒருமுறை
+animation.loop.forever = எப்போதும்
+animation.onion.label = வெங்காயத் தோல்
+animation.onion.before = முன்
+animation.onion.after = பின்
+animation.offset.label = இந்தச் சட்டகத்தில் அடுக்கின் இடப்பெயர்ச்சி
+animation.new_layers_visible = புதிய அடுக்குகள் எல்லா சட்டகங்களிலும் தெரியும்
+animation.history.select_frame = சட்டகத்தைத் தேர்ந்தெடு
+animation.history.move_frame = சட்டகத்தை நகர்த்து
+animation.history.frame_delay = சட்டகத் தாமதம்
+animation.history.loop = மீளியக்க எண்ணிக்கை
+animation.history.offset = சட்டக இடப்பெயர்ச்சி
+animation.history.new_layers = புதிய அடுக்குகளின் தெரிவுநிலை
+animation.refuse.no_animation = இந்த ஆவணத்தில் சட்டக அசைவூட்டம் இல்லை. அடுக்கு ▸ அசைவூட்டம் ▸ சட்டக அசைவூட்டத்தை உருவாக்கு என்பதைப் பயன்படுத்தவும்.
+animation.refuse.already_animated = இந்த ஆவணத்தில் ஏற்கனவே ஒரு சட்டக அசைவூட்டம் உள்ளது.
+animation.refuse.last_frame = அசைவூட்டத்துக்குக் குறைந்தது ஒரு சட்டகம் தேவை. அதற்குப் பதிலாக முழு அசைவூட்டத்தையும் நீக்கவும்.
+animation.refuse.too_many_frames = காலவரிசையில் மேலும் சட்டகங்களை வைக்க இயலாது.
+animation.refuse.no_layers = சட்டகங்களை உருவாக்க அடுக்குகள் எதுவும் இல்லை.
+animation.export.menu = அசைவூட்டம்…
+animation.export.title = அசைவூட்டத்தை ஏற்றுமதி செய்
+animation.export.palette = வண்ணத்தட்டு
+animation.export.palette_per_frame = ஒவ்வொரு சட்டகத்துக்கும்
+animation.export.palette_global = பொது
+animation.export.disposal = சட்டக அகற்றல்
+animation.export.disposal_auto = தானியங்கி
+animation.export.disposal_keep = முந்தைய சட்டகத்தை வைத்திரு
+animation.export.disposal_background = பின்னணிக்கு மீட்டமை
+animation.export.disposal_previous = முந்தையதுக்கு மீட்டமை
+animation.export.dither_note = ஒரு சட்டகத்தில் 256-க்கும் மேற்பட்ட வண்ணங்கள் இருந்தால் வண்ணப் பிழைகளைப் பரவச் செய்
+animation.export.transparency = ஒளிபுகுதன்மை
+animation.export.transparency_note = ஒளிபுகும் பகுதிகளை ஒளிபுகும்படியே வைத்திரு
+animation.export.gif_note = GIF தாமதங்களை வினாடியின் நூறில் ஒரு பங்குகளில் சேமிக்கிறது, பகுதி ஒளிபுகுதன்மையை ஆதரிக்காது.
+animation.export.apng_note = APNG ஒவ்வொரு சட்டகத்தையும் முழு ஒளிபுகுதன்மையுடன் இழப்பின்றிப் பாதுகாக்கிறது.
+animation.export.webp_note = அசைவூட்ட WebP இழப்பின்றி எழுதப்படுகிறது; இழப்புடைய WebP கிடைக்காது.

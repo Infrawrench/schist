@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Línia de temps
+animation.menu = Animació
+animation.play_pause = Reprodueix/posa en pausa l'animació
+animation.frame_layer_name = Fotograma {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Retard
+animation.delay.apply_all = Aplica a tots els fotogrames
+animation.loop.label = Bucle
+animation.loop.once = Un cop
+animation.loop.forever = Sempre
+animation.onion.label = Pell de ceba
+animation.onion.before = Abans
+animation.onion.after = Després
+animation.offset.label = Desplaçament de la capa en aquest fotograma
+animation.new_layers_visible = Capes noves visibles en tots els fotogrames
+animation.history.select_frame = Selecciona el fotograma
+animation.history.move_frame = Mou el fotograma
+animation.history.frame_delay = Retard del fotograma
+animation.history.loop = Nombre de repeticions
+animation.history.offset = Desplaçament del fotograma
+animation.history.new_layers = Visibilitat de les capes noves
+animation.refuse.no_animation = Aquest document no té cap animació de fotogrames. Utilitzeu Capa ▸ Animació ▸ Crea una animació de fotogrames.
+animation.refuse.already_animated = Aquest document ja té una animació de fotogrames.
+animation.refuse.last_frame = Una animació necessita almenys un fotograma. Suprimiu l'animació sencera.
+animation.refuse.too_many_frames = La línia de temps no pot contenir més fotogrames.
+animation.refuse.no_layers = No hi ha capes a partir de les quals crear fotogrames.
+animation.export.menu = Animació…
+animation.export.title = Exporta l'animació
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Per fotograma
+animation.export.palette_global = Global
+animation.export.disposal = Eliminació
+animation.export.disposal_auto = Automàtica
+animation.export.disposal_keep = Conserva el fotograma anterior
+animation.export.disposal_background = Restaura al fons
+animation.export.disposal_previous = Restaura a l'anterior
+animation.export.dither_note = Difon els errors de color quan un fotograma té més de 256 colors
+animation.export.transparency = Transparència
+animation.export.transparency_note = Mantén transparents les àrees transparents
+animation.export.gif_note = GIF desa els retards en centèsimes de segon i no admet la transparència parcial.
+animation.export.apng_note = APNG conserva cada fotograma sense pèrdua i amb transparència completa.
+animation.export.webp_note = El WebP animat s'escriu sense pèrdua; el WebP amb pèrdua no està disponible.

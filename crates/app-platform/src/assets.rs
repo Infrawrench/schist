@@ -144,6 +144,12 @@ icons!(
     "frame",
     "note",
     "slice",
+    "play",
+    "pause",
+    "skip-back",
+    "skip-forward",
+    "step-back",
+    "step-forward",
 );
 
 pub struct Assets;

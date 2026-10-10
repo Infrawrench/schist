@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Timeline
+animation.menu = Animazione
+animation.play_pause = Riproduci/Metti in pausa animazione
+animation.frame_layer_name = Fotogramma {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ritardo
+animation.delay.apply_all = Applica a tutti i fotogrammi
+animation.loop.label = Ripetizione
+animation.loop.once = Una volta
+animation.loop.forever = Sempre
+animation.onion.label = Onion skin
+animation.onion.before = Prima
+animation.onion.after = Dopo
+animation.offset.label = Spostamento del livello in questo fotogramma
+animation.new_layers_visible = Nuovi livelli visibili in tutti i fotogrammi
+animation.history.select_frame = Seleziona fotogramma
+animation.history.move_frame = Sposta fotogramma
+animation.history.frame_delay = Ritardo fotogramma
+animation.history.loop = Numero di ripetizioni
+animation.history.offset = Spostamento fotogramma
+animation.history.new_layers = Visibilità nuovi livelli
+animation.refuse.no_animation = Questo documento non ha un'animazione a fotogrammi. Usa Livello ▸ Animazione ▸ Crea animazione fotogrammi.
+animation.refuse.already_animated = Questo documento ha già un'animazione a fotogrammi.
+animation.refuse.last_frame = Un'animazione richiede almeno un fotogramma. Elimina invece l'intera animazione.
+animation.refuse.too_many_frames = La timeline non può contenere altri fotogrammi.
+animation.refuse.no_layers = Non ci sono livelli da cui creare fotogrammi.
+animation.export.menu = Animazione…
+animation.export.title = Esporta animazione
+animation.export.palette = Palette
+animation.export.palette_per_frame = Per fotogramma
+animation.export.palette_global = Globale
+animation.export.disposal = Eliminazione
+animation.export.disposal_auto = Automatica
+animation.export.disposal_keep = Mantieni il fotogramma precedente
+animation.export.disposal_background = Ripristina allo sfondo
+animation.export.disposal_previous = Ripristina al precedente
+animation.export.dither_note = Diffondi gli errori di colore quando un fotogramma ha più di 256 colori
+animation.export.transparency = Trasparenza
+animation.export.transparency_note = Mantieni trasparenti le aree trasparenti
+animation.export.gif_note = GIF memorizza i ritardi in centesimi di secondo e non supporta la trasparenza parziale.
+animation.export.apng_note = APNG mantiene ogni fotogramma senza perdita, con trasparenza completa.
+animation.export.webp_note = Il WebP animato viene scritto senza perdita; il WebP con perdita non è disponibile.

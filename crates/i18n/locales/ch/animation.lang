@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linian Tiempo
+animation.menu = Animasion
+animation.play_pause = Hugåndo/Påra i Animasion
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} seg.
+animation.delay.label = Atrasu
+animation.delay.apply_all = Aplika gi Todu i Frame
+animation.loop.label = Loop
+animation.loop.once = Un biåhi
+animation.loop.forever = Para siempre
+animation.onion.label = Lassas Siboyas
+animation.onion.before = Antes
+animation.onion.after = Despues
+animation.offset.label = Tinilaika posision i layer gi este na frame
+animation.new_layers_visible = Nuebu na layer siha ma li'e' gi todu i frame
+animation.history.select_frame = Ayek Frame
+animation.history.move_frame = Muebi i Frame
+animation.history.frame_delay = Atrasun Frame
+animation.history.loop = Numirun Loop
+animation.history.offset = Tinilaika Posision Frame
+animation.history.new_layers = Ma Li'e'-ña Nuebu na Layer
+animation.refuse.no_animation = Este na dokumento taya' frame animasion-ña. Usa Layer ▸ Animasion ▸ Fa'tinas Frame Animasion.
+animation.refuse.already_animated = Este na dokumento guaha esta frame animasion-ña.
+animation.refuse.last_frame = Un animasion nesesita por lo menos un frame. Na'suha i animasion enlugåt-ña.
+animation.refuse.too_many_frames = I linian tiempo ti siña uma' mås frame siha.
+animation.refuse.no_layers = Taya' layer siha para u fanma'tinas frame.
+animation.export.menu = Animasion…
+animation.export.title = Eksporta Animasion
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Kada frame
+animation.export.palette_global = Para todu
+animation.export.disposal = Disposision
+animation.export.disposal_auto = Automåtiku
+animation.export.disposal_keep = Na'såga i ma'pos na frame
+animation.export.disposal_background = Na'bira gi background
+animation.export.disposal_previous = Na'bira gi ma'pos
+animation.export.dither_note = Na'chalappan i lachi kulot yanggen guaha mås ki 256 na kulot gi un frame
+animation.export.transparency = Transparensia
+animation.export.transparency_note = Na'såga i transparente na lugåt siha transparente
+animation.export.gif_note = I GIF ha guaguardia i atrasu siha gi sientos na påtte gi un segundo, ya taya' patsiåt na transparensia-ña.
+animation.export.apng_note = I APNG ha na'såsåga kada frame sin perdida yan kabåles na transparensia.
+animation.export.webp_note = I ma'animate na WebP ma tuge' sin perdida; i WebP ni' guaha perdida-ña ti guaha.

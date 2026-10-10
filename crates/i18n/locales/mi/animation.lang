@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Rārangi Wā
+animation.menu = Hākoritanga
+animation.play_pause = Whakatere/Whakatārewa Hākoritanga
+animation.frame_layer_name = Anga {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Whakaroa
+animation.delay.apply_all = Hoatu ki ngā Anga Katoa
+animation.loop.label = Kōmuri
+animation.loop.once = Kotahi te wā
+animation.loop.forever = Mō ake tonu
+animation.onion.label = Kiri riki
+animation.onion.before = I mua
+animation.onion.after = I muri
+animation.offset.label = Nekehanga apa i tēnei anga
+animation.new_layers_visible = Ka kitea ngā apa hou i ngā anga katoa
+animation.history.select_frame = Tīpako Anga
+animation.history.move_frame = Neke Anga
+animation.history.frame_delay = Whakaroa Anga
+animation.history.loop = Tatau Kōmuri
+animation.history.offset = Nekehanga Anga
+animation.history.new_layers = Kitenga Apa Hou
+animation.refuse.no_animation = Kāore he hākoritanga anga i tēnei tuhinga. Whakamahia te Apa ▸ Hākoritanga ▸ Waihanga Hākoritanga Anga.
+animation.refuse.already_animated = Kua whai hākoritanga anga kē tēnei tuhinga.
+animation.refuse.last_frame = Me whai i te iti rawa kotahi te anga i tētahi hākoritanga. Mukua kētia te hākoritanga.
+animation.refuse.too_many_frames = Kāore e taea e te rārangi wā te pupuri i ētahi atu anga.
+animation.refuse.no_layers = Kāore he apa hei hanga anga mai i a rātou.
+animation.export.menu = Hākoritanga…
+animation.export.title = Kaweake Hākoritanga
+animation.export.palette = Papatae
+animation.export.palette_per_frame = Ia anga
+animation.export.palette_global = Ao whānui
+animation.export.disposal = Tukunga
+animation.export.disposal_auto = Aunoa
+animation.export.disposal_keep = Puritia te anga o mua
+animation.export.disposal_background = Whakahoki ki te papamuri
+animation.export.disposal_previous = Whakahoki ki tō mua
+animation.export.dither_note = Tohatohangia ngā hapa tae ina neke atu i te 256 ngā tae o tētahi anga
+animation.export.transparency = Pūatatanga
+animation.export.transparency_note = Kia pūataata tonu ngā wāhanga pūataata
+animation.export.gif_note = Ka penapena a GIF i ngā whakaroa hei hautau rau o te hēkona, ā, kāore ōna pūatatanga wāhanga.
+animation.export.apng_note = Ka pupuri a APNG i ia anga me te kore ngaronga, me te pūatatanga katoa.
+animation.export.webp_note = Ka tuhia te WebP hākori me te kore ngaronga; kāore e wātea te WebP ngaronga.

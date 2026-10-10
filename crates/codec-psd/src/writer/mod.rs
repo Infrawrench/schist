@@ -322,6 +322,7 @@ fn write_layer_and_mask_info(b: &mut Buf, doc: &Document, psb: bool) -> Result<(
     let links = crate::smart_filters::write_links(doc);
     let ink_state = crate::ink::state(doc);
     let ink_backup = crate::ink::resource_backup(doc);
+    let animation = crate::animation::block(doc);
     // A global text-engine cache describes the old story, including its
     // glyph layout. Like ag-psd's invalidateTextLayers, deactivate it when
     // native type changes. Keep the bytes in a private backup for lossless
@@ -335,9 +336,11 @@ fn write_layer_and_mask_info(b: &mut Buf, doc: &Document, psb: bool) -> Result<(
         .iter()
         .filter(|block| block.key != crate::ink::STATE_KEY)
         .filter(|block| links.is_none() || block.key != *b"lnk2")
+        .filter(|block| animation.is_none() || block.key != crate::animation::KEY)
         .chain(links.iter())
         .chain(ink_state.iter())
         .chain(ink_backup.iter())
+        .chain(animation.iter())
     {
         // 8B64 marks a block whose length is u64 whatever the key, so a
         // block that arrived that way has to go back out that way: an

@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tiedlijn
+animation.menu = Animatie
+animation.play_pause = Animatie aafspele/pauzere
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Vertraoging
+animation.delay.apply_all = Op alle frames toepasse
+animation.loop.label = Lus
+animation.loop.once = Eine kieër
+animation.loop.forever = Ummer
+animation.onion.label = Uienschil
+animation.onion.before = Veur
+animation.onion.after = Nao
+animation.offset.label = Laogverschuving in dit frame
+animation.new_layers_visible = Nui laoge zichbaar in alle frames
+animation.history.select_frame = Frame selectere
+animation.history.move_frame = Frame verplaatse
+animation.history.frame_delay = Framevertraoging
+animation.history.loop = Aantal lusse
+animation.history.offset = Frameverschuving
+animation.history.new_layers = Zichbaarheid van nui laoge
+animation.refuse.no_animation = Dit document haet gein frameanimatie. Gebroek Laog ▸ Animatie ▸ Frameanimatie make.
+animation.refuse.already_animated = Dit document haet al 'n frameanimatie.
+animation.refuse.last_frame = 'n Animatie heet minstens ei frame nudig. Verwiedere de animatie in plaats daovan.
+animation.refuse.too_many_frames = De tiedlijn kan gein frames mie bevatte.
+animation.refuse.no_layers = D'r zien gein laoge um frames oet te make.
+animation.export.menu = Animatie…
+animation.export.title = Animatie exportere
+animation.export.palette = Palet
+animation.export.palette_per_frame = Per frame
+animation.export.palette_global = Globaal
+animation.export.disposal = Verwiedering
+animation.export.disposal_auto = Automatisch
+animation.export.disposal_keep = Veurig frame hawwe
+animation.export.disposal_background = Achtergrondj hersjtèlle
+animation.export.disposal_previous = Veurige hersjtèlle
+animation.export.dither_note = Kleurfoute verspreide es 'n frame mie as 256 kleure haet
+animation.export.transparency = Doorzichtigheid
+animation.export.transparency_note = Doorzichtige gebiede doorzichtig hawwe
+animation.export.gif_note = GIF bewaart vertraoginge in hónderdste van 'n seconde en haet gein gedeeltelike doorzichtigheid.
+animation.export.apng_note = APNG hilt elk frame verleesvrij mit volledige doorzichtigheid.
+animation.export.webp_note = Geanimeerde WebP wuuert verleesvrij gesjreve; WebP mit verlees is neet besjikbaar.

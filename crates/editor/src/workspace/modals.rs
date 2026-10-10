@@ -971,6 +971,7 @@ impl Workspace {
             | Modal::Support
             | Modal::Preferences
             | Modal::Export { .. }
+            | Modal::ExportAnimation { .. }
             | Modal::Printing { .. }
             | Modal::ExportRecipes { .. }
             | Modal::MissingFonts { .. }

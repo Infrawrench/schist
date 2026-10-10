@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tidslinje
+animation.menu = Animasjon
+animation.play_pause = Spel av / pause animasjon
+animation.frame_layer_name = Bilete {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Forseinking
+animation.delay.apply_all = Bruk på alle bilete
+animation.loop.label = Gjentaking
+animation.loop.once = Éin gong
+animation.loop.forever = For alltid
+animation.onion.label = Løkskal
+animation.onion.before = Før
+animation.onion.after = Etter
+animation.offset.label = Lagforskyving i dette biletet
+animation.new_layers_visible = Nye lag er synlege i alle bilete
+animation.history.select_frame = Vel bilete
+animation.history.move_frame = Flytt bilete
+animation.history.frame_delay = Biletforseinking
+animation.history.loop = Tal på gjentakingar
+animation.history.offset = Biletforskyving
+animation.history.new_layers = Synlegheit for nye lag
+animation.refuse.no_animation = Dette dokumentet har ingen biletanimasjon. Bruk Lag ▸ Animasjon ▸ Lag biletanimasjon.
+animation.refuse.already_animated = Dette dokumentet har allereie ein biletanimasjon.
+animation.refuse.last_frame = Ein animasjon treng minst eitt bilete. Slett heller animasjonen.
+animation.refuse.too_many_frames = Tidslinja kan ikkje romma fleire bilete.
+animation.refuse.no_layers = Det finst ingen lag å laga bilete frå.
+animation.export.menu = Animasjon …
+animation.export.title = Eksporter animasjon
+animation.export.palette = Palett
+animation.export.palette_per_frame = Per bilete
+animation.export.palette_global = Global
+animation.export.disposal = Biletfjerning
+animation.export.disposal_auto = Automatisk
+animation.export.disposal_keep = Behald førre bilete
+animation.export.disposal_background = Gjenopprett til bakgrunn
+animation.export.disposal_previous = Gjenopprett til førre
+animation.export.dither_note = Spreie fargefeil når eit bilete har meir enn 256 fargar
+animation.export.transparency = Gjennomsikt
+animation.export.transparency_note = Hald gjennomsiktige område gjennomsiktige
+animation.export.gif_note = GIF lagrar forseinkingar i hundredelar av eit sekund og har ikkje delvis gjennomsikt.
+animation.export.apng_note = APNG held kvart bilete tapsfritt med full gjennomsikt.
+animation.export.webp_note = Animert WebP vert skriven tapsfritt; WebP med tap er ikkje tilgjengeleg.

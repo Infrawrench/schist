@@ -1,0 +1,45 @@
+# Frameanimatie: het tijdlijnpaneel, uienschillen en animatie-export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). De opdrachttitels staan in commands.lang.
+animation.panel.title = Tijdlijn
+animation.menu = Animatie
+animation.play_pause = Animatie afspelen/pauzeren
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Vertraging
+animation.delay.apply_all = Toepassen op alle frames
+animation.loop.label = Herhalen
+animation.loop.once = Eenmaal
+animation.loop.forever = Altijd
+animation.onion.label = Uienschil
+animation.onion.before = Ervoor
+animation.onion.after = Erna
+animation.offset.label = Laagverschuiving in dit frame
+animation.new_layers_visible = Nieuwe lagen zichtbaar in alle frames
+animation.history.select_frame = Frame selecteren
+animation.history.move_frame = Frame verplaatsen
+animation.history.frame_delay = Framevertraging
+animation.history.loop = Aantal herhalingen
+animation.history.offset = Frameverschuiving
+animation.history.new_layers = Zichtbaarheid van nieuwe lagen
+animation.refuse.no_animation = Dit document heeft geen frameanimatie. Gebruik Laag ▸ Animatie ▸ Frameanimatie maken.
+animation.refuse.already_animated = Dit document heeft al een frameanimatie.
+animation.refuse.last_frame = Een animatie heeft minstens één frame nodig. Verwijder in plaats daarvan de animatie.
+animation.refuse.too_many_frames = De tijdlijn kan geen frames meer bevatten.
+animation.refuse.no_layers = Er zijn geen lagen om frames van te maken.
+animation.export.menu = Animatie…
+animation.export.title = Animatie exporteren
+animation.export.palette = Palet
+animation.export.palette_per_frame = Per frame
+animation.export.palette_global = Globaal
+animation.export.disposal = Verwijderingsmethode
+animation.export.disposal_auto = Automatisch
+animation.export.disposal_keep = Vorig frame behouden
+animation.export.disposal_background = Herstellen naar achtergrond
+animation.export.disposal_previous = Herstellen naar vorige
+animation.export.dither_note = Kleurfouten verspreiden als een frame meer dan 256 kleuren heeft
+animation.export.transparency = Transparantie
+animation.export.transparency_note = Transparante gebieden transparant houden
+animation.export.gif_note = GIF slaat vertragingen op in honderdsten van een seconde en kent geen gedeeltelijke transparantie.
+animation.export.apng_note = APNG bewaart elk frame zonder verlies met volledige transparantie.
+animation.export.webp_note = Geanimeerde WebP wordt zonder verlies geschreven; WebP met verlies is niet beschikbaar.

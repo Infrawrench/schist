@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Ìlà àkókò
+animation.menu = Àwòrán ìṣípòpadà
+animation.play_pause = Ṣe/Dánudúró àwòrán ìṣípòpadà
+animation.frame_layer_name = Férémù {n}
+animation.delay_seconds = {seconds} ìṣ-àá
+animation.delay.label = Ìdádúró
+animation.delay.apply_all = Lò ó fún gbogbo férémù
+animation.loop.label = Yípo
+animation.loop.once = Ẹ̀ẹ̀kan
+animation.loop.forever = Títí láé
+animation.onion.label = Awọ àlùbọ́sà
+animation.onion.before = Ṣáájú
+animation.onion.after = Lẹ́yìn
+animation.offset.label = Ìsúnsí fẹ́lẹ́fẹ́lẹ́ nínú férémù yìí
+animation.new_layers_visible = Àwọn fẹ́lẹ́fẹ́lẹ́ tuntun hàn nínú gbogbo férémù
+animation.history.select_frame = Yan férémù
+animation.history.move_frame = Gbé férémù
+animation.history.frame_delay = Ìdádúró férémù
+animation.history.loop = Iye ìyípo
+animation.history.offset = Ìsúnsí férémù
+animation.history.new_layers = Ìhàn àwọn fẹ́lẹ́fẹ́lẹ́ tuntun
+animation.refuse.no_animation = Ìwé yìí kò ní àwòrán ìṣípòpadà férémù. Lo Fẹ́lẹ́fẹ́lẹ́ ▸ Àwòrán ìṣípòpadà ▸ Ṣẹ̀dá àwòrán ìṣípòpadà férémù.
+animation.refuse.already_animated = Ìwé yìí ti ní àwòrán ìṣípòpadà férémù tẹ́lẹ̀.
+animation.refuse.last_frame = Àwòrán ìṣípòpadà nílò férémù kan ó kéré tán. Pa àwòrán ìṣípòpadà náà rẹ́ dípò.
+animation.refuse.too_many_frames = Ìlà àkókò kò lè gba férémù mìíràn mọ́.
+animation.refuse.no_layers = Kò sí fẹ́lẹ́fẹ́lẹ́ kankan láti fi ṣe férémù.
+animation.export.menu = Àwòrán ìṣípòpadà…
+animation.export.title = Gbé àwòrán ìṣípòpadà jáde
+animation.export.palette = Pálẹ́ẹ̀tì
+animation.export.palette_per_frame = Fún férémù kọ̀ọ̀kan
+animation.export.palette_global = Gbogbogbòò
+animation.export.disposal = Ìyọkúrò
+animation.export.disposal_auto = Aládàáṣiṣẹ́
+animation.export.disposal_keep = Pa férémù tó ṣáájú mọ́
+animation.export.disposal_background = Dá padà sí ẹ̀yìn
+animation.export.disposal_previous = Dá padà sí èyí tó ṣáájú
+animation.export.dither_note = Tan àṣìṣe àwọ̀ ká nígbà tí férémù bá ní àwọ̀ tó ju 256 lọ
+animation.export.transparency = Ríríran-kọjá
+animation.export.transparency_note = Jẹ́ kí àwọn agbègbè tó ríran-kọjá máa ríran-kọjá
+animation.export.gif_note = GIF ń tọ́jú ìdádúró ní ìdá ọgọ́rùn-ún ìṣẹ́jú-àáyá, kò sì ní ríríran-kọjá apá kan.
+animation.export.apng_note = APNG ń tọ́jú férémù kọ̀ọ̀kan láìsí àdánù pẹ̀lú ríríran-kọjá kíkún.
+animation.export.webp_note = WebP oníṣípòpadà ni a ń kọ láìsí àdánù; WebP oníàdánù kò sí.

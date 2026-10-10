@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Umugca weSikhatsi
+animation.menu = Kunyakatisa
+animation.play_pause = Dlala/Misa Kunyakatisa
+animation.frame_layer_name = Lifulemu {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Kubambeka
+animation.delay.apply_all = Sebentisa kuwo onkhe Emafulemu
+animation.loop.label = Kuphindvwa
+animation.loop.once = Kanye
+animation.loop.forever = Njalo
+animation.onion.label = Sikhumba Sanyanisi
+animation.onion.before = Ngembili
+animation.onion.after = Ngemuva
+animation.offset.label = Kususwa kweluhlaka kulelifulemu
+animation.new_layers_visible = Tinhlaka letinsha tiyabonakala kuwo onkhe emafulemu
+animation.history.select_frame = Khetsa Lifulemu
+animation.history.move_frame = Hambisa Lifulemu
+animation.history.frame_delay = Kubambeka Kwelifulemu
+animation.history.loop = Linani Lekuphindvwa
+animation.history.offset = Kususwa Kwelifulemu
+animation.history.new_layers = Kubonakala Kwetinhlaka Letinsha
+animation.refuse.no_animation = Lomculu awunako kunyakatisa kwemafulemu. Sebentisa Luhlaka ▸ Kunyakatisa ▸ Dala Kunyakatisa Kwemafulemu.
+animation.refuse.already_animated = Lomculu sewuvele unako kunyakatisa kwemafulemu.
+animation.refuse.last_frame = Kunyakatisa kudzinga lifulemu linye lokungenani. Esikhundleni salokho susa kunyakatisa.
+animation.refuse.too_many_frames = Umugca wesikhatsi awukhoni kubamba lamanye emafulemu.
+animation.refuse.no_layers = Kute tinhlaka tekwenta ngato emafulemu.
+animation.export.menu = Kunyakatisa…
+animation.export.title = Tfumela Kunyakatisa Ngaphandle
+animation.export.palette = Liphalethi
+animation.export.palette_per_frame = Ngelifulemu ngalinye
+animation.export.palette_global = Lakho konkhe
+animation.export.disposal = Kulahla
+animation.export.disposal_auto = Kutentakalela
+animation.export.disposal_keep = Gcina lifulemu langaphambilini
+animation.export.disposal_background = Buyisela kungemuva
+animation.export.disposal_previous = Buyisela kulokwangaphambilini
+animation.export.dither_note = Sakata emaphutsa emibala nangabe lifulemu linemibala lengetulu kwa-256
+animation.export.transparency = Kubonakala Ngale
+animation.export.transparency_note = Gcina tindzawo letibonakala ngale tihlale tibonakala ngale
+animation.export.gif_note = GIF igcina kubambeka ngetincenye letilikhulu temzuzwana futsi ayinako kubonakala ngale lokuyincenye.
+animation.export.apng_note = APNG igcina lifulemu ngalinye ngaphandle kwekulahlekelwa futsi ngekubonakala ngale lokuphelele.
+animation.export.webp_note = WebP lenyakatako ibhalwa ngaphandle kwekulahlekelwa; WebP lelahlekelwako ayitfolakali.

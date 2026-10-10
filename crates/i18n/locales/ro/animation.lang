@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Cronologie
+animation.menu = Animație
+animation.play_pause = Redare/Pauză animație
+animation.frame_layer_name = Cadru {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Întârziere
+animation.delay.apply_all = Aplicare la toate cadrele
+animation.loop.label = Repetare
+animation.loop.once = O dată
+animation.loop.forever = Permanent
+animation.onion.label = Straturi fantomă
+animation.onion.before = Înainte
+animation.onion.after = După
+animation.offset.label = Decalajul stratului în acest cadru
+animation.new_layers_visible = Straturile noi sunt vizibile în toate cadrele
+animation.history.select_frame = Selectare cadru
+animation.history.move_frame = Mutare cadru
+animation.history.frame_delay = Întârziere cadru
+animation.history.loop = Număr de repetări
+animation.history.offset = Decalaj cadru
+animation.history.new_layers = Vizibilitatea straturilor noi
+animation.refuse.no_animation = Acest document nu are o animație pe cadre. Folosiți Strat ▸ Animație ▸ Creare animație pe cadre.
+animation.refuse.already_animated = Acest document are deja o animație pe cadre.
+animation.refuse.last_frame = O animație are nevoie de cel puțin un cadru. Ștergeți în schimb întreaga animație.
+animation.refuse.too_many_frames = Cronologia nu mai poate conține alte cadre.
+animation.refuse.no_layers = Nu există straturi din care să se creeze cadre.
+animation.export.menu = Animație…
+animation.export.title = Exportare animație
+animation.export.palette = Paletă
+animation.export.palette_per_frame = Per cadru
+animation.export.palette_global = Globală
+animation.export.disposal = Eliminare
+animation.export.disposal_auto = Automată
+animation.export.disposal_keep = Păstrare cadru anterior
+animation.export.disposal_background = Restaurare la fundal
+animation.export.disposal_previous = Restaurare la anterior
+animation.export.dither_note = Difuzează erorile de culoare când un cadru are mai mult de 256 de culori
+animation.export.transparency = Transparență
+animation.export.transparency_note = Păstrează transparente zonele transparente
+animation.export.gif_note = GIF stochează întârzierile în sutimi de secundă și nu acceptă transparența parțială.
+animation.export.apng_note = APNG păstrează fiecare cadru fără pierderi, cu transparență completă.
+animation.export.webp_note = WebP animat este scris fără pierderi; WebP cu pierderi nu este disponibil.

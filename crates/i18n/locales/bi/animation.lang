@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Laen blong Taem
+animation.menu = Animesen
+animation.play_pause = Plei/Pos Animesen
+animation.frame_layer_name = Frem {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Taem blong Wet
+animation.delay.apply_all = Yusum long Olgeta Frem
+animation.loop.label = Raon Bakegen
+animation.loop.once = Wan Taem
+animation.loop.forever = Oltaem
+animation.onion.label = Skin blong Anien
+animation.onion.before = Bifo
+animation.onion.after = Afta
+animation.offset.label = Ples we layer i muv i go long frem ia
+animation.new_layers_visible = Ol niu layer oli soemaot long olgeta frem
+animation.history.select_frame = Jusum Frem
+animation.history.move_frame = Muvum Frem
+animation.history.frame_delay = Taem blong Wet blong Frem
+animation.history.loop = Hamas Taem i Raon Bakegen
+animation.history.offset = Muv blong Frem
+animation.history.new_layers = Soemaot blong Ol Niu Layer
+animation.refuse.no_animation = Dokiumen ia i no gat frem animesen. Yusum Layer ▸ Animesen ▸ Mekem Frem Animesen.
+animation.refuse.already_animated = Dokiumen ia i gat frem animesen finis.
+animation.refuse.last_frame = Wan animesen i nidim wan frem samples. Yu deletem animesen nomo.
+animation.refuse.too_many_frames = Laen blong taem i no save holem moa frem.
+animation.refuse.no_layers = I no gat ol layer blong mekem frem long hem.
+animation.export.menu = Animesen…
+animation.export.title = Eksportem Animesen
+animation.export.palette = Paleta blong Kala
+animation.export.palette_per_frame = Long evri frem
+animation.export.palette_global = Blong Olgeta
+animation.export.disposal = Rimuvum
+animation.export.disposal_auto = Hemwan i Mekem
+animation.export.disposal_keep = Kipim frem we i stap bifo
+animation.export.disposal_background = Putum bak long bakgraon
+animation.export.disposal_previous = Putum bak olsem bifo
+animation.export.dither_note = Spredem ol rong blong kala taem wan frem i gat moa long 256 kala
+animation.export.transparency = Klia Glas
+animation.export.transparency_note = Kipim ol ples we i klia olsem glas i stap klia
+animation.export.gif_note = GIF i kipim taem blong wet long wan handred pat blong wan seken mo i no gat haf klia glas.
+animation.export.apng_note = APNG i kipim evri frem we i no lusum eni samting mo i gat ful klia glas.
+animation.export.webp_note = Oli raetem WebP blong animesen we i no lusum eni samting; WebP we i lusum samting i no stap.

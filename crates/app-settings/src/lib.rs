@@ -208,10 +208,17 @@ fn default_history_h() -> f32 {
 }
 
 fn default_side_panel_order() -> Vec<String> {
-    ["navigator", "color", "layers", "notes", "history"]
-        .into_iter()
-        .map(str::to_owned)
-        .collect()
+    [
+        "navigator",
+        "color",
+        "layers",
+        "notes",
+        "history",
+        "timeline",
+    ]
+    .into_iter()
+    .map(str::to_owned)
+    .collect()
 }
 
 /// Whoever is logged in, which is Photoshop's default author too. Empty

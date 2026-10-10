@@ -59,6 +59,7 @@ mod swatches;
 mod symmetry;
 mod tabs;
 mod text_decorations;
+mod timeline;
 mod titlebar;
 mod toolbar;
 mod typography;
@@ -234,6 +235,11 @@ fn panel_content(
             history_panel(ws, cx).into_any_element(),
             false,
         ),
+        // Only for a document with a frame animation, like Notes.
+        SidePanel::Timeline => {
+            let timeline = timeline::timeline_panel(ws, cx)?;
+            (t("animation.panel.title"), timeline, false)
+        }
         // Design-only panels skip themselves in the photo editor
         // rather than showing empty, so a dock preset carrying one
         // cannot leave a blank section behind.
@@ -280,12 +286,13 @@ fn panel_content(
     })
 }
 
-const DEFAULT_PANEL_ORDER: [SidePanel; 5] = [
+const DEFAULT_PANEL_ORDER: [SidePanel; 6] = [
     SidePanel::Navigator,
     SidePanel::Color,
     SidePanel::Layers,
     SidePanel::Notes,
     SidePanel::History,
+    SidePanel::Timeline,
 ];
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -295,6 +302,8 @@ enum SidePanel {
     Layers,
     Notes,
     History,
+    /// Frame animation; shown only when the document has one.
+    Timeline,
     /// Design Mode only. It has no meaning for a photo, so it is not in
     /// the default order and only appears in a Design dock preset.
     Pages,
@@ -343,6 +352,7 @@ impl SidePanel {
             Self::Layers => "layers",
             Self::Notes => "notes",
             Self::History => "history",
+            Self::Timeline => "timeline",
             Self::Pages => "pages",
             Self::Stories => "stories",
             Self::Links => "links",
@@ -450,6 +460,7 @@ mod panel_order_tests {
                 SidePanel::Navigator,
                 SidePanel::Notes,
                 SidePanel::History,
+                SidePanel::Timeline,
             ]
         );
     }
@@ -506,6 +517,7 @@ mod panel_order_tests {
                 SidePanel::Navigator,
                 SidePanel::Color,
                 SidePanel::Notes,
+                SidePanel::Timeline,
             ]
         );
     }
@@ -651,6 +663,7 @@ fn panel_resize_grip(
         SidePanel::Layers => 160.0,
         SidePanel::Navigator | SidePanel::Color => 120.0,
         SidePanel::Notes => 100.0,
+        SidePanel::Timeline => 160.0,
         SidePanel::History => 120.0,
         // The Pages panel is tall because a page thumbnail is legible at
         // that size; the other Design panels are lists of one-line rows, so

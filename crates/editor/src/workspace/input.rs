@@ -43,6 +43,8 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         window.focus(&self.focus);
+        // Working on the canvas means looking at the selected frame.
+        self.stop_playback();
         // Design Mode has its own pointer vocabulary and its own tools,
         // so it takes the event before anything below has to know it
         // exists. The raster path below is unchanged.

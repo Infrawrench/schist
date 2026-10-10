@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Bere Nhyehyɛe
+animation.menu = Animeshin
+animation.play_pause = Bɔ/Gyina Animeshin
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Twɛn bere
+animation.delay.apply_all = Fa Ma Frame Nyinaa
+animation.loop.label = Ntoaso
+animation.loop.once = Prɛko
+animation.loop.forever = Daa
+animation.onion.label = Gyeene ho nwoma
+animation.onion.before = Ansa
+animation.onion.after = Akyiri
+animation.offset.label = Layer no nsesae wɔ frame yi mu
+animation.new_layers_visible = Layer foforo da adi wɔ frame nyinaa mu
+animation.history.select_frame = Yi Frame
+animation.history.move_frame = Pia Frame
+animation.history.frame_delay = Frame Twɛn Bere
+animation.history.loop = Ntoaso Dodow
+animation.history.offset = Frame Nsesae
+animation.history.new_layers = Layer Foforo Adiyi
+animation.refuse.no_animation = Krataa yi nni frame animeshin biara. Fa Layer ▸ Animeshin ▸ Yɛ Frame Animeshin.
+animation.refuse.already_animated = Krataa yi wɔ frame animeshin dada.
+animation.refuse.last_frame = Animeshin hia frame baako koraa. Mmom popa animeshin no.
+animation.refuse.too_many_frames = Bere nhyehyɛe no ntumi nkura frame foforo bio.
+animation.refuse.no_layers = Layer biara nni hɔ a wubetumi de ayɛ frame.
+animation.export.menu = Animeshin…
+animation.export.title = Yi Animeshin Kɔ Akyiri
+animation.export.palette = Ahosu Nhyehyɛe
+animation.export.palette_per_frame = Frame biara
+animation.export.palette_global = Ne nyinaa
+animation.export.disposal = Yiyi kwan
+animation.export.disposal_auto = Ɛyɛ Ankasa
+animation.export.disposal_keep = Kora frame a atwam no
+animation.export.disposal_background = San kɔ akyi
+animation.export.disposal_previous = San kɔ nea atwam no so
+animation.export.dither_note = Trɛtrɛ ahosu mfomso mu bere a frame wɔ ahosu boro 256
+animation.export.transparency = Sɛnea Wɔnam Mu Hu Ade
+animation.export.transparency_note = Ma mmeae a wɔnam mu hu ade no nkɔ so nyɛ saa
+animation.export.gif_note = GIF kora twɛn bere wɔ sɛkɛn no ɔha mu kyɛfa mu na wɔntumi mfa ne fã bi mu nhu ade.
+animation.export.apng_note = APNG kora frame biara a biribiara nnyera, na wɔnam mu hu ade koraa.
+animation.export.webp_note = Wɔkyerɛw WebP a ɛkeka no a biribiara nnyera; WebP a nneɛma yera nni hɔ.

@@ -40,6 +40,7 @@ mod ai;
 #[cfg(sandboxed)]
 #[path = "ai_stub.rs"]
 mod ai;
+pub(crate) mod animation;
 #[cfg(not(target_arch = "wasm32"))]
 mod camera_import;
 #[cfg(not(target_arch = "wasm32"))]
@@ -545,6 +546,8 @@ pub struct Workspace {
     /// Clipping warnings and focus peaking: session-only switches, with
     /// their colour and sensitivity kept in `view`.
     pub(crate) overlays: view_overlays::OverlaySwitches,
+    /// Frame animation playback, onion skins and frame images.
+    pub(crate) anim: animation::AnimationView,
     /// Overlay layers drawn over the gallery's photos, by source image.
     #[cfg(not(target_arch = "wasm32"))]
     gallery_overlays: view_overlays::GalleryOverlays,
@@ -1408,6 +1411,10 @@ pub enum Modal {
         codec: &'static str,
         options: schist_plugin_api::ExportOptions,
     },
+    /// Export the frame animation as GIF, APNG or WebP.
+    ExportAnimation {
+        options: schist_animation::ExportOptions,
+    },
     /// Saved multi-output export recipes.
     Printing {
         editor: crate::printing::Editor,
@@ -1805,6 +1812,7 @@ impl Workspace {
             display_transform: None,
             proof_transform: None,
             overlays: Default::default(),
+            anim: Default::default(),
             #[cfg(not(target_arch = "wasm32"))]
             gallery_overlays: Default::default(),
             #[cfg(not(sandboxed))]

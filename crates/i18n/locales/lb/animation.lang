@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Zäitläischt
+animation.menu = Animatioun
+animation.play_pause = Animatioun ofspillen/pauséieren
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Verzögerung
+animation.delay.apply_all = Op all Frames uwenden
+animation.loop.label = Schleef
+animation.loop.once = Eemol
+animation.loop.forever = Ëmmer
+animation.onion.label = Zwiebelschichten
+animation.onion.before = Virdrun
+animation.onion.after = Duerno
+animation.offset.label = Ebeneverrécklung an dësem Frame
+animation.new_layers_visible = Nei Ebene sichtbar an alle Frames
+animation.history.select_frame = Frame auswielen
+animation.history.move_frame = Frame réckelen
+animation.history.frame_delay = Frameverzögerung
+animation.history.loop = Zuel vun de Widderhuelungen
+animation.history.offset = Frameverrécklung
+animation.history.new_layers = Visibilitéit vun neien Ebenen
+animation.refuse.no_animation = Dëst Dokument huet keng Frameanimatioun. Benotzt Eben ▸ Animatioun ▸ Frameanimatioun erstellen.
+animation.refuse.already_animated = Dëst Dokument huet schonn eng Frameanimatioun.
+animation.refuse.last_frame = Eng Animatioun brauch op mannst ee Frame. Läscht amplaz d'Animatioun.
+animation.refuse.too_many_frames = D'Zäitläischt kann net méi Frames ophuelen.
+animation.refuse.no_layers = Et gëtt keng Ebenen, aus deenen ee Frames maache kéint.
+animation.export.menu = Animatioun…
+animation.export.title = Animatioun exportéieren
+animation.export.palette = Palett
+animation.export.palette_per_frame = Pro Frame
+animation.export.palette_global = Global
+animation.export.disposal = Entfernungsmethod
+animation.export.disposal_auto = Automatesch
+animation.export.disposal_keep = Viregte Frame behalen
+animation.export.disposal_background = Op den Hannergrond zerécksetzen
+animation.export.disposal_previous = Op dee Virege zerécksetzen
+animation.export.dither_note = Faarffeeler verdeelen, wann e Frame méi wéi 256 Faarwen huet
+animation.export.transparency = Transparenz
+animation.export.transparency_note = Transparent Beräicher transparent halen
+animation.export.gif_note = GIF späichert Verzögerungen an Honnertstel vun enger Sekonn an huet keng partiell Transparenz.
+animation.export.apng_note = APNG behält all Frame verloschtfräi mat voller Transparenz.
+animation.export.webp_note = Animéiert WebP gëtt verloschtfräi geschriwwen; verloschtbehaaft WebP ass net disponibel.

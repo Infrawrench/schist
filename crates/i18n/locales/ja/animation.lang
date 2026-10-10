@@ -1,0 +1,45 @@
+# フレームアニメーション：タイムラインパネル、オニオンスキン、アニメーションの書き出し
+# (crates/editor/src/panels/timeline.rs、workspace/animation.rs、
+# dialogs/export_animation.rs)。コマンド名は commands.lang にあります。
+animation.panel.title = タイムライン
+animation.menu = アニメーション
+animation.play_pause = アニメーションを再生/一時停止
+animation.frame_layer_name = フレーム {n}
+animation.delay_seconds = {seconds} 秒
+animation.delay.label = 遅延
+animation.delay.apply_all = すべてのフレームに適用
+animation.loop.label = ループ
+animation.loop.once = 1 回
+animation.loop.forever = 無限
+animation.onion.label = オニオンスキン
+animation.onion.before = 前
+animation.onion.after = 後
+animation.offset.label = このフレームでのレイヤーのオフセット
+animation.new_layers_visible = 新規レイヤーをすべてのフレームで表示
+animation.history.select_frame = フレームを選択
+animation.history.move_frame = フレームを移動
+animation.history.frame_delay = フレームの遅延
+animation.history.loop = ループ回数
+animation.history.offset = フレームのオフセット
+animation.history.new_layers = 新規レイヤーの表示
+animation.refuse.no_animation = このドキュメントにはフレームアニメーションがありません。レイヤー ▸ アニメーション ▸ フレームアニメーションを作成 を使用してください。
+animation.refuse.already_animated = このドキュメントには既にフレームアニメーションがあります。
+animation.refuse.last_frame = アニメーションには少なくとも 1 つのフレームが必要です。代わりにアニメーションを削除してください。
+animation.refuse.too_many_frames = タイムラインにはこれ以上フレームを追加できません。
+animation.refuse.no_layers = フレームを作成できるレイヤーがありません。
+animation.export.menu = アニメーション…
+animation.export.title = アニメーションを書き出し
+animation.export.palette = パレット
+animation.export.palette_per_frame = フレームごと
+animation.export.palette_global = グローバル
+animation.export.disposal = 破棄方法
+animation.export.disposal_auto = 自動
+animation.export.disposal_keep = 前のフレームを保持
+animation.export.disposal_background = 背景に戻す
+animation.export.disposal_previous = 前の状態に戻す
+animation.export.dither_note = フレームの色数が 256 色を超える場合は色の誤差を拡散
+animation.export.transparency = 透明部分
+animation.export.transparency_note = 透明な領域を透明のまま保持
+animation.export.gif_note = GIF は遅延を 100 分の 1 秒単位で保存し、部分的な透明には対応していません。
+animation.export.apng_note = APNG はすべてのフレームを完全な透明を保ったまま劣化なしで保存します。
+animation.export.webp_note = アニメーション WebP は可逆圧縮で書き出されます。非可逆の WebP は利用できません。

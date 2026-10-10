@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Molɔngɔ́ ya ntángo
+animation.menu = Animasió
+animation.play_pause = Kobɛtisa/Kotɛlɛmisa animasió
+animation.frame_layer_name = Kadre {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Kozela
+animation.delay.apply_all = Kosalela na bakadre nyonso
+animation.loop.label = Kozongela
+animation.loop.once = Mbala mɔ̌kɔ́
+animation.loop.forever = Ntángo nyonso
+animation.onion.label = Loposo ya litungulu
+animation.onion.before = Liboso
+animation.onion.after = Nsima
+animation.offset.label = Kopusana ya kalke na kadre oyo
+animation.new_layers_visible = Ba kalke ya sika ezali komonana na bakadre nyonso
+animation.history.select_frame = Kopona kadre
+animation.history.move_frame = Kotambwisa kadre
+animation.history.frame_delay = Kozela ya kadre
+animation.history.loop = Motángo ya kozongela
+animation.history.offset = Kopusana ya kadre
+animation.history.new_layers = Komonana ya ba kalke ya sika
+animation.refuse.no_animation = Mokanda oyo ezali na animasió ya bakadre te. Salelá Kalke ▸ Animasió ▸ Kosala animasió ya bakadre.
+animation.refuse.already_animated = Mokanda oyo esili kozala na animasió ya bakadre.
+animation.refuse.last_frame = Animasió esengeli kozala na kadre ata mɔ̌kɔ́. Na esika na yango, longolá animasió.
+animation.refuse.too_many_frames = Molɔngɔ́ ya ntángo ekoki kozwa bakadre mosusu te.
+animation.refuse.no_layers = Ba kalke ezali te mpo na kosala bakadre.
+animation.export.menu = Animasió…
+animation.export.title = Kobimisa animasió
+animation.export.palette = Paleti
+animation.export.palette_per_frame = Mpo na kadre moko le moko
+animation.export.palette_global = Ya nyonso
+animation.export.disposal = Kolongola
+animation.export.disposal_auto = Ya yango moko
+animation.export.disposal_keep = Kobatela kadre ya liboso
+animation.export.disposal_background = Kozongisa na nsima
+animation.export.disposal_previous = Kozongisa na oyo ya liboso
+animation.export.dither_note = Kopalanganisa mabunga ya langi soki kadre ezali na balangi koleka 256
+animation.export.transparency = Komonana na kati
+animation.export.transparency_note = Kobatela bisika oyo emonanaka na kati ete etikala bongo
+animation.export.gif_note = GIF ebombaka kozela na biteni ya nkama ya sekonde mpe ezali na komonana na kati ya ndambo te.
+animation.export.apng_note = APNG ebombaka kadre nyonso kozanga kobungisa eloko mpe na komonana na kati mobimba.
+animation.export.webp_note = WebP ya animasió ekomamaka kozanga kobungisa eloko; WebP oyo ebungisaka ezali te.

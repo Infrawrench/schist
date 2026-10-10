@@ -188,6 +188,15 @@ impl Workspace {
             job.tiles.push(quad);
         }
 
+        // Animation playback and onion skins, over the artwork. Sized to
+        // the document as displayed, so zooming out does not composite
+        // more than the screen can show.
+        let display_edge =
+            (canvas_rect.width().max(canvas_rect.height()) as f32 * zoom * scale_factor).ceil();
+        for image in self.animation_overlays(display_edge.max(1.0) as u32) {
+            job.tiles.push((snapped_bounds(canvas_rect), image));
+        }
+
         job.retired.extend(std::mem::take(&mut self.retired_images));
 
         // Document border. An axis-aligned rectangle cannot follow a

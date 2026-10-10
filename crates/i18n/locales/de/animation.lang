@@ -1,0 +1,45 @@
+# Frame-Animation: das Zeitleistenbedienfeld, Zwiebelschichten und der
+# Animationsexport (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Die Befehlstitel stehen in commands.lang.
+animation.panel.title = Zeitleiste
+animation.menu = Animation
+animation.play_pause = Animation abspielen/anhalten
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Verzögerung
+animation.delay.apply_all = Auf alle Frames anwenden
+animation.loop.label = Wiederholen
+animation.loop.once = Einmal
+animation.loop.forever = Unbegrenzt
+animation.onion.label = Zwiebelschichten
+animation.onion.before = Davor
+animation.onion.after = Danach
+animation.offset.label = Ebenenversatz in diesem Frame
+animation.new_layers_visible = Neue Ebenen in allen Frames sichtbar
+animation.history.select_frame = Frame auswählen
+animation.history.move_frame = Frame verschieben
+animation.history.frame_delay = Frame-Verzögerung
+animation.history.loop = Anzahl der Wiederholungen
+animation.history.offset = Frame-Versatz
+animation.history.new_layers = Sichtbarkeit neuer Ebenen
+animation.refuse.no_animation = Dieses Dokument hat keine Frame-Animation. Verwenden Sie Ebene ▸ Animation ▸ Frame-Animation erstellen.
+animation.refuse.already_animated = Dieses Dokument hat bereits eine Frame-Animation.
+animation.refuse.last_frame = Eine Animation braucht mindestens einen Frame. Löschen Sie stattdessen die Animation.
+animation.refuse.too_many_frames = Die Zeitleiste kann keine weiteren Frames aufnehmen.
+animation.refuse.no_layers = Es gibt keine Ebenen, aus denen Frames erstellt werden können.
+animation.export.menu = Animation…
+animation.export.title = Animation exportieren
+animation.export.palette = Palette
+animation.export.palette_per_frame = Pro Frame
+animation.export.palette_global = Global
+animation.export.disposal = Entfernungsmethode
+animation.export.disposal_auto = Automatisch
+animation.export.disposal_keep = Vorherigen Frame beibehalten
+animation.export.disposal_background = Auf Hintergrund zurücksetzen
+animation.export.disposal_previous = Auf vorherigen Frame zurücksetzen
+animation.export.dither_note = Farbfehler streuen, wenn ein Frame mehr als 256 Farben hat
+animation.export.transparency = Transparenz
+animation.export.transparency_note = Transparente Bereiche transparent lassen
+animation.export.gif_note = GIF speichert Verzögerungen in Hundertstelsekunden und kennt keine teilweise Transparenz.
+animation.export.apng_note = APNG speichert jeden Frame verlustfrei mit voller Transparenz.
+animation.export.webp_note = Animiertes WebP wird verlustfrei geschrieben; verlustbehaftetes WebP ist nicht verfügbar.

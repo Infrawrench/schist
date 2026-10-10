@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = დროის ხაზი
+animation.menu = ანიმაცია
+animation.play_pause = ანიმაციის დაკვრა/პაუზა
+animation.frame_layer_name = კადრი {n}
+animation.delay_seconds = {seconds} წმ
+animation.delay.label = დაყოვნება
+animation.delay.apply_all = ყველა კადრზე გამოყენება
+animation.loop.label = გამეორება
+animation.loop.once = ერთხელ
+animation.loop.forever = უსასრულოდ
+animation.onion.label = ხახვის ქერქი
+animation.onion.before = მანამდე
+animation.onion.after = შემდეგ
+animation.offset.label = ფენის წანაცვლება ამ კადრში
+animation.new_layers_visible = ახალი ფენები ჩანს ყველა კადრში
+animation.history.select_frame = კადრის არჩევა
+animation.history.move_frame = კადრის გადატანა
+animation.history.frame_delay = კადრის დაყოვნება
+animation.history.loop = გამეორებების რაოდენობა
+animation.history.offset = კადრის წანაცვლება
+animation.history.new_layers = ახალი ფენების ხილვადობა
+animation.refuse.no_animation = ამ დოკუმენტს კადრული ანიმაცია არ აქვს. გამოიყენეთ ფენა ▸ ანიმაცია ▸ კადრული ანიმაციის შექმნა.
+animation.refuse.already_animated = ამ დოკუმენტს უკვე აქვს კადრული ანიმაცია.
+animation.refuse.last_frame = ანიმაციას სჭირდება მინიმუმ ერთი კადრი. ამის ნაცვლად წაშალეთ მთელი ანიმაცია.
+animation.refuse.too_many_frames = დროის ხაზი მეტ კადრს ვეღარ დაიტევს.
+animation.refuse.no_layers = არ არის ფენები, რომლებისგანაც კადრების შექმნა შეიძლება.
+animation.export.menu = ანიმაცია…
+animation.export.title = ანიმაციის ექსპორტი
+animation.export.palette = პალიტრა
+animation.export.palette_per_frame = თითოეული კადრისთვის
+animation.export.palette_global = საერთო
+animation.export.disposal = კადრის მოცილება
+animation.export.disposal_auto = ავტომატური
+animation.export.disposal_keep = წინა კადრის შენარჩუნება
+animation.export.disposal_background = ფონზე აღდგენა
+animation.export.disposal_previous = წინაზე აღდგენა
+animation.export.dither_note = ფერის შეცდომების გაბნევა, როცა კადრს 256-ზე მეტი ფერი აქვს
+animation.export.transparency = გამჭვირვალობა
+animation.export.transparency_note = გამჭვირვალე არეების გამჭვირვალედ შენარჩუნება
+animation.export.gif_note = GIF დაყოვნებებს წამის მეასედებში ინახავს და ნაწილობრივ გამჭვირვალობას არ უჭერს მხარს.
+animation.export.apng_note = APNG თითოეულ კადრს დანაკარგების გარეშე, სრული გამჭვირვალობით ინახავს.
+animation.export.webp_note = ანიმირებული WebP დანაკარგების გარეშე იწერება; დანაკარგებიანი WebP მიუწვდომელია.

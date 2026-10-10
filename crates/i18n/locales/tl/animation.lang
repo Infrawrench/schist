@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Timeline
+animation.menu = Animasyon
+animation.play_pause = I-play/I-pause ang Animasyon
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} seg
+animation.delay.label = Antala
+animation.delay.apply_all = Ilapat sa Lahat ng Frame
+animation.loop.label = Pag-uulit
+animation.loop.once = Isang beses
+animation.loop.forever = Walang hanggan
+animation.onion.label = Onion skin
+animation.onion.before = Bago
+animation.onion.after = Pagkatapos
+animation.offset.label = Offset ng layer sa frame na ito
+animation.new_layers_visible = Nakikita ang mga bagong layer sa lahat ng frame
+animation.history.select_frame = Piliin ang Frame
+animation.history.move_frame = Ilipat ang Frame
+animation.history.frame_delay = Antala ng Frame
+animation.history.loop = Bilang ng Pag-uulit
+animation.history.offset = Offset ng Frame
+animation.history.new_layers = Pagkakita ng Bagong Layer
+animation.refuse.no_animation = Walang animasyon ng frame ang dokumentong ito. Gamitin ang Patong ▸ Animasyon ▸ Gumawa ng Animasyon ng Frame.
+animation.refuse.already_animated = May animasyon ng frame na ang dokumentong ito.
+animation.refuse.last_frame = Kailangan ng animasyon ng kahit isang frame. Burahin na lang ang animasyon.
+animation.refuse.too_many_frames = Hindi na kayang maglaman ng timeline ng higit pang frame.
+animation.refuse.no_layers = Walang mga layer na mapaggagawan ng mga frame.
+animation.export.menu = Animasyon…
+animation.export.title = I-export ang Animasyon
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Bawat frame
+animation.export.palette_global = Pangkalahatan
+animation.export.disposal = Pagtatapon
+animation.export.disposal_auto = Awtomatiko
+animation.export.disposal_keep = Panatilihin ang naunang frame
+animation.export.disposal_background = Ibalik sa likuran
+animation.export.disposal_previous = Ibalik sa nauna
+animation.export.dither_note = Ikalat ang mga mali sa kulay kapag may higit sa 256 na kulay ang isang frame
+animation.export.transparency = Pagkaaninag
+animation.export.transparency_note = Panatilihing aninag ang mga aninag na bahagi
+animation.export.gif_note = Iniimbak ng GIF ang mga antala sa ikasandaang bahagi ng segundo at wala itong bahagyang pagkaaninag.
+animation.export.apng_note = Pinapanatili ng APNG ang bawat frame nang walang kawala at may buong pagkaaninag.
+animation.export.webp_note = Isinusulat nang walang kawala ang animated na WebP; hindi magagamit ang WebP na may kawala.

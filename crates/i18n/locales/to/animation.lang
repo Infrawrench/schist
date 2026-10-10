@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Laine Taimi
+animation.menu = ʻAnimēsio
+animation.play_pause = Vaʻinga/Taʻofi ʻa e ʻAnimēsio
+animation.frame_layer_name = Feimi {n}
+animation.delay_seconds = {seconds} sek
+animation.delay.label = Toloi
+animation.delay.apply_all = Ngāueʻaki ki he Feimi Kotoa
+animation.loop.label = Toutou
+animation.loop.once = Tuʻo taha
+animation.loop.forever = Taʻengata
+animation.onion.label = Kili ʻonioni
+animation.onion.before = Ki muʻa
+animation.onion.after = Ki mui
+animation.offset.label = Hiki ʻo e layer ʻi he feimi ko ʻeni
+animation.new_layers_visible = ʻOku hā ʻa e ngaahi layer foʻou ʻi he feimi kotoa
+animation.history.select_frame = Fili ha Feimi
+animation.history.move_frame = Hiki ʻa e Feimi
+animation.history.frame_delay = Toloi ʻo e Feimi
+animation.history.loop = Lau ʻo e Toutou
+animation.history.offset = Hiki ʻo e Feimi
+animation.history.new_layers = Hā ʻa e Ngaahi Layer Foʻou
+animation.refuse.no_animation = ʻOku ʻikai ha ʻanimēsio feimi ʻa e tohi ko ʻeni. Ngāueʻaki ʻa e Tuʻunga ▸ ʻAnimēsio ▸ Faʻu ha ʻAnimēsio Feimi.
+animation.refuse.already_animated = ʻOku ʻosi maʻu ʻe he tohi ko ʻeni ha ʻanimēsio feimi.
+animation.refuse.last_frame = ʻOku fiemaʻu ʻe ha ʻanimēsio ha feimi ʻe taha ʻo siʻi taha. Tamateʻi pē ʻa e ʻanimēsio ʻo fetongi ai.
+animation.refuse.too_many_frames = ʻOku ʻikai lava ʻe he laine taimi ʻo tauhi ha toe feimi.
+animation.refuse.no_layers = ʻOku ʻikai ha ngaahi layer ke faʻu mei ai ha ngaahi feimi.
+animation.export.menu = ʻAnimēsio…
+animation.export.title = ʻAve Ki Tuʻa ʻa e ʻAnimēsio
+animation.export.palette = Paleti
+animation.export.palette_per_frame = ʻI he feimi taki taha
+animation.export.palette_global = Fakalūkufua
+animation.export.disposal = Liʻaki
+animation.export.disposal_auto = ʻOtometiki
+animation.export.disposal_keep = Tauhi ʻa e feimi kimuʻa
+animation.export.disposal_background = Fakafoki ki he tuʻa
+animation.export.disposal_previous = Fakafoki ki he kimuʻa
+animation.export.dither_note = Fakamafola ʻa e ngaahi fehalaaki lanu ʻo kapau ʻoku laka hake he lanu ʻe 256 ʻi ha feimi
+animation.export.transparency = Transparent
+animation.export.transparency_note = Tauhi ke transparent maʻu pē ʻa e ngaahi feituʻu transparent
+animation.export.gif_note = ʻOku tauhi ʻe he GIF ʻa e ngaahi toloi ʻi he konga teau ʻo ha sekoni pea ʻoku ʻikai ha transparent fakakonga.
+animation.export.apng_note = ʻOku tauhi ʻe he APNG ʻa e feimi kotoa pē taʻe mole ha meʻa mo e transparent kakato.
+animation.export.webp_note = ʻOku tohi taʻe mole ha meʻa ʻa e WebP ʻanimēsio; ʻoku ʻikai ala maʻu ʻa e WebP ʻoku mole ai ha meʻa.

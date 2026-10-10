@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ଟାଇମଲାଇନ
+animation.menu = ଆନିମେସନ
+animation.play_pause = ଆନିମେସନ ଚଲାନ୍ତୁ/ବିରତ କରନ୍ତୁ
+animation.frame_layer_name = ଫ୍ରେମ {n}
+animation.delay_seconds = {seconds} ସେ.
+animation.delay.label = ବିଳମ୍ବ
+animation.delay.apply_all = ସମସ୍ତ ଫ୍ରେମରେ ପ୍ରୟୋଗ କରନ୍ତୁ
+animation.loop.label = ଲୁପ
+animation.loop.once = ଥରେ
+animation.loop.forever = ସର୍ବଦା
+animation.onion.label = ଅନିଅନ ସ୍କିନ
+animation.onion.before = ପୂର୍ବରୁ
+animation.onion.after = ପରେ
+animation.offset.label = ଏହି ଫ୍ରେମରେ ସ୍ତର ଅଫସେଟ
+animation.new_layers_visible = ନୂଆ ସ୍ତରଗୁଡ଼ିକ ସମସ୍ତ ଫ୍ରେମରେ ଦୃଶ୍ୟମାନ
+animation.history.select_frame = ଫ୍ରେମ ବାଛନ୍ତୁ
+animation.history.move_frame = ଫ୍ରେମ ଘୁଞ୍ଚାନ୍ତୁ
+animation.history.frame_delay = ଫ୍ରେମ ବିଳମ୍ବ
+animation.history.loop = ଲୁପ ସଂଖ୍ୟା
+animation.history.offset = ଫ୍ରେମ ଅଫସେଟ
+animation.history.new_layers = ନୂଆ ସ୍ତର ଦୃଶ୍ୟମାନତା
+animation.refuse.no_animation = ଏହି ଡକ୍ୟୁମେଣ୍ଟରେ କୌଣସି ଫ୍ରେମ ଆନିମେସନ ନାହିଁ। ସ୍ତର ▸ ଆନିମେସନ ▸ ଫ୍ରେମ ଆନିମେସନ ତିଆରି କରନ୍ତୁ ବ୍ୟବହାର କରନ୍ତୁ।
+animation.refuse.already_animated = ଏହି ଡକ୍ୟୁମେଣ୍ଟରେ ପୂର୍ବରୁ ଏକ ଫ୍ରେମ ଆନିମେସନ ଅଛି।
+animation.refuse.last_frame = ଏକ ଆନିମେସନ ପାଇଁ ଅତି କମରେ ଗୋଟିଏ ଫ୍ରେମ ଆବଶ୍ୟକ। ଏହା ବଦଳରେ ଆନିମେସନଟି ବିଲୋପ କରନ୍ତୁ।
+animation.refuse.too_many_frames = ଟାଇମଲାଇନ ଆଉ ଅଧିକ ଫ୍ରେମ ରଖିପାରିବ ନାହିଁ।
+animation.refuse.no_layers = ଫ୍ରେମ ତିଆରି କରିବା ପାଇଁ କୌଣସି ସ୍ତର ନାହିଁ।
+animation.export.menu = ଆନିମେସନ…
+animation.export.title = ଆନିମେସନ ରପ୍ତାନି କରନ୍ତୁ
+animation.export.palette = ପ୍ୟାଲେଟ
+animation.export.palette_per_frame = ପ୍ରତି ଫ୍ରେମ
+animation.export.palette_global = ସାମଗ୍ରିକ
+animation.export.disposal = ନିଷ୍କାସନ
+animation.export.disposal_auto = ସ୍ୱୟଂଚାଳିତ
+animation.export.disposal_keep = ପୂର୍ବ ଫ୍ରେମ ରଖନ୍ତୁ
+animation.export.disposal_background = ପୃଷ୍ଠଭାଗକୁ ପୁନଃସ୍ଥାପନ କରନ୍ତୁ
+animation.export.disposal_previous = ପୂର୍ବ ଅବସ୍ଥାକୁ ପୁନଃସ୍ଥାପନ କରନ୍ତୁ
+animation.export.dither_note = ଗୋଟିଏ ଫ୍ରେମରେ 256ରୁ ଅଧିକ ରଙ୍ଗ ଥିଲେ ରଙ୍ଗ ତ୍ରୁଟିଗୁଡ଼ିକୁ ବିସ୍ତାରିତ କରନ୍ତୁ
+animation.export.transparency = ସ୍ୱଚ୍ଛତା
+animation.export.transparency_note = ସ୍ୱଚ୍ଛ ଅଞ୍ଚଳଗୁଡ଼ିକୁ ସ୍ୱଚ୍ଛ ରଖନ୍ତୁ
+animation.export.gif_note = GIF ବିଳମ୍ବକୁ ସେକେଣ୍ଡର ଶହେ ଭାଗରେ ସଂରକ୍ଷଣ କରେ ଏବଂ ଏଥିରେ ଆଂଶିକ ସ୍ୱଚ୍ଛତା ନାହିଁ।
+animation.export.apng_note = APNG ପ୍ରତ୍ୟେକ ଫ୍ରେମକୁ ପୂର୍ଣ୍ଣ ସ୍ୱଚ୍ଛତା ସହିତ କ୍ଷତିହୀନ ରଖେ।
+animation.export.webp_note = ଆନିମେଟେଡ WebP କ୍ଷତିହୀନ ଭାବେ ଲେଖାଯାଏ; କ୍ଷତିଯୁକ୍ତ WebP ଉପଲବ୍ଧ ନାହିଁ।

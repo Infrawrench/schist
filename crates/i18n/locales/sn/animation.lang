@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Mutsara wenguva
+animation.menu = Animeshoni
+animation.play_pause = Tamba/Mira Animeshoni
+animation.frame_layer_name = Furemu {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Kunonoka
+animation.delay.apply_all = Isa Kumafuremu Ose
+animation.loop.label = Kudzokorora
+animation.loop.once = Kamwe chete
+animation.loop.forever = Nguva dzose
+animation.onion.label = Ganda rehanyanisi
+animation.onion.before = Pamberi
+animation.onion.after = Pashure
+animation.offset.label = Kusuduruka kwechikamu mufuremu iyi
+animation.new_layers_visible = Zvikamu zvitsva zvinooneka mumafuremu ose
+animation.history.select_frame = Sarudza Furemu
+animation.history.move_frame = Fambisa Furemu
+animation.history.frame_delay = Kunonoka kweFuremu
+animation.history.loop = Huwandu hweKudzokorora
+animation.history.offset = Kusuduruka kweFuremu
+animation.history.new_layers = Kuoneka kweZvikamu Zvitsva
+animation.refuse.no_animation = Gwaro iri harina animeshoni yemafuremu. Shandisa Chikamu ▸ Animeshoni ▸ Gadzira Animeshoni yeMafuremu.
+animation.refuse.already_animated = Gwaro iri rine kare animeshoni yemafuremu.
+animation.refuse.last_frame = Animeshoni inoda furemu imwe chete zvishoma. Pane izvozvo, dzima animeshoni.
+animation.refuse.too_many_frames = Mutsara wenguva haugoni kubata mamwe mafuremu.
+animation.refuse.no_layers = Hapana zvikamu zvekugadzira mafuremu kubva mazviri.
+animation.export.menu = Animeshoni…
+animation.export.title = Budisa Animeshoni
+animation.export.palette = Paleti yemavara
+animation.export.palette_per_frame = Furemu imwe neimwe
+animation.export.palette_global = Zvose pamwe
+animation.export.disposal = Kurasa
+animation.export.disposal_auto = Zvinozviita Zvega
+animation.export.disposal_keep = Chengeta furemu yapfuura
+animation.export.disposal_background = Dzorera kumashure
+animation.export.disposal_previous = Dzorera kune yapfuura
+animation.export.dither_note = Paradzira zvikanganiso zvemavara kana furemu ine mavara anopfuura 256
+animation.export.transparency = Kujeka-pachena
+animation.export.transparency_note = Chengeta nzvimbo dzakajeka-pachena dzakadaro
+animation.export.gif_note = GIF inochengeta kunonoka muzvikamu zvezana zvesekondi uye haina kujeka-pachena kwechidimbu.
+animation.export.apng_note = APNG inochengeta furemu yega yega isina kurasikirwa uye ine kujeka-pachena kwakazara.
+animation.export.webp_note = WebP ine animeshoni inonyorwa isina kurasikirwa; WebP ine kurasikirwa haiwanikwi.
