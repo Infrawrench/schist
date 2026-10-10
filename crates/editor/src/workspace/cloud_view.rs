@@ -712,6 +712,7 @@ pub(crate) fn new_cloud_bucket(ws: &mut Workspace, cx: &mut Context<Workspace>) 
             Modal::BucketName {
                 name: String::new(),
                 query: String::new(),
+                exclude_query: String::new(),
                 photos: Vec::new(),
                 editing: None,
                 cloud: true,
@@ -775,6 +776,7 @@ pub(crate) fn edit_cloud_bucket(ws: &mut Workspace, bucket: Bucket, cx: &mut Con
             Modal::BucketName {
                 name: bucket.name.clone(),
                 query: text,
+                exclude_query: String::new(),
                 photos: Vec::new(),
                 editing: None,
                 cloud: true,

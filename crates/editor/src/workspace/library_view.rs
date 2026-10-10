@@ -2684,15 +2684,25 @@ pub(super) fn bucket_field(
 /// Create or edit a bucket: its name, and the optional smart rule —
 /// a search query, an area drawn on the map, or both — that keeps it
 /// filling itself as photos are indexed and imported.
+pub(crate) struct BucketDialogText {
+    pub name: String,
+    pub query: String,
+    pub exclude_query: String,
+}
+
 pub(crate) fn bucket_name_dialog(
     ws: &mut Workspace,
-    name: String,
-    query: String,
+    text: BucketDialogText,
     photos: usize,
     editing: Option<usize>,
     cloud: bool,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
+    let BucketDialogText {
+        name,
+        query,
+        exclude_query,
+    } = text;
     // The same dialog serves a Schist Cloud bucket: the name and the
     // rule (search text, drawn area) go to the provider instead.
     let cloud_target = cloud
@@ -2733,6 +2743,15 @@ pub(crate) fn bucket_name_dialog(
         ws,
         cx,
     );
+    let exclude_query_field = (!cloud).then(|| {
+        bucket_field(
+            "bucket-exclude-query",
+            exclude_query.clone(),
+            t("library.bucket.query_placeholder").to_string(),
+            ws,
+            cx,
+        )
+    });
     // What the rule adds up to right now, so nothing is set silently —
     // the map keeps its boundary between dialogs by design, and this
     // line is where a leftover one gets noticed.
@@ -2748,11 +2767,36 @@ pub(crate) fn bucket_name_dialog(
     } else {
         query
     };
-    let rule_line = match (live_query.trim(), &area_name) {
-        ("", None) => t("library.bucket.rule_none").to_string(),
-        (q, None) => tf!("library.bucket.rule_query", query = q),
-        ("", Some(area)) => tf!("library.bucket.rule_area", area = area),
-        (q, Some(area)) => tf!("library.bucket.rule_query_area", query = q, area = area),
+    let live_exclude_query =
+        if ws.focused_field == Some("bucket-exclude-query") && !ws.field_buffer.is_empty() {
+            ws.field_buffer.clone()
+        } else {
+            exclude_query
+        };
+    let rule_line = match (live_query.trim(), live_exclude_query.trim(), &area_name) {
+        ("", "", None) => t("library.bucket.rule_none").to_string(),
+        (q, "", None) => tf!("library.bucket.rule_query", query = q),
+        ("", "", Some(area)) => tf!("library.bucket.rule_area", area = area),
+        (q, "", Some(area)) => tf!("library.bucket.rule_query_area", query = q, area = area),
+        (include, exclude, area) => {
+            let mut parts = Vec::new();
+            if !include.is_empty() {
+                parts.push(format!(
+                    "+ {}",
+                    tf!("library.bucket.rule_matches", query = include)
+                ));
+            }
+            if !exclude.is_empty() {
+                parts.push(format!(
+                    "− {}",
+                    tf!("library.bucket.rule_matches", query = exclude)
+                ));
+            }
+            if let Some(area) = area {
+                parts.push(tf!("library.bucket.rule_taken_in", name = area));
+            }
+            parts.join(" · ")
+        }
     };
     let mut body = div()
         .flex()
@@ -2760,6 +2804,7 @@ pub(crate) fn bucket_name_dialog(
         .gap_2()
         .child(crate::ui::field_row(t("common.name"), name_field))
         .child(crate::ui::field_row(t("common.search"), query_field))
+        .children(exclude_query_field.map(|field| crate::ui::field_row(t("common.hide"), field)))
         .child(
             div()
                 .text_size(px(11.0))
@@ -2816,6 +2861,7 @@ pub(crate) fn bucket_name_dialog(
                 let Some(Modal::BucketName {
                     name,
                     query,
+                    exclude_query,
                     photos,
                     editing,
                     cloud,
@@ -2826,6 +2872,10 @@ pub(crate) fn bucket_name_dialog(
                 };
                 let query = {
                     let q = query.trim();
+                    (!q.is_empty()).then(|| q.to_string())
+                };
+                let exclude_query = {
+                    let q = exclude_query.trim();
                     (!q.is_empty()).then(|| q.to_string())
                 };
                 let area = ws.library.map.selection.map(|bounds| {
@@ -2854,7 +2904,7 @@ pub(crate) fn bucket_name_dialog(
                     None => ws.library.add_bucket(name.clone()),
                 };
                 ws.library
-                    .configure_bucket(index, name, query, area, exclude_nsfw);
+                    .configure_bucket(index, name, query, exclude_query, area, exclude_nsfw);
                 if !photos.is_empty() {
                     ws.library.add_to_bucket(index, &photos);
                 }
