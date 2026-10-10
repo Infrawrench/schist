@@ -271,3 +271,19 @@ dialog.new_doc.from_image_url = Oet ’n aafbeildings-URL
 # Backers
 dialog.support.title = Sjteun Schist
 dialog.support.thanks = Bedank aan de luuj en merke die Schist sjteune.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabel
+dialog.color_lookup.load = LUT laje…
+dialog.color_lookup.none = Gein tabel gelaje
+dialog.color_lookup.input = Invoer
+dialog.color_lookup.input_document = Documentwaerde
+dialog.color_lookup.input_linear = Lineair leech
+dialog.color_lookup.note = Liest .cube- (1D of 3D) en .3dl-bestenj. De tabel weurt in 't document opgesjlage, dus 't bestand is nit mieë nuudig.
+dialog.color_lookup.invalid = {name} is gein .cube- of .3dl-tabel die Schist kan lieze.
+dialog.export_lut.title = Kleuropzeuktabel exportere
+dialog.export_lut.size = Rastergruuttje
+dialog.export_lut.camera_raw = Camera Raw-kleurinstellinge van de actieve laag mètnumme
+dialog.export_lut.note = Ein LUT kan allein kleurwieziginge bevatte die veur eder pixel good zeen. Laagmaskers, bijgesnejje aanpassinge, geïsoleerde groepe, pixellaage, helderheid, scherpte, vignettering en angere roemtelike effekte weure weggelaote.
+dialog.export_lut.saved = {name} geëxportiërd
+dialog.export_lut.saved_skipped = {name} geëxportiërd. Weggelaote roemtelike aanpassingslaage: {count}

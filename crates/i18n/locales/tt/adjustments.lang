@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Фотофильтр
 adjustment.gradient_map.name = Градиент картасы
 adjustment.selective_color.name = Сайланма төс
 adjustment.channel_mixer.name = Каналлар миксеры
+adjustment.color_lookup.name = Төс эзләү
 adjustment.other.name = Көйләү

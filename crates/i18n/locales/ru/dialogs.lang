@@ -273,3 +273,19 @@ dialog.new_doc.from_image_url = По URL изображения
 # Backers
 dialog.support.title = Поддержать Schist
 dialog.support.thanks = Спасибо людям и компаниям, поддерживающим Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Таблица
+dialog.color_lookup.load = Загрузить LUT…
+dialog.color_lookup.none = Таблица не загружена
+dialog.color_lookup.input = Входные данные
+dialog.color_lookup.input_document = Значения документа
+dialog.color_lookup.input_linear = Линейный свет
+dialog.color_lookup.note = Читает файлы .cube (1D или 3D) и .3dl. Таблица сохраняется внутри документа, поэтому сам файл больше не понадобится.
+dialog.color_lookup.invalid = {name} не является таблицей .cube или .3dl, которую может прочитать Schist.
+dialog.export_lut.title = Экспорт таблицы поиска цвета
+dialog.export_lut.size = Размер сетки
+dialog.export_lut.camera_raw = Включить параметры цвета Camera Raw активного слоя
+dialog.export_lut.note = LUT может содержать только такие изменения цвета, которые одинаковы для каждого пикселя. Маски слоя, обрезанные коррекции, изолированные группы, пиксельные слои, чёткость, резкость, виньетирование и другие пространственные эффекты не учитываются.
+dialog.export_lut.saved = Экспортировано: {name}
+dialog.export_lut.saved_skipped = Экспортировано: {name}. Пропущено пространственных корректирующих слоёв: {count}

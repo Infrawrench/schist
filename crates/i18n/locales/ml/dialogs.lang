@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = ചിത്രത്തിന്റെ URL-ൽ 
 # Backers
 dialog.support.title = Schist-നെ പിന്തുണയ്ക്കുക
 dialog.support.thanks = Schist-നെ പിന്തുണയ്ക്കുന്ന വ്യക്തികൾക്കും ബ്രാൻഡുകൾക്കും നന്ദി.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = ടേബിൾ
+dialog.color_lookup.load = LUT ലോഡ് ചെയ്യുക…
+dialog.color_lookup.none = ടേബിൾ ലോഡ് ചെയ്തിട്ടില്ല
+dialog.color_lookup.input = ഇൻപുട്ട്
+dialog.color_lookup.input_document = ഡോക്യുമെന്റ് മൂല്യങ്ങൾ
+dialog.color_lookup.input_linear = ലീനിയർ ലൈറ്റ്
+dialog.color_lookup.note = .cube (1D അല്ലെങ്കിൽ 3D), .3dl ഫയലുകൾ വായിക്കുന്നു. ടേബിൾ ഡോക്യുമെന്റിനുള്ളിൽ തന്നെ സേവ് ചെയ്യപ്പെടുന്നതിനാൽ ഫയൽ വീണ്ടും ആവശ്യമില്ല.
+dialog.color_lookup.invalid = {name} Schist-ന് വായിക്കാൻ കഴിയുന്ന .cube അല്ലെങ്കിൽ .3dl ടേബിൾ അല്ല.
+dialog.export_lut.title = കളർ ലുക്ക്അപ്പ് ടേബിൾ എക്സ്പോർട്ട് ചെയ്യുക
+dialog.export_lut.size = ഗ്രിഡ് വലുപ്പം
+dialog.export_lut.camera_raw = സജീവ ലെയറിന്റെ Camera Raw കളർ ക്രമീകരണങ്ങൾ ഉൾപ്പെടുത്തുക
+dialog.export_lut.note = ഓരോ പിക്സലിനും ഒരുപോലെയുള്ള വർണ്ണമാറ്റങ്ങൾ മാത്രമേ ഒരു LUT-ന് ഉൾക്കൊള്ളാൻ കഴിയൂ. ലെയർ മാസ്കുകൾ, ക്ലിപ്പ് ചെയ്ത അഡ്ജസ്റ്റ്മെന്റുകൾ, ഐസൊലേറ്റ് ചെയ്ത ഗ്രൂപ്പുകൾ, പിക്സൽ ലെയറുകൾ, ക്ലാരിറ്റി, ഷാർപ്പനിംഗ്, വിന്യേറ്റിംഗ്, മറ്റ് സ്പേഷ്യൽ ഇഫക്റ്റുകൾ എന്നിവ ഒഴിവാക്കപ്പെടും.
+dialog.export_lut.saved = {name} എക്സ്പോർട്ട് ചെയ്തു
+dialog.export_lut.saved_skipped = {name} എക്സ്പോർട്ട് ചെയ്തു. ഒഴിവാക്കിയ സ്പേഷ്യൽ അഡ്ജസ്റ്റ്മെന്റ് ലെയറുകൾ: {count}

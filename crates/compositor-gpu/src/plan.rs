@@ -240,12 +240,7 @@ fn content_alpha(layer: &Layer) -> f32 {
 
 /// Mirror of the compositor's `resolve_params`.
 fn resolve_params(data: &AdjustmentData) -> Params {
-    if let Some(json) = &data.params_json {
-        if let Ok(p) = serde_json::from_str::<Params>(json) {
-            return p;
-        }
-    }
-    schist_adjustments::parse_psd(data.kind, &data.raw)
+    schist_adjustments::resolve(data)
 }
 
 pub fn build(doc: &Document) -> Result<Plan<'_>, Unsupported> {

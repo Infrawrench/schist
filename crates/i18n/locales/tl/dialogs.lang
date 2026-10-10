@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = Mula sa URL ng Larawan
 # Backers
 dialog.support.title = Suportahan ang Schist
 dialog.support.thanks = Salamat sa mga tao at tatak na sumusuporta sa Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Table
+dialog.color_lookup.load = Mag-load ng LUT…
+dialog.color_lookup.none = Walang na-load na table
+dialog.color_lookup.input = Input
+dialog.color_lookup.input_document = Mga value ng dokumento
+dialog.color_lookup.input_linear = Linear na liwanag
+dialog.color_lookup.note = Binabasa ang mga file na .cube (1D o 3D) at .3dl. Sine-save ang table sa loob ng dokumento, kaya hindi na kailangang gamitin muli ang file.
+dialog.color_lookup.invalid = Ang {name} ay hindi isang .cube o .3dl na table na mababasa ng Schist.
+dialog.export_lut.title = I-export ang Color Lookup Table
+dialog.export_lut.size = Laki ng grid
+dialog.export_lut.camera_raw = Isama ang mga setting ng kulay ng Camera Raw ng aktibong layer
+dialog.export_lut.note = Ang isang LUT ay makakapag-hawak lang ng mga pagbabago sa kulay na pareho para sa bawat pixel. Hindi isinasama ang mga layer mask, clipped na adjustment, isolated na group, pixel layer, clarity, sharpening, vignetting at iba pang spatial na epekto.
+dialog.export_lut.saved = Na-export ang {name}
+dialog.export_lut.saved_skipped = Na-export ang {name}. Mga spatial adjustment layer na hindi isinama: {count}

@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Фото сүзгісі
 adjustment.gradient_map.name = Градиент картасы
 adjustment.selective_color.name = Таңдамалы түс
 adjustment.channel_mixer.name = Арна араластырғышы
+adjustment.color_lookup.name = Түсті іздеу
 adjustment.other.name = Реттеу

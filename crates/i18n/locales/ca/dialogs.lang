@@ -264,3 +264,19 @@ dialog.new_doc.from_image_url = Des d’un URL d’imatge
 # Backers
 dialog.support.title = Dona suport a Schist
 dialog.support.thanks = Gràcies a les persones i marques que donen suport a Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Taula
+dialog.color_lookup.load = Carrega una LUT…
+dialog.color_lookup.none = No s'ha carregat cap taula
+dialog.color_lookup.input = Entrada
+dialog.color_lookup.input_document = Valors del document
+dialog.color_lookup.input_linear = Llum lineal
+dialog.color_lookup.note = Llegeix fitxers .cube (1D o 3D) i .3dl. La taula es desa dins del document, de manera que el fitxer ja no cal.
+dialog.color_lookup.invalid = {name} no és una taula .cube o .3dl que Schist pugui llegir.
+dialog.export_lut.title = Exporta la taula de cerca de colors
+dialog.export_lut.size = Mida de la quadrícula
+dialog.export_lut.camera_raw = Inclou els paràmetres de color de Camera Raw de la capa activa
+dialog.export_lut.note = Una LUT només pot contenir canvis de color iguals per a tots els píxels. Les màscares de capa, els ajustos retallats, els grups aïllats, les capes de píxels, la claredat, l'enfocament, la vinyeta i altres efectes espacials s'ometen.
+dialog.export_lut.saved = S'ha exportat {name}
+dialog.export_lut.saved_skipped = S'ha exportat {name}. Capes d'ajust espacials omeses: {count}

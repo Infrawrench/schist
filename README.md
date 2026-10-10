@@ -102,7 +102,9 @@ The interface follows the system's preferred language. The
 ## What it does
 
 **Layered editing.** Layers and groups, masks and clipping masks, blend modes,
-adjustment layers, layer effects, artboards, slices and layer comps. Work with
+adjustment layers (including [Color Lookup with `.cube`/`.3dl` tables and
+LUT export](docs/luts-and-grading.md)), layer effects, artboards, slices and
+layer comps. Work with
 [embedded and linked smart objects](docs/smart-objects.md) and
 [editable filter stacks](docs/filter-stacks.md) that retain their source pixels
 through supported moves and transforms. History, undo/redo and native crash
@@ -129,7 +131,7 @@ mixed-direction paragraphs and vertical writing. Editable interchange depends
 on the destination format; see [file formats](#file-formats).
 
 **Filters and transforms.** Blur, sharpen, noise, distortion, artistic and neural
-filters, Camera Raw, [Lens Correction](docs/lens-profiles.md) and Filter Gallery.
+filters, Camera Raw (with [colour grading wheels](docs/luts-and-grading.md#colour-grading-in-camera-raw)), [Lens Correction](docs/lens-profiles.md) and Filter Gallery.
 Lens Correction can match EXIF camera/lens metadata to installed or imported
 Lensfun calibration, with profile overrides and portable saved coefficients.
 Camera Raw development has [local adjustments](docs/camera-raw-masks.md):

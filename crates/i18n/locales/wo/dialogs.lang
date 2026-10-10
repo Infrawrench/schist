@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = Jële ci URL bu nataal
 # Backers
 dialog.support.title = Dimbali Schist
 dialog.support.thanks = Jërëjëf ñi ak liggéeyukaay yi di dimbali Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Taabal
+dialog.color_lookup.load = Yeb LUT…
+dialog.color_lookup.none = Amul taabal bu yeb
+dialog.color_lookup.input = Dugal
+dialog.color_lookup.input_document = Jëfandikoo yi ci dencukaay bi
+dialog.color_lookup.input_linear = Leer bu jàll
+dialog.color_lookup.note = Mu di jàng fiireel .cube (1D walla 3D) ak .3dl. Taabal bi dafay denku ci dencukaay bi, kon fiireel bi soxla na ko mukk.
+dialog.color_lookup.invalid = {name} du taabal .cube walla .3dl bu Schist mën a jàng.
+dialog.export_lut.title = Génne taabal wut melo
+dialog.export_lut.size = Tolluwaay grid bi
+dialog.export_lut.camera_raw = Boole natt yi ci melo yu Camera Raw ci xaaj bi nekk
+dialog.export_lut.note = LUT mën na denc rekk coppite yu melo yi yemu ci pikseel yépp. Mask yu xaaj, yoonu ndayjoor yu ñu dog, mbooloo yu ñu xaaral, xaaj yu pikseel, leeral, ñaw, vinyet ak yeneen yoon yu tolluwaay dafay des.
+dialog.export_lut.saved = Génne nañu {name}
+dialog.export_lut.saved_skipped = Génne nañu {name}. Xaaj yu ndayjoor yu tolluwaay yu ñu bàyyi: {count}

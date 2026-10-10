@@ -17,5 +17,6 @@ adjustment.photo_filter.name = Filtër fotografik
 adjustment.gradient_map.name = Harta e gradientit
 adjustment.selective_color.name = Ngjyra përzgjedhëse
 adjustment.channel_mixer.name = Përzierësi i kanaleve
+adjustment.color_lookup.name = Kërkimi i ngjyrave
 # Një lloj i lexuar nga një PSD, për të cilin Schist nuk ka redaktues.
 adjustment.other.name = Rregullim

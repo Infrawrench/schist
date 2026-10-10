@@ -264,3 +264,19 @@ dialog.new_doc.from_image_url = Iš paveikslėlio URL
 # Backers
 dialog.support.title = Paremkite Schist
 dialog.support.thanks = Dėkojame žmonėms ir prekių ženklams, remiantiems Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Lentelė
+dialog.color_lookup.load = Įkelti LUT…
+dialog.color_lookup.none = Lentelė neįkelta
+dialog.color_lookup.input = Įvestis
+dialog.color_lookup.input_document = Dokumento reikšmės
+dialog.color_lookup.input_linear = Tiesinė šviesa
+dialog.color_lookup.note = Nuskaito .cube (1D arba 3D) ir .3dl failus. Lentelė įrašoma dokumente, todėl failo daugiau nebereikia.
+dialog.color_lookup.invalid = {name} nėra .cube ar .3dl lentelė, kurią Schist galėtų nuskaityti.
+dialog.export_lut.title = Eksportuoti spalvų paieškos lentelę
+dialog.export_lut.size = Tinklelio dydis
+dialog.export_lut.camera_raw = Įtraukti aktyvaus sluoksnio Camera Raw spalvų nustatymus
+dialog.export_lut.note = LUT gali saugoti tik tuos spalvų pakeitimus, kurie vienodi visiems pikseliams. Sluoksnių kaukės, apkarpyti koregavimai, izoliuotos grupės, pikselių sluoksniai, aiškumas, paryškinimas, vinjetė ir kiti erdviniai efektai praleidžiami.
+dialog.export_lut.saved = Eksportuota: {name}
+dialog.export_lut.saved_skipped = Eksportuota: {name}. Praleistų erdvinių koregavimo sluoksnių: {count}

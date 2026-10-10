@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Isihlungi sesithombe
 adjustment.gradient_map.name = Imephu yegrediyenti
 adjustment.selective_color.name = Umbala okhethiwe
 adjustment.channel_mixer.name = Isixubi samashaneli
+adjustment.color_lookup.name = Ukubheka Kombala
 adjustment.other.name = Ukulungisa

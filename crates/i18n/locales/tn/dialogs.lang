@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = Go tswa mo URL ya setshwantsho
 # Backers
 dialog.support.title = Tshegetsa Schist
 dialog.support.thanks = Re leboga batho le dikgwebo tse di tshegetsang Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tafole
+dialog.color_lookup.load = Laisa LUT…
+dialog.color_lookup.none = Ga go tafole e e laisitsweng
+dialog.color_lookup.input = Tsenyo
+dialog.color_lookup.input_document = Boleng jwa tokomane
+dialog.color_lookup.input_linear = Lesedi la mothaladi
+dialog.color_lookup.note = E bala difaele tsa .cube (1D kgotsa 3D) le .3dl. Tafole e bolokelwa mo tokomaneng, ka jalo faele ga e tlhole e tlhokega.
+dialog.color_lookup.invalid = {name} ga se tafole ya .cube kgotsa .3dl e Schist e ka e balang.
+dialog.export_lut.title = Romela ka ntle Tafole ya Tlhatlhobo ya Mmala
+dialog.export_lut.size = Bogolo jwa grid
+dialog.export_lut.camera_raw = Akaretsa ditlhophiso tsa mmala tsa Camera Raw tsa leyara le le dirang
+dialog.export_lut.note = LUT e ka tshwara fela diphetogo tsa mmala tse di tshwanang mo pixel nngwe le nngwe. Dimaske tsa leyara, diphetoso tse di kgaotsweng, ditlhopha tse di kgaoganyeditsweng, dileyara tsa pixel, clarity, sharpening, vignetting le ditlamorago tse dingwe tsa lefelo di tlogelwa.
+dialog.export_lut.saved = {name} e rometswe ka ntle
+dialog.export_lut.saved_skipped = {name} e rometswe ka ntle. Dileyara tsa phetoso tsa lefelo tse di tlogetsweng: {count}

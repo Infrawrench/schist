@@ -27,11 +27,30 @@ pub(super) fn settings_from_values(
         sharpening: values.get("sharpening"),
         noise: values.get("noise"),
         vignette: values.get("vignette"),
+        grading: grading_from_values(values),
     }
     .sanitized()
 }
 
-fn values_from_settings(
+/// The colour grading wheels, keyed as the Camera Raw filter declares them.
+fn grading_from_values(values: &schist_plugin_api::FilterValues) -> schist_core::raw::ColorGrading {
+    use schist_filters_core::color_grading::{BALANCE_KEY, BLENDING_KEY, WHEEL_KEYS};
+    let wheel = |[hue, sat, lum]: [&str; 3]| schist_core::raw::GradeWheel {
+        hue: values.get(hue),
+        saturation: values.get(sat),
+        luminance: values.get(lum),
+    };
+    schist_core::raw::ColorGrading {
+        shadows: wheel(WHEEL_KEYS[0]),
+        midtones: wheel(WHEEL_KEYS[1]),
+        highlights: wheel(WHEEL_KEYS[2]),
+        global: wheel(WHEEL_KEYS[3]),
+        blending: values.get(BLENDING_KEY),
+        balance: values.get(BALANCE_KEY),
+    }
+}
+
+pub(super) fn values_from_settings(
     settings: schist_core::RawSettings,
     values: &mut schist_plugin_api::FilterValues,
 ) {
@@ -55,6 +74,15 @@ fn values_from_settings(
     ] {
         values.set(key, value);
     }
+    use schist_filters_core::color_grading::{BALANCE_KEY, BLENDING_KEY, WHEEL_KEYS};
+    let grading = settings.grading;
+    for (keys, wheel) in WHEEL_KEYS.iter().zip(grading.wheels()) {
+        values.set(keys[0], wheel.hue);
+        values.set(keys[1], wheel.saturation);
+        values.set(keys[2], wheel.luminance);
+    }
+    values.set(BLENDING_KEY, grading.blending);
+    values.set(BALANCE_KEY, grading.balance);
 }
 
 /// A finished development: its pixels, and its masks with any detection

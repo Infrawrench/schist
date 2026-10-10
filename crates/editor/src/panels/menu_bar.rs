@@ -333,6 +333,7 @@ pub(crate) fn run_app_item(
         AppItem::DeleteLayerComp(i) => ws.delete_layer_comp(i, cx),
         AppItem::ExportArtboards => ws.export_regions(false, window, cx),
         AppItem::ExportSlices => ws.export_regions(true, window, cx),
+        AppItem::ExportLut => ws.open_export_lut(cx),
         #[cfg(target_os = "ios")]
         AppItem::SaveToPhotos => ws.save_to_photos(cx),
         #[cfg(not(target_os = "ios"))]

@@ -32,6 +32,25 @@ filter.camera_raw.param.vibrance = ৰঙৰ সজীৱতা
 filter.camera_raw.param.sharpening = তীক্ষ্ণকৰণ
 filter.camera_raw.param.noise = সোঁ-সোঁৱনি হ্ৰাস
 filter.camera_raw.param.vignette = ভিনিয়েট
+filter.camera_raw.grading_title = ৰং গ্ৰেডিং
+filter.camera_raw.grading_shadows = ছাঁ
+filter.camera_raw.grading_midtones = মধ্যম স্বৰ
+filter.camera_raw.grading_highlights = উজ্জ্বল অংশ
+filter.camera_raw.grading_global = সামগ্ৰিক
+filter.camera_raw.param.grade_shadows_hue = ছাঁৰ ৰংভেদ
+filter.camera_raw.param.grade_shadows_sat = ছাঁৰ সম্পৃক্ততা
+filter.camera_raw.param.grade_shadows_lum = ছাঁৰ উজ্জ্বলতা
+filter.camera_raw.param.grade_midtones_hue = মধ্যম স্বৰৰ ৰংভেদ
+filter.camera_raw.param.grade_midtones_sat = মধ্যম স্বৰৰ সম্পৃক্ততা
+filter.camera_raw.param.grade_midtones_lum = মধ্যম স্বৰৰ উজ্জ্বলতা
+filter.camera_raw.param.grade_highlights_hue = উজ্জ্বল অংশৰ ৰংভেদ
+filter.camera_raw.param.grade_highlights_sat = উজ্জ্বল অংশৰ সম্পৃক্ততা
+filter.camera_raw.param.grade_highlights_lum = উজ্জ্বল অংশৰ উজ্জ্বলতা
+filter.camera_raw.param.grade_global_hue = সামগ্ৰিক ৰংভেদ
+filter.camera_raw.param.grade_global_sat = সামগ্ৰিক সম্পৃক্ততা
+filter.camera_raw.param.grade_global_lum = সামগ্ৰিক উজ্জ্বলতা
+filter.camera_raw.param.grade_blending = মিশ্ৰণ
+filter.camera_raw.param.grade_balance = ভাৰসাম্য
 
 # Lens Correction
 filter.lens_correction.name = লেন্স সংশোধন

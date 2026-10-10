@@ -23,6 +23,25 @@ filter.camera_raw.param.vibrance = U Tshila ha Mivhala
 filter.camera_raw.param.sharpening = U Ita uri zwi Vhonale
 filter.camera_raw.param.noise = U Fhungudza Bonyongo
 filter.camera_raw.param.vignette = Vignette
+filter.camera_raw.grading_title = U Lugisa Mivhala
+filter.camera_raw.grading_shadows = Mirunzi
+filter.camera_raw.grading_midtones = Vhukati
+filter.camera_raw.grading_highlights = Zwipiḓa zwi Penyaho
+filter.camera_raw.grading_global = Zwoṅhe
+filter.camera_raw.param.grade_shadows_hue = Mirunzi: Muvhala
+filter.camera_raw.param.grade_shadows_sat = Mirunzi: U ḓala ha muvhala
+filter.camera_raw.param.grade_shadows_lum = Mirunzi: Khanya
+filter.camera_raw.param.grade_midtones_hue = Vhukati: Muvhala
+filter.camera_raw.param.grade_midtones_sat = Vhukati: U ḓala ha muvhala
+filter.camera_raw.param.grade_midtones_lum = Vhukati: Khanya
+filter.camera_raw.param.grade_highlights_hue = Zwipiḓa zwi Penyaho: Muvhala
+filter.camera_raw.param.grade_highlights_sat = Zwipiḓa zwi Penyaho: U ḓala ha muvhala
+filter.camera_raw.param.grade_highlights_lum = Zwipiḓa zwi Penyaho: Khanya
+filter.camera_raw.param.grade_global_hue = Zwoṅhe: Muvhala
+filter.camera_raw.param.grade_global_sat = Zwoṅhe: U ḓala ha muvhala
+filter.camera_raw.param.grade_global_lum = Zwoṅhe: Khanya
+filter.camera_raw.param.grade_blending = U Vhanganyisa
+filter.camera_raw.param.grade_balance = U Lingana
 
 # U khakhulula ḽentsi
 filter.lens_correction.name = U Khakhulula Ḽentsi

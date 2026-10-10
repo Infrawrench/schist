@@ -17,5 +17,6 @@ adjustment.photo_filter.name = Hidlydd Ffotograffig
 adjustment.gradient_map.name = Map Graddiant
 adjustment.selective_color.name = Lliw Dewisol
 adjustment.channel_mixer.name = Cymysgydd Sianeli
+adjustment.color_lookup.name = Chwilio Lliw
 # Math a ddarllenwyd o PSD nad oes gan Schist olygydd ar ei gyfer.
 adjustment.other.name = Addasiad

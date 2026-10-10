@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = Site na URL onyonyo
 # Backers
 dialog.support.title = Kwado Schist
 dialog.support.thanks = Daalụ ndị mmadụ na ụlọ ọrụ na-akwado Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tebụl
+dialog.color_lookup.load = Bubata LUT…
+dialog.color_lookup.none = Enweghị tebụl e bubatara
+dialog.color_lookup.input = Ntinye
+dialog.color_lookup.input_document = Ụkpụrụ akwụkwọ
+dialog.color_lookup.input_linear = Ìhè kwụ ọtọ
+dialog.color_lookup.note = Ọ na-agụ faịlụ .cube (1D ma ọ bụ 3D) na .3dl. A na-echekwa tebụl ahụ n'ime akwụkwọ ahụ, yabụ ọ dịghị mkpa faịlụ ahụ ọzọ.
+dialog.color_lookup.invalid = {name} abụghị tebụl .cube ma ọ bụ .3dl nke Schist nwere ike ịgụ.
+dialog.export_lut.title = Bupụ Tebụl Nchọta Ụcha
+dialog.export_lut.size = Ogo grid
+dialog.export_lut.camera_raw = Tinye ntọala ụcha Camera Raw nke oyi akwa na-arụ ọrụ
+dialog.export_lut.note = LUT nwere ike ijide naanị mgbanwe ụcha ndị yiri otu maka pikseli ọ bụla. A hapụrụ oyi akwa nkpuchi, mgbanwe ewepụrụ, otu iche, oyi akwa pikseli, nkọwa, mmepụta nkọ, vignette na mmetụta ohere ndị ọzọ.
+dialog.export_lut.saved = Ebupụrụ {name}
+dialog.export_lut.saved_skipped = Ebupụrụ {name}. Oyi akwa mgbanwe ohere a hapụrụ: {count}

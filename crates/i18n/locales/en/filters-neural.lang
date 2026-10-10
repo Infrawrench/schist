@@ -32,6 +32,25 @@ filter.camera_raw.param.vibrance = Vibrance
 filter.camera_raw.param.sharpening = Sharpening
 filter.camera_raw.param.noise = Noise Reduction
 filter.camera_raw.param.vignette = Vignette
+filter.camera_raw.grading_title = Color Grading
+filter.camera_raw.grading_shadows = Shadows
+filter.camera_raw.grading_midtones = Midtones
+filter.camera_raw.grading_highlights = Highlights
+filter.camera_raw.grading_global = Global
+filter.camera_raw.param.grade_shadows_hue = Shadows Hue
+filter.camera_raw.param.grade_shadows_sat = Shadows Saturation
+filter.camera_raw.param.grade_shadows_lum = Shadows Luminance
+filter.camera_raw.param.grade_midtones_hue = Midtones Hue
+filter.camera_raw.param.grade_midtones_sat = Midtones Saturation
+filter.camera_raw.param.grade_midtones_lum = Midtones Luminance
+filter.camera_raw.param.grade_highlights_hue = Highlights Hue
+filter.camera_raw.param.grade_highlights_sat = Highlights Saturation
+filter.camera_raw.param.grade_highlights_lum = Highlights Luminance
+filter.camera_raw.param.grade_global_hue = Global Hue
+filter.camera_raw.param.grade_global_sat = Global Saturation
+filter.camera_raw.param.grade_global_lum = Global Luminance
+filter.camera_raw.param.grade_blending = Blending
+filter.camera_raw.param.grade_balance = Balance
 
 # Lens Correction
 filter.lens_correction.name = Lens Correction

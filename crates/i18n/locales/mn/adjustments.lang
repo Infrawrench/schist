@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Зургийн шүүлтүүр
 adjustment.gradient_map.name = Градиент зураглал
 adjustment.selective_color.name = Сонгомол өнгө
 adjustment.channel_mixer.name = Суваг холигч
+adjustment.color_lookup.name = Өнгөний хайлт
 adjustment.other.name = Тохируулга

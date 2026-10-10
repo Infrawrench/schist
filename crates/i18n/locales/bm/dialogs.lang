@@ -272,3 +272,19 @@ dialog.new_doc.from_image_url = Ka bɔ ja URL la
 # Backers
 dialog.support.title = Schist dɛmɛ
 dialog.support.thanks = An bɛ bato mɔgɔw ni jagoɲɔgɔnw la minnu bɛ Schist dɛmɛ.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabali
+dialog.color_lookup.load = LUT bila yen…
+dialog.color_lookup.none = Tabali si ma bila yen
+dialog.color_lookup.input = Don
+dialog.color_lookup.input_document = Sɛbɛn nafaw
+dialog.color_lookup.input_linear = Yelen kɛrɛnkɛrɛnnen
+dialog.color_lookup.note = A bɛ .cube (1D walima 3D) ni .3dl fichɛw kalan. Tabali bɛ mara sɛbɛn kɔnɔ, o la fichɛ tɛ ka laadɛmɛ tun.
+dialog.color_lookup.invalid = {name} tɛ .cube walima .3dl tabali ye Schist bɛ se k'a kalan.
+dialog.export_lut.title = Kulɛri ɲini tabali bɔ
+dialog.export_lut.size = Kɛrɛ girili hakɛ
+dialog.export_lut.camera_raw = Baara kɛlen layɛrɛ Camera Raw kulɛri labɛnw don a la
+dialog.export_lut.note = LUT bɛ se ka kulɛri yɛlɛmali minɛ minnu ye kelen ye piksɛli bɛɛ ye dɔrɔn. Layɛrɛ maskiw, tigɛlen labɛnw, kuluw yɛrɛ-yɛrɛ, piksɛli layɛrɛw, jɛya, nɛnɛ, viɲɛti ni yɔrɔ kɔ ka nɔgɔw bɛ to kɔfɛ.
+dialog.export_lut.saved = {name} bɔra
+dialog.export_lut.saved_skipped = {name} bɔra. Yɔrɔ labɛn layɛrɛ minnu to kɔfɛ: {count}

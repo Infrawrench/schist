@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = Okuva ku URL y’ekifaananyi
 # Backers
 dialog.support.title = Wagira Schist
 dialog.support.thanks = Twebaza abantu ne kampuni eziwagira Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Ekipande
+dialog.color_lookup.load = Teeka LUT…
+dialog.color_lookup.none = Tewali kipande kiteekeddwa
+dialog.color_lookup.input = Ebiyingizibwa
+dialog.color_lookup.input_document = Emiwendo gy'ekiwandiiko
+dialog.color_lookup.input_linear = Ekitangaala ekigolokofu
+dialog.color_lookup.note = Esoma fayiro za .cube (1D oba 3D) ne .3dl. Ekipande kikuumibwa mu kiwandiiko, nolwekyo fayiro teyeetaagibwa nate.
+dialog.color_lookup.invalid = {name} si kipande kya .cube oba .3dl Schist ky'esobola okusoma.
+dialog.export_lut.title = Fulumya Ekipande ky'Okunoonya Langi
+dialog.export_lut.size = Obunene bwa giridi
+dialog.export_lut.camera_raw = Kozesa n'enteekateeka za langi eza Camera Raw ez'olutimbe olukozesebwa
+dialog.export_lut.note = LUT esobola okukwata enkyukakyuka za langi zokka ezifaanagana ku buli pikseli. Ebikwekeso by'enjuyi, enkyukakyuka ezisaliddwa, ebibinja ebyawuddwa, enjuyi za pikseli, okulaba obulungi, okwogera, ekisiikirize ky'embalama n'ebirala eby'ekifo tebyingizibwa.
+dialog.export_lut.saved = {name} efulumiziddwa
+dialog.export_lut.saved_skipped = {name} efulumiziddwa. Enjuyi z'enkyukakyuka ez'ekifo ezaaleseddwa: {count}

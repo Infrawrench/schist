@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = Рәсем URL-ыннан
 # Backers
 dialog.support.title = Schist'ка ярдәм итү
 dialog.support.thanks = Schist'ка ярдәм итүче кешеләргә һәм брендларга рәхмәт.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Таблица
+dialog.color_lookup.load = LUT йөкләү…
+dialog.color_lookup.none = Таблица йөкләнмәгән
+dialog.color_lookup.input = Керү
+dialog.color_lookup.input_document = Документ кыйммәтләре
+dialog.color_lookup.input_linear = Сызыклы яктылык
+dialog.color_lookup.note = .cube (1D яки 3D) һәм .3dl файлларын укый. Таблица документ эчендә саклана, шуңа күрә файл кабат кирәк түгел.
+dialog.color_lookup.invalid = {name} Schist укый алырлык .cube яки .3dl таблицасы түгел.
+dialog.export_lut.title = Төсләр эзләү таблицасын экспортлау
+dialog.export_lut.size = Челтәр зурлыгы
+dialog.export_lut.camera_raw = Актив катламның Camera Raw төс көйләүләрен кертү
+dialog.export_lut.note = LUT барлык пикселләр өчен бертөрле булган төс үзгәрешләрен генә саклый ала. Катлам маскалары, киселгән төзәтмәләр, аерылган төркемнәр, пиксель катламнары, ачыклык, кискенләштерү, виньеткалау һәм башка киңлек эффектлары кертелми.
+dialog.export_lut.saved = {name} экспортланды
+dialog.export_lut.saved_skipped = {name} экспортланды. Төшереп калдырылган киңлек төзәтмә катламнары: {count}

@@ -17,5 +17,6 @@ adjustment.photo_filter.name = 写真フィルター
 adjustment.gradient_map.name = グラデーションマップ
 adjustment.selective_color.name = 特定色域の選択
 adjustment.channel_mixer.name = チャンネルミキサー
+adjustment.color_lookup.name = カラールックアップ
 # PSD から読み込んだ、Schist に編集画面のない種類。
 adjustment.other.name = 調整

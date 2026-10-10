@@ -249,3 +249,19 @@ dialog.new_doc.from_image_url = Saka URL gambar
 # Backers
 dialog.support.title = Dhukung Schist
 dialog.support.thanks = Matur nuwun marang wong lan merek sing ndhukung Schist.
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = Tabel
+dialog.color_lookup.load = Unggah LUT…
+dialog.color_lookup.none = Durung ana tabel sing diunggah
+dialog.color_lookup.input = Input
+dialog.color_lookup.input_document = Nilai dokumen
+dialog.color_lookup.input_linear = Cahya linear
+dialog.color_lookup.note = Maca berkas .cube (1D utawa 3D) lan .3dl. Tabel disimpen ing njero dokumen, dadi berkas ora dibutuhake maneh.
+dialog.color_lookup.invalid = {name} dudu tabel .cube utawa .3dl sing bisa diwaca Schist.
+dialog.export_lut.title = Ekspor Tabel Panelusuran Warna
+dialog.export_lut.size = Ukuran kisi
+dialog.export_lut.camera_raw = Kalebu setelan warna Camera Raw saka lapisan aktif
+dialog.export_lut.note = LUT mung bisa nyimpen owah-owahan warna sing padha kanggo saben piksel. Topeng lapisan, panyetelan sing dipotong, grup sing diisolasi, lapisan piksel, kajelasan, penajaman, vinyet lan efek spasial liyane ora kalebu.
+dialog.export_lut.saved = {name} wis diekspor
+dialog.export_lut.saved_skipped = {name} wis diekspor. Lapisan panyetelan spasial sing ora kalebu: {count}

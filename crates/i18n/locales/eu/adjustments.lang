@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Argazki-iragazkia
 adjustment.gradient_map.name = Gradiente-mapa
 adjustment.selective_color.name = Kolore selektiboa
 adjustment.channel_mixer.name = Kanal-nahasgailua
+adjustment.color_lookup.name = Koloreen bilaketa
 adjustment.other.name = Doikuntza

@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Fotofiltrs
 adjustment.gradient_map.name = Gradienta karte
 adjustment.selective_color.name = Selektīvā krāsa
 adjustment.channel_mixer.name = Kanālu mikseris
+adjustment.color_lookup.name = Krāsu uzmeklēšana
 adjustment.other.name = Korekcija

@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = པར་གྱི་ URL ནས།
 # Backers
 dialog.support.title = Schist ལ་རྒྱབ་སྐྱོར།
 dialog.support.thanks = Schist ལ་རྒྱབ་སྐྱོར་གནང་མཁན་མི་སྒེར་དང་ཚོང་ལས་རྣམས་ལ་ཐུགས་རྗེ་ཆེ།
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = རེའུ་མིག
+dialog.color_lookup.load = LUT འཇུག…
+dialog.color_lookup.none = རེའུ་མིག་མ་བཀོད།
+dialog.color_lookup.input = ནང་འཇུག
+dialog.color_lookup.input_document = ཡིག་ཆའི་ཐང་།
+dialog.color_lookup.input_linear = ཐད་ཀར་འོད།
+dialog.color_lookup.note = .cube (1D ཡང་ན་ 3D) དང་ .3dl ཡིག་ཆ་ཀློག་ཐུབ། རེའུ་མིག་དེ་ཡིག་ཆའི་ནང་དུ་ཉར་ཚགས་བྱེད་པས། ཡིག་ཆ་དེ་ཐེངས་གཉིས་པར་མི་དགོས།
+dialog.color_lookup.invalid = {name} ནི་ Schist གིས་ཀློག་ཐུབ་པའི་ .cube ཡང་ན་ .3dl རེའུ་མིག་མིན།
+dialog.export_lut.title = ཚོས་མདོག་འཚོལ་བཤེར་རེའུ་མིག་ཕྱིར་འདྲེན།
+dialog.export_lut.size = དྲ་མིག་ཆེ་ཆུང་།
+dialog.export_lut.camera_raw = ད་ལྟའི་རིམ་པའི་ Camera Raw ཚོས་མདོག་སྒྲིག་འགོད་ཚུད་པ།
+dialog.export_lut.note = LUT ཡིས་པིག་སེལ་རེ་རེར་མཚུངས་པའི་ཚོས་མདོག་འགྱུར་བ་ཁོ་ན་འཛིན་ཐུབ། རིམ་པའི་ཡོགས་བརྒྱབ། བཅད་པའི་སྒྲིག་སྟངས། དམིགས་བསལ་ཚོགས་ཆུང་། པིག་སེལ་རིམ་པ། གསལ་ཚད། རྣོན་སྒྱུར། མཐའ་ནག་དང་བར་སྟོང་གི་ནུས་པ་གཞན་རྣམས་སྤངས་ཡོད།
+dialog.export_lut.saved = {name} ཕྱིར་འདྲེན་བྱས།
+dialog.export_lut.saved_skipped = {name} ཕྱིར་འདྲེན་བྱས། བར་སྟོང་སྒྲིག་སྟངས་རིམ་པ་སྤངས་པ། {count}

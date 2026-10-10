@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Fotofilter
 adjustment.gradient_map.name = Gradiëntkaart
 adjustment.selective_color.name = Selektiewe kleur
 adjustment.channel_mixer.name = Kanaalmenger
+adjustment.color_lookup.name = Kleuropsoek
 adjustment.other.name = Aanpassing

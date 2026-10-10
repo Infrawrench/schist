@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Hidlen Foto
 adjustment.gradient_map.name = Mappa Gradyent
 adjustment.selective_color.name = Liw Dewisys
 adjustment.channel_mixer.name = Kemyskador Kanol
+adjustment.color_lookup.name = Hwithrans Liw
 adjustment.other.name = Gwiryans

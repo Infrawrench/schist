@@ -301,3 +301,19 @@ dialog.new_doc.from_image_url = Dae s’URL de un’immàgine
 # Backers
 dialog.support.title = Sustene Schist
 dialog.support.thanks = Gràtzias a sas persones e a sas marcas chi sustenent Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabella
+dialog.color_lookup.load = Carrega LUT…
+dialog.color_lookup.none = Peruna tabella carrigada
+dialog.color_lookup.input = Intrada
+dialog.color_lookup.input_document = Valores de su documentu
+dialog.color_lookup.input_linear = Lughe lineare
+dialog.color_lookup.note = Lege archivios .cube (1D o 3D) e .3dl. Sa tabella est sarvada in intro de su documentu, duncas s'archìviu no serbit prus.
+dialog.color_lookup.invalid = {name} no est una tabella .cube o .3dl chi Schist potzat leghere.
+dialog.export_lut.title = Esporta tabella de chirca de colores
+dialog.export_lut.size = Mannària de sa grìllia
+dialog.export_lut.camera_raw = Include is impostatziones de colore de Camera Raw de su livellu ativu
+dialog.export_lut.note = Unu LUT podet cuntènnere isceti cambiamentos de colore chi sunt a sa matessi manera pro cada pixel. Sas màscheras de livellu, sas règulas ritagliadas, is grupos isolados, is livellos de pixel, sa craresa, s'afinadura, sa vinetadura e àteros efetos ispatziales non sunt incluidos.
+dialog.export_lut.saved = Esportadu {name}
+dialog.export_lut.saved_skipped = Esportadu {name}. Livellos de règula ispatziales lassados: {count}

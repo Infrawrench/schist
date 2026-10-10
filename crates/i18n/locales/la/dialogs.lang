@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = Ex URL imaginis
 # Backers
 dialog.support.title = Schist sustine
 dialog.support.thanks = Gratias agimus hominibus et societatibus quae Schist sustinent.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabula
+dialog.color_lookup.load = LUT onerare…
+dialog.color_lookup.none = Nulla tabula onerata
+dialog.color_lookup.input = Initus
+dialog.color_lookup.input_document = Valores documenti
+dialog.color_lookup.input_linear = Lux linearis
+dialog.color_lookup.note = Fasciculos .cube (1D vel 3D) et .3dl legit. Tabula intra documentum servatur, itaque fasciculus iterum non requiritur.
+dialog.color_lookup.invalid = {name} non est tabula .cube vel .3dl quam Schist legere possit.
+dialog.export_lut.title = Tabulam inquisitionis colorum exportare
+dialog.export_lut.size = Magnitudo cratis
+dialog.export_lut.camera_raw = Colorum optiones Camera Raw strati activi includere
+dialog.export_lut.note = LUT solum mutationes coloris continere potest quae in omni pixele eaedem sunt. Larvae stratorum, correctiones praecisae, greges segregati, strata pixelorum, claritas, acuitas, obscuratio marginalis aliaque effectus spatiales omittuntur.
+dialog.export_lut.saved = {name} exportatum est
+dialog.export_lut.saved_skipped = {name} exportatum est. Strata correctionis spatialia omissa: {count}

@@ -19,5 +19,6 @@ adjustment.photo_filter.name = ফটো ফিল্টাৰ
 adjustment.gradient_map.name = গ্ৰেডিয়েণ্ট মানচিত্ৰ
 adjustment.selective_color.name = নিৰ্বাচিত ৰং
 adjustment.channel_mixer.name = চেনেল মিক্সাৰ
+adjustment.color_lookup.name = ৰং সন্ধান
 # A kind read from a PSD that Schist has no editor for.
 adjustment.other.name = সমন্বয়

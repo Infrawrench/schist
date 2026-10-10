@@ -307,3 +307,19 @@ dialog.new_doc.from_image_url = ছবিৰ URL ৰ পৰা
 # Backers
 dialog.support.title = Schist-ক সহায় কৰক
 dialog.support.thanks = Schist-ক সহায় কৰা ব্যক্তি আৰু ব্ৰেণ্ডসমূহলৈ ধন্যবাদ।
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = টেবুল
+dialog.color_lookup.load = LUT ল'ড কৰক…
+dialog.color_lookup.none = কোনো টেবুল ল'ড কৰা হোৱা নাই
+dialog.color_lookup.input = ইনপুট
+dialog.color_lookup.input_document = নথিৰ মান
+dialog.color_lookup.input_linear = ৰৈখিক পোহৰ
+dialog.color_lookup.note = .cube (1D বা 3D) আৰু .3dl ফাইল পঢ়ে। টেবুলখন নথিৰ ভিতৰতে সংৰক্ষণ কৰা হয়, গতিকে ফাইলটো আকৌ লাগিব নালাগে।
+dialog.color_lookup.invalid = {name} Schist-এ পঢ়িব পৰা .cube বা .3dl টেবুল নহয়।
+dialog.export_lut.title = ৰং সন্ধান টেবুল ৰপ্তানি কৰক
+dialog.export_lut.size = গ্ৰিডৰ আকাৰ
+dialog.export_lut.camera_raw = সক্ৰিয় লেয়াৰৰ Camera Raw ৰং ছেটিংসমূহ অন্তৰ্ভুক্ত কৰক
+dialog.export_lut.note = LUT-এ কেৱল সকলো পিক্সেলৰ বাবে একে হোৱা ৰং সলনিহে ধাৰণ কৰিব পাৰে। লেয়াৰ মাস্ক, ক্লিপ কৰা সমন্বয়, বিচ্ছিন্ন গ্ৰুপ, পিক্সেল লেয়াৰ, স্পষ্টতা, শ্বাৰ্পনিং, ভিনিয়েটিং আৰু অন্য স্থানিক প্ৰভাৱ বাদ দিয়া হয়।
+dialog.export_lut.saved = {name} ৰপ্তানি কৰা হ'ল
+dialog.export_lut.saved_skipped = {name} ৰপ্তানি কৰা হ'ল। বাদ দিয়া স্থানিক সমন্বয় লেয়াৰ: {count}

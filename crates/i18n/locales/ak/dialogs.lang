@@ -273,3 +273,19 @@ dialog.new_doc.from_image_url = Fi mfonini URL mu
 # Backers
 dialog.support.title = Boa Schist
 dialog.support.thanks = Yɛda nnipa ne nnwumakuw a wɔboa Schist no ase.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Pon
+dialog.color_lookup.load = Fa LUT Hyɛ mu…
+dialog.color_lookup.none = Wɔnhyɛɛ pon biara mu
+dialog.color_lookup.input = Deɛ Wɔde Hyɛ Mu
+dialog.color_lookup.input_document = Dɔkumɛnt no mu nsɛso
+dialog.color_lookup.input_linear = Hann a Ɛtrɛw Tee
+dialog.color_lookup.note = Ɛkenkan .cube (1D anaa 3D) ne .3dl nkyerɛwee. Wɔkora pon no dɔkumɛnt no mu, enti ɛnsɛ sɛ wuhia faele no bio.
+dialog.color_lookup.invalid = {name} nyɛ .cube anaa .3dl pon a Schist betumi akenkan.
+dialog.export_lut.title = Yi Kɔla Nhwehwɛ Pon Kɔ Akyiri
+dialog.export_lut.size = Grid Kɛse
+dialog.export_lut.camera_raw = Fa nkyekyɛmu a ɛwɔ so no Camera Raw kɔla nhyehyɛe nso
+dialog.export_lut.note = LUT betumi akora kɔla nsakraeɛ a ɛyɛ pɛ ma pixel biara nko ara. Nkyekyɛmu nkatasoɔ, nsiesie a wɔatwa, nkyekyɛmu a wɔafa mu, pixel nkyekyɛmu, kanyan, nhyɛso, vignette ne spatial nneɛma afoforo no wɔgyaa mu.
+dialog.export_lut.saved = Wɔayi {name} akɔ akyiri
+dialog.export_lut.saved_skipped = Wɔayi {name} akɔ akyiri. Spatial nsiesie nkyekyɛmu a wɔgyaa mu: {count}

@@ -301,3 +301,19 @@ dialog.new_doc.from_image_url = Irudiaren URLtik
 # Backers
 dialog.support.title = Lagundu Schist-i
 dialog.support.thanks = Eskerrik asko Schist babesten duten pertsonei eta markei.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Taula
+dialog.color_lookup.load = Kargatu LUT bat…
+dialog.color_lookup.none = Ez da taularik kargatu
+dialog.color_lookup.input = Sarrera
+dialog.color_lookup.input_document = Dokumentuaren balioak
+dialog.color_lookup.input_linear = Argi lineala
+dialog.color_lookup.note = .cube (1D edo 3D) eta .3dl fitxategiak irakurtzen ditu. Taula dokumentuaren barruan gordetzen da, beraz, fitxategia ez da berriz behar.
+dialog.color_lookup.invalid = {name} ez da Schist-ek irakur dezakeen .cube edo .3dl taula bat.
+dialog.export_lut.title = Esportatu koloreen bilaketa-taula
+dialog.export_lut.size = Sareta-tamaina
+dialog.export_lut.camera_raw = Sartu geruza aktiboaren Camera Raw koloreen ezarpenak
+dialog.export_lut.note = LUT batek pixel guztietan berdinak diren kolore-aldaketak soilik gorde ditzake. Geruza-maskarak, mozitutako doikuntzak, talde isolatuak, pixel-geruzak, argitasuna, fintzea, bineta eta beste efektu espazial batzuk kanpoan uzten dira.
+dialog.export_lut.saved = {name} esportatu da
+dialog.export_lut.saved_skipped = {name} esportatu da. Kanpoan utzitako doikuntza-geruza espazialak: {count}

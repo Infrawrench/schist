@@ -237,6 +237,8 @@ pub enum AppItem {
     NewLayerComp,
     ExportArtboards,
     ExportSlices,
+    /// File ▸ Export ▸ Color Lookup Table: bake the adjustments to `.cube`.
+    ExportLut,
     /// The flattened document into the camera roll (iOS only).
     SaveToPhotos,
     RotateViewCw,
@@ -301,6 +303,7 @@ pub fn adjustment_id(kind: schist_core::AdjustmentKind) -> Option<&'static str> 
         GradientMap => "gradient_map",
         SelectiveColor => "selective_color",
         ChannelMixer => "channel_mixer",
+        ColorLookup => "color_lookup",
         // Light is editable on import, but its approximate renderer is
         // not offered as a new adjustment in the creation menu.
         Light => return None,

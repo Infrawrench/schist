@@ -299,3 +299,19 @@ dialog.new_doc.from_image_url = Ku-URL yesithombe
 # Backers
 dialog.support.title = Sekela i-Schist
 dialog.support.thanks = Sithokoza abantu namabhizinisi asekela i-Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Ithebula
+dialog.color_lookup.load = Layisha i-LUT…
+dialog.color_lookup.none = Alikho ithebula elilayishiweko
+dialog.color_lookup.input = Okufakwako
+dialog.color_lookup.input_document = Amanani wedokhumenti
+dialog.color_lookup.input_linear = Ukukhanya okuqondileko
+dialog.color_lookup.note = Iyafunda iifayili ze-.cube (1D namkha 3D) ne-.3dl. Ithebula lilondolozwa ngaphakathi kwedokhumenti, ngalokho ifayili ayisafuneki.
+dialog.color_lookup.invalid = {name} akusi ithebula le-.cube namkha le-.3dl elingafundwa yi-Schist.
+dialog.export_lut.title = Thumela Ithebula Lokukhangela Umbala
+dialog.export_lut.size = Bungakanani begridi
+dialog.export_lut.camera_raw = Faka iisetingi zombala we-Camera Raw zeleyara esebenzako
+dialog.export_lut.note = I-LUT ingabamba kwaphela iinguquko zombala ezifana kupikseli ngamunye. Iimaski zamaleyara, iinhlelo ezinqunyiweko, amaqembu azihlukanisileko, amaleyara kapikseli, ukucaca, ukukhahlisa, i-vignette nezinye iinkhambiso zendawo azifakwa.
+dialog.export_lut.saved = Kuthunyelwe {name}
+dialog.export_lut.saved_skipped = Kuthunyelwe {name}. Amaleyara wenhlelo yendawo adlulisiweko: {count}

@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Fotószűrő
 adjustment.gradient_map.name = Színátmenettérkép
 adjustment.selective_color.name = Szelektív szín
 adjustment.channel_mixer.name = Csatornakeverő
+adjustment.color_lookup.name = Színkeresés
 adjustment.other.name = Korrekció

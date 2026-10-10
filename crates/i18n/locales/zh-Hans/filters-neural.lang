@@ -29,6 +29,25 @@ filter.camera_raw.param.vibrance = 自然饱和度
 filter.camera_raw.param.sharpening = 锐化
 filter.camera_raw.param.noise = 减少杂色
 filter.camera_raw.param.vignette = 晕影
+filter.camera_raw.grading_title = 颜色分级
+filter.camera_raw.grading_shadows = 阴影
+filter.camera_raw.grading_midtones = 中间调
+filter.camera_raw.grading_highlights = 高光
+filter.camera_raw.grading_global = 全局
+filter.camera_raw.param.grade_shadows_hue = 阴影色相
+filter.camera_raw.param.grade_shadows_sat = 阴影饱和度
+filter.camera_raw.param.grade_shadows_lum = 阴影明度
+filter.camera_raw.param.grade_midtones_hue = 中间调色相
+filter.camera_raw.param.grade_midtones_sat = 中间调饱和度
+filter.camera_raw.param.grade_midtones_lum = 中间调明度
+filter.camera_raw.param.grade_highlights_hue = 高光色相
+filter.camera_raw.param.grade_highlights_sat = 高光饱和度
+filter.camera_raw.param.grade_highlights_lum = 高光明度
+filter.camera_raw.param.grade_global_hue = 全局色相
+filter.camera_raw.param.grade_global_sat = 全局饱和度
+filter.camera_raw.param.grade_global_lum = 全局明度
+filter.camera_raw.param.grade_blending = 混合
+filter.camera_raw.param.grade_balance = 平衡
 
 # 镜头校正
 filter.lens_correction.name = 镜头校正

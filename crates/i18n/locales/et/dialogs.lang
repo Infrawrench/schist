@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = Pildi URL-ilt
 # Backers
 dialog.support.title = Toeta Schisti
 dialog.support.thanks = Täname inimesi ja kaubamärke, kes toetavad Schisti.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabel
+dialog.color_lookup.load = Laadi LUT…
+dialog.color_lookup.none = Tabelit pole laaditud
+dialog.color_lookup.input = Sisend
+dialog.color_lookup.input_document = Dokumendi väärtused
+dialog.color_lookup.input_linear = Lineaarne valgus
+dialog.color_lookup.note = Loeb .cube- (1D või 3D) ja .3dl-faile. Tabel salvestatakse dokumendi sisse, nii et faili pole hiljem vaja.
+dialog.color_lookup.invalid = {name} ei ole .cube- ega .3dl-tabel, mida Schist suudab lugeda.
+dialog.export_lut.title = Ekspordi värviotsingu tabel
+dialog.export_lut.size = Ruudustiku suurus
+dialog.export_lut.camera_raw = Kaasa aktiivse kihi Camera Rawi värviseaded
+dialog.export_lut.note = LUT saab sisaldada ainult värvimuudatusi, mis on kõigi pikslite jaoks samad. Kihimaskid, kärbitud korrektsioonid, isoleeritud rühmad, pikslikihid, selgus, teravdamine, vinjetid ja muud ruumilised efektid jäetakse välja.
+dialog.export_lut.saved = Eksporditud {name}
+dialog.export_lut.saved_skipped = Eksporditud {name}. Välja jäetud ruumilisi korrektsioonikihte: {count}

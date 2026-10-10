@@ -17,5 +17,6 @@ adjustment.photo_filter.name = ಫೋಟೋ ಫಿಲ್ಟರ್
 adjustment.gradient_map.name = ವರ್ಣಕ್ರಮ ನಕ್ಷೆ
 adjustment.selective_color.name = ಆಯ್ದ ಬಣ್ಣ
 adjustment.channel_mixer.name = ಚಾನಲ್ ಮಿಶ್ರಕ
+adjustment.color_lookup.name = ಬಣ್ಣ ಹುಡುಕಾಟ
 # Schist‌ನಲ್ಲಿ ಸಂಪಾದಕವಿಲ್ಲದ PSD ಹೊಂದಾಣಿಕೆಯ ಬಗೆ.
 adjustment.other.name = ಹೊಂದಾಣಿಕೆ

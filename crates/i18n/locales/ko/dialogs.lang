@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = 이미지 URL에서
 # Backers
 dialog.support.title = Schist 후원하기
 dialog.support.thanks = Schist를 후원해 주시는 모든 분과 브랜드에 감사드립니다.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = 테이블
+dialog.color_lookup.load = LUT 불러오기…
+dialog.color_lookup.none = 불러온 테이블 없음
+dialog.color_lookup.input = 입력
+dialog.color_lookup.input_document = 문서 값
+dialog.color_lookup.input_linear = 선형 광
+dialog.color_lookup.note = .cube(1D 또는 3D) 및 .3dl 파일을 읽습니다. 테이블은 문서 안에 저장되므로 파일이 다시 필요하지 않습니다.
+dialog.color_lookup.invalid = {name}은(는) Schist가 읽을 수 있는 .cube 또는 .3dl 테이블이 아닙니다.
+dialog.export_lut.title = 색상 룩업 테이블 내보내기
+dialog.export_lut.size = 격자 크기
+dialog.export_lut.camera_raw = 활성 레이어의 Camera Raw 색상 설정 포함
+dialog.export_lut.note = LUT에는 모든 픽셀에 동일하게 적용되는 색상 변경만 담을 수 있습니다. 레이어 마스크, 클리핑된 조정, 격리된 그룹, 픽셀 레이어, 선명도, 샤프닝, 비네팅 및 기타 공간 효과는 제외됩니다.
+dialog.export_lut.saved = {name}을(를) 내보냈습니다
+dialog.export_lut.saved_skipped = {name}을(를) 내보냈습니다. 제외된 공간 조정 레이어: {count}

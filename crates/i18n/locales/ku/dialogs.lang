@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = Ji URL-ya wêneyê
 # Backers
 dialog.support.title = Piştgiriya Schist bikin
 dialog.support.thanks = Spas ji kes û marqeyên ku piştgiriya Schist dikin re.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tablo
+dialog.color_lookup.load = LUT bar bike…
+dialog.color_lookup.none = Tu tablo nehatiye barkirin
+dialog.color_lookup.input = Têketin
+dialog.color_lookup.input_document = Nirxên belgeyê
+dialog.color_lookup.input_linear = Ronahiya xêzik
+dialog.color_lookup.note = Pelên .cube (1D an 3D) û .3dl dixwîne. Tablo di nav belgeyê de tê tomarkirin, ji ber vê yekê pel dîsa ne hewce ye.
+dialog.color_lookup.invalid = {name} ne tabloyeke .cube an .3dl ye ku Schist bikaribe bixwîne.
+dialog.export_lut.title = Tabloya Lêgerîna Rengan Derxe
+dialog.export_lut.size = Mezinahiya tora
+dialog.export_lut.camera_raw = Mîhengên rengê Camera Raw yên qata çalak tê de bin
+dialog.export_lut.note = LUT tenê dikare guhertinên rengan bigire ku ji bo her pîkselê wekhev in. Maskeyên qatan, sererastkirinên birrayî, komên veqetandî, qatên pîkselan, zelalî, tûjkirin, vînyetkirin û bandorên din ên cihî nayên girtin.
+dialog.export_lut.saved = {name} hate derxistin
+dialog.export_lut.saved_skipped = {name} hate derxistin. Qatên sererastkirina cihî yên hatine hiştin: {count}

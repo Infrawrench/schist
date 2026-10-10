@@ -22,6 +22,25 @@ filter.camera_raw.param.vibrance = Ukuphila Kombala
 filter.camera_raw.param.sharpening = Ukulolisa
 filter.camera_raw.param.noise = Ukunciphisa Itjhada
 filter.camera_raw.param.vignette = I-Vignette
+filter.camera_raw.grading_title = Ukuhlela Umbala
+filter.camera_raw.grading_shadows = Amathunzi
+filter.camera_raw.grading_midtones = Iindawo Eziphakathi
+filter.camera_raw.grading_highlights = Iindawo Ezikhanya Khulu
+filter.camera_raw.grading_global = Koke
+filter.camera_raw.param.grade_shadows_hue = Amathunzi: Umbala
+filter.camera_raw.param.grade_shadows_sat = Amathunzi: Ukusutha kombala
+filter.camera_raw.param.grade_shadows_lum = Amathunzi: Ukukhanya
+filter.camera_raw.param.grade_midtones_hue = Iindawo Eziphakathi: Umbala
+filter.camera_raw.param.grade_midtones_sat = Iindawo Eziphakathi: Ukusutha kombala
+filter.camera_raw.param.grade_midtones_lum = Iindawo Eziphakathi: Ukukhanya
+filter.camera_raw.param.grade_highlights_hue = Iindawo Ezikhanya Khulu: Umbala
+filter.camera_raw.param.grade_highlights_sat = Iindawo Ezikhanya Khulu: Ukusutha kombala
+filter.camera_raw.param.grade_highlights_lum = Iindawo Ezikhanya Khulu: Ukukhanya
+filter.camera_raw.param.grade_global_hue = Koke: Umbala
+filter.camera_raw.param.grade_global_sat = Koke: Ukusutha kombala
+filter.camera_raw.param.grade_global_lum = Koke: Ukukhanya
+filter.camera_raw.param.grade_blending = Ukuhlanganisa
+filter.camera_raw.param.grade_balance = Ibhalansi
 
 # Lens correction
 filter.lens_correction.name = Ukulungisa Ilensi

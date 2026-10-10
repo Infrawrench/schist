@@ -270,3 +270,19 @@ dialog.new_doc.from_image_url = Vun enger Bild-URL
 # Backers
 dialog.support.title = Ënnerstëtzt Schist
 dialog.support.thanks = Merci un d'Leit an d'Marken, déi Schist ënnerstëtzen.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabell
+dialog.color_lookup.load = LUT lueden…
+dialog.color_lookup.none = Keng Tabell gelueden
+dialog.color_lookup.input = Eingang
+dialog.color_lookup.input_document = Dokumentwäerter
+dialog.color_lookup.input_linear = Lineart Liicht
+dialog.color_lookup.note = Liest .cube- (1D oder 3D) an .3dl-Dateien. D'Tabell gëtt am Dokument gespäichert, sou datt d'Datei net méi gebraucht gëtt.
+dialog.color_lookup.invalid = {name} ass keng .cube- oder .3dl-Tabell, déi Schist liese kann.
+dialog.export_lut.title = Faarfnoschlagtabell exportéieren
+dialog.export_lut.size = Gittergréisst
+dialog.export_lut.camera_raw = Camera-Raw-Faarfastellunge vun der aktiver Ebene abezéien
+dialog.export_lut.note = Eng LUT kann nëmme Faarfännerungen enthalen, déi fir all Pixel d'selwecht sinn. Ebenemasken, ofgeschnidden Upassungen, isoléiert Gruppen, Pixelebenen, Klaritéit, Schäerfen, Vignettéierung an aner räumlech Effekter ginn ausgelooss.
+dialog.export_lut.saved = {name} exportéiert
+dialog.export_lut.saved_skipped = {name} exportéiert. Ausgelooss räumlech Upassungsebenen: {count}

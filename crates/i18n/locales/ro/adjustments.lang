@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Filtru fotografic
 adjustment.gradient_map.name = Hartă de gradient
 adjustment.selective_color.name = Culoare selectivă
 adjustment.channel_mixer.name = Mixer de canale
+adjustment.color_lookup.name = Căutare culoare
 adjustment.other.name = Ajustare

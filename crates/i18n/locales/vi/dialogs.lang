@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = Từ URL hình ảnh
 # Backers
 dialog.support.title = Ủng hộ Schist
 dialog.support.thanks = Cảm ơn các cá nhân và thương hiệu đã ủng hộ Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Bảng
+dialog.color_lookup.load = Tải LUT…
+dialog.color_lookup.none = Chưa tải bảng nào
+dialog.color_lookup.input = Đầu vào
+dialog.color_lookup.input_document = Giá trị tài liệu
+dialog.color_lookup.input_linear = Ánh sáng tuyến tính
+dialog.color_lookup.note = Đọc tệp .cube (1D hoặc 3D) và .3dl. Bảng được lưu trong tài liệu nên không cần đến tệp này nữa.
+dialog.color_lookup.invalid = {name} không phải là bảng .cube hoặc .3dl mà Schist có thể đọc.
+dialog.export_lut.title = Xuất bảng tra cứu màu
+dialog.export_lut.size = Kích thước lưới
+dialog.export_lut.camera_raw = Bao gồm cài đặt màu Camera Raw của lớp đang chọn
+dialog.export_lut.note = LUT chỉ có thể chứa những thay đổi màu giống nhau cho mọi điểm ảnh. Mặt nạ lớp, các chỉnh sửa bị cắt, nhóm cô lập, lớp điểm ảnh, độ rõ nét, làm sắc nét, tối góc và các hiệu ứng không gian khác sẽ bị bỏ qua.
+dialog.export_lut.saved = Đã xuất {name}
+dialog.export_lut.saved_skipped = Đã xuất {name}. Số lớp chỉnh sửa không gian bị bỏ qua: {count}

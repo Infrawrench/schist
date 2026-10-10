@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = Da l’URL d’una maghjina
 # Backers
 dialog.support.title = Sustenite Schist
 dialog.support.thanks = Grazie à e persone è à e marche chì sustenenu Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabella
+dialog.color_lookup.load = Carcà LUT…
+dialog.color_lookup.none = Nisuna tabella carcata
+dialog.color_lookup.input = Intrata
+dialog.color_lookup.input_document = Valori di u documentu
+dialog.color_lookup.input_linear = Luce lineare
+dialog.color_lookup.note = Leghje i fugliali .cube (1D o 3D) è .3dl. A tabella hè arregistrata in u documentu, dunque u fugliale ùn hè più necessariu.
+dialog.color_lookup.invalid = {name} ùn hè micca una tabella .cube o .3dl chì Schist pò leghje.
+dialog.export_lut.title = Spurtà a tabella di ricerca di i culori
+dialog.export_lut.size = Dimensione di a griglia
+dialog.export_lut.camera_raw = Include i parametri di culore Camera Raw di a livella attiva
+dialog.export_lut.note = Una LUT pò cuntene solu cambiamenti di culore chì so listessi per ogni pixel. E maschere di livelle, l'aghjustamenti ritagliati, i gruppi isolati, e livelle di pixel, a chjarezza, a nitidezza, a vignettatura è l'altri effetti spaziali so lasciati fora.
+dialog.export_lut.saved = Spurtatu: {name}
+dialog.export_lut.saved_skipped = Spurtatu: {name}. Livelle d'aghjustamentu spaziale lasciate fora: {count}

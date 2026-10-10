@@ -24,6 +24,25 @@ filter.camera_raw.param.vibrance = Bizitasuna
 filter.camera_raw.param.sharpening = Zorroztasuna
 filter.camera_raw.param.noise = Zarata-murrizketa
 filter.camera_raw.param.vignette = Bineta
+filter.camera_raw.grading_title = Kolore-graduazioa
+filter.camera_raw.grading_shadows = Itzalak
+filter.camera_raw.grading_midtones = Tarteko tonuak
+filter.camera_raw.grading_highlights = Argiuneak
+filter.camera_raw.grading_global = Orokorra
+filter.camera_raw.param.grade_shadows_hue = Itzalak: Tonua
+filter.camera_raw.param.grade_shadows_sat = Itzalak: Saturazioa
+filter.camera_raw.param.grade_shadows_lum = Itzalak: Argitasuna
+filter.camera_raw.param.grade_midtones_hue = Tarteko tonuak: Tonua
+filter.camera_raw.param.grade_midtones_sat = Tarteko tonuak: Saturazioa
+filter.camera_raw.param.grade_midtones_lum = Tarteko tonuak: Argitasuna
+filter.camera_raw.param.grade_highlights_hue = Argiuneak: Tonua
+filter.camera_raw.param.grade_highlights_sat = Argiuneak: Saturazioa
+filter.camera_raw.param.grade_highlights_lum = Argiuneak: Argitasuna
+filter.camera_raw.param.grade_global_hue = Orokorra: Tonua
+filter.camera_raw.param.grade_global_sat = Orokorra: Saturazioa
+filter.camera_raw.param.grade_global_lum = Orokorra: Argitasuna
+filter.camera_raw.param.grade_blending = Nahasketa
+filter.camera_raw.param.grade_balance = Balantzea
 
 # Objektiboaren zuzenketa
 filter.lens_correction.name = Objektiboaren zuzenketa
