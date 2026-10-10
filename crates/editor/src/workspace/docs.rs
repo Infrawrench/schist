@@ -187,6 +187,7 @@ impl Workspace {
         #[cfg(not(target_arch = "wasm32"))]
         if self.library.open {
             self.library.open = false;
+            self.drop_slideshow();
             self.library.shed_memory();
         }
         // Photoshop's History Brush paints back from the state the file

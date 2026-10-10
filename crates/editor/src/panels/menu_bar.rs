@@ -391,6 +391,10 @@ pub(crate) fn run_app_item(
             ws.open_geotag(photos, cx);
         }
         #[cfg(not(target_arch = "wasm32"))]
+        AppItem::GallerySlideshow => ws.gallery_slideshow(cx),
+        #[cfg(not(target_arch = "wasm32"))]
+        AppItem::GalleryNewSmartAlbum => ws.gallery_new_smart_album(cx),
+        #[cfg(not(target_arch = "wasm32"))]
         AppItem::OpenRecent(i) => {
             if let Some(path) = ws.library.recents.get(i).cloned() {
                 ws.load_file(path, cx);
@@ -405,6 +409,8 @@ pub(crate) fn run_app_item(
         | AppItem::GalleryMapFilter
         | AppItem::GalleryFindDuplicates
         | AppItem::GalleryGeotag
+        | AppItem::GallerySlideshow
+        | AppItem::GalleryNewSmartAlbum
         | AppItem::OpenRecent(_) => {}
         AppItem::PathFill => ws.use_active_path(crate::workspace::PathOp::Fill, cx),
         AppItem::PathStroke => ws.use_active_path(crate::workspace::PathOp::Stroke, cx),

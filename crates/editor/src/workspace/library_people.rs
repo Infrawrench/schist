@@ -452,6 +452,10 @@ impl Workspace {
     /// being named, then the viewer itself. Returns whether anything
     /// was there to leave.
     pub fn local_gallery_escape(&mut self, cx: &mut Context<Self>) -> bool {
+        if self.slideshow_active() {
+            self.stop_slideshow(cx);
+            return true;
+        }
         #[cfg(not(target_arch = "wasm32"))]
         if self.library.video.take().is_some() {
             cx.notify();

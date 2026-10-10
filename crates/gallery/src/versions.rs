@@ -71,6 +71,15 @@ pub fn list(original: &Path) -> io::Result<Vec<Version>> {
     Ok(versions)
 }
 
+/// The sidecar a kept version belongs to: `<seconds>[.<sequence>]-<sidecar>`
+/// gives `<sidecar>`, anything else `None`.
+pub fn sidecar_of_version(name: &str) -> Option<&str> {
+    let (stamp, sidecar) = name.split_once('-')?;
+    let (seconds, sequence) = stamp.split_once('.').unwrap_or((stamp, "0"));
+    let digits = |s: &str| !s.is_empty() && s.bytes().all(|c| c.is_ascii_digit());
+    (digits(seconds) && digits(sequence) && !sidecar.is_empty()).then_some(sidecar)
+}
+
 fn parse_name(name: &str, suffix: &str) -> Option<(u64, u64)> {
     let stamp = name.strip_suffix(suffix)?;
     let (seconds, sequence) = stamp.split_once('.').unwrap_or((stamp, "0"));

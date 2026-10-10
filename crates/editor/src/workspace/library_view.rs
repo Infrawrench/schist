@@ -29,8 +29,13 @@ impl Workspace {
         &mut self,
         window: &Window,
         cx: &mut Context<Self>,
-    ) -> impl IntoElement {
+    ) -> gpui::AnyElement {
         let cloud = self.cloud.show;
+        // A slideshow takes the whole window: no strip, no sidebar, no
+        // tray. It keeps the gallery's focus and keys.
+        if !cloud && self.slideshow_active() {
+            return super::library_slideshow::render(self, window, cx);
+        }
         let compact = crate::ui::compact(window);
         self.gallery_compact = compact;
         #[cfg(not(target_arch = "wasm32"))]
@@ -210,7 +215,7 @@ impl Workspace {
             self.maybe_offer_heif(cx);
             self.gallery_reveal_tick(cx);
         }
-        root
+        root.into_any_element()
     }
 }
 
@@ -754,6 +759,13 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             },
             cx,
         ))
+        .child(sidebar_caption(t("smart_album.section")))
+        .children(smart_album_rows(ws, cx))
+        .child(chrome::sidebar_menu_link(
+            t("smart_album.new"),
+            |ws, _at, _window, cx| ws.gallery_new_smart_album(cx),
+            cx,
+        ))
         .child(sidebar_caption(t("library.sidebar.buckets")))
         .children({
             let buckets: Vec<(usize, String, usize, bool)> = ws
@@ -761,6 +773,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 .buckets
                 .iter()
                 .enumerate()
+                .filter(|(_, b)| !b.is_album())
                 .map(|(i, b)| {
                     let count = b
                         .contents(|p| ws.library.is_flagged(p))
@@ -806,6 +819,41 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         ))
         .children(super::library_people_view::people_rows(ws, cx))
         .children(super::cloud_people::rows(ws, false, cx))
+}
+
+/// The SMART ALBUMS rows: the buckets defined by metadata rules, with
+/// the same click, drop and menu as any bucket.
+fn smart_album_rows(ws: &Workspace, cx: &mut Context<Workspace>) -> Vec<gpui::AnyElement> {
+    let viewing = if ws.cloud.show {
+        None
+    } else {
+        ws.library.bucket_filter
+    };
+    let albums: Vec<(usize, String, usize)> = ws
+        .library
+        .buckets
+        .iter()
+        .enumerate()
+        .filter(|(_, b)| b.is_album())
+        .map(|(i, b)| {
+            let count = b
+                .contents(|p| ws.library.is_flagged(p))
+                .iter()
+                .filter(|p| {
+                    ws.library.entry_of(p).is_some()
+                        && ws.library.passes_map(p)
+                        && !(ws.view.gallery_hide_nsfw && ws.library.is_flagged(p))
+                })
+                .count();
+            (i, b.name.clone(), count)
+        })
+        .collect();
+    albums
+        .into_iter()
+        .map(|(i, name, count)| {
+            bucket_row(i, name, count, true, viewing == Some(i), cx).into_any_element()
+        })
+        .collect()
 }
 
 /// One bucket in the sidebar: a drop target, a view of its contents on
@@ -3055,6 +3103,29 @@ fn gallery_context_menu(
                 );
             }
             {
+                // Several selected: just those. One: everything on show,
+                // starting here.
+                let from = path.clone();
+                row(
+                    if n > 1 {
+                        tn("slideshow.play_selected", n as u64)
+                    } else {
+                        t("slideshow.play_from_here").into()
+                    },
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| {
+                        let (photos, start) = ws.slideshow_sources();
+                        let start = if photos.len() > 1 && ws.library.selected.len() > 1 {
+                            start
+                        } else {
+                            photos.iter().position(|p| *p == from).unwrap_or(start)
+                        };
+                        ws.open_slideshow_dialog(photos, start, cx);
+                    }),
+                );
+            }
+            {
                 let reveal = path.clone();
                 row(
                     t("library.menu.reveal").into(),
@@ -3283,7 +3354,7 @@ fn gallery_context_menu(
         GalleryContext::Bucket(index) => {
             // The group actions act on everything the bucket holds:
             // the hand-picked photos and the smart rule's matches.
-            let (photos, name, smart) = ws
+            let (photos, name, smart, album) = ws
                 .library
                 .buckets
                 .get(index)
@@ -3292,17 +3363,49 @@ fn gallery_context_menu(
                         b.contents(|p| ws.library.is_flagged(p)),
                         b.name.clone(),
                         b.is_smart(),
+                        b.is_album(),
                     )
                 })
                 .unwrap_or_default();
-            row(
-                t("library.menu.edit_bucket").into(),
-                &mut rows,
-                cx,
-                std::rc::Rc::new(move |ws, _w, cx| {
-                    ws.gallery_edit_bucket(index, cx);
-                }),
-            );
+            if album {
+                row(
+                    t("smart_album.edit").into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| {
+                        ws.gallery_edit_smart_album(index, cx);
+                    }),
+                );
+            } else {
+                row(
+                    t("library.menu.edit_bucket").into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| {
+                        ws.gallery_edit_bucket(index, cx);
+                    }),
+                );
+            }
+            // The slides are what the bucket holds and the gallery knows.
+            let slides: Vec<PathBuf> = photos
+                .iter()
+                .filter(|p| {
+                    ws.library.entry_of(p).is_some()
+                        && ws.library.passes_map(p)
+                        && !(ws.view.gallery_hide_nsfw && ws.library.is_flagged(p))
+                })
+                .cloned()
+                .collect();
+            if !slides.is_empty() {
+                row(
+                    t("slideshow.play_bucket").into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| {
+                        ws.open_slideshow_dialog(slides.clone(), 0, cx);
+                    }),
+                );
+            }
             if !photos.is_empty() {
                 // Into the grid's selection, where the keyboard and
                 // the photo menu can take it from here.

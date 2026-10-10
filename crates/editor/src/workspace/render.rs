@@ -824,7 +824,15 @@ impl Render for Workspace {
         crate::native_menu::sync(self, cx);
         // On macOS the menus live in the system bar, and iPadOS has a
         // system bar of its own; the phone has neither.
-        let in_window_menus = chrome && !cfg!(target_os = "macos") && !crate::ui::ipad();
+        // A slideshow that took the window fullscreen gives it back.
+        #[cfg(not(target_arch = "wasm32"))]
+        if std::mem::take(&mut self.library.fullscreen_restore) && window.is_fullscreen() {
+            window.toggle_fullscreen();
+        }
+        let in_window_menus = chrome
+            && !cfg!(target_os = "macos")
+            && !crate::ui::ipad()
+            && !self.slideshow_on_screen();
         let modal = crate::dialogs::render(self, cx);
         // The software keyboard's way in, while a field has the caret.
         #[cfg(any(target_os = "ios", target_os = "android"))]

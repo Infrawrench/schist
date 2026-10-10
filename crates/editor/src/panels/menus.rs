@@ -529,6 +529,8 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                     None,
                 ),
                 App(t("library.geotag.menu"), GalleryGeotag, None),
+                App(t("slideshow.menu"), GallerySlideshow, None),
+                App(t("smart_album.menu"), GalleryNewSmartAlbum, None),
                 Sep,
                 // The content filter's model downloads live here too, so
                 // turning the filter on never requires leaving the room.
