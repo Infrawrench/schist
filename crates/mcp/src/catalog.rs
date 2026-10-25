@@ -551,17 +551,20 @@ fn builtins(registry: &PluginRegistry) -> Vec<(String, Value, Action)> {
             "Drive the active tool through one pointer gesture in document pixels: down on \
              the first point, drag through the rest, up on the last. One point clicks. A \
              brush stroke, a marquee drag, a transform-handle drag and a text-layer click \
-             are all one call. Modal tools (crop, transform, type) keep a pending state \
-             afterwards — finish with tool_input."
+             are all one call. Give a point a third value to set stylus pressure there: \
+             paint tools scale the brush by it and interpolate between points, so \
+             [[x0, y0, 0], [x1, y1, 1], [x2, y2, 0]] is a line tapered at both ends. Modal \
+             tools (crop, transform, type) keep a pending state afterwards — finish with \
+             tool_input."
                 .to_string(),
             json!({
                 "session": session_prop(),
                 "points": {
                     "type": "array",
-                    "items": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2},
-                    "description": "[[x, y], …] in document pixels",
+                    "items": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 3},
+                    "description": "[[x, y], …] or [[x, y, pressure], …] in document pixels; pressure 0..1 varies brush width along the stroke",
                 },
-                "pressure": {"type": "number", "description": "Stylus pressure 0..1 (default 1)"},
+                "pressure": {"type": "number", "description": "Stylus pressure 0..1 for points that give none (default 1)"},
                 "modifiers": modifiers_prop(),
             }),
             &["session", "points"],

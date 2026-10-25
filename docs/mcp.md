@@ -70,9 +70,11 @@ That is around 250 tools, which is the honest size of the application;
 clients that page or filter their tool list will want to know.
 
 A canvas tool is *driven* separately from being selected: `tool_stroke`
-plays a pointer gesture through it in document pixels, and `tool_input`
-sends Enter, Escape or raw keys to the modal ones (crop, transform,
-type). Adjustments take their sliders as plain numbers, their
+plays a pointer gesture through it in document pixels (a point may carry
+a third value, stylus pressure, which paint tools interpolate along the
+stroke, so `[[x0, y0, 0], [x1, y1, 1], [x2, y2, 0]]` tapers both
+ends), and `tool_input` sends Enter, Escape or raw keys to the modal
+ones (crop, transform, type). Adjustments take their sliders as plain numbers, their
 checkboxes as booleans, and anything with no slider for it — curve
 points, gradient stops, per-range tables — through a `params` object in
 the adjustment's own serde form.
