@@ -241,29 +241,32 @@ fn apply_adjustment(sess: &mut SessionCtx, kind: AdjustmentKind, args: &Value) -
 }
 
 fn tool_stroke(sess: &mut SessionCtx, args: &Value) -> Result<Value> {
-    let points: Vec<(f32, f32)> =
-        args.get("points")
-            .and_then(|v| v.as_array())
-            .ok_or_else(|| anyhow!("missing points array"))?
-            .iter()
-            .map(|p| {
-                let pair = p.as_array().filter(|a| a.len() == 2).ok_or_else(|| {
-                    anyhow!("each point must be an [x, y] pair in document pixels")
+    let pressure = args.get("pressure").and_then(|v| v.as_f64()).unwrap_or(1.0) as f32;
+    let points: Vec<(f32, f32, f32)> = args
+        .get("points")
+        .and_then(|v| v.as_array())
+        .ok_or_else(|| anyhow!("missing points array"))?
+        .iter()
+        .map(|p| {
+            let point = p
+                .as_array()
+                .filter(|a| a.len() == 2 || a.len() == 3)
+                .ok_or_else(|| {
+                    anyhow!("each point must be [x, y] or [x, y, pressure] in document pixels")
                 })?;
-                Ok((
-                    pair[0].as_f64().unwrap_or(0.0) as f32,
-                    pair[1].as_f64().unwrap_or(0.0) as f32,
-                ))
-            })
-            .collect::<Result<Vec<_>>>()?;
-    let pressure = args
-        .get("pressure")
-        .and_then(|v| v.as_f64())
-        .unwrap_or(1.0)
-        .clamp(0.0, 1.0) as f32;
+            Ok((
+                point[0].as_f64().unwrap_or(0.0) as f32,
+                point[1].as_f64().unwrap_or(0.0) as f32,
+                point
+                    .get(2)
+                    .and_then(|v| v.as_f64())
+                    .map_or(pressure, |v| v as f32),
+            ))
+        })
+        .collect::<Result<Vec<_>>>()?;
     let modifiers = parse_modifiers(args.get("modifiers"));
     let tool = sess.state.active_tool;
-    sess.stroke(&points, pressure, modifiers)?;
+    sess.stroke(&points, modifiers)?;
     text(format!("{tool}: stroke of {} point(s)", points.len()))
 }
 

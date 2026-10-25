@@ -198,13 +198,8 @@ impl Session {
         out
     }
 
-    pub fn stroke(
-        &mut self,
-        points: &[(f32, f32)],
-        pressure: f32,
-        modifiers: Modifiers,
-    ) -> Result<()> {
-        let out = self.ctx().stroke(points, pressure, modifiers);
+    pub fn stroke(&mut self, points: &[(f32, f32, f32)], modifiers: Modifiers) -> Result<()> {
+        let out = self.ctx().stroke(points, modifiers);
         self.doc.take_damage();
         out
     }
@@ -369,13 +364,9 @@ impl<'a> SessionCtx<'a> {
     }
 
     /// Drive the active tool through a full gesture: pointer down on the
-    /// first point, moves through the rest, up on the last.
-    pub fn stroke(
-        &mut self,
-        points: &[(f32, f32)],
-        pressure: f32,
-        modifiers: Modifiers,
-    ) -> Result<()> {
+    /// first point, moves through the rest, up on the last. Each point is
+    /// (x, y, pressure); paint tools interpolate force between them.
+    pub fn stroke(&mut self, points: &[(f32, f32, f32)], modifiers: Modifiers) -> Result<()> {
         if points.is_empty() {
             bail!("stroke needs at least one point");
         }
@@ -383,10 +374,17 @@ impl<'a> SessionCtx<'a> {
         if self.registry.tool_mut(tool_id).is_none() {
             bail!("no active tool");
         }
-        let input = |&(x, y): &(f32, f32)| PointerInput {
+        // A paint tool reads zero force on pointer-up as the pen lifting
+        // and reuses the previous point's force, which would stamp a
+        // full-size dab on the tip of a taper. Keep zero just above that.
+        let input = |&(x, y, pressure): &(f32, f32, f32)| PointerInput {
             x,
             y,
-            pressure,
+            pressure: if pressure.is_finite() {
+                pressure.clamp(0.001, 1.0)
+            } else {
+                1.0
+            },
             modifiers,
         };
         let tool = self.registry.tool_mut(tool_id).unwrap();
@@ -783,7 +781,10 @@ mod tests {
         session.state.foreground = Rgba::new(1.0, 0.0, 0.0, 1.0);
         session.activate_tool("brush").unwrap();
         session
-            .stroke(&[(10.0, 10.0), (50.0, 30.0)], 1.0, Modifiers::default())
+            .stroke(
+                &[(10.0, 10.0, 1.0), (50.0, 30.0, 1.0)],
+                Modifiers::default(),
+            )
             .unwrap();
         let (_, painted) = session.render(None).unwrap();
         assert!(
@@ -807,6 +808,27 @@ mod tests {
     }
 
     #[test]
+    fn per_point_pressure_tapers_a_brush_stroke() {
+        let mut session = Session::new_blank("test", 128, 48, Depth::Eight).unwrap();
+        session.state.foreground = Rgba::new(0.0, 0.0, 0.0, 1.0);
+        session.state.brush_size = 24.0;
+        session.state.brush_hardness = 1.0;
+        session.activate_tool("brush").unwrap();
+        session
+            .stroke(
+                &[(12.0, 24.0, 1.0), (116.0, 24.0, 0.0)],
+                Modifiers::default(),
+            )
+            .unwrap();
+        let (_, pixels) = session.render(None).unwrap();
+        let inked = |x: usize| (0..48).filter(|&y| pixels[(y * 128 + x) * 4] < 128).count();
+        assert!(inked(16) >= 20, "the heavy end is {} px wide", inked(16));
+        assert!(inked(64) < inked(16) && inked(64) > inked(110));
+        // No full-force dab where the pen lifts at zero pressure.
+        assert!(inked(116) <= 2, "the tip is {} px wide", inked(116));
+    }
+
+    #[test]
     fn commands_and_filters_run_by_registry_id() {
         let mut session = blank();
         session.run_command("layer.duplicate").unwrap();
@@ -818,7 +840,7 @@ mod tests {
         session.state.foreground = Rgba::new(0.0, 0.0, 1.0, 1.0);
         session.activate_tool("pencil").unwrap();
         session
-            .stroke(&[(0.0, 24.0), (63.0, 24.0)], 1.0, Modifiers::default())
+            .stroke(&[(0.0, 24.0, 1.0), (63.0, 24.0, 1.0)], Modifiers::default())
             .unwrap();
         let (_, before) = session.render(None).unwrap();
         session
@@ -858,7 +880,7 @@ mod tests {
         let mut session = blank();
         session.activate_tool("marquee.rect").unwrap();
         session
-            .stroke(&[(0.0, 0.0), (32.0, 48.0)], 1.0, Modifiers::default())
+            .stroke(&[(0.0, 0.0, 1.0), (32.0, 48.0, 1.0)], Modifiers::default())
             .unwrap();
         assert!(!session.doc.selection.is_empty());
         session
